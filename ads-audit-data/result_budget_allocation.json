@@ -1,0 +1,90 @@
+{
+  "current_allocation": {
+    "google": 0.932,
+    "meta": 0.031,
+    "linkedin": 0.025,
+    "bing": 0.012
+  },
+  "assessment": "Riverside's current allocation represents extreme single-platform concentration risk. Google at 93.2% is 2.3x the recommended upper bound for B2B SaaS (Google 35-45% in the platform selection matrix). Bing - the portfolio's most efficient channel at $7.41 CPA vs Google's $44 - receives only 1.2% of budget, approximately 9% of the recommended minimum allocation (Microsoft guidance: 20-30% of Google spend). LinkedIn at 2.5% is 8-16x below the recommended range for B2B SaaS (30-40%) or B2B Enterprise (39-60%), though its structural problems (no LGFs, 72% brand awareness, no conversion objectives) must be resolved before scaling. Meta at 3.1% is within a reasonable testing band for PLG acquisition but has limited B2B signal. The 70/20/10 rule is not being applied - there is no diversification discipline. Google is treated as the only proven performer, but Bing demonstrates superior efficiency that has been systematically underfunded. The immediate opportunity is not to abandon Google (PLG volume depends on it) but to restore balance by scaling Bing from identified inefficiency in Google's portfolio, particularly Google Video ($115/conv, $101K over 90 days) and Google PMax ($66/conv on $388K). Currency caveat applies: some Riverside accounts bill in ILS; cross-platform totals are directional from Windsor data.",
+  "recommended_shifts": [
+    {
+      "from": "Google Video",
+      "to": "Microsoft/Bing",
+      "amount_or_pct": "$101,054 over 90 days - full Google Video budget",
+      "rationale": "Google Video delivers $115/conv (878 conversions on $101K). The same spend on Bing at $7.41/conv would deliver 13,630 conversions - a 15.5x efficiency ratio. YouTube brand awareness has its role in the funnel, but not at 100x Bing's CPA. Phase: shift 50% ($50K/90d) in month 1, then full if Bing CPA holds below $15. This is the single highest-ROI reallocation in the portfolio."
+    },
+    {
+      "from": "Google PMax (partial)",
+      "to": "Microsoft/Bing",
+      "amount_or_pct": "$97,000 over 90 days (~25% of PMax budget)",
+      "rationale": "Google PMax delivers $66/conv (5,902 conversions on $388K). A 25% reallocation to Bing (at $7.41 CPA) would yield 13,090 incremental conversions vs 2,450 from Google PMax for the same spend. PMax is a proven Google format but at 9x Bing's CPA for an account where Bing has headroom. Phased reduction preserves Google learning while testing Bing capacity."
+    },
+    {
+      "from": "Google Demand Gen (partial)",
+      "to": "LinkedIn (after structural fixes)",
+      "amount_or_pct": "$109,000 over 90 days (20% of Demand Gen budget)",
+      "rationale": "Google Demand Gen delivers $57/conv (9,638 conversions on $545K). LinkedIn, once Lead Gen Forms and conversion objectives are activated, could deliver qualified SLG pipeline at $125 CPL - more expensive per conversion but higher downstream value for enterprise deals. This shift is contingent on LinkedIn resolving its structural issues first (L14, L18, L16). Do not shift until LinkedIn health score improves to C or above."
+    },
+    {
+      "from": "LinkedIn (internal reallocation)",
+      "to": "LinkedIn - Lead Gen Forms and TLAs",
+      "amount_or_pct": "$6,183 from kill list campaigns (90-day savings)",
+      "rationale": "The six zero-conversion LinkedIn campaigns on the kill list consume $6,183 with no measurable return. Redirect this budget to Lead Gen Form campaigns and Thought Leader Ads, which have defined conversion benchmarks (13% CVR, $2.29-4.14 CPC respectively). This is a net-zero reallocation within LinkedIn that immediately improves efficiency."
+    }
+  ],
+  "underfunded": [
+    {
+      "platform": "Microsoft/Bing",
+      "current_share": 0.012,
+      "recommended_share_min": 0.05,
+      "recommended_share_max": 0.10,
+      "current_90d_spend": 43051,
+      "recommended_90d_spend_min": 184703,
+      "recommended_90d_spend_max": 369406,
+      "efficiency_cpa": 7.41,
+      "rationale": "Most cost-efficient channel in portfolio at $7.41 CPA vs Google $44. Brand campaigns at $2.43-3.61 CPA. Benchmark guidance is 20-30% of Google spend ($689K-$1.03M/90d). A conservative near-term target of 5% ($185K/90d) represents a 4.3x budget increase with strong evidence of scalable efficiency. Scale in 20% increments with CPA monitoring."
+    },
+    {
+      "platform": "LinkedIn",
+      "current_share": 0.025,
+      "recommended_share_min": 0.08,
+      "recommended_share_max": 0.15,
+      "current_90d_spend": 93610,
+      "recommended_90d_spend_min": 295525,
+      "recommended_90d_spend_max": 554109,
+      "efficiency_cpa": null,
+      "rationale": "B2B SaaS with SLG enterprise motion should allocate 20-40% to LinkedIn (platform selection matrix). Current 2.5% is far below this. However, LinkedIn must resolve structural issues (zero Lead Gen Forms, 72% brand awareness spend, no conversion objectives, broken InMail campaign) before budget can be effectively scaled. Do not increase LinkedIn budget until health score improves to Grade C or above. Sequence: fix structure first, prove CPL at current budget, then scale."
+    }
+  ],
+  "overfunded": [
+    {
+      "platform": "Google",
+      "current_share": 0.932,
+      "recommended_share_max": 0.65,
+      "current_90d_spend": 3444660,
+      "excess_vs_recommended_max": 869651,
+      "rationale": "For a dual-GTM B2B SaaS with PLG + SLG motions, Google at 93.2% creates dangerous concentration risk. 100% of pipeline is correlated to a single platform's algorithm changes, auction dynamics, and policy decisions. The recommended ceiling for Google in this business type is 55-65% (weighted toward PLG volume). Within Google, inefficient campaign types (Video $115/conv, some PMax) represent recoverable spend. Google Search remains the highest-volume efficient channel and should not be reduced aggressively - the target is diversification, not defunding."
+    }
+  ],
+  "reallocation_opportunity_usd": 307054,
+  "reallocation_opportunity_breakdown": {
+    "google_video_to_bing": 101054,
+    "google_pmax_partial_to_bing": 97000,
+    "google_demand_gen_partial_to_linkedin_conditional": 109000,
+    "note": "The $307K is the 90-day phased opportunity. The Video-to-Bing shift ($101K) is the immediate, highest-confidence action. PMax partial reallocation ($97K) should follow after 4 weeks of Bing scaling. LinkedIn reallocation ($109K) is conditional on LinkedIn structural fixes. All shifts use 20% incremental rule - do not move full amounts in one step."
+  },
+  "incremental_conversions_from_reallocation": {
+    "google_video_to_bing": {
+      "current_google_video_convs": 878,
+      "projected_bing_convs_same_spend": 13631,
+      "net_incremental": 12753
+    },
+    "google_pmax_25pct_to_bing": {
+      "current_google_pmax_convs_on_shifted_spend": 1469,
+      "projected_bing_convs_same_spend": 13090,
+      "net_incremental": 11621
+    },
+    "total_projected_net_incremental_conversions": 24374,
+    "note": "Conversion definitions differ across platforms. Google conversions include soft events. Bing conversions_qualified is a filtered count. Direct comparison is directional. Validate against CRM pipeline data."
+  }
+}

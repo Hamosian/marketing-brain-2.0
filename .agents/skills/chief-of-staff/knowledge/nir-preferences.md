@@ -1,0 +1,33 @@
+# Nir's preferences for the brief - the distilled rulebook
+
+<!-- Read by /chief-of-staff at the start of EVERY run, before anything renders.
+Maintained by the retro (knowledge/retro-protocol.md). One row per rule. Source is
+"stated" (Nir said it, quoted) or "inferred" (two implicit signals; confirmed by a
+retro question). A rule stable for two weeks is promoted into SKILL.md text and its
+Status becomes "promoted YYYY-MM-DD"; it then stays here one more week as a pointer
+and is removed. Evidence lives in data/retro-log.md. Keep this file short: it is
+the queue for what becomes permanent, not a second skill. -->
+
+| # | Rule | Applies to | Source | Since | Status |
+|---|------|-----------|--------|-------|--------|
+| 1 | The brief is read in chat and nowhere else. Tables are welcome. **No Slack DM copy, including from the scheduled run.** | Delivery | stated 2026-09-14: "I want it here in the chat"; hardened 2026-09-17: "I never asked for a DM, don't need it, just want it here" | 2026-09-14 | active |
+| 2 | Today's actions are a table: one row per item where Nir is the actor, with the clock, who is waiting, links to the source (Slack, email, doc), age, and the recommended move. | Action table | stated 2026-09-14: "a table with action items for today with links to references (emails, slacks, docs)" | 2026-09-14 | active |
+| 3 | "Waiting on your reply" is its own section, not folded into the action table. | Waiting section | stated 2026-09-14: "a section with things that are waiting for my response" | 2026-09-14 | active |
+| 4 | On a day with a 1-1 with a direct report or Abel, propose the 1-1 pack in chat for approval; send only on his word. No DM-based approval. | 1-1 packs | stated 2026-09-14: "show it to me here on the chat and I'll approve, no need to DM" | 2026-09-14 | active |
+| 5 | Packs start wide: everything relevant to that lead. Nir trims; the trims teach the per-lead rules. | 1-1 packs | stated 2026-09-14: "everything that is relevant to them, that's why we need a few back and forth" | 2026-09-14 | active |
+| 6 | The dashboard's Today section carries the action table and drops noise: no agent-inferred ETAs, no 1-1 agenda cards. | Dashboard | stated 2026-09-14: "add it to today's tab and then remove from there a lot of noise" | 2026-09-14 | active |
+| 7 | Urgent first, then act, then delta. Never re-list an unchanged item as if new. | Ordering | stated 2026-09-02 (already in SKILL.md) | 2026-09-02 | promoted 2026-09-02 |
+| 8 | Abel's agenda is topic titles only, numbered, to his DM, never logged. | Abel pack | stated 2026-08-02, reinforced 2026-08-09 (memory + executives.md) | 2026-08-02 | promoted 2026-08-09 |
+| 9 | No "Your day" section. The calendar is still read for 1-1 detection and clocks, but the day is not listed back to him. | Sections | stated 2026-09-14: "don't need my day section" | 2026-09-14 | active |
+| 10 | An action row means Nir is the actor. When the last move was his and the other side went quiet, the row is "Waiting on others", never an action. Check who sent the last message before assigning the actor. | Action table | stated 2026-09-14 (Fame agreement: "the action item is actually for them to get back to me, I've sent them the agreement and they went dark") | 2026-09-14 | active |
+| 11 | Interview and candidate rows surface on the day of the interview, not before, and carry a candidate summary gathered from the Comeet emails in Gmail (no direct Comeet access). | Action table | stated 2026-09-14: "show it on the day of the interview, not a day before, gather info about him from Comeet" | 2026-09-14 | active |
+| 12 | Cadence questions (weekly vs monthly reports) are not action rows and not pack items. A report that was sent and needs fixes is an item about the fixes, on the lead's pack. | Action table, packs | stated 2026-09-14: "why do you mention it? the weekly report was sent but I had fixes to it" | 2026-09-14 | active |
+| 13 | No shorthand or collective labels in the Waiting column. Name the people, never "five leads", "the team", "sales". | Action table | stated 2026-09-14: "what does 'five leads' mean?" | 2026-09-14 | active |
+| 14 | A row with several owners names who owns which part, in the row (review sites: Erika listings, Raz paid listings, Hanan invoices and integration). | Action table | stated 2026-09-14: "some tasks are for Erika, some for Raz and some for Hanan" | 2026-09-14 | active |
+| 15 | Build a Hanan action list on days Nir shares a meeting with him, even without a 1-1. Shown in chat like a pack. | Packs | stated 2026-09-14: "I want a list of action items for Hanan as well" | 2026-09-14 | active |
+| 16 | Onboarding of a new hire on a lead's team is pack material: ask the lead how it is going and what the quarter's KPIs are. First case: Ofra Toubiana under Savion, joined 6 Sept. | Packs | stated 2026-09-14: "add monthly report for Savion + Ofra, how's the onboarding and some KPIs for the Q" | 2026-09-14 | active |
+| 17 | Task updates come back as bare row numbers against the action table ("1. done", "3. 7. - done"). Read them as that run's numbering, close them, and do not ask him to restate them. | Task updates | stated 2026-09-17 | 2026-09-17 | active |
+| 18 | Any ledger row that is material for a lead gets that lead's **next 1-1 from the calendar** as its due date. Look it up; never leave it blank and never infer one. | Ledger rows, packs | stated 2026-09-19: "our next 1-1 is on Tue - you should've known that. for all 1-1 add the next 1-1 on the calendar" | 2026-09-19 | active |
+| 19 | Inbound prospect and customer emails handled by the daily demo outreach (`inbound-demo-reply`) do not appear in the COS action table or Waiting section. They are redundant there. | Action table, Waiting | stated 2026-09-23: "all the action items that are already included on the daily demo outreach can be removed from here - it's redundancy" | 2026-09-23 | active |
+| 20 | No promotional or vendor emails in "Waiting on your reply" unless you are certain they are relevant to us. | Waiting section | stated 2026-09-23: "I don't want to see here promotional emails unless you are certain they are relevant for us" | 2026-09-23 | active |
+| 21 | When Nir emails an article to himself (from nir.sem@gmail.com or nir.taranto@riverside.fm/.com to his own inbox), run `/link-triage` on it automatically in a new thread. Treat it like a self-DM article share; no need to ask first. | Captures | stated 2026-10-04: "when you see an article that I shared with myself from nir.sem or nir.taranto you can link traige it automatically in a new therad" | 2026-10-04 | active |

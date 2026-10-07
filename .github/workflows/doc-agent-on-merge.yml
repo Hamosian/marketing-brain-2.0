@@ -1,0 +1,336 @@
+name: Wiki + Graph Sync
+
+# Keeps the GitHub Wiki and graphify-out/ synchronized after merges. No
+# repository LLM secret is required:
+#   - Wiki generation is deterministic Python.
+#   - Graph document extraction uses deterministic Markdown, HTML, and YAML
+#     structure. No model credential or model permission is required.
+#
+# Build jobs are read-only. Separate commit jobs receive write permission and
+# apply bounded patch artifacts without running a model.
+
+on:
+  pull_request:
+    types: [closed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  # A newer pending run may replace an older pending run, but every run performs
+  # a full deterministic wiki reconciliation and Graphify catches up from its
+  # recorded commit, so the newest run includes all merged source changes.
+  group: wiki-graph-sync-main
+  cancel-in-progress: false
+
+jobs:
+  wiki-build:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+       github.event.pull_request.base.ref == 'main' &&
+       github.event.pull_request.user.login != 'github-actions[bot]' &&
+       !contains(github.event.pull_request.labels.*.name, 'skip-wiki'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Collect merged PR context
+        if: github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          mkdir -p .pr-context
+          gh pr view "$PR_NUMBER" --json number,title,body,mergedAt,author,files > .pr-context/pr.json
+          gh pr view "$PR_NUMBER" --json files --jq '.files[].path' > .pr-context/changed-files.txt
+
+      - name: Clone the wiki
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git clone "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.wiki.git" wiki
+          git -C wiki remote set-url origin "https://github.com/${{ github.repository }}.wiki.git"
+
+      - name: Generate wiki pages
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            python3 scripts/sync_wiki.py --repo-dir . --wiki-dir wiki --full
+          else
+            python3 scripts/sync_wiki.py \
+              --repo-dir . \
+              --wiki-dir wiki \
+              --full \
+              --pr-context .pr-context/pr.json \
+              --changed-files .pr-context/changed-files.txt
+          fi
+
+      - name: Capture wiki changes
+        run: |
+          cd wiki
+          git add -A
+          git diff --cached --binary > "$GITHUB_WORKSPACE/wiki.patch" || true
+          echo "Patch size: $(wc -c < "$GITHUB_WORKSPACE/wiki.patch") bytes"
+
+      - name: Upload wiki patch
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: wiki-patch
+          path: wiki.patch
+          retention-days: 1
+
+  wiki-commit:
+    needs: wiki-build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download wiki patch
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: wiki-patch
+
+      - name: Apply and push wiki changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          git clone "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.wiki.git" wiki
+          cd wiki
+          git config user.name "doc-agent[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -s "$GITHUB_WORKSPACE/wiki.patch" ]; then
+            git apply --index "$GITHUB_WORKSPACE/wiki.patch"
+          fi
+          if [ -n "$(git status --porcelain)" ]; then
+            if [ "$EVENT_NAME" = "pull_request" ]; then
+              commit_message="docs(wiki): sync for PR #${PR_NUMBER} - ${PR_TITLE}"
+            else
+              commit_message="docs(wiki): full automated reconciliation"
+            fi
+            git commit -m "$commit_message"
+            git pull --rebase origin master
+            git push origin master
+            echo "Wiki updated."
+          else
+            echo "No wiki changes to commit."
+          fi
+
+  graph-build:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+       github.event.pull_request.base.ref == 'main' &&
+       github.event.pull_request.user.login != 'github-actions[bot]' &&
+       !contains(github.event.pull_request.labels.*.name, 'skip-graph'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Install Graphify
+        run: python3 -m pip install 'graphifyy==0.8.44'
+
+      - name: Refresh the knowledge graph
+        env:
+          GRAPHIFY_SEMANTIC_MODE: deterministic
+        run: python3 scripts/sync_graph.py --repo-dir .
+
+      - name: Rebuild the interactive graph explorer
+        run: python3 scripts/graph_explorer.py
+
+      # No placeholder scan here. graphify-out/ is a generated derivative of the
+      # repo's Markdown, so it legitimately quotes {{PLACEHOLDER}} text from the
+      # sources that team-context-lint.yml deliberately excludes from its own
+      # placeholder gate (.claude/skills/setup/, which documents replacing those
+      # values, and hubspot-workflow-qa's `{{ first_name | default }}` token).
+      # Placeholders are gated at the source in team-context-lint.yml; re-linting
+      # the generated index can only produce false positives. Mirrors the
+      # embeddings-build validation step below.
+      - name: Validate graph outputs
+        run: |
+          python3 -m json.tool graphify-out/graph.json > /dev/null
+          git diff --check -- graphify-out/
+
+      - name: Capture graph changes
+        run: |
+          git add -A -- graphify-out/
+          git diff --cached --binary -- graphify-out/ > graph.patch || true
+          echo "Patch size: $(wc -c < graph.patch) bytes"
+
+      - name: Upload graph patch
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: graph-patch
+          path: graph.patch
+          retention-days: 1
+
+  graph-commit:
+    needs: graph-build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Download graph patch
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: graph-patch
+
+      - name: Apply and push graph changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          git config user.name "doc-agent[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -s graph.patch ]; then
+            offending=$(git apply --numstat graph.patch | awk '{print $NF}' | grep -vE '^graphify-out/' || true)
+            if [ -n "$offending" ]; then
+              echo "graph.patch touches paths outside graphify-out/; refusing to apply:" >&2
+              echo "$offending" >&2
+              exit 1
+            fi
+            git apply --index graph.patch
+          fi
+          if [ -n "$(git status --porcelain graphify-out/)" ]; then
+            if [ "$EVENT_NAME" = "pull_request" ]; then
+              commit_message="chore(graph): refresh knowledge graph for PR #${PR_NUMBER}"
+            else
+              commit_message="chore(graph): automated knowledge graph reconciliation"
+            fi
+            git commit -m "$commit_message" -- graphify-out/
+            git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+            git pull --rebase origin main
+            git push origin HEAD:main
+            echo "Knowledge graph updated."
+          else
+            echo "No graph changes to commit."
+          fi
+
+  embeddings-build:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.pull_request.merged == true &&
+       github.event.pull_request.base.ref == 'main' &&
+       github.event.pull_request.user.login != 'github-actions[bot]' &&
+       !contains(github.event.pull_request.labels.*.name, 'skip-embeddings'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+
+      - name: Build the semantic search index
+        env:
+          EMBEDDINGS_MODE: tfidf
+        run: python3 scripts/sync_embeddings.py --repo-dir .
+
+      - name: Validate embeddings output
+        run: |
+          python3 -m json.tool graphify-out/embeddings.json > /dev/null
+          git diff --check -- graphify-out/embeddings.json
+
+      - name: Capture embeddings changes
+        run: |
+          git add -A -- graphify-out/embeddings.json
+          git diff --cached --binary -- graphify-out/embeddings.json > embeddings.patch || true
+          echo "Patch size: $(wc -c < embeddings.patch) bytes"
+
+      - name: Upload embeddings patch
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: embeddings-patch
+          path: embeddings.patch
+          retention-days: 1
+
+  embeddings-commit:
+    needs: [embeddings-build, graph-commit]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Check out main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: Download embeddings patch
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
+        with:
+          name: embeddings-patch
+
+      - name: Apply and push embeddings changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          git config user.name "doc-agent[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if [ -s embeddings.patch ]; then
+            offending=$(git apply --numstat embeddings.patch | awk '{print $NF}' | grep -vE '^graphify-out/embeddings\.json$' || true)
+            if [ -n "$offending" ]; then
+              echo "embeddings.patch touches unexpected paths; refusing to apply:" >&2
+              echo "$offending" >&2
+              exit 1
+            fi
+            git apply --index embeddings.patch
+          fi
+          if [ -n "$(git status --porcelain graphify-out/embeddings.json)" ]; then
+            if [ "$EVENT_NAME" = "pull_request" ]; then
+              commit_message="chore(embeddings): refresh semantic search index for PR #${PR_NUMBER}"
+            else
+              commit_message="chore(embeddings): automated semantic search index reconciliation"
+            fi
+            git commit -m "$commit_message" -- graphify-out/embeddings.json
+            git remote set-url origin "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.git"
+            git pull --rebase origin main
+            git push origin HEAD:main
+            echo "Semantic search index updated."
+          else
+            echo "No embeddings changes to commit."
+          fi

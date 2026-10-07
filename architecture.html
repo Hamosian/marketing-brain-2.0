@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riverside Marketing · Marketing OS Architecture</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0b12;
+    --bg-elev: #14141f;
+    --bg-card: #1a1a26;
+    --bg-card-hover: #20202e;
+    --border: #2a2a3a;
+    --text: #f5f5f7;
+    --text-dim: #9a9aa8;
+    --text-mute: #6a6a78;
+    --accent: #8b5cf6;
+    --accent-soft: #a78bfa;
+    --accent-glow: rgba(139, 92, 246, 0.18);
+    --green: #4ade80;
+    --amber: #fbbf24;
+    --pink: #f472b6;
+    --blue: #60a5fa;
+    --teal: #2dd4bf;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(1100px 600px at 85% -10%, rgba(139,92,246,0.12), transparent 60%),
+      radial-gradient(900px 500px at -5% 110%, rgba(96,165,250,0.08), transparent 60%);
+  }
+  code, .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+
+  .wrap {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 56px 32px 96px;
+  }
+
+  /* Header */
+  .hero { margin-bottom: 56px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 6px 12px; border-radius: 999px;
+    background: var(--accent-glow); color: var(--accent-soft);
+    font-size: 12px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase;
+    border: 1px solid rgba(139,92,246,0.25);
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-soft); box-shadow: 0 0 8px var(--accent-soft); }
+  h1 {
+    font-size: 44px; font-weight: 800; line-height: 1.1;
+    margin: 18px 0 12px; letter-spacing: -0.02em;
+  }
+  h1 .sub { color: var(--text-dim); font-weight: 500; }
+  .lede { color: var(--text-dim); max-width: 760px; font-size: 16px; }
+
+  /* Section */
+  .section { margin-top: 56px; }
+  .section-title {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--text-mute); margin-bottom: 18px;
+  }
+  .section-title::before {
+    content: ''; display: block; width: 24px; height: 1px; background: var(--border);
+  }
+
+  /* Core diagram */
+  .core {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 20px;
+    align-items: stretch;
+  }
+  .pill-card, .panel {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+  }
+  .always-on {
+    padding: 24px;
+    background: linear-gradient(160deg, rgba(139,92,246,0.18), rgba(139,92,246,0.03));
+    border: 1px solid rgba(139,92,246,0.4);
+    display: flex; flex-direction: column; justify-content: space-between;
+    min-height: 220px;
+  }
+  .always-on .label {
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent-soft); font-weight: 700;
+  }
+  .always-on h2 {
+    font-size: 22px; font-weight: 700; margin: 8px 0 6px;
+  }
+  .always-on .file { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--accent-soft); }
+  .always-on p { color: var(--text-dim); font-size: 13px; margin: 14px 0 0; }
+  .always-on .badge {
+    align-self: flex-start;
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 600;
+    background: rgba(74,222,128,0.12); color: var(--green);
+    border: 1px solid rgba(74,222,128,0.3);
+    margin-top: 16px;
+  }
+
+  .branches { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .branch {
+    padding: 18px; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 12px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .branch:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .branch .head { display: flex; align-items: center; justify-content: space-between; }
+  .branch .name { font-weight: 700; font-size: 15px; }
+  .branch .path { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-mute); }
+  .branch .desc { color: var(--text-dim); font-size: 12.5px; line-height: 1.55; }
+  .branch ul { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; }
+  .branch li {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    color: var(--text); padding: 5px 8px; border-radius: 6px;
+    background: var(--bg-elev); border: 1px solid var(--border);
+  }
+  .branch li .muted { color: var(--text-mute); }
+  .branch .pill {
+    align-self: flex-start; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 999px;
+  }
+  .pill.lookup { background: rgba(96,165,250,0.12); color: var(--blue); border: 1px solid rgba(96,165,250,0.3); }
+  .pill.systems { background: rgba(244,114,182,0.12); color: var(--pink); border: 1px solid rgba(244,114,182,0.3); }
+  .pill.skills { background: rgba(251,191,36,0.12); color: var(--amber); border: 1px solid rgba(251,191,36,0.3); }
+  .pill.router { background: rgba(139,92,246,0.16); color: var(--accent-soft); border: 1px solid rgba(139,92,246,0.35); }
+  .pill.ref { background: rgba(45,212,191,0.12); color: var(--teal); border: 1px solid rgba(45,212,191,0.3); }
+
+  /* Router hub */
+  .router-hub {
+    display: grid; grid-template-columns: 300px 1fr; gap: 20px; align-items: stretch;
+  }
+  .hub-card {
+    padding: 24px; border-radius: 14px;
+    background: linear-gradient(160deg, rgba(139,92,246,0.16), rgba(139,92,246,0.02));
+    border: 1px solid rgba(139,92,246,0.4);
+    display: flex; flex-direction: column; gap: 10px; justify-content: center;
+  }
+  .hub-card .trigger { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--accent-soft); font-weight: 500; }
+  .hub-card h2 { font-size: 19px; font-weight: 700; margin: 0; }
+  .hub-card p { color: var(--text-dim); font-size: 13px; margin: 0; line-height: 1.55; }
+
+  /* Skills + Systems grids */
+  .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  @media (max-width: 980px) { .grid-3, .grid-4, .branches, .core, .router-hub { grid-template-columns: 1fr 1fr; } .core, .router-hub { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) { .grid-2, .grid-3, .grid-4, .branches { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px; transition: border-color 0.2s, background 0.2s;
+  }
+  .card:hover { border-color: var(--accent); background: var(--bg-card-hover); }
+  .card .row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .card .icon {
+    width: 28px; height: 28px; border-radius: 7px;
+    display: grid; place-items: center; font-size: 14px; font-weight: 700;
+    background: var(--accent-glow); color: var(--accent-soft);
+  }
+  .card .title { font-weight: 700; font-size: 14px; }
+  .card .trigger {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    color: var(--accent-soft);
+  }
+  .card .body { color: var(--text-dim); font-size: 12.5px; line-height: 1.55; }
+  .card .footer { margin-top: 10px; font-family: 'JetBrains Mono', monospace; font-size: 10.5px; color: var(--text-mute); }
+
+  /* Compact skill chips */
+  .skill { padding: 13px 15px; }
+  .skill .title { font-size: 13.5px; }
+  .skill .trigger { font-size: 10.5px; margin-top: 3px; display: block; }
+  .skill .body { font-size: 12px; margin-top: 7px; }
+
+  /* Agent registry */
+  .agent-group { padding: 16px; }
+  .agent-group .gname {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-mute); margin-bottom: 10px;
+  }
+  .agent-group ul { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .agent-group li {
+    font-family: 'JetBrains Mono', monospace; font-size: 11.5px;
+    color: var(--accent-soft); padding: 6px 9px; border-radius: 7px;
+    background: var(--bg-elev); border: 1px solid var(--border);
+  }
+
+  /* Integrations bar */
+  .integrations {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+  }
+  .int {
+    padding: 18px; border-radius: 12px;
+    background: var(--bg-card); border: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .int .name { font-weight: 700; font-size: 15px; display: flex; align-items: center; gap: 8px; }
+  .int .name .swatch { width: 10px; height: 10px; border-radius: 3px; }
+  .int .scope { font-size: 12px; color: var(--text-dim); }
+  .int .ids { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+  .int .id {
+    font-family: 'JetBrains Mono', monospace; font-size: 10.5px;
+    background: var(--bg-elev); border: 1px solid var(--border);
+    padding: 3px 7px; border-radius: 6px; color: var(--text);
+  }
+
+  /* Flywheel */
+  .flywheel {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+    background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+    overflow: hidden;
+  }
+  .step {
+    padding: 22px 20px; position: relative;
+    border-right: 1px solid var(--border);
+  }
+  .step:last-child { border-right: none; }
+  .step .num {
+    font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--accent-soft);
+    font-weight: 700; letter-spacing: 0.08em;
+  }
+  .step .h { font-size: 15px; font-weight: 700; margin: 6px 0 6px; }
+  .step .d { color: var(--text-dim); font-size: 12.5px; line-height: 1.55; }
+  .step::after {
+    content: '\2192'; position: absolute; right: -10px; top: 50%; transform: translateY(-50%);
+    background: var(--bg); width: 22px; height: 22px; border-radius: 50%;
+    display: grid; place-items: center; color: var(--accent-soft);
+    border: 1px solid var(--border);
+  }
+  .step:last-child::after { display: none; }
+  @media (max-width: 980px) {
+    .flywheel { grid-template-columns: 1fr 1fr; }
+    .step:nth-child(2)::after { display: none; }
+    .step { border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .step:nth-child(3), .step:nth-child(4) { border-bottom: none; }
+  }
+  @media (max-width: 640px) {
+    .flywheel { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid var(--border); }
+    .step::after { display: none; }
+    .step:last-child { border-bottom: none; }
+  }
+
+  /* Footer */
+  .foot {
+    margin-top: 64px; padding-top: 24px;
+    border-top: 1px solid var(--border);
+    color: var(--text-mute); font-size: 12px;
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow"><span class="dot"></span>Marketing OS · Riverside Marketing</div>
+    <h1>How Claude works with the department <span class="sub">A map, not a manual.</span></h1>
+    <p class="lede">
+      A version-controlled, AI-first knowledge base for Abel Grünfeld's marketing org - Growth, Brand, Marketing, AI Marketing, and Growth Initiatives. It gives Claude the context any teammate would have on day 100, then loads only what the current task needs. Claude reads the map (CLAUDE.md), routes through the Marketing OS, and delegates to specialist sub-agents.
+    </p>
+  </header>
+
+  <!-- Core -->
+  <section class="section">
+    <div class="section-title">Progressive disclosure · the four layers</div>
+    <div class="core">
+      <div class="always-on">
+        <div>
+          <div class="label">Always loaded</div>
+          <h2>The Map</h2>
+          <div class="file">CLAUDE.md</div>
+          <p>Department identity, org chart, board IDs, channel routing, task routing, content boundary. The only file in context at session start - kept tight on purpose. Everything else loads on demand.</p>
+        </div>
+        <div class="badge">● Persistent context</div>
+      </div>
+
+      <div class="branches">
+        <div class="branch">
+          <div class="head">
+            <div>
+              <div class="name">References</div>
+              <div class="path">references/</div>
+            </div>
+            <div class="pill lookup">On-demand · lookup</div>
+          </div>
+          <div class="desc">Stable IDs and pointers. Loaded when Claude needs to resolve a name → ID.</div>
+          <ul>
+            <li>team.md <span class="muted">· roster</span></li>
+            <li>slack.md <span class="muted">· channels</span></li>
+            <li>monday_boards.md</li>
+            <li>other_teams.md</li>
+            <li>design-system/ <span class="muted">· Figma</span></li>
+          </ul>
+        </div>
+
+        <div class="branch">
+          <div class="head">
+            <div>
+              <div class="name">Systems</div>
+              <div class="path">systems/</div>
+            </div>
+            <div class="pill systems">On-demand · maps</div>
+          </div>
+          <div class="desc">Architecture maps. 7 systems we own, 3 we depend on. Loaded when a task touches that system.</div>
+          <ul>
+            <li>owned/ <span class="muted">· 7 systems</span></li>
+            <li>reference/ <span class="muted">· 3 systems</span></li>
+            <li>examples/ <span class="muted">· templates</span></li>
+          </ul>
+        </div>
+
+        <div class="branch">
+          <div class="head">
+            <div>
+              <div class="name">Skills &amp; agents</div>
+              <div class="path">.claude/skills/</div>
+            </div>
+            <div class="pill skills">On-trigger</div>
+          </div>
+          <div class="desc">~30 self-contained workflows: task entry points plus the sub-agent registry the router fans out to.</div>
+          <ul>
+            <li>entry-point skills</li>
+            <li>13 sub-agents</li>
+            <li>knowledge/ <span class="muted">· heavy refs</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Routing layer -->
+  <section class="section">
+    <div class="section-title">Routing layer · the operating agent</div>
+    <div class="router-hub">
+      <div class="hub-card">
+        <div class="trigger">/marketing-brain</div>
+        <h2>Top-level router</h2>
+        <p>For broad, vague, or cross-system requests: classifies the intent, loads the right context, delegates to specialist sub-agents, synthesizes one recommendation, and closes the loop. Task-specific work can also enter directly through the skills below.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card skill">
+          <div class="title">good-morning</div>
+          <span class="trigger">"good morning" · "catch me up"</span>
+          <div class="body">Daily brief from monday tasks, unowned bugs, and Slack highlights.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">pm-story</div>
+          <span class="trigger">"create a task" · "write a story"</span>
+          <div class="body">Structured monday item: Why, What, Done When, Open Questions.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">nir-weekly-report</div>
+          <span class="trigger">"weekly report for Nir"</span>
+          <div class="body">Riverside-branded .docx from MOps + Website Dev boards plus Slack.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">retro</div>
+          <span class="trigger">"let's retro" · "capture this"</span>
+          <div class="body">Commits a learning back to the repo. The flywheel.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">health-check</div>
+          <span class="trigger">"health check" · "stale docs"</span>
+          <div class="body">Finds knowledge gaps and stale system docs before they mislead.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">curious-intern</div>
+          <span class="trigger">"interview me" · "brain dump"</span>
+          <div class="body">Extracts tribal knowledge, then commits a structured doc.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">page-cro</div>
+          <span class="trigger">"audit this page" · "CRO"</span>
+          <div class="body">Audits and optimizes riverside.com pages for conversion.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">preop-data-intelligence</div>
+          <span class="trigger">"meetings" · "MQL" · "conversion"</span>
+          <div class="body">HubSpot Pre-Op data dictionary, KPIs, and BD/AE attribution.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">gong-calls-explorer</div>
+          <span class="trigger">"Gong calls" · "intro calls"</span>
+          <div class="body">Explores recorded calls with HubSpot deal context.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">riverside-presentation</div>
+          <span class="trigger">"Riverside deck" · "slides"</span>
+          <div class="body">Builds brand-matched .pptx presentations.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">marketing-psychology</div>
+          <span class="trigger">"persuasion" · "behavioral science"</span>
+          <div class="body">Applies mental models to marketing decisions.</div>
+        </div>
+        <div class="card skill">
+          <div class="title">rivermind:ask</div>
+          <span class="trigger">"ask the data" · Snowflake Q&amp;A</span>
+          <div class="body">Analytics team's validated self-serve data plugin.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sub-agent registry -->
+  <section class="section">
+    <div class="section-title">Sub-agent registry · what /marketing-brain fans out to</div>
+    <div class="grid-4">
+      <div class="card agent-group">
+        <div class="gname">Data &amp; measurement</div>
+        <ul>
+          <li>/data-agent</li>
+          <li>/measurement-agent</li>
+        </ul>
+      </div>
+      <div class="card agent-group">
+        <div class="gname">HubSpot &amp; lifecycle</div>
+        <ul>
+          <li>/hubspot-agent</li>
+          <li>/lifecycle-agent</li>
+        </ul>
+      </div>
+      <div class="card agent-group">
+        <div class="gname">Work state &amp; comms</div>
+        <ul>
+          <li>/monday-agent</li>
+          <li>/slack-agent</li>
+          <li>/content-agent</li>
+        </ul>
+      </div>
+      <div class="card agent-group">
+        <div class="gname">Acquisition, web &amp; SEO</div>
+        <ul>
+          <li>/paid-acquisition-agent</li>
+          <li>/website-agent</li>
+          <li>/seo-ai-search-agent</li>
+        </ul>
+      </div>
+      <div class="card agent-group">
+        <div class="gname">Automation</div>
+        <ul>
+          <li>/marketing-ops-automation-agent</li>
+        </ul>
+      </div>
+      <div class="card agent-group">
+        <div class="gname">Campaigns</div>
+        <ul>
+          <li>/campaign-agent</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Owned systems -->
+  <section class="section">
+    <div class="section-title">Systems we own · 7</div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="row"><div class="icon">🧠</div><div class="title">Marketing Brain</div></div>
+        <div class="body">This repo plus the Marketing OS agent layer. The context base, the skill/agent registry, and the automation that keeps it healthy.</div>
+        <div class="footer">systems/owned/marketing-brain.md</div>
+      </div>
+      <div class="card">
+        <div class="row"><div class="icon" style="background:rgba(96,165,250,0.15); color:var(--blue)">📈</div><div class="title">Paid Acquisition</div></div>
+        <div class="body">Google, Meta, LinkedIn, Bing ad accounts plus the reporting layer. Cross-platform data via Windsor.ai.</div>
+        <div class="footer">owners: Raz Navon · Dor Druker</div>
+      </div>
+      <div class="card">
+        <div class="row"><div class="icon" style="background:rgba(244,114,182,0.15); color:var(--pink)">🌐</div><div class="title">Marketing Website</div></div>
+        <div class="body">riverside.com pages, SEO program, localization, accessibility, and live-site monitoring.</div>
+        <div class="footer">slack: #website-dev · monday: 18397093471</div>
+      </div>
+      <div class="card">
+        <div class="row"><div class="icon" style="background:rgba(251,146,60,0.15); color:#fb923c">⚙</div><div class="title">HubSpot</div></div>
+        <div class="body">CRM, lifecycle marketing, and marketing-side attribution. ~2.4M contacts, ~22.5K Pre-Ops, ~36K deals.</div>
+        <div class="footer">MCP wired · preop-data-intelligence skill</div>
+      </div>
+      <div class="card">
+        <div class="row"><div class="icon" style="background:rgba(74,222,128,0.15); color:var(--green)">📊</div><div class="title">Omni BI</div></div>
+        <div class="body">Dashboards and reporting on Snowflake. Source of truth for revenue, funnel, and channel performance.</div>
+        <div class="footer">riverside.omniapp.co · model: RS Snowflake</div>
+      </div>
+      <div class="card">
+        <div class="row"><div class="icon" style="background:rgba(139,92,246,0.18); color:var(--accent-soft)">🔁</div><div class="title">MOps Automation</div></div>
+        <div class="body">Lead routing, scoring, and the integrations that keep HubSpot ↔ ad platforms ↔ warehouse in sync.</div>
+        <div class="footer">slack: #mops-priority-room</div>
+      </div>
+      <div class="card">
+        <div class="row"><div class="icon" style="background:rgba(45,212,191,0.15); color:var(--teal)">🎯</div><div class="title">Self-Serve Lead Scoring</div></div>
+        <div class="body">Scores every PLG signup into a cohort and feeds quality signals to ad platforms and lifecycle. HubSpot calc properties (v3).</div>
+        <div class="footer">PLG only · no sales involvement</div>
+      </div>
+      <div class="card" style="border-style: dashed; opacity: 0.7">
+        <div class="row"><div class="icon" style="background:transparent; color:var(--text-mute); border:1px dashed var(--border)">+</div><div class="title">Add a system</div></div>
+        <div class="body">Say <span class="mono" style="color:var(--accent-soft)">"teach me about [system]"</span>. Claude interviews you and creates the doc.</div>
+        <div class="footer">→ curious-intern</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reference systems -->
+  <section class="section">
+    <div class="section-title">Reference systems · we depend on, don't own</div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="row"><div class="icon" style="background:rgba(45,212,191,0.15); color:var(--teal)">💧</div><div class="title">Rivermind</div></div>
+        <div class="body">The analytics team's self-serve data Q&amp;A plugin over Snowflake - funnels, segmentation, root cause, validated and sourced. We consume it.</div>
+        <div class="footer">rivermind:* skills installed</div>
+      </div>
+      <div class="card">
+        <div class="row"><div class="icon" style="background:rgba(96,165,250,0.15); color:var(--blue)">🕸</div><div class="title">Agent Flow</div></div>
+        <div class="body">Real-time visualizer for Claude Code sessions - tool calls, subagent spawns, branching as a live graph. Third-party, opt-in, run locally.</div>
+        <div class="footer">github.com/patoles/agent-flow</div>
+      </div>
+      <div class="card">
+        <div class="row"><div class="icon" style="background:rgba(251,191,36,0.15); color:var(--amber)">🧭</div><div class="title">Marketing Operating Model</div></div>
+        <div class="body">How Growth runs in 2026: operating rhythm, measurement stack, the marketing data model, and the live strategic bets. Analytics-owned, co-operated.</div>
+        <div class="footer">systems/reference/marketing-operating-model.md</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Integrations -->
+  <section class="section">
+    <div class="section-title">External tools · connected via MCP</div>
+    <div class="integrations">
+      <div class="int">
+        <div class="name"><span class="swatch" style="background:#4A154B"></span>Slack</div>
+        <div class="scope">Read channels, search threads, post messages.</div>
+        <div class="ids">
+          <span class="id">riversidefm.slack.com</span>
+          <span class="id">#growth-marketing-leaders</span>
+        </div>
+      </div>
+      <div class="int">
+        <div class="name"><span class="swatch" style="background:#FF3D57"></span>monday.com</div>
+        <div class="scope">Read tasks, write stories via /pm-story.</div>
+        <div class="ids">
+          <span class="id">MOps Tasks · 6257866754</span>
+          <span class="id">FY26 Planning · 18396740865</span>
+          <span class="id">Website Dev · 18397093471</span>
+        </div>
+      </div>
+      <div class="int">
+        <div class="name"><span class="swatch" style="background:#FF7A59"></span>HubSpot</div>
+        <div class="scope">CRM objects, campaigns, Pre-Op pipeline.</div>
+        <div class="ids">
+          <span class="id">deals · contacts · companies</span>
+          <span class="id">campaign analytics</span>
+        </div>
+      </div>
+      <div class="int">
+        <div class="name"><span class="swatch" style="background:#5B21B6"></span>Omni BI</div>
+        <div class="scope">Natural-language queries over Snowflake.</div>
+        <div class="ids">
+          <span class="id">riverside.omniapp.co</span>
+          <span class="id">RS Snowflake model</span>
+        </div>
+      </div>
+      <div class="int">
+        <div class="name"><span class="swatch" style="background:#7856FF"></span>Mixpanel</div>
+        <div class="scope">Product analytics, funnels, experiments.</div>
+        <div class="ids">
+          <span class="id">events · cohorts</span>
+          <span class="id">feature flags</span>
+        </div>
+      </div>
+      <div class="int">
+        <div class="name"><span class="swatch" style="background:#1A73E8"></span>Windsor.ai</div>
+        <div class="scope">Cross-platform ad data and campaign actions.</div>
+        <div class="ids">
+          <span class="id">google · meta · linkedin · bing</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Flywheel -->
+  <section class="section">
+    <div class="section-title">The Flywheel · why the docs don't go stale</div>
+    <div class="flywheel">
+      <div class="step">
+        <div class="num">01 · NEW</div>
+        <div class="h">A task Claude hasn't seen before</div>
+        <div class="d">Something off the beaten path - a new platform, a one-off workflow, a tribal-knowledge moment.</div>
+      </div>
+      <div class="step">
+        <div class="num">02 · TEACH</div>
+        <div class="h">You guide Claude through it</div>
+        <div class="d">Correct mistakes, point at the right dashboard, explain why we do it that way.</div>
+      </div>
+      <div class="step">
+        <div class="num">03 · CAPTURE</div>
+        <div class="h">/retro commits the learning</div>
+        <div class="d">Claude updates the relevant system doc or skill and opens a PR. Memory becomes shared, not personal.</div>
+      </div>
+      <div class="step">
+        <div class="num">04 · COMPOUND</div>
+        <div class="h">Next time it takes seconds</div>
+        <div class="d">The whole department benefits. Effort drops, capability compounds. Doing real work IS the maintenance.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div>Riverside Marketing · Marketing OS · last updated 2026-06-22</div>
+    <div class="mono">CLAUDE.md → /marketing-brain → references/ + systems/ → sub-agents</div>
+  </footer>
+
+</div>
+</body>
+</html>

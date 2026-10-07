@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__Google_Drive__create_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/hananamos/Team context brain/.codex/hooks/brand-check-gdoc.sh'",
+            "timeout": 15,
+            "statusMessage": "Riverside brand check on Google Doc"
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__Slack__slack_send_message",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash '/Users/hananamos/Team context brain/.codex/hooks/slack-attribution-check.sh'",
+            "timeout": 15,
+            "statusMessage": "Marketing OS attribution check on Slack message"
+          }
+        ]
+      }
+    ]
+  }
+}

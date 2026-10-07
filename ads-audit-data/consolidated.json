@@ -1,0 +1,32 @@
+{
+  "aggregate_score": 41.7,
+  "aggregate_grade": "D",
+  "platform_scores": {
+    "Google": {
+      "score": 43,
+      "grade": "D",
+      "share": 0.9325
+    },
+    "Meta": {
+      "score": 7,
+      "grade": "F",
+      "share": 0.031
+    },
+    "LinkedIn": {
+      "score": 30,
+      "grade": "F",
+      "share": 0.0253
+    },
+    "Microsoft": {
+      "score": 54,
+      "grade": "D",
+      "share": 0.0117
+    }
+  },
+  "severity_counts": {
+    "Critical": 17,
+    "High": 35,
+    "Medium": 13
+  },
+  "total_findings": 65
+}

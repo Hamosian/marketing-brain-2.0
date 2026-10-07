@@ -1,0 +1,56 @@
+.planning/
+.analysis/
+.playwright-cli/
+settings.local.json
+.env
+.claude/worktrees/
+__pycache__/
+
+# graphify: commit the portable graph (graph.json, GRAPH_REPORT.md) and the
+# repo-owned viewer (graph-explorer.html); ignore the build cache and
+# machine-specific state (absolute paths, local mtimes).
+# graph.html is the stock graphify viewer. `graphify update .` still writes it
+# locally, but it is not committed: it hard-fails above 5000 nodes and
+# graph-explorer.html supersedes it. See scripts/sync_graph.py.
+graphify-out/graph.html
+graphify-out/cache/
+graphify-out/manifest.json
+graphify-out/cost.json
+graphify-out/.graphify_python
+graphify-out/.graphify_root
+graphify-out/.graphify_labels.json
+graphify-out/????-??-??/
+
+# presentation build artifacts (keep the .pptx and generator, drop the rest)
+docs/presentations/**/node_modules/
+docs/presentations/**/*.pdf
+docs/presentations/**/slide-*.jpg
+
+# macOS Finder metadata
+.DS_Store
+**/.DS_Store
+
+# inbound-demo-reply: daily operational drafts contain prospect-specific
+# content - keep them local, never in the shared repo (only the tracked
+# placeholder ships). Applies to both the Claude source and codex mirror.
+.claude/skills/inbound-demo-reply/drafts/
+.agents/skills/inbound-demo-reply/drafts/
+
+# output-lift eval runs: model responses and gradings from
+# scripts/eval_output_lift.py --run. Live model output, not knowledge - the repo
+# keeps pointers, not copies. The committed artifact is the suite, not its runs.
+evals/runs/
+
+# impeccable (vendored design skill, .claude/skills/impeccable): per-developer
+# config and run artifacts (live sessions, review diffs, build state, mocks).
+# The shared .impeccable/config.json and design.json, and PRODUCT.md / DESIGN.md
+# at the root if /impeccable init is ever run, are team state and stay tracked.
+.impeccable/config.local.json
+.impeccable/live/
+.impeccable/review/
+.impeccable/build/
+.impeccable/mocks/
+.impeccable/critique/
+
+# content-pipeline gate ledger (local, per machine)
+.claude/content-gate/

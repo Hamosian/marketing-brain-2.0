@@ -1,0 +1,7 @@
+{
+  "computed_on": "2026-10-02",
+  "avg_business_per_day": 45.10,
+  "n_business_days": 30,
+  "window": "2026-08-20..2026-09-30",
+  "method": "validated demo-form events only (Business Plan / Book A Demo website form incl. 'Book Demo' and localized (de) variants, plus in-product 'Riverside Studio ...: Business Form 202607 - Product' requests incl. localized studio-name variants; Typeform, Meetings Link, Newsletter LP, 'Workshop: Distribution First' and the Seat Expansion Campaign offer dropped), business domains only (free consumer mailboxes and ISP mail such as sbcglobal/googlemail/northmail plus disposable/relay/alias domains excluded), per-business-day mean over 30 Mon-Fri days (1353 / 30); excludes internal @riverside.fm/@riverside.com QA submissions incl. +aliases, literal 'test' fills and form_comment-is-an-email QA tells. Pulled with one query per business day on enterprise_form_submission_date EQ 'YYYY-MM-DD' (limit 200); every day returned all rows in one page (max 85, 1523 raw rows total), so no paging or boundary dedup was needed."
+}

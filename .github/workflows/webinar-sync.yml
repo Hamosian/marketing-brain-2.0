@@ -1,0 +1,88 @@
+name: Webinar Registrant Sync
+
+# Registers HubSpot list members into their Riverside webinar, backfills each contact's
+# personalized join URL, and syncs attendance back after the event.
+#
+# This replaces the desktop scheduled task that ran the same script every 30 minutes. That
+# task only ticked while the Claude desktop app was open, which made it a local fallback
+# rather than infrastructure - and it has been disabled since 2026-08-12. Here the schedule
+# is real, and a failed run is visible to everyone instead of sitting in one person's DMs.
+#
+# The script already isolates each webinar in its own try/catch, so one bad event degrades
+# to one failed entry rather than a dead run - but the job still exits non-zero so the
+# failure surfaces.
+
+on:
+  schedule:
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: webinar-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # The schedule starts firing the moment this lands on main, and the secrets are added
+      # separately by a repo admin. Without this gate that gap is 48 failed runs a day, which
+      # trains everyone to ignore the notification that is supposed to mean something. A
+      # scheduled run skips quietly; a manual run fails loudly, because a person is watching.
+      - name: Check credentials
+        id: creds
+        env:
+          RIVERSIDE_API_KEY: ${{ secrets.RIVERSIDE_API_KEY }}
+          HUBSPOT_PRIVATE_APP_TOKEN: ${{ secrets.HUBSPOT_PRIVATE_APP_TOKEN }}
+        run: |
+          missing=""
+          if [ -z "$RIVERSIDE_API_KEY" ]; then missing="$missing RIVERSIDE_API_KEY"; fi
+          if [ -z "$HUBSPOT_PRIVATE_APP_TOKEN" ]; then missing="$missing HUBSPOT_PRIVATE_APP_TOKEN"; fi
+          if [ -z "$missing" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          echo "ready=false" >> "$GITHUB_OUTPUT"
+          if [ "$GITHUB_EVENT_NAME" = "schedule" ]; then
+            echo "::notice::Skipping: missing secret(s)$missing. See tools/webinar-automation/docs/github-actions-setup.md."
+            exit 0
+          fi
+          echo "::error::Missing secret(s)$missing. Add them under Settings > Secrets and variables > Actions. See tools/webinar-automation/docs/github-actions-setup.md."
+          exit 1
+
+      - name: Check out main
+        if: steps.creds.outputs.ready == 'true'
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Set up Node
+        if: steps.creds.outputs.ready == 'true'
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '20'
+
+      # state/*.json holds one lastSyncedAt watermark per webinar. It is a cache, not a
+      # source of truth: registration dedupe reads HubSpot (contacts with an empty
+      # riverside_join_url) and attendance writes are idempotent property sets, so a lost
+      # watermark costs one wider re-fetch, never a double registration.
+      - name: Restore sync watermarks
+        if: steps.creds.outputs.ready == 'true'
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: tools/webinar-automation/state
+          key: webinar-sync-state-${{ github.run_id }}
+          restore-keys: webinar-sync-state-
+
+      - name: Sync
+        if: steps.creds.outputs.ready == 'true'
+        working-directory: tools/webinar-automation
+        env:
+          RIVERSIDE_API_BASE: https://platform.riverside.com
+          RIVERSIDE_API_KEY: ${{ secrets.RIVERSIDE_API_KEY }}
+          HUBSPOT_PRIVATE_APP_TOKEN: ${{ secrets.HUBSPOT_PRIVATE_APP_TOKEN }}
+        run: node scripts/webinar-registrant-sync.js

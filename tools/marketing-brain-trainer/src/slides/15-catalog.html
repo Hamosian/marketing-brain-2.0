@@ -1,0 +1,47 @@
+<section class="slide a-slide" data-id="catalog" data-title="Every skill, searchable" data-part="appendix" aria-labelledby="catalog-h">
+  <div class="slide-inner a-cat">
+    <header class="a-cat-head">
+      <div>
+        <p class="eyebrow rise" style="--i:0">Skill catalog</p>
+        <h2 id="catalog-h" class="rise" style="--i:1">Every skill, searchable</h2>
+        <p class="lead rise" style="--i:2">Generated from the skill files when this page was built. Search by the job you have, not the name.</p>
+      </div>
+      <p class="a-cat-stat rise" style="--i:3"><span class="a-cat-num" id="a-cat-n"></span><span class="a-cat-num-l">skills in the repo</span></p>
+    </header>
+
+    <div class="a-cat-controls rise" style="--i:4">
+      <div class="a-cat-search">
+        <label for="a-cat-q" class="a-label">Search skills</label>
+        <span class="a-cat-field">
+          <svg class="a-cat-mag" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="a-cat-q" type="search" autocomplete="off" spellcheck="false" placeholder="Try: SEO report, HubSpot workflow, deck" aria-describedby="a-cat-count">
+        </span>
+        <p class="a-cat-count" id="a-cat-count" aria-hidden="true"></p>
+        <p class="sr-only" id="a-cat-live" aria-live="polite"></p>
+      </div>
+      <div class="a-cat-filters" id="a-cat-filters" role="group" aria-label="Filter by area"></div>
+    </div>
+
+    <div class="a-cat-list rise" style="--i:5" id="a-cat-scroll" tabindex="0" role="region" aria-label="Skill list">
+      <ul class="a-cat-ul" id="a-cat-ul"></ul>
+      <p class="a-cat-empty" id="a-cat-empty" hidden>No skill matches that. Try a plainer word, or ask <span class="cmd">/marketing-brain</span> and let it route.</p>
+    </div>
+
+    <div class="a-cat-foot rise" style="--i:6">
+      <p class="a-cat-legend"><span class="a-own">For Nir</span> marks a skill built for one person's workflow. Worth reading, not a general starting point.</p>
+      <div class="a-flag" id="a-cat-flag" hidden>
+        <button type="button" class="btn btn-ghost btn-sm a-flag-open" id="a-cat-flag-open" aria-expanded="false" aria-controls="a-cat-flag-form">This looks wrong</button>
+        <div class="a-flag-form" id="a-cat-flag-form" hidden>
+          <label for="a-cat-flag-text" class="a-label">What looks wrong? The trainer's owner will see it.</label>
+          <textarea id="a-cat-flag-text" rows="2" maxlength="500"></textarea>
+          <div class="a-flag-actions">
+            <button type="button" class="btn btn-sm a-flag-send" id="a-cat-flag-send">Send</button>
+            <button type="button" class="btn btn-ghost btn-sm" id="a-cat-flag-cancel">Cancel</button>
+          </div>
+        </div>
+        <p class="a-flag-msg" id="a-cat-flag-msg" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+  <aside class="notes">This is every skill in the repo, generated from the files themselves, so the count never drifts. Type a job, like "SEO report" or "deck", and watch the list narrow. The area buttons filter by team. Anything tagged with a name was built for that person, so it is not where most people should start.</aside>
+</section>

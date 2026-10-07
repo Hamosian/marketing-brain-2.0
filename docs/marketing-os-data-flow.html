@@ -1,0 +1,776 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Marketing OS, how the system works</title>
+<!-- last-reviewed: 2026-07-25 -->
+<!-- Counts on this page are checked against the repo: skills = dirs under .claude/skills with a SKILL.md,
+     skill-agents = .claude/skills/*-agent, specialists = .md files under .claude/agents/{marketing,paid-media}. -->
+
+<style>
+  :root {
+    --bg: #0F0F14;
+    --panel: #1C1C24;
+    --chip: #2A2A35;
+    --line: #2A2A35;
+    --stroke: #4A4A58;
+    --text: #FFFFFF;
+    --muted: #E6E6EB;
+    --dim: #9B9BA8;
+    --accent: #7C5CFF;
+    --accent-soft: rgba(124, 92, 255, 0.14);
+  }
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #F7F5FF;
+      --panel: #FFFFFF;
+      --chip: #EDE8FF;
+      --line: #E6E6EB;
+      --stroke: #B8A5FF;
+      --text: #0F0F14;
+      --muted: #2A2A35;
+      --dim: #6B6B78;
+      --accent: #7C5CFF;
+      --accent-soft: rgba(124, 92, 255, 0.10);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0F0F14;
+    --panel: #1C1C24;
+    --chip: #2A2A35;
+    --line: #2A2A35;
+    --stroke: #4A4A58;
+    --text: #FFFFFF;
+    --muted: #E6E6EB;
+    --dim: #9B9BA8;
+    --accent: #7C5CFF;
+    --accent-soft: rgba(124, 92, 255, 0.14);
+  }
+  :root[data-theme="light"] {
+    --bg: #F7F5FF;
+    --panel: #FFFFFF;
+    --chip: #EDE8FF;
+    --line: #E6E6EB;
+    --stroke: #B8A5FF;
+    --text: #0F0F14;
+    --muted: #2A2A35;
+    --dim: #6B6B78;
+    --accent: #7C5CFF;
+    --accent-soft: rgba(124, 92, 255, 0.10);
+  }
+
+  * { box-sizing: border-box; }
+  html, body { background: var(--bg); }
+  body {
+    color: var(--text);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1020px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 40px; }
+  .brand .mark { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); }
+  .brand .word { font-weight: 700; letter-spacing: -0.02em; font-size: 18px; }
+  .brand .dept { color: var(--dim); font-size: 13px; border-left: 1px solid var(--line); padding-left: 10px; }
+
+  .eyebrow {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+  h1 {
+    font-size: clamp(28px, 4.5vw, 42px);
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 0 0 14px;
+    text-wrap: balance;
+  }
+  .lede { color: var(--muted); max-width: 62ch; font-size: 16.5px; margin: 0 0 8px; }
+  .meta { color: var(--dim); font-size: 13px; margin: 0 0 48px; }
+
+  h2 {
+    font-size: 22px;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 56px 0 6px;
+    scroll-margin-top: 74px;
+  }
+
+  /* sticky section tabs */
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 12px 0;
+    margin: 0 0 8px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    scrollbar-width: none;
+  }
+  .toc::-webkit-scrollbar { display: none; }
+  .toc a {
+    display: inline-block;
+    background: var(--chip);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 13px;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .toc a:hover { border-color: var(--accent); color: var(--text); background: var(--accent-soft); }
+  h2::before {
+    content: "";
+    display: block;
+    width: 34px;
+    height: 3px;
+    border-radius: 2px;
+    background: var(--accent);
+    margin-bottom: 12px;
+  }
+  .sub { color: var(--dim); font-size: 14.5px; max-width: 68ch; margin: 0 0 18px; }
+
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px;
+    overflow-x: auto;
+  }
+  .panel svg { display: block; min-width: 720px; width: 100%; height: auto; }
+  .caption { color: var(--dim); font-size: 13px; margin: 10px 4px 0; max-width: 76ch; }
+  .caption strong { color: var(--muted); font-weight: 600; }
+
+  /* progressive disclosure tiers */
+  .tiers { display: flex; flex-direction: column; gap: 10px; }
+  .tier {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 14px;
+    align-items: center;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 16px;
+  }
+  .tier .when {
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .tier .files { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    background: var(--chip);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-size: 13px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .chip.hot { border-color: var(--accent); color: var(--text); background: var(--accent-soft); }
+  .tier .note { grid-column: 2; color: var(--dim); font-size: 12.5px; margin-top: 2px; }
+  @media (max-width: 640px) {
+    .tier { grid-template-columns: 1fr; }
+    .tier .note { grid-column: 1; }
+  }
+
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--dim);
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--line);
+  }
+  td { padding: 12px 14px; border-bottom: 1px solid var(--line); color: var(--muted); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  td .mode { color: var(--text); font-weight: 600; }
+  code {
+    font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+    font-size: 0.88em;
+    background: var(--chip);
+    border-radius: 6px;
+    padding: 1px 6px;
+    color: var(--text);
+  }
+
+  .foot { margin-top: 64px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--dim); font-size: 13px; max-width: 76ch; }
+
+  /* leader use-case cards */
+  html { scroll-behavior: smooth; }
+  .leader-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 18px; }
+  .leader-tabs a {
+    display: inline-block;
+    background: var(--chip);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .leader-tabs a:hover { border-color: var(--accent); color: var(--text); background: var(--accent-soft); }
+  .leaders { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .leader { scroll-margin-top: 74px; }
+  .leader {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 18px 20px;
+  }
+  .leader .role {
+    color: var(--accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .leader .name { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
+  .leader ul { margin: 0 0 12px; padding-left: 18px; }
+  .leader li { font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+  .leader li::marker { color: var(--accent); }
+  .leader .payoff { font-size: 13px; color: var(--muted); border-top: 1px solid var(--line); padding-top: 10px; }
+  .leader .payoff strong { color: var(--accent); font-weight: 700; }
+  @media (max-width: 720px) { .leaders { grid-template-columns: 1fr; } }
+
+  .benefits { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .benefit {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px 18px;
+  }
+  .benefit .k { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+  .benefit .v { font-size: 12.5px; color: var(--dim); }
+  @media (max-width: 860px) { .benefits { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 520px) { .benefits { grid-template-columns: 1fr; } }
+
+  /* svg shared */
+  text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .t-title { font-size: 13px; font-weight: 700; fill: var(--text); }
+  .t-item { font-size: 12px; fill: var(--muted); }
+  .t-small { font-size: 10.5px; fill: var(--dim); }
+  .t-label { font-size: 11px; fill: var(--dim); }
+  .t-accent { font-size: 11px; font-weight: 700; fill: var(--accent); letter-spacing: 0.08em; }
+  .box { fill: var(--bg); stroke: var(--line); rx: 12; }
+  .node { fill: var(--chip); stroke: var(--stroke); stroke-width: 1; rx: 8; }
+  .node-hot { fill: var(--accent-soft); stroke: var(--accent); stroke-width: 1.2; rx: 8; }
+  .flow { stroke: var(--stroke); stroke-width: 1.5; fill: none; }
+  .flow-hot { stroke: var(--accent); stroke-width: 1.5; fill: none; }
+  .flow-dash { stroke: var(--stroke); stroke-width: 1.3; fill: none; stroke-dasharray: 5 4; }
+  .lifeline { stroke: var(--line); stroke-width: 1.2; stroke-dasharray: 3 5; }
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <div class="brand">
+    <div class="mark"></div>
+    <div class="word">Riverside</div>
+    <div class="dept">Marketing</div>
+  </div>
+
+  <p class="eyebrow">Marketing brain</p>
+  <h1>Marketing OS, how the system works</h1>
+  <p class="lede">The marketing department's owned agent layer: a version-controlled brain, a two-layer agent stack that acts on it, and a learning loop that makes every session smarter than the last.</p>
+  <p class="meta">Riverside Marketing. Source of truth: the marketing-brain repo. Counts refreshed against the repo on 25 Jul 2026.</p>
+
+  <nav class="toc">
+    <a href="#at-a-glance">At a glance</a>
+    <a href="#request-flow">Request flow</a>
+    <a href="#loading">What loads when</a>
+    <a href="#flywheel">Flywheel</a>
+    <a href="#operating-state">Operating state</a>
+    <a href="#autonomy">Autonomy</a>
+    <a href="#leaders">Team leaders</a>
+    <a href="#why">Why pick it</a>
+  </nav>
+
+  <h2 id="at-a-glance">The platform at a glance</h2>
+  <p class="sub">Four stages, one direction of flow, one loop back. The team talks to Claude, Claude loads the brain, the agents act on live systems, and what they learn lands back in the brain as a pull request.</p>
+  <div class="panel">
+    <svg viewBox="0 0 1060 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Marketing OS platform overview flowchart">
+      <defs>
+        <marker id="ar1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--stroke)"/>
+        </marker>
+        <marker id="ar1h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+        </marker>
+      </defs>
+
+      <!-- Team panel -->
+      <rect class="box" x="20" y="120" width="180" height="210" rx="12"/>
+      <text class="t-title" x="110" y="148" text-anchor="middle">Marketing team</text>
+      <rect class="node" x="35" y="165" width="150" height="34" rx="8"/>
+      <text class="t-item" x="110" y="186" text-anchor="middle">Claude Code</text>
+      <rect class="node" x="35" y="211" width="150" height="34" rx="8"/>
+      <text class="t-item" x="110" y="232" text-anchor="middle">claude.ai and Cowork</text>
+      <rect class="node" x="35" y="257" width="150" height="34" rx="8"/>
+      <text class="t-item" x="110" y="278" text-anchor="middle">Claude in Chrome</text>
+
+      <!-- Brain panel -->
+      <rect class="box" x="260" y="60" width="230" height="330" rx="12"/>
+      <text class="t-title" x="375" y="88" text-anchor="middle">The brain (this repo)</text>
+      <rect class="node-hot" x="275" y="106" width="200" height="46" rx="8"/>
+      <text class="t-item" x="375" y="125" text-anchor="middle">CLAUDE.md</text>
+      <text class="t-small" x="375" y="141" text-anchor="middle">the map, always loaded</text>
+      <rect class="node" x="275" y="166" width="200" height="34" rx="8"/>
+      <text class="t-item" x="375" y="187" text-anchor="middle">references/ (IDs, contacts)</text>
+      <rect class="node" x="275" y="212" width="200" height="34" rx="8"/>
+      <text class="t-item" x="375" y="233" text-anchor="middle">systems/ (architecture maps)</text>
+      <rect class="node" x="275" y="258" width="200" height="34" rx="8"/>
+      <text class="t-item" x="375" y="279" text-anchor="middle">skill knowledge/ (deep refs)</text>
+      <rect class="node" x="275" y="304" width="200" height="34" rx="8"/>
+      <text class="t-item" x="375" y="325" text-anchor="middle">graphify knowledge graph</text>
+
+      <!-- Agents panel -->
+      <rect class="box" x="550" y="60" width="240" height="330" rx="12"/>
+      <text class="t-title" x="670" y="88" text-anchor="middle">The agents</text>
+      <rect x="565" y="102" width="210" height="132" rx="10" fill="none" stroke="var(--line)"/>
+      <text class="t-accent" x="670" y="122" text-anchor="middle">ROUTING LAYER</text>
+      <rect class="node-hot" x="580" y="132" width="180" height="30" rx="8"/>
+      <text class="t-item" x="670" y="151" text-anchor="middle">/marketing-brain router</text>
+      <rect class="node" x="580" y="172" width="180" height="50" rx="8"/>
+      <text class="t-item" x="670" y="192" text-anchor="middle">12 skill agents</text>
+      <text class="t-small" x="670" y="208" text-anchor="middle">own live system access</text>
+      <line class="flow" x1="670" y1="234" x2="670" y2="252" marker-end="url(#ar1)"/>
+      <rect x="565" y="254" width="210" height="122" rx="10" fill="none" stroke="var(--line)"/>
+      <text class="t-accent" x="670" y="274" text-anchor="middle">SPECIALIST LAYER</text>
+      <rect class="node" x="580" y="284" width="180" height="80" rx="8"/>
+      <text class="t-item" x="670" y="306" text-anchor="middle">29 specialist subagents</text>
+      <text class="t-small" x="670" y="322" text-anchor="middle">paid, SEO/AEO, content, social,</text>
+      <text class="t-small" x="670" y="336" text-anchor="middle">brand, email, podcast, PR, growth</text>
+      <text class="t-small" x="670" y="355" text-anchor="middle">no live access</text>
+
+      <!-- Systems panel -->
+      <rect class="box" x="845" y="60" width="200" height="330" rx="12"/>
+      <text class="t-title" x="945" y="88" text-anchor="middle">Live systems</text>
+      <rect class="node" x="858" y="102" width="174" height="30" rx="8"/>
+      <text class="t-item" x="945" y="121" text-anchor="middle">HubSpot</text>
+      <rect class="node" x="858" y="137" width="174" height="30" rx="8"/>
+      <text class="t-item" x="945" y="156" text-anchor="middle">Omni BI + Snowflake</text>
+      <rect class="node" x="858" y="172" width="174" height="30" rx="8"/>
+      <text class="t-item" x="945" y="191" text-anchor="middle">Mixpanel</text>
+      <rect class="node" x="858" y="207" width="174" height="30" rx="8"/>
+      <text class="t-item" x="945" y="226" text-anchor="middle">monday.com</text>
+      <rect class="node" x="858" y="242" width="174" height="30" rx="8"/>
+      <text class="t-item" x="945" y="261" text-anchor="middle">Slack</text>
+      <rect class="node" x="858" y="277" width="174" height="30" rx="8"/>
+      <text class="t-item" x="945" y="296" text-anchor="middle">Ad platforms, Windsor.ai</text>
+      <rect class="node" x="858" y="312" width="174" height="30" rx="8"/>
+      <text class="t-item" x="945" y="331" text-anchor="middle">Webflow site</text>
+      <rect class="node" x="858" y="347" width="174" height="30" rx="8"/>
+      <text class="t-item" x="945" y="366" text-anchor="middle">Google Workspace</text>
+
+      <!-- forward arrows -->
+      <line class="flow" x1="200" y1="225" x2="258" y2="225" marker-end="url(#ar1)"/>
+      <text class="t-label" x="229" y="214" text-anchor="middle">uses</text>
+      <line class="flow" x1="490" y1="225" x2="548" y2="225" marker-end="url(#ar1)"/>
+      <text class="t-label" x="519" y="214" text-anchor="middle">routes</text>
+      <line class="flow" x1="790" y1="225" x2="843" y2="225" marker-end="url(#ar1)"/>
+      <text class="t-label" x="816" y="214" text-anchor="middle">acts on</text>
+
+      <!-- learning loop back -->
+      <path class="flow-hot" d="M 670 390 L 670 424 Q 670 434 660 434 L 385 434 Q 375 434 375 424 L 375 394" marker-end="url(#ar1h)"/>
+      <text class="t-accent" x="522" y="456" text-anchor="middle">/retro OPENS PRs, KNOWLEDGE COMPOUNDS</text>
+    </svg>
+  </div>
+  <p class="caption"><strong>Live systems shown are the load-bearing ones.</strong> Granola, Notion, Figma, and GitHub connect too; the full connector inventory, with auth model and consumers per platform, is in <code>docs/platform-integration.md</code>.</p>
+  <p class="caption"><strong>Autonomy that wraps this flow:</strong> CI lint runs on every PR, deterministic automation syncs the wiki and refreshes the knowledge graph on every merge, and scheduled cloud routines run skills with no human at the keyboard.</p>
+
+  <h2 id="request-flow">A request, end to end</h2>
+  <p class="sub">What actually happens when someone asks the Marketing OS a broad question. The router classifies, loads scoped context, delegates to a skill agent that pulls live data, then hands the data to a specialist for the deep pass.</p>
+  <div class="panel">
+    <svg viewBox="0 0 980 600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Request roundtrip sequence diagram">
+      <defs>
+        <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--stroke)"/>
+        </marker>
+        <marker id="ar2h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+        </marker>
+      </defs>
+
+      <!-- headers -->
+      <rect class="node" x="15" y="15" width="130" height="40" rx="8"/>
+      <text class="t-item" x="80" y="39" text-anchor="middle">Teammate</text>
+      <rect class="node-hot" x="180" y="15" width="130" height="40" rx="8"/>
+      <text class="t-item" x="245" y="39" text-anchor="middle">/marketing-brain</text>
+      <rect class="node" x="345" y="15" width="130" height="40" rx="8"/>
+      <text class="t-item" x="410" y="39" text-anchor="middle">Brain (repo)</text>
+      <rect class="node" x="510" y="15" width="130" height="40" rx="8"/>
+      <text class="t-item" x="575" y="39" text-anchor="middle">Skill agent</text>
+      <rect class="node" x="675" y="15" width="130" height="40" rx="8"/>
+      <text class="t-item" x="740" y="39" text-anchor="middle">Live systems</text>
+      <rect class="node" x="840" y="15" width="130" height="40" rx="8"/>
+      <text class="t-item" x="905" y="39" text-anchor="middle">Specialist</text>
+
+      <!-- lifelines -->
+      <line class="lifeline" x1="80" y1="55" x2="80" y2="575"/>
+      <line class="lifeline" x1="245" y1="55" x2="245" y2="575"/>
+      <line class="lifeline" x1="410" y1="55" x2="410" y2="575"/>
+      <line class="lifeline" x1="575" y1="55" x2="575" y2="575"/>
+      <line class="lifeline" x1="740" y1="55" x2="740" y2="575"/>
+      <line class="lifeline" x1="905" y1="55" x2="905" y2="575"/>
+
+      <!-- messages -->
+      <text class="t-label" x="162" y="90" text-anchor="middle">a broad marketing request</text>
+      <line class="flow" x1="80" y1="100" x2="242" y2="100" marker-end="url(#ar2)"/>
+
+      <path class="flow" d="M 245 125 L 300 125 L 300 150 L 249 150" marker-end="url(#ar2)"/>
+      <text class="t-label" x="310" y="142">classify the request</text>
+
+      <text class="t-label" x="327" y="185" text-anchor="middle">load the map + relevant docs</text>
+      <line class="flow" x1="245" y1="195" x2="407" y2="195" marker-end="url(#ar2)"/>
+      <text class="t-label" x="327" y="222" text-anchor="middle">scoped context only</text>
+      <line class="flow-dash" x1="410" y1="232" x2="248" y2="232" marker-end="url(#ar2)"/>
+
+      <text class="t-label" x="410" y="265" text-anchor="middle">delegate (e.g. /data-agent, /hubspot-agent)</text>
+      <line class="flow" x1="245" y1="275" x2="572" y2="275" marker-end="url(#ar2)"/>
+
+      <text class="t-label" x="657" y="305" text-anchor="middle">query via MCP</text>
+      <line class="flow" x1="575" y1="315" x2="737" y2="315" marker-end="url(#ar2)"/>
+      <text class="t-label" x="657" y="342" text-anchor="middle">live records and metrics</text>
+      <line class="flow-dash" x1="740" y1="352" x2="578" y2="352" marker-end="url(#ar2)"/>
+
+      <text class="t-label" x="740" y="385" text-anchor="middle">deep pass, data attached</text>
+      <line class="flow" x1="575" y1="395" x2="902" y2="395" marker-end="url(#ar2)"/>
+      <text class="t-label" x="740" y="422" text-anchor="middle">domain analysis</text>
+      <line class="flow-dash" x1="905" y1="432" x2="578" y2="432" marker-end="url(#ar2)"/>
+
+      <text class="t-label" x="410" y="460" text-anchor="middle">synthesized findings</text>
+      <line class="flow-dash" x1="575" y1="470" x2="248" y2="470" marker-end="url(#ar2)"/>
+
+      <text class="t-label" x="162" y="505" text-anchor="middle">decision, owner, evidence,</text>
+      <text class="t-label" x="162" y="518" text-anchor="middle">next action</text>
+      <line class="flow-hot" x1="245" y1="528" x2="83" y2="528" marker-end="url(#ar2h)"/>
+
+      <text class="t-label" x="327" y="548" text-anchor="middle">/retro PR if it taught us something</text>
+      <line class="flow-hot" x1="245" y1="558" x2="407" y2="558" marker-end="url(#ar2h)"/>
+    </svg>
+  </div>
+  <p class="caption"><strong>Safety rule:</strong> any mutating write along the way (HubSpot changes, monday updates, Slack sends) pauses for human approval first, unless a specific automation skill was invoked. <strong>Data rule:</strong> data questions go to Rivermind first; the skill agent only falls back to direct Omni or Snowflake when Rivermind lacks coverage.</p>
+
+  <h2 id="loading">Progressive disclosure, what loads when</h2>
+  <p class="sub">The brain is a map, not a library. A session starts with one file and pulls depth only when the task needs it, so context stays scoped and cheap.</p>
+  <div class="tiers">
+    <div class="tier">
+      <div class="when">Always loaded</div>
+      <div class="files">
+        <span class="chip hot">CLAUDE.md</span>
+        <span class="chip">memory index</span>
+      </div>
+      <div class="note">Team identity, task routing tables, directives, pointers to everything else.</div>
+    </div>
+    <div class="tier">
+      <div class="when">On demand</div>
+      <div class="files">
+        <span class="chip">references/team.md</span>
+        <span class="chip">references/monday_boards.md</span>
+        <span class="chip">references/slack.md</span>
+        <span class="chip">references/messaging/</span>
+        <span class="chip">references/product/</span>
+        <span class="chip">references/design-system/</span>
+        <span class="chip">systems/owned/*</span>
+        <span class="chip">systems/reference/*</span>
+        <span class="chip">docs/platform-integration.md</span>
+      </div>
+      <div class="note">Loaded when a task mentions the system, without being asked.</div>
+    </div>
+    <div class="tier">
+      <div class="when">On trigger</div>
+      <div class="files">
+        <span class="chip hot">.claude/skills/ (61 skills)</span>
+        <span class="chip">.claude/agents/ (29 specialists)</span>
+      </div>
+      <div class="note">A skill's SKILL.md loads only when its trigger fires or the router delegates to it.</div>
+    </div>
+    <div class="tier">
+      <div class="when">Deep, in a skill</div>
+      <div class="files">
+        <span class="chip">skills/*/knowledge/*.md</span>
+      </div>
+      <div class="note">Heavy reference content a skill pulls mid-run: queries, field dictionaries, configs.</div>
+    </div>
+  </div>
+
+  <h2 id="flywheel">The learning flywheel</h2>
+  <p class="sub">This is what turns a context repo into a compounding brain. Every novel workflow ends with a captured learning, and every learning is a reviewed pull request, never tribal memory.</p>
+  <div class="panel">
+    <svg viewBox="0 0 960 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Learning flywheel loop diagram">
+      <defs>
+        <marker id="ar3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--stroke)"/>
+        </marker>
+        <marker id="ar3h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+        </marker>
+      </defs>
+
+      <rect class="node" x="40" y="40" width="250" height="64" rx="10"/>
+      <text class="t-item" x="165" y="66" text-anchor="middle">Run a task with the brain</text>
+      <text class="t-small" x="165" y="84" text-anchor="middle">any skill, any session</text>
+
+      <rect class="node" x="355" y="40" width="250" height="64" rx="10"/>
+      <text class="t-item" x="480" y="66" text-anchor="middle">A non-obvious learning surfaces</text>
+      <text class="t-small" x="480" y="84" text-anchor="middle">platform quirk, missing step, gotcha</text>
+
+      <rect class="node-hot" x="670" y="40" width="250" height="64" rx="10"/>
+      <text class="t-item" x="795" y="66" text-anchor="middle">/retro captures and routes it</text>
+      <text class="t-small" x="795" y="84" text-anchor="middle">to the right file: system, skill, reference</text>
+
+      <line class="flow" x1="290" y1="72" x2="353" y2="72" marker-end="url(#ar3)"/>
+      <line class="flow" x1="605" y1="72" x2="668" y2="72" marker-end="url(#ar3)"/>
+      <line class="flow" x1="795" y1="104" x2="795" y2="198" marker-end="url(#ar3)"/>
+
+      <rect class="node" x="670" y="200" width="250" height="64" rx="10"/>
+      <text class="t-item" x="795" y="226" text-anchor="middle">PR review, the human gate</text>
+      <text class="t-small" x="795" y="244" text-anchor="middle">CI lint checks structure on every PR</text>
+
+      <rect class="node" x="355" y="200" width="250" height="64" rx="10"/>
+      <text class="t-item" x="480" y="226" text-anchor="middle">Merge to main</text>
+      <text class="t-small" x="480" y="244" text-anchor="middle">automation syncs wiki + knowledge graph</text>
+
+      <rect class="node-hot" x="40" y="200" width="250" height="64" rx="10"/>
+      <text class="t-item" x="165" y="226" text-anchor="middle">Next session loads a smarter brain</text>
+      <text class="t-small" x="165" y="244" text-anchor="middle">for the whole team, not one person</text>
+
+      <line class="flow" x1="670" y1="232" x2="607" y2="232" marker-end="url(#ar3)"/>
+      <line class="flow" x1="355" y1="232" x2="292" y2="232" marker-end="url(#ar3)"/>
+      <path class="flow-hot" d="M 165 200 L 165 108" marker-end="url(#ar3h)"/>
+    </svg>
+  </div>
+  <p class="caption"><strong>The rule that keeps it honest:</strong> team and system knowledge goes to the repo via PR. Personal memory holds only individual preferences. If it would help a teammate, it is never allowed to stay in one head.</p>
+
+  <h2 id="operating-state">Operating state, how work moves</h2>
+  <p class="sub">The Marketing OS tracks every piece of work through a single state loop, from intake to a captured learning.</p>
+  <div class="panel">
+    <svg viewBox="0 0 1140 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Operating state machine">
+      <defs>
+        <marker id="ar4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--stroke)"/>
+        </marker>
+        <marker id="ar4h" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="var(--accent)"/>
+        </marker>
+      </defs>
+
+      <!-- main row pills -->
+      <rect class="node" x="20" y="95" width="92" height="42" rx="21"/>
+      <text class="t-item" x="66" y="121" text-anchor="middle">intake</text>
+      <rect class="node" x="142" y="95" width="98" height="42" rx="21"/>
+      <text class="t-item" x="191" y="121" text-anchor="middle">triaged</text>
+      <rect class="node" x="300" y="95" width="98" height="42" rx="21"/>
+      <text class="t-item" x="349" y="121" text-anchor="middle">planned</text>
+      <rect class="node" x="428" y="95" width="112" height="42" rx="21"/>
+      <text class="t-item" x="484" y="121" text-anchor="middle">executing</text>
+      <rect class="node" x="570" y="95" width="150" height="42" rx="21"/>
+      <text class="t-item" x="645" y="121" text-anchor="middle">ready for review</text>
+      <rect class="node" x="750" y="95" width="100" height="42" rx="21"/>
+      <text class="t-item" x="800" y="121" text-anchor="middle">shipped</text>
+      <rect class="node" x="880" y="95" width="112" height="42" rx="21"/>
+      <text class="t-item" x="936" y="121" text-anchor="middle">measured</text>
+      <rect class="node-hot" x="1022" y="95" width="98" height="42" rx="21"/>
+      <text class="t-item" x="1071" y="121" text-anchor="middle">learned</text>
+
+      <!-- main row arrows -->
+      <line class="flow" x1="112" y1="116" x2="140" y2="116" marker-end="url(#ar4)"/>
+      <line class="flow" x1="240" y1="116" x2="298" y2="116" marker-end="url(#ar4)"/>
+      <line class="flow" x1="540" y1="116" x2="568" y2="116" marker-end="url(#ar4)"/>
+      <line class="flow" x1="720" y1="116" x2="748" y2="116" marker-end="url(#ar4)"/>
+      <line class="flow" x1="850" y1="116" x2="878" y2="116" marker-end="url(#ar4)"/>
+      <line class="flow" x1="992" y1="116" x2="1020" y2="116" marker-end="url(#ar4)"/>
+      <line class="flow" x1="398" y1="116" x2="426" y2="116" marker-end="url(#ar4)"/>
+
+      <!-- investigating branch (above) -->
+      <rect class="node" x="205" y="15" width="130" height="38" rx="19"/>
+      <text class="t-item" x="270" y="39" text-anchor="middle">investigating</text>
+      <path class="flow" d="M 191 95 Q 191 34 201 34" marker-end="url(#ar4)"/>
+      <path class="flow" d="M 335 34 Q 349 34 349 91" marker-end="url(#ar4)"/>
+      <text class="t-small" x="150" y="70" text-anchor="end">evidence needed</text>
+
+      <!-- blocked branch (below) -->
+      <rect class="node" x="440" y="185" width="92" height="38" rx="19"/>
+      <text class="t-item" x="486" y="209" text-anchor="middle">blocked</text>
+      <line class="flow" x1="468" y1="137" x2="468" y2="183" marker-end="url(#ar4)"/>
+      <line class="flow" x1="502" y1="185" x2="502" y2="139" marker-end="url(#ar4)"/>
+
+      <!-- loop back from learned -->
+      <path class="flow-hot" d="M 1071 95 L 1071 62 Q 1071 52 1061 52 L 76 52 Q 66 52 66 62 L 66 91" marker-end="url(#ar4h)"/>
+      <text class="t-accent" x="700" y="44" text-anchor="middle">LEARNINGS FEED THE NEXT INTAKE</text>
+    </svg>
+  </div>
+  <p class="caption"><strong>Reading the branches:</strong> triaged work goes straight to planned when scope is clear, or through investigating when evidence is needed. Executing can bounce through blocked and back. Nothing is done until the learning is captured.</p>
+
+  <h2 id="autonomy">Autonomy today</h2>
+  <p class="sub">Same idea as an assistive-to-autonomous arc: most skills run with a human at the keyboard, and the proven, repeatable ones have graduated to scheduled cloud routines.</p>
+  <div class="panel" style="padding: 4px 6px;">
+    <table>
+      <thead>
+        <tr><th>Mode</th><th>What runs</th><th>Examples</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="mode">Assistive</span><br>human at the keyboard</td>
+          <td>Skills invoked in Claude Code, claude.ai, or Chrome. Mutating writes ask for approval.</td>
+          <td><code>/marketing-brain</code>, <code>/chief-of-staff</code>, <code>/good-morning</code>, <code>/pm-story</code>, <code>/page-cro</code>, <code>/organic-dashboard</code>, <code>/agent-builder</code></td>
+        </tr>
+        <tr>
+          <td><span class="mode">Autonomous</span><br>scheduled cloud routines</td>
+          <td>Proven skills running on a schedule with no human in the loop.</td>
+          <td><code>/nir-mql-live-report</code> and <code>/inbound-demo-reply</code> daily, <code>/access-welcome</code> daily, <code>/invoice-inbox-to-monday</code> and <code>/p1-p2-followup</code> weekly, <code>/mops-backlog-review</code> monthly</td>
+        </tr>
+        <tr>
+          <td><span class="mode">Autonomous</span><br>on repo events</td>
+          <td>Automation that keeps the brain itself healthy.</td>
+          <td>CI lint on every PR, deterministic wiki sync and graph refresh on every merge</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2 id="leaders">What each team leader gets</h2>
+  <p class="sub">The system is shared, but the payoff is personal. These are live use cases, not a roadmap: every skill named below exists in the repo today.</p>
+  <div class="leader-tabs">
+    <a href="#leader-abel">Abel</a>
+    <a href="#leader-nir">Nir</a>
+    <a href="#leader-raz-messing">Raz M.</a>
+    <a href="#leader-sivan">Sivan</a>
+    <a href="#leader-raz-navon">Raz N.</a>
+    <a href="#leader-dor">Dor</a>
+    <a href="#leader-savion">Savion</a>
+    <a href="#leader-hanan">Hanan</a>
+  </div>
+  <div class="leaders">
+    <div class="leader" id="leader-abel">
+      <div class="role">VP Marketing</div>
+      <div class="name">Abel Grünfeld</div>
+      <ul>
+        <li>One operating brief across the whole department: <code>/marketing-brain</code> surfaces priorities, owners, and risks</li>
+        <li>Attribution and funnel questions answered from the validated data layer via <code>/rivermind:ask</code></li>
+        <li>New hires onboard with <code>/team-intro</code> and a three-step activation guide</li>
+      </ul>
+      <div class="payoff"><strong>The payoff:</strong> a department memory that survives turnover and reorgs, and visibility without another status meeting.</div>
+    </div>
+    <div class="leader" id="leader-nir">
+      <div class="role">Growth Marketing</div>
+      <div class="name">Nir Taranto</div>
+      <ul>
+        <li><code>/nir-monthly-report</code> compiles a branded monthly report from the MOPs and Website Dev boards, no chasing</li>
+        <li><code>/nir-mql-live-report</code> DMs him every high-quality inbound demo MQL, daily, already running as a cloud routine</li>
+        <li>Paid account audits across Google, Meta, LinkedIn, TikTok, and Microsoft with 250+ checks, plus <code>/page-cro</code> and the SEO and AI-search agent</li>
+      </ul>
+      <div class="payoff"><strong>The payoff:</strong> recurring reporting and channel audits run themselves; his leaders spend the time on decisions, not data pulls.</div>
+    </div>
+    <div class="leader" id="leader-raz-messing">
+      <div class="role">Brand</div>
+      <div class="name">Raz Messing</div>
+      <ul>
+        <li><code>/riverside-brand-guidelines</code> and <code>/riverside-presentation</code> make every deck, doc, and page ship on brand by default</li>
+        <li>The full design system (Figma tokens, 66 component families, 1301 icons) loads into any build task</li>
+        <li>Tone of voice is enforced on anything written through <code>/content-agent</code></li>
+      </ul>
+      <div class="payoff"><strong>The payoff:</strong> brand consistency at scale without policing; the guidelines are executable, not a PDF nobody opens.</div>
+    </div>
+    <div class="leader" id="leader-sivan">
+      <div class="role">Marketing: PMM, content, community, social</div>
+      <div class="name">Sivan Mazuz</div>
+      <ul>
+        <li>The messaging framework, 2026 brand story, and voice-of-customer research load into every external copy task</li>
+        <li>Customer language on tap from <code>/gong-calls-explorer</code>; funnel definitions from <code>/preop-data-intelligence</code></li>
+        <li>Specialist subagents for LinkedIn, social, podcast, and PR deep passes</li>
+      </ul>
+      <div class="payoff"><strong>The payoff:</strong> positioning has one source of truth, and every piece of copy starts from validated messaging instead of memory.</div>
+    </div>
+    <div class="leader" id="leader-raz-navon">
+      <div class="role">Paid Acquisition</div>
+      <div class="name">Raz Navon</div>
+      <ul>
+        <li><code>/paid-acquisition-agent</code> owns live access to Google, Meta, LinkedIn, and Bing, with specialist audit agents behind it</li>
+        <li>Account audits with 250+ checks, plus creative and copy skills: brand DNA extraction, copy templates, AI ad-image generation</li>
+        <li><code>/page-cro</code> and the conversion psychology specialist for the post-click funnel</li>
+      </ul>
+      <div class="payoff"><strong>The payoff:</strong> full-account audits and creative rounds in hours, and budget calls made on data instead of gut.</div>
+    </div>
+    <div class="leader" id="leader-dor">
+      <div class="role">Growth Channels</div>
+      <div class="name">Dor Druker</div>
+      <ul>
+        <li><code>/campaign-agent</code> orchestrates paid, website, lifecycle, and content for any channel test</li>
+        <li><code>/rivermind:ask</code> answers channel performance questions; <code>/pm-story</code> files the work on the board</li>
+        <li><code>/marketing-psychology</code> and the copy template skills sharpen channel messaging</li>
+      </ul>
+      <div class="payoff"><strong>The payoff:</strong> new channels get tested at one-person speed, with a full stack behind every experiment.</div>
+    </div>
+    <div class="leader" id="leader-savion">
+      <div class="role">Creator Marketing</div>
+      <div class="name">Savion Ron Shemesh</div>
+      <ul>
+        <li>Podcast, video, TikTok, and Instagram specialist subagents on tap for creator formats and briefs</li>
+        <li><code>/riverside-brand-guidelines</code> keeps every creator brief and asset on brand</li>
+        <li>Campaign performance answers from <code>/rivermind:ask</code> without waiting on analytics</li>
+      </ul>
+      <div class="payoff"><strong>The payoff:</strong> creator content ships on brand by default and gets measured like every other channel.</div>
+    </div>
+    <div class="leader" id="leader-hanan">
+      <div class="role">Marketing Operations</div>
+      <div class="name">Hanan Amos</div>
+      <ul>
+        <li><code>/mops-standup</code> runs the day-to-day across the MOPs, Website Dev, and mvpGrow boards with intake-gap detection</li>
+        <li><code>/hubspot-workflow-qa</code> signs off every workflow; <code>/invoice-inbox-to-monday</code> files invoices as a weekly cloud routine</li>
+        <li>Owns the brain itself: <code>/health-check</code> and <code>/retro</code> keep it clean and compounding</li>
+      </ul>
+      <div class="payoff"><strong>The payoff:</strong> the department's automation backbone runs with QA guardrails, and the recurring chores are already cloud routines.</div>
+    </div>
+  </div>
+
+  <h2 id="why">Why teams pick it</h2>
+  <div class="benefits">
+    <div class="benefit">
+      <div class="k">It compounds</div>
+      <div class="v">Every task makes the next one faster. Learnings land as reviewed PRs, so knowledge belongs to the team, not one person's memory.</div>
+    </div>
+    <div class="benefit">
+      <div class="k">Guardrails built in</div>
+      <div class="v">Writes to HubSpot, monday, and Slack ask a human first. Data answers come from the analytics team's validated layer.</div>
+    </div>
+    <div class="benefit">
+      <div class="k">Day-one onboarding</div>
+      <div class="v">A new teammate opens Claude in the repo and it already knows the boards, channels, systems, and conventions.</div>
+    </div>
+    <div class="benefit">
+      <div class="k">Nothing to host</div>
+      <div class="v">Plain markdown on managed Claude infrastructure. No runtime to operate, no vendor lock beyond the docs themselves.</div>
+    </div>
+  </div>
+
+  <div class="foot">
+    Built from the marketing-brain repo: CLAUDE.md, PHILOSOPHY.md, systems/owned/marketing-brain.md, .claude/agents/README.md, and docs/marketing-os-diagram.md. For the full wiring &mdash; every MCP connector, every skill, every ID &mdash; see docs/platform-integration.md; for the engineering-register version, docs/marketing-os-technical-architecture.md. The repo is the source of truth; if this page and the repo disagree, trust the repo and open a PR.
+  </div>
+</div>
+
+</body>
+</html>

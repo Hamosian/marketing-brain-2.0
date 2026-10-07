@@ -1,0 +1,653 @@
+SQL_ID,CONTACT_EMAIL,SQL_CREATED_AT,SQL_STATUS,STAGE,TIMING_INTENT,AE_DISCOVERY,ROOT_CAUSE_CATEGORY,SUGGESTED_SOURCE,PROMOTED,WON,DEAL_MRR
+15495175288,caitlin.reed@meraltafilms.com,2023-10-06 18:25:24.593 Z,promoted to deal,Won,Need solution within 1 month,been using Pro,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,650.0
+53892898576,shrivarshini@sifthub.io,2026-01-20 13:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Google / Online,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+23124924191,clo@candzmarketing.com,2024-10-10 17:09:40.356 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+29558328169,brad.godwin@tihinsurance.com,2024-11-25 21:20:29.900 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13437565450,ames@join-real.com,2023-05-24 19:55:35.157 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+53261372441,maureen@getmedmark.com,2026-01-07 17:00:00.000 Z,follow-up stage,Open,Just exploring,Heard about Riverside through Seven Figure Agency,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+46535088012,tessa@parametrixinsurance.com,2025-10-29 11:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+17050964656,nick.morgan@tncourts.gov,2024-01-19 20:01:52.602 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Pro users,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+13376905259,erica.getto@jonathanvanness.com,2023-05-18 13:03:34.776 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+15023441737,vasilios@cognitiondigital.io,2023-07-10 18:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,450.0
+31967997969,drew@weareageist.com,2025-01-13 19:09:52.780 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+28999292815,jennifer.weiss@dowjones.com,2024-11-12 22:25:05.007 Z,promoted to deal,Won,,Used pro in the past,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,2000.0
+17270601400,mroyal@vistaequitypartners.com,2024-01-31 15:51:53.907 Z,promoted to deal,Won,Just exploring,Old deal that is reopening,Re-engagement of past / closed-lost,Inherit prior cycle attribution,Y,Y,3000.0
+50885832483,bwygel@aceny.org,2025-12-05 16:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Been subscribers for a year and a half; originally exposed through freelance podcast editing work.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+38145325748,,2025-05-23 16:30:00.000 Z,promoted to deal,Won,,Used us in the past at Palo Alto Networks and Zscaler (on Pro).,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,3000.0
+58479464345,,2026-03-27 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,2000.0
+13242871619,steve@valentinegroupaz.com,2023-05-05 15:23:10.710 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+58941316620,dmorgan@sd.marketing,2026-04-16 20:00:00.000 Z,follow-up stage,Open,Just exploring,Mentioned a mastermind group where others use Riverside.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+51022725184,admin@teapartypatriots.org,2025-12-05 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,675.0
+59375394111,shelley.jones@hekahappy.com,2026-04-22 14:30:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+14929112957,12@ledger.fr,2023-09-01 04:14:18.050 Z,closed lost - pre-opp,Lost,Just exploring,Pro users,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+57029609294,max@alertsbar.net,2026-02-16 13:00:00.000 Z,meeting booked,Open,,,No discovery captured,Identity re-join required,,,
+39051721047,rheanov@tyrads.com,2025-06-19 00:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13357382026,jabney@gowithlive.com,2023-05-16 18:29:22.192 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,830.0
+34918772088,,2025-03-21 17:35:24.247 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+38449080149,accounting@wearethepoint.com,2025-11-04 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Researched for podcast platform,Digital inbound (MQL join failed),Inbound - re-join to campaign,Y,Y,450.0
+38905389225,sonia@boomstudio.ai,2025-06-16 11:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+23302949761,alexander.tzavalas@si.com,2024-10-16 18:00:12.387 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+60403030349,gareth.jones@dazn.com,2026-06-01 14:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+51432587678,hello@zarastaging.com,2025-12-10 19:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13613555279,nirav.shah@ultragenius.club,2023-06-07 11:50:21.230 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+16979755369,matt.onley@epicgames.com,2024-01-16 21:51:29.150 Z,promoted to deal,Won,Need solution within 3 months,Past Deal that was marked as Closed-Lost,Re-engagement of past / closed-lost,Inherit prior cycle attribution,Y,Y,2125.0
+53636189535,matt@vibe-gtm.com,2026-01-15 20:00:00.000 Z,follow-up stage,Open,Just exploring,Used us in the past,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+29122725757,,2024-11-15 14:35:15.125 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+59139810211,djohnson@childrensaid.org,2026-05-06 15:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Aggressive outbound sales emails to multiple people in the organization.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+33346979218,amy@bildandco.com,2025-02-11 16:38:06.094 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+17424893260,scott.roberts@studiorx.com,2024-02-08 04:06:38.735 Z,closed lost - pre-opp,Lost,Just exploring,previous conversation with antonio,Re-engagement of past / closed-lost,Inherit prior cycle attribution,,,
+59180420488,josh.fartch@ochre.org.au,2026-04-15 05:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,A colleague found them on LinkedIn.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+49530845189,arleigh@gmail.com,2025-11-18 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,675.0
+16329521026,achapa@musicalguest.net,2023-12-01 20:41:30.144 Z,closed lost - pre-opp,Lost,Need solution within 1 month,Pro User,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+58564805918,einat.ben-horin@stratasys.com,2026-04-12 10:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+58511160341,vicky.mo@quandri.io,2026-03-30 18:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 6 months,Tessa forwarded your email to us.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+30163217926,,2024-12-11 11:10:27.931 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+30166432364,valeria.savanivanwoerkom@fortrea.com,2024-12-11 16:36:58.066 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+16450700105,jhoman@channel4.co.uk,2023-12-11 16:08:39.828 Z,closed lost - pre-opp,Lost,Just exploring,Already had a call with antonio in the past,Re-engagement of past / closed-lost,Inherit prior cycle attribution,,,
+58637664183,suvi.leino@relevant-digital.com,2026-04-01 13:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+38679280955,natalie.stenge@wisestamp.com,2025-06-17 11:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+54166956606,info@eightball-media.de,2026-01-20 00:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,
+15810431252,kieran.brunwin@prodigious.com,2023-10-27 12:12:49.112 Z,follow-up stage,Open,Just exploring,Automated bot flow from last year,Re-engagement of past / closed-lost,Inherit prior cycle attribution,,,
+21011971919,meghan.fitzgerald@crowdstrike.com,2024-07-27 00:29:46.945 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,3666.67
+39599227251,christian.muehlroth@itonics-innovation.com,2025-06-06 12:30:00.000 Z,promoted to deal,Won,Need solution within 6 months,,No discovery captured,Identity re-join required,Y,,1116.0
+50216572503,brian.harrison@truist.com,2025-11-19 19:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,4250.0
+58335915780,,2026-03-24 14:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+56544912924,marissa.mcbride@theinitialgroup.com,2026-02-17 16:30:00.000 Z,promoted to deal,Won,Need solution within 1 month,Used Riverside as a guest before,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,450.0
+13490824112,matthewphifer@mattphifercoaching.com,2023-05-29 17:10:31.155 Z,promoted to deal,Won,Need solution within 6 months,using PRO,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,550.0
+54130330722,ghgirard@atlasinstitute.ca,2026-01-29 15:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Previously used Riverside for podcast recordings.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+29445712958,mairrj23@protonmail.com,2024-11-21 21:44:26.958 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,420.0
+34963519299,jay@taxtemplates.ca,2025-03-23 04:05:07.634 Z,closed lost - pre-opp,Lost,Need solution within 1 month,Looking for professional webinar platform,Captured but uninformative,Sales-Direct / Unknown,,,
+43157538359,zach@theinnercirclepod.com,2025-08-29 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+30466060660,lewis.forfar@bailliegifford.com,2024-12-16 18:42:27.971 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1116.0
+14884115106,andrew@tradablebits.com,2023-08-29 21:32:37.600 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+39390559922,drchilkov@outsmartcancer.com,2025-07-02 18:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+39602194589,todd.hoffman@stewardpartners.com,2025-07-11 18:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+38118430773,nathan.maas@redbull.com,2025-05-27 18:00:00.000 Z,closed lost - pre-opp,Lost,,NAB,Event / field marketing,Field / Event,,,
+39661278094,dclement@constellationhs.com,2025-07-03 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Found us online when researching,Digital inbound (MQL join failed),Inbound - re-join to campaign,Y,Y,3000.0
+13357373997,jnelson@elitelevelperformance.com,2023-05-16 18:16:54.417 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+15452863579,lisas.theler@paramount.com,2023-10-04 21:33:28.011 Z,promoted to deal,Won,Need solution within 2 months,Employee was using a pro account - ViacomCBS also referred them to us,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,1500.0
+45958429991,psethi@nextrow.com,2025-10-14 20:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+19516798628,info@donnasantos.com,2024-05-21 16:04:31.490 Z,closed lost - pre-opp,Lost,Need solution within 1 month,Research,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+52088136530,jack@clinicmastery.com,2025-12-17 21:15:00.000 Z,closed lost - pre-opp,Lost,Need solution within 2 months,They have been using the self‑serve plan personally and for a podcast.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+29820937029,nicky.szmala@googlemail.com,2024-12-04 02:28:23.512 Z,closed lost - pre-opp,Lost,Just exploring,Pro User looking to up his game.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+48140217960,tslil.d@faibn.com,2025-11-06 12:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+15558131073,corinne.weston@ggip.com,2023-10-11 14:46:39.539 Z,closed lost - pre-opp,Lost,Just exploring,looking for local recording,Captured but uninformative,Sales-Direct / Unknown,,,
+60146485089,lucy.lawton@reserv.com,2026-03-11 19:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+55566541649,,2026-01-23 17:00:00.000 Z,promoted to deal,Won,,Team has been using Riverside Pro and Kate used Riverside at a previous company,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,2366.67
+17119919278,alexa@schirmermccord.com,2024-01-23 18:49:42.593 Z,closed lost - pre-opp,Lost,Need solution within 1 month,referral,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+37527377750,raj@creolay.com,2025-05-30 14:30:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,1116.0
+53012081779,,2025-12-31 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,450.0
+46659943027,mickey@apexgetsbusiness.com,2025-10-23 18:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+56992549150,sarah@onform.com,2026-01-26 16:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Recommended by someone at their founder's previous company.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+13537486100,magdalena@gfinance.co.uk,2023-06-01 14:58:03.230 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+13235726939,greg.cohan@prometheuspix.com,2023-05-04 21:04:45.365 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,580.0
+18815443066,geraint.bell@uci.edu,2024-04-22 05:08:54.317 Z,closed lost - pre-opp,Lost,Just exploring,NAB,Event / field marketing,Field / Event,,,
+45031007497,ntora-c@stripe.com,2025-09-30 15:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,1500.0
+59310596475,rich@hiveforma.com,2026-04-30 15:00:00.000 Z,follow-up stage,Open,Need solution within 2 months,Heard about Riverside from colleagues at Keycode Media and saw the product at NAB.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+57670578572,ckramer@c-lockinc.com,2026-02-23 17:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,Dale set up the call.,Captured but uninformative,Sales-Direct / Unknown,,,
+50528654767,marketing@stratford.group,2025-12-03 13:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13217216584,caitlin@simpletruthnutrition.com,2023-05-03 18:13:31.663 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+47227587866,chip@gouncharted.com,2025-10-28 16:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+45235145018,nigel@numeric.io,2025-10-09 06:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+56312632409,wendy.gallagher@futureoffinance.biz,2026-02-13 10:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,Prospect was contacted by the rep.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+34791782532,info.flep7@gmail.com,2025-03-19 04:21:20.399 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Already a user for podcasts,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+60340108193,jordan@thekeyboardgroup.com,2026-05-20 11:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+57133347994,radek@usebouncer.com,2026-03-03 12:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+59383825765,elartesano@mac.com,2026-05-06 20:00:00.000 Z,follow-up stage,Open,Just exploring,,No discovery captured,Identity re-join required,,,
+13359289784,,2023-05-16 20:44:55.599 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,450.0
+22472311864,dean@beanstalkconsulting.co,2024-09-20 19:15:30.248 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+36609577481,andrew.han@espn.com,2025-04-29 20:00:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,2769.23
+21863097938,ilan.f@team8.vc,2024-09-02 09:42:06.340 Z,promoted to deal,Won,Need solution within 2 months,Outbound + they know Jonathan from the tel aviv scene,Outbound mis-sourced as inbound,Outbound (reclassify),Y,,2000.0
+36302293673,benjamin@identify.solutions,2025-04-14 13:30:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,1116.0
+14943583591,edwin.warfield@citybizlist.com,2023-09-01 19:43:52.451 Z,promoted to deal,Won,Just exploring,Pro user,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,500.0
+60250256425,tyler.mizglewski@doh.nj.gov,2026-05-18 13:30:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+47092917363,siiri.sundsten@howspace.com,2025-10-29 08:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+60055938391,begench@gowit.com,2026-05-07 13:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Lauren reached out,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+48819490687,tanay.sukumar@livemint.com,2025-11-11 07:45:00.000 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+32371888194,information@digitalgreatcommission.org,2025-01-23 19:36:47.323 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+60635546914,kavi@teacherhorizons.com,2026-06-01 14:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+60679998347,warren@ctrl-studios.co.uk,2026-05-28 12:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,Previously used Riverside for a Mulberry podcast.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+60448305691,kat@onesignal.com,2026-05-21 19:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,Lauren reached out at the right time.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+57019999822,rick.peterson@willo.com,2026-02-25 17:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,1154.7
+40708341622,jonathan.d@hackeru.co.il,2025-07-28 11:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+45562562361,ebrenner@geosolinc.com,2025-10-15 17:15:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+48145313394,arleigh@gmail.com,2025-11-04 14:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+14345250681,jason@strtupboost.com,2023-07-26 17:26:20.076 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+57143790166,auncles@gmail.com,2026-02-24 19:00:00.000 Z,promoted to deal,Won,Just exploring,,No discovery captured,Identity re-join required,Y,Y,675.0
+30729975314,dyvine@topchoicemedia.com,2024-12-18 22:59:28.883 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+34788416077,benedict.richards@fremantle.com,2025-03-19 12:40:59.891 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+39936718160,kevin@keenancommunicationsgroup.com,2025-07-07 17:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13264613776,contact@cpgguys.com,2023-05-08 09:37:18.493 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+23312267785,amir.eliav01@gmail.com,2024-10-16 22:01:57.140 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+56888863249,ron@ideaengineering.com,2026-02-23 21:30:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+21207059050,tburke@napo.org.uk,2024-08-07 13:03:24.463 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+52224607518,,2025-12-19 00:00:00.000 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,,830.0
+58954610979,ronsacher@premiaspine.com,2026-04-13 17:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Someone from Riverside reached out about using Riverside for webinars.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+18804313914,amira.mertaban@careaccess.com,2024-04-21 19:14:31.972 Z,closed lost - pre-opp,Lost,Just exploring,NAB,Event / field marketing,Field / Event,,,
+22556821609,paul.galloway@agentpipeline.com,2024-09-23 20:39:51.748 Z,closed lost - pre-opp,Lost,Just exploring,Met our team at Content marketing world,Event / field marketing,Field / Event,,,
+40409495064,jennifer@afterthefireusa.org,2025-07-18 16:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+31738248513,russ@hardpinmedia.com,2025-01-09 19:20:08.162 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1116.0
+44872828575,kylee@lockedonpodcasts.com,2025-09-23 19:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,9333.33
+53512485429,cory.n@harmonya.com,2026-01-12 16:00:00.000 Z,promoted to deal,Won,Just exploring,Jessie used it in previous jobs for interviews and podcast recordings.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,1116.0
+59847483302,kent@housetopszionbuilders.com,2026-05-01 15:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+59145769734,chris@fieldcoachexperts.com,2026-04-17 17:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Recommended by a friend,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+33949302592,terry@blackband.co,2025-02-26 14:28:08.954 Z,closed lost - pre-opp,Lost,,pro,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+60204189871,brian.taylor@outperforminstitute.com,2026-05-15 20:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+47739245655,,2025-10-30 13:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,550.0
+56461975909,emily.cooper@hanne.co.uk,2026-02-24 10:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+13725799064,ian_rushforth@spe.sony.com,2023-06-15 15:54:16.412 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+17139386887,production@rustyquill.com,2024-01-24 17:39:05.252 Z,closed lost - pre-opp,Lost,Just exploring,Spoke to them in the past,Re-engagement of past / closed-lost,Inherit prior cycle attribution,,,
+46129397120,cristy@athenaac.com,2025-11-05 17:00:00.000 Z,closed lost - pre-opp,Lost,,Pro user,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+15023769625,eric@piratewires.com,2023-06-07 18:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,600.0
+15256809346,elin.barton@whiteknightpro.com,2023-09-20 20:23:33.188 Z,closed lost - pre-opp,Lost,Just exploring,OpenReel research for competitors,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+13313551981,samantha@eliteagent.com.au,2023-05-12 12:54:39.174 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+57600977922,nashley.banister@picknik.ai,2026-03-06 21:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+19246406145,laura@tesolpop.com,2024-05-09 16:45:09.647 Z,closed lost - pre-opp,Lost,Just exploring,"User had a demo with full time company, this is his side gig",Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+21074906489,smazzotta@questex.com,2024-07-30 19:01:51.670 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+59417509550,akosoy@sterlinggloballtd.com,2026-04-23 14:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+18227167607,amanda@realestatesf.com,2024-03-25 18:31:03.547 Z,closed lost - pre-opp,Lost,Need solution within 1 month,google,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+36714728837,sarah.sutton@ascendlearning.com,2025-05-05 18:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,4250.0
+40575748437,tom@olddoglearning.com,2025-07-22 13:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+60673611569,josh.tyson@onereach.com,2026-05-28 16:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,They already had an existing Riverside account used for product demos before starting the podcast.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+58453515888,mgillan@bloksec.com,2026-04-09 15:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+19760296032,roger.chandhok@bnc.ca,2024-05-22 22:38:44.239 Z,promoted to deal,Won,,referral - upsell,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,,2000.0
+17677401976,hector@spark.guru,2024-02-22 19:20:43.028 Z,promoted to deal,Won,Need solution within 1 month,Google,Digital inbound (MQL join failed),Inbound - re-join to campaign,Y,Y,650.0
+17845892779,raquel@babyfriendlycompanies.com,2024-03-03 20:53:44.608 Z,closed lost - pre-opp,Lost,Need solution within 2 months,google,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+44550315075,akosoy@sterlinggloballtd.com,2025-10-03 14:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,607.5
+34888810766,tbeers@indigenousmedia.com,2025-03-20 17:09:40.393 Z,promoted to deal,Won,Need solution within 2 months,Referral from Lee - another deal i am working,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,450.0
+36587651368,mmartz@rockco.com,2025-04-16 14:00:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,2000.0
+59186196321,blevine@lockedonpodcasts.com,2026-04-20 15:00:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,
+49706852709,leonardo.herrera@hapo.org,2025-11-25 19:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,They used Riverside previously for another podcast.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+56706847542,,2026-02-20 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1244.58
+29792750887,dominique.cheffers@inizio.com,2024-12-03 11:39:48.515 Z,promoted to deal,Won,Need solution within 1 month,Had an enterprise account that wasn't renewed,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+29816649353,bchoudry@psbboisjoli.ca,2024-12-04 01:47:45.543 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+30174777429,matt.steiner@lakeareatech.edu,2024-12-11 21:03:56.739 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+54380631866,alvaror@marosavat.com,2026-01-28 14:30:00.000 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+57904804872,rick@partnervista.co,2026-04-24 14:15:00.000 Z,promoted to deal,Won,Need solution within 6 months,,No discovery captured,Identity re-join required,Y,Y,607.5
+59168493728,ahmond.hill@wpaog.org,2026-04-15 15:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+15878335053,downingm@inspirecio.com,2023-11-01 17:54:47.046 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Heard about RS from their video production company,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+35617995871,marisa.tranchina@hmhn.org,2025-04-15 13:00:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,3000.0
+15220158380,michael.corsey@insidehighered.com,2023-09-18 14:08:46.022 Z,promoted to deal,Won,Need solution within 1 month,BD engaged in the past.,Re-engagement of past / closed-lost,Inherit prior cycle attribution,Y,,2000.0
+58206783907,ahesse@locusrobotics.com,2026-03-30 00:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13275979137,charbelraish@parousiamedia.com,2023-05-09 12:08:57.322 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+14268325207,bpetersdorf@rwbaird.com,2023-07-21 18:20:24.680 Z,promoted to deal,Won,Just exploring,,No discovery captured,Identity re-join required,Y,Y,2000.0
+18656310133,robert@mycowboywisdom.com,2024-04-15 17:13:00.119 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+60007073042,tstauffer@exida.com,2026-05-14 14:00:00.000 Z,follow-up stage,Open,Just exploring,They received an email from Riverside at the right time.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+39933981839,kate@hospitalitymarketingsolutions.com,2025-07-16 14:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,"She is using RS for coaching for her business, wanted to learn more about business product but realized during the meeting it's too early for her.",Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+59998771369,yk@qpunch.co,2026-04-29 14:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,They received an email from a Riverside colleague.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+32302427909,brent.butler@exactlyrightmedia.com,2025-01-22 07:42:18.864 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+35436464771,bennett@franchiseki.com,2025-04-02 18:30:00.000 Z,follow-up stage,Open,Just exploring,,No discovery captured,Identity re-join required,,,
+17321683578,george@velocity-tech.com,2024-02-02 17:35:24.760 Z,closed lost - pre-opp,Lost,Need solution within 1 month,Unknown,Captured but uninformative,Sales-Direct / Unknown,,,
+52843169578,,2026-01-14 00:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+22255446402,kathryn.kmiotek@fintechmeetup.com,2024-09-13 18:27:18.240 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,1116.0
+58360924573,chris.king@bibank.com,2026-03-31 00:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+35352118395,carla.bertaux@kandji.io,2025-04-02 19:15:00.000 Z,follow-up stage,Open,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+38167657381,pasquale.bortone@merck.com,2025-04-30 18:00:00.000 Z,promoted to deal,Won,,word of mouth,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,4250.0
+30177940068,james@effa.io,2024-12-11 20:42:18.954 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+13279817479,caleb@betterwealth.com,2023-05-09 16:13:12.018 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+21592914235,kah-mei@richardbrooke.com,2024-08-20 23:25:56.699 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+29592434992,florian.obkircher@redbull.com,2024-11-27 09:17:48.015 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+39988137237,greg@ihlservices.com,2025-07-17 13:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,needed webinar registration,Captured but uninformative,Sales-Direct / Unknown,,,
+39172334869,jack@eyeondisplay.co.uk,2025-07-01 15:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+13806232090,ryan.eslinger@feedzai.com,2023-06-21 15:38:30.776 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+38247156480,aaron@aaroncalafato.com,2025-06-04 20:30:00.000 Z,promoted to deal,Won,Just exploring,Business referral from Aaron,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,4250.0
+54188067441,yannick@e-stateplanner.com,2026-01-29 16:00:00.000 Z,follow-up stage,Open,Just exploring,Received an email from a BDR,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+56997714001,sanjay@quantarra.io,2026-03-10 15:00:00.000 Z,follow-up stage,Open,Just exploring,Connected via LinkedIn outreach.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+17917073585,zach@growthmatch.com,2024-03-08 08:32:43.066 Z,promoted to deal,Won,Need solution within 1 month,Old deal that was closed lost,Re-engagement of past / closed-lost,Inherit prior cycle attribution,Y,Y,550.0
+33931724948,yoel@medsolvedynamics.com,2025-02-25 20:31:35.284 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+19690704505,melissa.scauri@morganstanley.com,2024-05-16 17:30:38.315 Z,follow-up stage,Open,,Oren Zeev - investor introduction,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+20384128878,robyn.edgar@sequel.fm,2024-06-27 17:50:45.701 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+59728014772,justin@section10podcast.com,2026-04-27 16:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1000.0
+57020862551,,2026-03-24 00:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+57025411616,abidemi@yogupay.com,2026-02-02 14:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+35680757416,lucie@getrealsocial.com,2025-04-09 20:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,NAB,Event / field marketing,Field / Event,,,
+60173485205,kate@aisuccesslab.com,2026-05-20 06:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,She already uses Riverside for her podcast.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+60339982398,anthony.kearney@furness-bs.co.uk,2026-06-01 09:00:00.000 Z,follow-up stage,Open,Just exploring,,No discovery captured,Identity re-join required,,,
+57962823246,dani.barker@cantarus.com,2026-03-16 09:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+20462422868,cody.crawford@seranking.com,2024-07-01 14:32:37.089 Z,promoted to deal,Won,Just exploring,Searched Google for alternatives to Zoom webinars after reaching a breaking point with Zoom.,Digital inbound (MQL join failed),Inbound - re-join to campaign,Y,,1283.0
+13313691806,podcasts@thedsrnetwork.com,2023-05-12 12:49:50.292 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+56027793697,espen-irwing.swang@no.abb.com,2026-02-03 13:30:00.000 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,Y,3916.69
+59449915771,elena.howard@coveros.com,2026-05-05 18:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+13291031391,todd@toddwestra.com,2023-05-10 15:30:28.422 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+60034102439,mtsatskin@astinmortgage.com,2026-05-07 15:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+22905290421,jmalino@vaneck.com,2024-10-03 20:24:47.330 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,830.0
+52889750380,,2026-01-14 00:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+57943492878,stuart.charleton@digbybrown.co.uk,2026-03-17 12:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+60008706669,rahn@thedoguseries.com,2026-05-05 00:00:00.000 Z,promoted to deal,Won,Just exploring,,No discovery captured,Identity re-join required,Y,,450.0
+39367230856,rosa.pons@waza.org,2025-07-02 13:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+18945370420,jenny@ilm.com,2024-04-28 00:43:14.374 Z,promoted to deal,Won,Need solution within 2 months,their PR team uses Riverside PRO,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,1666.67
+57906221206,shail.chauhan@ccm-europe.com,2026-03-16 00:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+57324094871,tomer@atomgrants.com,2026-03-03 18:30:00.000 Z,follow-up stage,Open,Just exploring,Someone from Riverside reached out to them,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+14341818376,bwashington@nusmile.com,2023-07-26 15:43:32.555 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,450.0
+60690954793,jay.menashe@exhibitus.com,2026-06-02 19:30:00.000 Z,follow-up stage,Open,Just exploring,He heard about Riverside from friends using Opus Clips and Riverside.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+18289260438,davidsone@vikings.nfl.net,2024-03-28 15:44:17.124 Z,closed lost - pre-opp,Lost,Just exploring,They said someone from our team reached out. Have also used RS in the past,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+21953323682,carla.strothers@cbre.com,2024-09-05 15:24:39.692 Z,closed lost - pre-opp,Lost,,searching for Zoom alternatives,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+16059346251,tony@timpl.com,2023-11-14 19:19:51.686 Z,promoted to deal,Won,Just exploring,Through Podcast Support group,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,1250.0
+60340176259,d.grant@nyo.org.uk,2026-05-28 09:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+60076654218,tom.babb@gauntlethq.com,2026-05-14 17:00:00.000 Z,promoted to deal,Won,Just exploring,heard from everyone doing podcasts,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,782.5
+13990348654,information@digitalgreatcommission.org,2023-07-06 06:30:35.349 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+16980207902,jeff@cm.studio,2024-01-16 22:40:54.369 Z,promoted to deal,Won,Need solution within 2 months,using pro,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,753.25
+45112612610,agiovia@peak6.com,2025-10-17 19:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+52847686435,,2026-01-05 00:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+34301986835,nick.liao@conacotv.com,2025-03-06 00:41:04.497 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+59999111686,drharveyloomstein@loomcon.com,2026-05-01 20:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+40492429876,asaf.feider@lusha.com,2025-07-24 12:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+17375010666,noel.harmonson@boom.tv,2024-02-05 22:07:42.985 Z,closed lost - pre-opp,Lost,Just exploring,google/marketing efforts,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+18421657385,jonathan.kraft@seven.one,2024-04-04 08:58:05.662 Z,promoted to deal,Won,Need solution within 6 months,Had convos with Noah in the past,Re-engagement of past / closed-lost,Inherit prior cycle attribution,Y,Y,3000.0
+29359439658,ties@tonnymedia.nl,2024-11-19 15:33:02.361 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+39199153213,elisa@slite.com,2025-07-23 00:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+35680776278,jmrackow@unwsp.edu,2025-04-11 17:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+37134222886,michiganmusicawards@gmail.com,2025-05-13 15:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+31736069259,eric@beardbrand.com,2025-01-09 19:14:24.693 Z,follow-up stage,Open,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+13913133186,mike.lipkin@environics.ca,2023-06-29 18:46:24.969 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13276266406,ajenkins@volterradigital.com,2023-05-09 13:57:35.891 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,500.0
+56935945357,scovey@acumenlearning.com,2026-02-23 18:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,He heard from podcast communities and watched a YouTube video about Riverside.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+58949050504,mmeck@agilemind.com,2026-04-10 19:00:00.000 Z,promoted to deal,Won,Just exploring,Contract BDR sourced (Charles Green),Outbound mis-sourced as inbound,Outbound (reclassify),Y,Y,1154.7
+39850858649,jillianmhurley@gmail.com,2025-07-01 18:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+56022307382,jess@karehero.com,2026-02-12 13:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Reached out by your colleague,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+54609989979,lhill@bellwetherinst.com,2026-01-27 00:00:00.000 Z,promoted to deal,Won,Just exploring,Pro User,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,450.0
+13278154888,mt@yalo.com,2023-05-09 15:26:00.200 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13983794105,anasworthy@joriehc.com,2023-07-05 22:05:42.897 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+58874973231,vinayak.kulkarni1@ey.com,2026-03-30 11:30:00.000 Z,promoted to deal,Won,Need solution within 2 months,They research new approved tools annually and found Riverside about 1.5 years ago.,Digital inbound (MQL join failed),Inbound - re-join to campaign,Y,,3226.5513
+58404370766,darwin@darwingerman.com,2026-03-26 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,607.5
+43351833921,julia@augmentcode.com,2025-09-03 17:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13459680686,ian_rushforth@spe.sony.com,2023-05-26 15:01:55.648 Z,closed lost - pre-opp,Lost,Need solution within 5 months,,No discovery captured,Identity re-join required,,,
+28807948674,mgoldstein@stocktwits.com,2024-11-06 21:52:11.784 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,830.0
+50825445740,jchristensen@fastcompany.com,2025-12-05 16:00:00.000 Z,meeting booked,Open,,,No discovery captured,Identity re-join required,,,
+18918512267,jeff@flourishingcooperative.com,2024-04-26 14:51:02.928 Z,closed lost - pre-opp,Lost,Just exploring,Colleague referral,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+60177571445,lisa@lisaguerrero.com,2026-05-12 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,
+34005729161,jeff@thesmartchiropractor.com,2025-02-26 20:43:07.354 Z,closed lost - pre-opp,Lost,Just exploring,"Pro user looking for specific webinar functionality - once we get more automation (emails) and analytics, he would be a better fit",Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+21955522132,mrktg@rwhs.org,2024-09-05 19:02:50.121 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+55827955457,,2026-02-10 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,2333.33
+18453610330,christopherjamesoriley@gmail.com,2024-04-05 20:06:34.264 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+23125926035,omer@wisemingle.ai,2024-10-10 14:38:26.165 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,,1116.0
+52836283992,,2026-01-19 00:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13449469875,janeb@thinkfoodgroup.com,2023-05-25 20:53:24.321 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+44096086040,jake@firstloop.ai,2025-09-23 20:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+15254401680,buddy@rathmell.com,2023-09-20 19:21:30.095 Z,closed lost - pre-opp,Lost,Just exploring,using PRO,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+13269401685,rmcfadden@radioamerica.com,2023-05-08 18:50:33.238 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+20192225363,adam@influencerr.tv,2024-06-19 15:47:51.265 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+44796268215,j.kaldma@chiesi.com,2025-09-30 10:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+28577591307,rachel@butwaittheresmoore.com,2024-10-31 20:17:06.257 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+35403046442,matt.depaula@entrata.com,2025-03-20 20:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+58143036857,rebecca.savage@pplprs.co.uk,2026-03-24 11:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Bailey called them,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+38271282348,joshua.l.cohan@abc.com,2025-06-03 18:00:00.000 Z,closed lost - pre-opp,Lost,,Referred by ESPN,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+21783999612,thomas.day@wilmerhale.com,2024-08-28 18:57:45.244 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+52843876410,,2026-01-14 00:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+52242732973,,2025-12-22 00:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+21761268030,peter.hootman@creditkarma.com,2024-08-27 20:57:48.554 Z,closed lost - pre-opp,Lost,,Googling for AI editing,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+59419225927,matanrafic+234@gmail.com,2026-04-23 00:00:00.000 Z,promoted to deal,Won,Need solution within 6 months,Someone they were working with introduced them to Riverside.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,,1500.0
+33584918316,jack.childers@uwex.wisconsin.edu,2025-02-17 15:03:08.868 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+43315410021,mike.roesslein@gmail.com,2025-09-03 10:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+57999990294,lauren.poole@purdiepascoe.com,2026-03-19 15:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,Recommended by another company,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+38518072841,hello@c3ecospace.com,2025-06-16 21:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+15417259303,jesse.loyd@hatch.co,2023-10-02 21:49:47.037 Z,promoted to deal,Won,Need solution within 1 month,Referred from another RS client,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,700.0
+14318507606,ashley.smith@automox.com,2023-07-25 21:19:20.228 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1250.0
+34100596227,info@vicidesignandmarketing.com,2025-02-28 21:21:38.213 Z,follow-up stage,Open,Just exploring,,No discovery captured,Identity re-join required,,,
+34032093080,nconsoli@vficil.org,2025-02-27 19:57:51.282 Z,closed lost - pre-opp,Lost,Need solution within 6 months,Pro,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+13269237291,mo@cultureraisesus.com,2023-05-08 18:22:37.791 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13590365253,sdenneny@csisoftware.com,2023-06-05 19:10:48.760 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+18946452576,qpq6@cdc.gov,2024-04-28 01:35:42.930 Z,closed lost - pre-opp,Lost,Just exploring,NAB,Event / field marketing,Field / Event,,,
+60531431290,james@heat-engineer.com,2026-05-28 09:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,He heard about Riverside from a speaker at an event and also received a marketing email.,Event / field marketing,Field / Event,,,
+31958231934,drew@weareageist.com,2025-01-13 20:11:07.840 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,830.0
+58501429847,colin@humanebusiness.ai,2026-04-02 13:00:00.000 Z,follow-up stage,Open,Just exploring,Cold outreach email from Lauren.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+32298538076,ayal@alliesofskin.com,2025-01-22 07:46:05.198 Z,closed lost - pre-opp,Lost,Just exploring,Referral from Gal Agar,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+35185586447,tiwancarr@yahoo.com,2025-02-25 21:30:00.000 Z,follow-up stage,Open,Just exploring,,No discovery captured,Identity re-join required,,,
+59244605580,bhumika.arora@storyterrace.com,2026-04-21 14:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,They received a cold email from a sales representative.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+13232874367,js@mosaone.com,2023-05-04 17:12:28.006 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+15333929349,timothy.howe@va.gov,2023-09-27 00:25:31.042 Z,closed lost - pre-opp,Lost,Just exploring,Google Search for podcast recording software,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+56994084362,alina.stan@thinkproject.com,2026-02-26 14:30:00.000 Z,meeting booked,Open,,,No discovery captured,Identity re-join required,,,
+55835709196,aj@outboundsalespro.com,2026-01-21 15:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+59234338436,jeremy.debarros@kaerwell.com,2026-04-21 19:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,Referred by partner using Riverside (Search Atlas / Armen).,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+34236757117,krystal@retreatbuilder.com,2025-03-04 22:25:39.555 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+15331971880,kathy@vethgroup.com,2023-09-26 19:25:17.957 Z,closed lost - pre-opp,Lost,Just exploring,using Pro - had business account before,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+60633332055,nikhil.sharda@msmunify.com,2026-05-28 08:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+60633728162,laurette.batstone@ag-emissions.nz,2026-05-27 21:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,They were contacted via an email from Lauren.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+47741985062,,2025-10-29 18:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,3000.0
+60339870599,ebagdades@bonhamandbrook.co.uk,2026-05-21 10:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,She was contacted by Riverside and then recognized the brand after looking into it.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+40572081525,quinn.robyn@rewirenewsgroup.com,2025-07-21 19:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,607.5
+53748302206,sarah@onform.com,2026-01-26 16:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Recommended by someone at their founder's previous company.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+15613666886,amber@sportingedge.com,2023-10-13 15:03:52.770 Z,closed lost - pre-opp,Lost,Just exploring,CEO used RS in a client's podcast,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+51532046402,,2025-12-16 18:45:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+15023616292,,2023-05-22 18:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,600.0
+14997073778,aschindler@americafirstpolicy.com,2023-09-05 16:31:58.158 Z,promoted to deal,Won,Just exploring,Pro user (bot user campaign),Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,747.0
+33992797259,terry@wecomm.co.uk,2025-02-27 17:35:11.735 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+31190736550,lynn@mustangconsultantgroup.com,2024-12-30 15:22:29.259 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13214879345,diogene@erphappy.com,2023-05-03 13:17:09.868 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+53697263936,aenriquez@gemini13media.com,2026-01-14 14:30:00.000 Z,promoted to deal,Won,Need solution within 1 month,NAB - Eric Myers in booth,Event / field marketing,Field / Event,Y,,892.8
+34196527977,adam@legacy515.com,2025-03-03 18:50:12.732 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+45146588251,jason@formuladotai.ai,2025-10-06 14:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Old lead,Re-engagement of past / closed-lost,Inherit prior cycle attribution,,,
+59166413361,jefe@storyhouse.studio,2026-04-29 20:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Met Avi at an event in Austin,Event / field marketing,Field / Event,Y,,675.0
+49642810231,kristen@pavestudios.com,2025-12-01 20:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Previously used Riverside at Spotify and recently heard positive feedback from others,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,1021.0
+35624096631,saprashanth@deloitte.com,2025-04-09 16:30:00.000 Z,closed lost - pre-opp,Lost,,Another team at Deloitte (current business client) recommended Riverside,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+34003641506,andre@streamelements.com,2025-02-27 18:25:10.103 Z,closed lost - pre-opp,Lost,,Linkedin,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+15785999463,anthony@startupgarage.live,2023-10-25 19:12:22.641 Z,closed lost - pre-opp,Lost,Just exploring,Google search podcast recording tools,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+49470229425,andy@themethod.co,2025-11-19 17:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+57849774253,dgr@figaf.com,2026-03-20 08:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+28697949818,andrew.cioppa@wearelucidgroup.com,2024-11-04 13:18:18.817 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+42987775086,jt@activemgmt.com.au,2025-09-04 11:00:00.000 Z,promoted to deal,Won,Just exploring,,No discovery captured,Identity re-join required,Y,Y,450.0
+16473757474,owen.degabriele@europarl.europa.eu,2023-12-12 15:13:23.078 Z,promoted to deal,Won,Need solution within 5 months,Old lead re-engaged,Re-engagement of past / closed-lost,Inherit prior cycle attribution,Y,,3000.0
+38523502961,adi.talbi@xtra-mile.co,2025-06-10 10:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+17105254657,thomas@cience.com,2024-01-22 20:39:46.234 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+28589933058,kevindean@salemsandiego.com,2024-11-01 03:02:08.486 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+46902726040,iansells@gmail.com,2025-10-24 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,597.5
+35406640215,or.z@optimaxeyewear.com,2025-03-31 00:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+39824763187,yael@tulu.io,2025-07-10 13:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+58244735488,carlotta.costanzo@thisisgain.com,2026-03-11 16:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,He heard about it from colleague Omer.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+33450487898,dkeumurian@everydayhealthgroup.com,2025-02-13 17:09:20.732 Z,closed lost - pre-opp,Lost,,Colleagues are currently using Pro and recommended Riverside,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+58867629875,tom@duvo.ai,2026-04-08 14:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+31943894894,jessica@nuosformation.com,2025-01-13 17:27:26.402 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13232968505,caroline.gardner-williams@mlp.com,2023-05-04 17:28:30.002 Z,promoted to deal,Won,Need solution within 5 months,,No discovery captured,Identity re-join required,Y,,3000.0
+57837840914,,2026-02-12 21:00:00.000 Z,promoted to deal,Won,,Used Riverside previously through a vendor for podcast recording,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,6750.0
+56305255276,angie@wellingscapital.com,2026-02-19 19:00:00.000 Z,follow-up stage,Open,Just exploring,They received an email.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+60024176221,cjohnson@experiorfinancial.ca,2026-05-14 19:00:00.000 Z,intro completed,Open,,,No discovery captured,Identity re-join required,,,
+19269608039,asher.westropp@gmail.com,2024-05-10 13:56:47.168 Z,closed lost - pre-opp,Lost,Need solution within 2 months,I did volunteering with the org and told them about Riverside,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+41604975679,stephen@winniecap.com,2025-11-04 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1116.0
+33717011015,partha@pgadvisors.com,2025-02-20 09:19:58.441 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+56562968129,joshua.mantle@gardnersystems.co.uk,2026-02-17 10:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Spoke with a colleague previously and the podcast studio they use works with Riverside.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+32244579741,yannick@arc.studio,2025-01-20 12:27:23.421 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+57058417463,brian@anonymousgrizzly.com,2026-02-13 20:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+36747129193,daniel.storm@newfrontiers.io,2025-05-02 15:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+14377873536,teena.afsar@trueplatform.com,2023-07-28 17:03:17.132 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+22867007608,nicole@hunterambrose.com,2024-10-02 17:51:15.758 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+34353085959,eileen@generalaudittool.com,2025-03-07 14:21:45.115 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+34788112534,gareth@influence.digital,2025-03-18 17:33:10.203 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,607.5
+13785778569,ryan.eslinger@feedzai.com,2023-06-19 23:57:51.858 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+42975164475,riley@yeanetworks.com,2025-08-28 19:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1004.4
+17748126516,apam@ramboll.com,2024-02-27 08:14:06.472 Z,closed lost - pre-opp,Lost,Just exploring,Outbound,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+16117105042,kathy.rainey@riskandresiliencehub.com,2023-11-18 18:17:50.708 Z,closed lost - pre-opp,Lost,Just exploring,Googled alternatives to Zoom,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+34200024723,tracy.harelson@verano.org,2025-03-03 21:18:58.334 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+13833375368,robert.ciolino@voiceamerica.com,2023-06-23 16:34:38.188 Z,closed lost - pre-opp,Lost,Just exploring,in industry,Captured but uninformative,Sales-Direct / Unknown,,,
+14214791451,brandon.sears@studiorx.com,2023-07-18 18:31:12.739 Z,closed lost - pre-opp,Lost,Need solution within 5 months,,No discovery captured,Identity re-join required,,,
+49220835955,noamz@irac.org,2025-11-18 08:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+18917229331,celeste@childrenandscreens.org,2024-04-26 14:32:58.799 Z,promoted to deal,Won,Just exploring,Old deal that resurfaced,Re-engagement of past / closed-lost,Inherit prior cycle attribution,Y,Y,400.0
+28783716223,c.bubeck@goldrevolution.com,2024-11-06 15:14:59.040 Z,promoted to deal,Won,Need solution within 1 month,"Pro user, big youtube channel",Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,450.0
+15136839937,merrin@riverside.fm,2023-09-13 14:25:53.831 Z,promoted to deal,Won,Need solution within 3 months,Through the Strike Force 5 podcast using Spotify's account,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,2937.5
+37119620160,andrew.tiffney@find.co,2025-05-01 13:30:00.000 Z,promoted to deal,Won,Need solution within 1 month,Samuel used us at Real Vision,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,1021.0
+43127886721,gneft@keystone.cpa,2025-08-25 17:15:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+51117094761,nircoh@checkpoint.com,2025-11-19 12:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13437449135,william.sanchez@fox.com,2023-05-24 19:14:13.357 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+32132762376,donavan@qanda.la,2025-01-17 07:04:45.853 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+21823482136,kate.mougey@antares.com,2024-08-30 19:25:00.953 Z,promoted to deal,Won,Need solution within 2 months,producer recommended RS to them,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,,2000.0
+40609930928,rebecca.portela@centroid.com,2025-07-21 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Online,Digital inbound (MQL join failed),Inbound - re-join to campaign,Y,Y,1004.4
+21950657862,jonathan.patton@evercore.com,2024-09-05 14:55:22.045 Z,follow-up stage,Open,,investor referral,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+20857518773,seva@yedatech.io,2024-07-19 12:14:19.502 Z,closed lost - pre-opp,Lost,Need solution within 1 month,Recommended from RS employee,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+21779371677,admin@reentryplus.net,2024-08-28 15:43:13.824 Z,promoted to deal,Won,Need solution within 1 month,A producer he was evaluating as production support referred RS. Ended up going with Studio Plus & POD with no need for hiring contracted producer,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,550.0
+47278727091,,2025-10-27 20:30:00.000 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+13956498758,darryl.cross@nortonrosefulbright.com,2023-07-03 15:54:17.859 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+32252866388,lotsofmemory@gmail.com,2025-01-20 17:07:31.491 Z,closed lost - pre-opp,Lost,Need solution within 1 month,ads,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+35422206646,tiffanyl@laivideo.com,2025-03-28 14:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+31641543688,benjamin@firmisrael.org,2025-01-07 12:07:11.058 Z,closed lost - pre-opp,Lost,Just exploring,Referral from gong,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+13692039997,seth@storyon.co,2023-06-13 16:13:21.694 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+57913645886,christoffer@kollerundkader.com,2026-03-13 17:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+59984204461,agiridharadas@usispf.org,2026-05-07 15:00:00.000 Z,follow-up stage,Open,Just exploring,,No discovery captured,Identity re-join required,,,
+58555421474,hahmad@lucidea.com,2026-03-31 00:00:00.000 Z,follow-up stage,Open,Just exploring,Got a call from Charles.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+21090453318,tburke@napo.org.uk,2024-07-31 13:55:04.216 Z,closed lost - pre-opp,Lost,Need solution within 6 months,Youtube ad and LinkedIn ads when searching for podcasting tools,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+13525045764,jeremy.robson@erm.com,2023-05-31 16:05:17.023 Z,closed lost - pre-opp,Lost,Need solution within 5 months,,No discovery captured,Identity re-join required,,,
+38771717777,,2025-06-11 15:30:00.000 Z,promoted to deal,Won,Need solution within 1 month,Pro looking for more hours,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,450.0
+60016740148,zioncarlin2@gmail.com,2026-05-08 20:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,He said he got the outbound email and became interested.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+34235161409,douglass_mclean@hms.harvard.edu,2025-03-04 20:40:09.584 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+59145570877,oliver.sasse@indical.com,2026-04-20 12:00:00.000 Z,follow-up stage,Open,Just exploring,swzd,Captured but uninformative,Sales-Direct / Unknown,,,
+32669999177,bryan@gtmpartners.com,2025-01-28 16:50:17.731 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+23145734978,kathleen_mccarron@comcast.com,2024-10-10 20:58:04.195 Z,promoted to deal,Won,,Internally heard of us through other team using us (Julie),Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,1500.0
+29884314541,julia.main@praytellagency.com,2024-12-06 00:29:17.279 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+53663724667,eitang@sasa-software.com,2026-01-19 15:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+20174078624,jonathon_alcock@hotmail.com,2024-06-18 19:08:18.282 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+21783979695,gus@alumnimedia.com,2024-08-28 18:24:26.066 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,1375.0
+13230901580,rantonios@deloitte.com,2023-05-04 14:08:54.401 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+57559994421,btsopcaleb@gmail.com,2026-03-04 19:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,Has been using the Pro Plan for a few months,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+59138673973,akanksha@kanopicover.com,2026-04-17 06:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Already using Riverside Pro,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+57019941029,nicki@clasp.com,2026-03-05 19:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,Got a cold email.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+22176256323,eric@fluffywhitedog.com,2024-09-11 20:41:49.219 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,825.0
+46016916258,courtney.link@starshot.com,2025-10-15 14:45:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,500.0
+59145907098,dan@shift-ology.com,2026-04-15 15:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+57019395075,kortney.morningstar@enterprisesage.com,2026-02-25 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Reached out via LinkedIn message,Outbound mis-sourced as inbound,Outbound (reclassify),Y,,450.0
+19415390524,stephen@joinmodernhealth.com,2024-05-16 18:54:19.368 Z,closed lost - pre-opp,Lost,Just exploring,Had a previous producer who uses RS pro plan make recommendation and made intro with me for demo,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+34079095841,wbrawley@schedulefly.com,2025-02-28 16:47:10.235 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+13268628060,kmcnulty@royalcollege.ca,2023-05-08 16:17:55.063 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+20634831791,cody@prospergroupcorp.com,2024-07-09 17:48:06.249 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,500.0
+22950059189,aly.mcgue@databricks.com,2024-09-18 23:34:45.303 Z,closed lost - pre-opp,Lost,,CSMQL,Customer Success sourced,Customer Success,Y,,2000.0
+13313936277,scott@superfresh.media,2023-05-12 13:36:38.449 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+36065518514,madeline@wondermedianetwork.com,2025-04-22 15:17:06.548 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,607.5
+51433615944,amisha.patel@lipogems.us.com,2025-12-09 14:00:00.000 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,,675.0
+18873129268,kellee@energyx.com,2024-04-24 16:41:04.756 Z,closed lost - pre-opp,Lost,Just exploring,Currently testing with Individual plan,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+35412762267,michael@freedomframework.co,2025-03-24 19:00:00.000 Z,follow-up stage,Open,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+52368027027,,2025-12-24 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,referral from existing customer - Fondazione Bene Comune/Galt Media,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,450.0
+32112462185,james.tadeo@wochurch.org,2025-01-16 21:43:14.059 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,830.0
+20681059460,hadar.cohavi@naturalint.com,2024-07-11 14:06:04.920 Z,follow-up stage,Open,Need solution within 1 month,Champion is dating a Riverside team member who introduced as solution for recording high quality video,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+56531593526,karine.tollari@policyinpractice.co.uk,2026-02-12 10:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Aurelie heard about Riverside but did not specify the channel,Captured but uninformative,Sales-Direct / Unknown,,,
+34788630177,katherine.doyle@blackstone.com,2025-03-18 18:46:49.004 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+14576297072,justin@next-movement.com,2023-08-11 17:54:19.521 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,500.0
+35415101216,,2025-03-28 18:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+36613250607,,2025-05-08 15:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Grok3,AI / LLM-sourced,AI Search / LLM,,,
+33031100804,victor.monga@vtfuniversity.com,2025-02-04 23:00:48.454 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,607.5
+56998621029,lslade-carter@geoffreyleaver.com,2026-03-03 10:00:00.000 Z,follow-up stage,Open,Just exploring,Approached by your firm,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+34752526178,jstewart@slanted.design,2025-03-18 03:18:20.566 Z,promoted to deal,Won,Need solution within 1 month,Need to ask more thoroughly on this one,Captured but uninformative,Sales-Direct / Unknown,Y,Y,675.0
+44748830301,dvir.reznik@c2a-sec.com,2025-10-05 08:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+54068852328,luke.mickelson@shpbeds.org,2026-01-13 19:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Guest on podcasts using Riverside and saw ChatGPT recommendation,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,450.0
+38527549253,carly.baker@q2.com,2025-06-09 13:30:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+31963480088,info@212degrees.agency,2025-01-14 11:52:25.660 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+22133943722,jocelyn.gonzales@prx.org,2024-09-11 00:34:09.846 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1116.0
+35126547527,andrea@teamohai.ai,2025-03-27 18:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+56997253904,kitty@workbrew.com,2026-03-03 16:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+57018166640,thomas@3ngage.se,2026-03-03 08:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+33862762528,david@djcoleman.co.uk,2025-02-23 13:20:31.524 Z,promoted to deal,Won,Need solution within 1 month,A friend,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,,
+56993319270,rutvik@ezeebiz.com,2026-02-23 08:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+17217037083,alex.moeller@bettercoach.io,2024-01-29 16:46:11.425 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Unsure,Captured but uninformative,Sales-Direct / Unknown,,,
+60450428030,joe@chckvet.com,2026-05-27 17:00:00.000 Z,follow-up stage,Open,Just exploring,Lauren saw him do a webinar and reached out.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+39274921817,gal.bartov@wsc-sports.com,2025-07-03 13:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+39814734696,alex.hurtado@anvilogic.com,2025-07-29 18:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,747.0
+17394917513,kelly@redbird.love,2024-02-06 18:03:14.012 Z,closed lost - pre-opp,Lost,Just exploring,Pro user,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+60404049587,ran.nimri@catonetworks.com,2026-05-25 08:00:00.000 Z,follow-up stage,Open,Just exploring,,No discovery captured,Identity re-join required,,,
+13280500340,janine@keyringmedia.com,2023-05-09 18:56:56.490 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+15691019827,voorzitter@reumazorgnederland.nl,2023-10-18 18:59:00.932 Z,promoted to deal,Won,Need solution within 1 month,Was looking for something else than zoom and heard about RS through word of mouth,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,400.0
+14363137668,braydon@intempio.us,2023-07-27 18:15:08.312 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+57150786228,inicholls@namossolutions.com,2026-03-02 15:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+43878305642,john@changingthegameproject.com,2025-10-09 18:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+59327975294,operations@kuyi.net,2026-05-14 17:00:00.000 Z,promoted to deal,Won,Need solution within 2 months,Heard from former general manager’s husband and met Riverside team at NAB.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,,450.0
+56259904669,john.makely@prudential.com,2026-01-15 19:00:00.000 Z,promoted to deal,Won,,"John Makely brought Riverside into NBC Universal, and now wants to bring us onboard to Prudential.",Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,,4250.0
+46712617599,karen@usemonocle.com,2025-10-30 12:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+33415156551,info@houseofbuzzmarketing.com,2025-02-12 17:33:18.336 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,607.5
+13234941109,denny@dennycorby.com,2023-05-04 19:22:29.609 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+45961114674,shenyana.lim@triptease.com,2025-10-22 14:00:00.000 Z,promoted to deal,Won,Need solution within 6 months,,No discovery captured,Identity re-join required,Y,,1416.0
+15170261010,drshelleymarketing@gmail.com,2023-09-15 15:39:01.473 Z,closed lost - pre-opp,Lost,Just exploring,Google,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+30083483695,sayemreza@kpmg.ca,2024-12-09 21:24:34.624 Z,promoted to deal,Won,,procurement told them we have an MSA,Re-engagement of past / closed-lost,Inherit prior cycle attribution,Y,Y,3916.67
+60655951255,callum.brankley@tqa.ai,2026-05-29 10:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+30140040105,fiona@satori-productions.co.uk,2024-12-11 12:12:46.649 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+50581063286,kdaniels@slas.org,2025-12-08 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1004.4
+13368523376,csorensen@infretailers.com,2023-05-17 18:11:01.479 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+60168403821,kyle.cooper@asbuilt3d.com,2026-05-07 15:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+34339463293,robert.burns@hover.to,2025-03-07 04:22:41.731 Z,follow-up stage,Open,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+13359539520,kasper@fibery.io,2023-05-16 20:52:33.639 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,,747.0
+21617652625,chris.bernst@voices.com,2024-08-21 20:32:47.620 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,6666.67
+14007687687,darice.corey@yale.edu,2023-07-07 14:11:35.567 Z,closed lost - pre-opp,Lost,Need solution within 5 months,,No discovery captured,Identity re-join required,,,
+54319561032,lena@chairsyde.com,2026-02-02 16:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+56552053547,jharrison@teamcjm.co.uk,2026-02-12 13:30:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+34030445958,justin@next-movement.com,2025-02-28 05:23:08.359 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+59364482377,victor.lopez@activision.com,2026-04-20 17:00:00.000 Z,promoted to deal,Won,,Used Riverside previously at another company,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,4250.0
+13302101326,jim@theunnoticed.cc,2023-05-11 11:04:37.675 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+57996121623,dieter.brandt@brandtpartners.com,2026-03-27 14:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+47474168366,uri@proteantecs.com,2025-10-30 18:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13354881196,eamon@makematic.com,2023-05-16 14:38:54.389 Z,promoted to deal,Won,Need solution within 6 months,,No discovery captured,Identity re-join required,Y,Y,747.0
+60691934310,cat@healthyseminars.com,2026-06-02 17:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+17583912808,scott@yotehouse.com,2024-02-16 20:23:51.838 Z,promoted to deal,Won,Need solution within 1 month,Previous Riverside for business user,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,807.0
+43660559990,julie.thomas@fingerpaint.com,2025-09-12 00:00:00.000 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,,3000.0
+59984198267,paula@jdsupra.com,2026-05-04 21:00:00.000 Z,follow-up stage,Open,Just exploring,Reached out by BD team (Sofia or Lauren).,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+17393318775,access@p23labs.com,2024-02-06 17:08:50.931 Z,closed lost - pre-opp,Lost,Need solution within 6 months,using pro,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+34201819924,alisa@alacartecreativegroup.com,2025-03-03 15:38:39.500 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+54215494146,s.dimattia@famedly.com,2026-02-09 10:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+57000800011,jenna@bettear.com,2026-02-23 09:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+45422590822,seid.odobasic@workspace365.net,2025-10-14 12:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+18803582280,hacker3@llnl.gov,2024-04-21 19:58:08.846 Z,closed lost - pre-opp,Lost,Just exploring,NAB,Event / field marketing,Field / Event,,,
+20783289194,pgorenstein@jefferies.com,2024-07-15 19:27:36.821 Z,closed lost - pre-opp,Lost,,Investor introduction,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+17001674675,joe.petruccio@pxpstudios.com,2024-01-17 18:25:24.970 Z,follow-up stage,Open,Need solution within 1 month,Spoke to them last year already,Re-engagement of past / closed-lost,Inherit prior cycle attribution,,,
+57952782654,rupert@nexxt.us,2026-03-13 13:30:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+16298965167,carolinec@compassionuk.org,2023-11-30 10:37:45.390 Z,closed lost - pre-opp,Lost,Need solution within 6 months,Unsure,Captured but uninformative,Sales-Direct / Unknown,,,
+50681100107,info@gatescambridge.org,2025-12-04 09:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+30474719123,ryan@proshop.inc,2024-12-16 15:30:24.359 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1833.33
+30165346063,amartino@filmnation.com,2024-12-11 16:54:03.618 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+56470750275,damianreed@qualitysolicitors.com,2026-02-24 10:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Follow-up from one of your colleagues who called me.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+13196431949,sarah.crowther@luxidgroup.com,2023-05-01 16:15:44.254 Z,closed lost - pre-opp,Lost,Need solution within 2 months,google,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+59273218698,bryan@dealdesk360.com,2026-04-17 19:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+14076164677,louis.green@ubs.com,2023-07-12 13:40:38.916 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+31749170558,matt.novello@flxnetworks.com,2025-01-09 20:52:43.384 Z,promoted to deal,Won,Need solution within 2 months,Pro user for a long time,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,675.0
+59766866509,shana@domainmoney.com,2026-04-29 19:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+58694658465,christopher@ballislife.com,2026-04-02 20:30:00.000 Z,promoted to deal,Won,Just exploring,,No discovery captured,Identity re-join required,Y,,607.5
+28935204024,katja.walluks-gueltzow@spiegel.de,2024-11-11 16:39:53.970 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,Y,2550.0
+57563284051,laura.haynes@elephantsdontforget.com,2026-03-09 15:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 6 months,Received a cold call,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+34889356893,alex.mannion-jones@mif.co.uk,2025-03-20 17:12:42.070 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+60633062679,elizabeth@foodmarkies.com.au,2026-05-27 05:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+32295534943,rykramer@deloitte.com,2025-01-22 07:16:47.131 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,3000.0
+59333863255,luke.boesch@hesperiausd.org,2026-04-28 18:30:00.000 Z,follow-up stage,Open,Need solution within 6 months,Visited Riverside booth at NAB; assistant director already uses the platform.,Event / field marketing,Field / Event,,,
+13268430668,socials@zzx.digital,2023-05-08 18:48:06.816 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+15023704700,kimmie@tenpercent.com,2023-06-04 18:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,400.0
+38233788831,,2025-05-19 18:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,450.0
+13490519885,mitchell@otpotential.com,2023-05-29 16:28:35.518 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+16136659870,oliver@track5media.com,2023-11-20 16:03:18.873 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Google,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+58560347016,,2026-04-01 19:00:00.000 Z,meeting booked,Open,,,No discovery captured,Identity re-join required,,,
+57858435934,mcollins@divcom.com,2026-03-10 14:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+21227044156,barak.friedman@yotpo.com,2024-08-08 14:07:55.344 Z,closed lost - pre-opp,Lost,Just exploring,Gal introduced us as he used to work there,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+43896884017,clara@wtfmediastudios.com,2025-09-18 00:00:00.000 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,,675.0
+44046675829,janny@grovevc.com,2025-09-25 08:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+60159874087,amiller@climategroup.org,2026-04-17 10:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+35412608021,kai.hensel@helios-gesundheit.de,2025-04-02 13:30:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+19565624418,alex@expediteall.com,2024-05-23 15:56:46.144 Z,closed lost - pre-opp,Lost,Just exploring,Pro users for a long time,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+29776050512,cynthia@influent.co,2024-12-03 12:42:41.851 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+32679589460,kristina.mjomark@trinitycollege.com,2025-01-29 00:36:00.573 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+46784350729,alex.king@cestriancapital.com,2025-10-24 19:00:00.000 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,,830.0
+18680675676,kristina.knut@supermetrics.com,2024-04-16 18:06:13.103 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Pro users that need Legal/security changes,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+43389498676,hello@podbyron.com,2025-09-08 20:30:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+44970373958,jon@combridges.com,2025-09-30 19:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13707212968,recker@igel.com,2023-06-14 14:02:14.676 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+60055469123,vince@meltatl.com,2026-05-06 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,1154.7
+58647551532,sean@aahoa.com,2026-04-20 17:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Familiar with Riverside through colleagues who used it in the past,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,,707.5
+56274806928,dzarras@clearfactr.com,2026-02-18 15:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+57022639935,jen.atherley@datahub.com,2026-02-13 19:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Recommended by Alexis Ohanian,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+41333351460,jakemez@gmail.com,2025-08-04 17:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+45351896852,kveevers@cpaontario.ca,2025-10-09 15:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+58368647577,idanl@365scores.com,2026-03-31 12:30:00.000 Z,promoted to deal,Won,Just exploring,,No discovery captured,Identity re-join required,Y,,3000.0
+35062123301,vivek.gururani@dynamicssquare.com,2025-03-25 22:09:01.952 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+15314544974,scott@skperform.com,2023-09-25 16:08:47.805 Z,closed lost - pre-opp,Lost,Just exploring,using Pro account,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+13314179118,christina@filmup.co,2023-05-12 14:36:07.047 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+29568181849,anthony.cistaro@assetmark.com,2024-11-26 19:37:15.033 Z,closed lost - pre-opp,Lost,Need solution within 6 months,,No discovery captured,Identity re-join required,,,
+16810182769,rodgclar@amazon.com,2024-01-04 21:18:15.077 Z,closed lost - pre-opp,Lost,Just exploring,Did a lot of internet research and found Riverside.,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+49541282376,andy@themethod.co,2025-11-19 17:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13390707471,trevor@clearcreekdigital.com,2023-05-19 18:32:59.520 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,450.0
+18803218476,vince.lavares@nike.com,2024-04-21 19:01:52.363 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+18805032515,anderso@google.com,2024-04-21 19:55:58.807 Z,closed lost - pre-opp,Lost,Just exploring,NAB,Event / field marketing,Field / Event,,,
+21076733523,banban@ted.com,2024-07-30 21:29:45.409 Z,closed lost - pre-opp,Lost,,churned account that switched to PRO,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+34722381925,asaf.shevach@lusha.com,2025-03-17 07:53:49.710 Z,closed lost - pre-opp,Lost,Need solution within 1 month,google,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+38674837347,drjockers@drjockers.com,2025-06-09 18:30:00.000 Z,promoted to deal,Won,Need solution within 1 month,Referral from existing customer,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,450.0
+13617160211,jessi@venusneptunestudios.com,2023-06-07 15:38:22.682 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13601327001,john@futcoaching.com,2023-06-06 12:34:29.607 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+31637657489,liam@theaireport.ai,2025-01-07 17:46:50.090 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,607.5
+60162505239,nathan.szierer@cusaonline.ca,2026-05-12 16:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Outreach - Charles Green,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+59139993263,rweizbauer@carnegiescience.edu,2026-04-20 17:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+56930016848,oliver@fundsurfer.com,2026-02-19 12:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+20784203159,,2024-07-15 20:08:32.703 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+17168563755,charlie.battye@wbd.com,2024-01-26 11:22:58.260 Z,promoted to deal,Won,Need solution within 1 month,"Use us on pro plan, needed security",Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,830.0
+45926593082,jason.kaye@lansingschools.net,2025-10-21 19:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+57022460975,ghgirard@atlasinstitute.ca,2026-01-29 15:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,They previously used Riverside for podcast recording.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+34336654003,savi@greatx.com,2025-03-07 04:08:21.891 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+59367018789,ftorrendell@getfrontline.ai,2026-04-22 19:00:00.000 Z,follow-up stage,Open,Need solution within 2 months,They received an outbound email from Lauren Mitchell referencing their Luma webinar.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+15904990042,stephanie@stephaniesomatics.com,2023-11-03 06:00:56.845 Z,closed lost - pre-opp,Lost,Need solution within 1 month,Recently a guest on podcast hosted in Riverside,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+33652025472,james.skelly@lexisnexisrisk.com,2025-02-18 18:57:06.969 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13340590723,sam@bestevercre.com,2023-05-15 17:07:34.035 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,Y,500.0
+31927932838,,2025-01-13 15:26:12.016 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+16450849930,jeremy.cooley@colibrigroup.com,2023-12-11 16:19:10.569 Z,promoted to deal,Won,Need solution within 1 month,"used our business plan in the past, churned and now is back",Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,1116.0
+13512325662,benjamin.c.schellpfeffer@abc.com,2023-05-30 20:51:48.314 Z,promoted to deal,Won,Just exploring,,No discovery captured,Identity re-join required,Y,,2000.0
+43896156680,awital@tamidgroup.org,2025-09-29 11:15:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+13340542852,mbrown@blocksentry.co,2023-05-15 16:42:03.576 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+39807952811,liron@getneema.com,2025-07-08 12:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+28454888230,jerom.galema@nomobo.tv,2024-10-29 09:21:33.413 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,,830.0
+15023743795,mike@joepolish.com,2023-06-07 18:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,550.0
+30669222834,,2024-12-17 22:56:14.011 Z,promoted to deal,Won,Need solution within 1 month,referral,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,675.0
+46631002800,joseph@gosarconsulting.com,2025-10-23 21:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+18945984904,erlewis@nea.org,2024-04-28 01:26:45.584 Z,closed lost - pre-opp,Lost,,"NAB, had a sales cycle with Noah",Event / field marketing,Field / Event,,,
+22179069068,ethan.evans@bidwells.co.uk,2024-09-12 12:43:09.010 Z,closed lost - pre-opp,Lost,Just exploring,Heard from a colleague,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+53855868578,mcsilfer@zensai.com,2026-01-16 15:30:00.000 Z,follow-up stage,Open,Need solution within 1 month,They previously used Riverside for podcasting and short customer interviews,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+58222408729,jroventine@intellisurvey.com,2026-03-26 15:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,Responded to cold outreach from Lauren about webinars.,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+58552097948,amiller@theclimategroup.org,2026-04-17 10:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+59835651652,michael@ftbcoaching.com,2026-05-04 16:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+19100869735,admin@enercalc.com,2024-05-03 20:20:01.432 Z,closed lost - pre-opp,Lost,Need solution within 1 month,google,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+16455052553,events.comms@novenachurch.com,2023-12-11 20:26:22.516 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Referral - word of mouth,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+57958210350,jfishman@digitalnicheagency.com,2026-03-16 20:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,They used Riverside previously for their podcast.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+39938240815,keren.b@guardiosecurity.com,2025-07-20 10:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+39875264647,agiffin@paretosystems.com,2025-07-09 15:00:00.000 Z,promoted to deal,Won,Just exploring,,No discovery captured,Identity re-join required,Y,,607.5
+35318255997,michelle.chiera@guesty.com,2025-07-23 11:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,Outbound on linkedin,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+43657825162,zach@zachre.com,2025-09-12 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Pro,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,450.0
+59803835212,yash.bhargava@dezerv.in,2026-04-09 12:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+59765625496,sajag@asiaone.co.in,2026-04-29 05:30:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+57053037711,p.malhotra@rogii.com,2026-02-27 17:00:00.000 Z,promoted to deal,Won,Just exploring,,No discovery captured,Identity re-join required,Y,,1283.0
+22811564443,bhawna@dimeintime.com,2024-09-30 17:08:44.429 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,450.0
+43331932276,sambardsley@avalanche-enterprise.com,2025-09-04 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,
+15156046110,stephenb@normakamali.com,2023-09-14 17:40:31.994 Z,closed lost - pre-opp,Lost,Just exploring,host of podcast was a guest on a podcast that used RS,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+47493119768,podcast@productiondesignerscollective.org,2025-10-29 15:00:00.000 Z,follow-up stage,Open,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+57726057110,bmorvant@cancercare.org,2026-03-23 18:00:00.000 Z,follow-up stage,Open,Need solution within 6 months,They have been using Riverside self‑serve for their podcast prior to this call.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+15023560262,adam@sicurobrands.com,2023-08-21 18:30:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,Y,500.0
+34292130152,nick.liao@conacotv.com,2025-03-05 20:39:00.150 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13305973329,vada@tribeinc.com,2023-05-11 18:42:38.382 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+20551171596,julian.boudier@insead.edu,2024-07-05 12:47:23.792 Z,follow-up stage,Open,Just exploring,"We had spoken to them in the past, heard it from his colleagues",Re-engagement of past / closed-lost,Inherit prior cycle attribution,,,
+22142250859,mann@poesie.media,2024-09-11 09:02:24.732 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+35057929861,content@kitchenhomeandbath.com,2025-03-25 22:11:43.648 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+14999753827,loriann.watson@leanstartup.co,2023-09-05 19:04:36.370 Z,closed lost - pre-opp,Lost,Need solution within 1 month,Referred by colleagues,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+60310736516,mhudson@careco.co.uk,2026-05-18 09:00:00.000 Z,meeting booked,Open,,,No discovery captured,Identity re-join required,,,
+13371693638,edwin.warfield@citybizlist.com,2023-05-17 23:01:08.100 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+20861257106,seva@yedatech.io,2024-07-19 16:45:03.677 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+43207743028,damien@academytravel.com.au,2025-09-03 11:15:00.000 Z,promoted to deal,Won,Need solution within 2 months,,No discovery captured,Identity re-join required,Y,,1021.0
+35303731619,nashemy@marketingconcierge.org,2025-03-27 13:15:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+19563264550,michael@foodogproductions.com,2024-05-23 14:10:05.947 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,,607.5
+59393729053,edward@shade.inc,2026-04-27 15:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Been a fan of Riverside for a while and used it off and on for years.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,573.75
+52813154146,hobae@cubig.ai,2025-12-30 14:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+60713319546,cynthia@edventures.com,2026-06-01 17:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+16611324974,leah@broadstairsconsulting.com,2023-12-20 22:49:33.745 Z,closed lost - pre-opp,Lost,Need solution within 1 month,guest on podcasts,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+60244601237,natalia@2stallions.com,2026-05-18 07:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+35409397136,todd@toddwestra.com,2025-04-01 16:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+40365936656,stacin12@gmail.com,2025-07-16 15:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Using Pro and needs her co-host to have access as an editor,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,450.0
+58998944848,sbaum@medcitynews.com,2026-04-09 18:00:00.000 Z,follow-up stage,Open,Just exploring,They were reached out to by the rep,Outbound mis-sourced as inbound,Outbound (reclassify),,,
+41184723362,xosialxmedia@gmail.com,2025-07-29 17:00:00.000 Z,promoted to deal,Won,Need solution within 2 months,Used Riverside in the past,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,607.5
+22073794652,juliensanchez.pro@gmail.com,2024-09-09 14:34:52.092 Z,closed lost - pre-opp,Lost,Need solution within 2 months,Researching Podcast softwares,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+16876925994,nils.sundsteigen@mediability.com,2024-01-10 08:23:06.369 Z,follow-up stage,Open,Need solution within 6 months,Past connection from Gil (parnership),Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+55724598646,,2026-02-06 20:00:00.000 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,4250.0
+53771640946,ganesh.parkar@exhibetter.com,2026-01-15 19:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+33900038950,amatrai@equinix.com,2025-02-24 19:36:18.797 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13305258825,ellen.anderson@thomsonreuters.com,2023-05-11 17:54:43.184 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+30914793046,michael.lollo113@gmail.com,2024-12-23 20:53:07.375 Z,promoted to deal,Won,Need solution within 1 month,Already A user with National Kidney Registry,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,450.0
+33330692950,logan@businessbldrs.com,2025-02-11 19:16:42.674 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+60530669063,kasia@pne-uk.com,2026-05-29 09:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+34077711474,jbolter@netflixcontractors.com,2025-02-28 18:31:02.884 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+13507536034,brianairgood@boomi.com,2023-05-30 17:20:02.334 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+32254574494,jason@greydogcreative.com,2025-01-20 20:38:02.316 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+30732825633,kelsey@deafkidsconnect.com,2024-12-19 13:23:12.130 Z,closed lost - pre-opp,Lost,Just exploring,Online,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+14993483444,itay.dankner@keshet-tv.com,2023-09-05 09:05:32.459 Z,promoted to deal,Won,Need solution within 1 month,Referral from kastner.rachel@gmail.com back in January 23,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,882.0
+21838161452,prathistha.jain@wadhwanifoundation.org,2024-08-31 15:05:29.810 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,700.0
+13245127771,marketing@aligntoday.com,2023-05-05 19:24:32.865 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+28529688162,sborden@linkedin.com,2024-10-30 15:56:09.865 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+54353642865,jp@belmontusa.com,2026-01-22 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,Referral from video producer,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,Y,450.0
+59776081212,daniel@importgenius.com,2026-04-28 14:00:00.000 Z,follow-up stage,Open,Just exploring,"Somebody reached out, possibly Lauren.",Outbound mis-sourced as inbound,Outbound (reclassify),,,
+38929130600,andi@twosoupsmedia.com,2025-06-17 16:30:00.000 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+15327597127,guidoklose@satis-fy.com,2023-09-26 14:39:50.594 Z,promoted to deal,Won,Need solution within 6 months,industry talk / google search,Digital inbound (MQL join failed),Inbound - re-join to campaign,Y,,747.0
+16774459537,ksfox27@mac.com,2024-01-02 20:54:22.244 Z,closed lost - pre-opp,Lost,Just exploring,Producer uses RS,Referral / word-of-mouth / dark social,Referral / Word of Mouth,,,
+18803260174,greg.whisenhunt@vt.edu,2024-04-21 19:32:29.446 Z,closed lost - pre-opp,Lost,,NAB,Event / field marketing,Field / Event,,,
+14127166472,lfredkin@telecarecorp.com,2023-07-13 23:41:32.331 Z,closed lost - pre-opp,Lost,Need solution within 2 months,,No discovery captured,Identity re-join required,,,
+13490864235,scott@scottmasonllc.com,2023-05-29 17:52:47.983 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+35312128265,tomer.werechson@pentera.io,2025-04-01 08:30:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+21613896455,jermaine.j.barnwell@rrd.com,2024-08-21 15:22:33.206 Z,promoted to deal,Won,Need solution within 1 month,They previously used Riverside on the Pro plan.,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,Y,3022.5
+35896594804,john.sandham@sac.on.ca,2025-04-18 13:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+58553134337,megan@mn2s.com,2026-04-09 14:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+28311447345,dan.hussain@saffery.com,2024-10-23 18:32:00.480 Z,promoted to deal,Won,Just exploring,Tried the pro plan,Existing/self-serve product user (PLG),Product-Led / Self-Serve,Y,,3000.0
+14270676562,carlin.fisher@scoopnewsgroup.com,2023-07-21 21:16:26.932 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+58705554527,croger@safetychain.com,2026-04-02 17:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,They were recommended Riverside by a marketing group.,Referral / word-of-mouth / dark social,Referral / Word of Mouth,Y,,1283.0
+58686439457,brett.house@highsignals.com,2026-04-02 00:00:00.000 Z,promoted to deal,Won,Need solution within 1 month,"Previous business client at old org, made a new company",Re-engagement of past / closed-lost,Inherit prior cycle attribution,Y,Y,450.0
+34202318168,emassa@riverwaytitle.com,2025-03-03 19:28:14.245 Z,closed lost - pre-opp,Lost,Just exploring,Online,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+43394365326,daniel@hirschaufloewe.de,2025-09-03 11:30:00.000 Z,closed lost - pre-opp,Lost,Just exploring,,No discovery captured,Identity re-join required,,,
+18539473809,robert@lawpods.com,2024-04-09 21:45:57.707 Z,closed lost - pre-opp,Lost,Just exploring,pro user,Existing/self-serve product user (PLG),Product-Led / Self-Serve,,,
+52734399131,cnnake@collegeboard.org,2026-01-05 21:00:00.000 Z,closed lost - pre-opp,Lost,,Prospect thinks they saw an ad,Digital inbound (MQL join failed),Inbound - re-join to campaign,,,
+44155437177,zoran.popac@everseen.com,2025-10-03 14:00:00.000 Z,closed lost - pre-opp,Lost,Just exploring,"need for security review and SSO sign on only, it's a backup to recording in person",Captured but uninformative,Sales-Direct / Unknown,,,
+46552625701,maja.cebo@netguru.com,2025-10-22 11:00:00.000 Z,closed lost - pre-opp,Lost,Need solution within 1 month,,No discovery captured,Identity re-join required,,,
+48525933383,andy.gossett@ehealth.com,2025-11-07 17:30:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+33448369477,info@cleansmartacademy.com,2025-02-13 15:37:22.253 Z,promoted to deal,Won,Need solution within 1 month,,No discovery captured,Identity re-join required,Y,Y,450.0
+22674833674,alex.fish@westernfg.ca,2024-09-26 17:55:43.341 Z,promoted to deal,Won,,,No discovery captured,Identity re-join required,Y,,3000.0
+60160242613,,2026-05-08 19:00:00.000 Z,closed lost - pre-opp,Lost,,,No discovery captured,Identity re-join required,,,
+59244143386,stephen.whitfield@aspirets.com,2026-06-11 14:00:00.000 Z,meeting booked,Open,,,No discovery captured,Identity re-join required,,,
+45030936948,radhika.sarang@skyhighsecurity.com,2025-10-09 14:00:00.000 Z,follow-up stage,Open,Need solution within 1 month,,No discovery captured,Identity re-join required,,,

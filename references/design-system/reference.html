@@ -1,0 +1,180 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riverside Design System reference</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap');
+:root{--bg:#151515;--panel:#222222;--menu:#2b2b2b;--text:#fafafa;--muted:#888888;--accent:#9671ff;--upgrade:#c9f273;--line:rgba(255,255,255,0.10);}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Instrument Sans',sans-serif;font-size:14px;line-height:24px;letter-spacing:0.2px;}
+.wrap{max-width:1100px;margin:0 auto;padding:56px 28px 80px;}
+header h1{font-size:36px;line-height:44px;font-weight:700;letter-spacing:0;margin:0 0 8px;}
+header p{color:var(--muted);margin:0 0 4px;max-width:680px;}
+.tag{display:inline-block;background:var(--upgrade);color:#0a0a0a;font-weight:700;font-size:11px;line-height:16px;padding:4px 10px;border-radius:999px;margin-top:14px;}
+section{margin-top:48px;}
+h2{font-size:24px;line-height:32px;font-weight:700;letter-spacing:0;margin:0 0 6px;border-top:1px solid var(--line);padding-top:36px;}
+h3{font-size:16px;line-height:24px;font-weight:700;color:var(--text);margin:28px 0 14px;}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
+.sw{background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+.chip{height:64px;width:100%;}
+.meta{padding:10px 12px 12px;}
+.kn{font-weight:600;font-size:12px;line-height:18px;}
+.hex{color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums;text-transform:uppercase;}
+.note{color:var(--accent);font-size:11px;line-height:16px;margin-top:4px;}
+.trow{display:flex;align-items:baseline;justify-content:space-between;gap:24px;padding:16px 0;border-bottom:1px solid var(--line);}
+.trow .sample{color:var(--text);}
+.trow .spec{color:var(--muted);font-size:12px;line-height:18px;text-align:right;white-space:nowrap;}
+.legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px;}
+.legend span{background:var(--menu);border:1px solid var(--line);border-radius:8px;padding:6px 10px;font-size:12px;color:var(--muted);}
+</style></head><body><div class="wrap">
+<header>
+<h1>Riverside Design System</h1>
+<p>Visual reference for color and typography tokens, extracted from the Figma library. Built for the dark product UI. Single typeface: Instrument Sans.</p>
+<span class="tag">Reference</span>
+</header>
+
+<section><h2>Color</h2><h3>Primary</h3><div class="grid"><div class="sw"><div class="chip" style="background:#5e3ac3"></div>
+        <div class="meta"><div class="kn">c900</div><div class="hex">#5e3ac3</div></div></div><div class="sw"><div class="chip" style="background:#7848ff"></div>
+        <div class="meta"><div class="kn">c800</div><div class="hex">#7848ff</div></div></div><div class="sw"><div class="chip" style="background:#875eff"></div>
+        <div class="meta"><div class="kn">c700</div><div class="hex">#875eff</div></div></div><div class="sw"><div class="chip" style="background:#9671ff"></div>
+        <div class="meta"><div class="kn">c600</div><div class="hex">#9671ff</div><div class="note">Main brand color</div></div></div><div class="sw"><div class="chip" style="background:#b196ff"></div>
+        <div class="meta"><div class="kn">c500</div><div class="hex">#b196ff</div><div class="note">Links</div></div></div><div class="sw"><div class="chip" style="background:#c3afff"></div>
+        <div class="meta"><div class="kn">c400</div><div class="hex">#c3afff</div></div></div><div class="sw"><div class="chip" style="background:#d5c7ff"></div>
+        <div class="meta"><div class="kn">c300</div><div class="hex">#d5c7ff</div></div></div><div class="sw"><div class="chip" style="background:#e7dfff"></div>
+        <div class="meta"><div class="kn">c200</div><div class="hex">#e7dfff</div></div></div><div class="sw"><div class="chip" style="background:#f2eeff"></div>
+        <div class="meta"><div class="kn">c100</div><div class="hex">#f2eeff</div></div></div></div><h3>Secondary</h3><div class="grid"><div class="sw"><div class="chip" style="background:#0d0d0d"></div>
+        <div class="meta"><div class="kn">c1100</div><div class="hex">#0d0d0d</div></div></div><div class="sw"><div class="chip" style="background:#151515"></div>
+        <div class="meta"><div class="kn">c1000</div><div class="hex">#151515</div><div class="note">Background</div></div></div><div class="sw"><div class="chip" style="background:#1d1d1d"></div>
+        <div class="meta"><div class="kn">c900</div><div class="hex">#1d1d1d</div><div class="note">Background</div></div></div><div class="sw"><div class="chip" style="background:#222222"></div>
+        <div class="meta"><div class="kn">c800</div><div class="hex">#222222</div><div class="note">Panel background</div></div></div><div class="sw"><div class="chip" style="background:#2b2b2b"></div>
+        <div class="meta"><div class="kn">c700</div><div class="hex">#2b2b2b</div><div class="note">Menu background</div></div></div><div class="sw"><div class="chip" style="background:#383838"></div>
+        <div class="meta"><div class="kn">c600</div><div class="hex">#383838</div><div class="note">Hover</div></div></div><div class="sw"><div class="chip" style="background:#444444"></div>
+        <div class="meta"><div class="kn">c500</div><div class="hex">#444444</div><div class="note">Disable</div></div></div><div class="sw"><div class="chip" style="background:#555555"></div>
+        <div class="meta"><div class="kn">c400</div><div class="hex">#555555</div><div class="note">Disable</div></div></div><div class="sw"><div class="chip" style="background:#888888"></div>
+        <div class="meta"><div class="kn">c300</div><div class="hex">#888888</div><div class="note">Paragraph</div></div></div><div class="sw"><div class="chip" style="background:#bbbbbb"></div>
+        <div class="meta"><div class="kn">c200</div><div class="hex">#bbbbbb</div><div class="note">Paragraph</div></div></div><div class="sw"><div class="chip" style="background:#dbdbdb"></div>
+        <div class="meta"><div class="kn">c150</div><div class="hex">#dbdbdb</div><div class="note">Transcript</div></div></div><div class="sw"><div class="chip" style="background:#fafafa"></div>
+        <div class="meta"><div class="kn">c100</div><div class="hex">#fafafa</div><div class="note">Text</div></div></div></div><h3>Link</h3><div class="grid"><div class="sw"><div class="chip" style="background:#b196ff"></div>
+        <div class="meta"><div class="kn">link</div><div class="hex">#b196ff</div></div></div></div><h3>Status / Error</h3><div class="grid"><div class="sw"><div class="chip" style="background:#c92f2f"></div>
+        <div class="meta"><div class="kn">c800</div><div class="hex">#c92f2f</div></div></div><div class="sw"><div class="chip" style="background:#e04040"></div>
+        <div class="meta"><div class="kn">c700</div><div class="hex">#e04040</div></div></div><div class="sw"><div class="chip" style="background:#f25757"></div>
+        <div class="meta"><div class="kn">c600</div><div class="hex">#f25757</div></div></div><div class="sw"><div class="chip" style="background:#f27070"></div>
+        <div class="meta"><div class="kn">c500</div><div class="hex">#f27070</div></div></div><div class="sw"><div class="chip" style="background:#ff9999"></div>
+        <div class="meta"><div class="kn">c400</div><div class="hex">#ff9999</div></div></div></div><h3>Status / Warning</h3><div class="grid"><div class="sw"><div class="chip" style="background:#e3b21b"></div>
+        <div class="meta"><div class="kn">c800</div><div class="hex">#e3b21b</div></div></div><div class="sw"><div class="chip" style="background:#f2c94c"></div>
+        <div class="meta"><div class="kn">c700</div><div class="hex">#f2c94c</div></div></div><div class="sw"><div class="chip" style="background:#ffe184"></div>
+        <div class="meta"><div class="kn">c600</div><div class="hex">#ffe184</div></div></div><div class="sw"><div class="chip" style="background:#ffeaaf"></div>
+        <div class="meta"><div class="kn">c500</div><div class="hex">#ffeaaf</div></div></div></div><h3>Status / Success</h3><div class="grid"><div class="sw"><div class="chip" style="background:#1b9850"></div>
+        <div class="meta"><div class="kn">c800</div><div class="hex">#1b9850</div></div></div><div class="sw"><div class="chip" style="background:#27ae60"></div>
+        <div class="meta"><div class="kn">c700</div><div class="hex">#27ae60</div></div></div><div class="sw"><div class="chip" style="background:#6fcf97"></div>
+        <div class="meta"><div class="kn">c600</div><div class="hex">#6fcf97</div></div></div><div class="sw"><div class="chip" style="background:#a0e2bc"></div>
+        <div class="meta"><div class="kn">c500</div><div class="hex">#a0e2bc</div></div></div></div><h3>Upgrade</h3><div class="grid"><div class="sw"><div class="chip" style="background:#b6e456"></div>
+        <div class="meta"><div class="kn">c800</div><div class="hex">#b6e456</div></div></div><div class="sw"><div class="chip" style="background:#c9f273"></div>
+        <div class="meta"><div class="kn">c700</div><div class="hex">#c9f273</div></div></div><div class="sw"><div class="chip" style="background:#d6fa8b"></div>
+        <div class="meta"><div class="kn">c600</div><div class="hex">#d6fa8b</div></div></div><div class="sw"><div class="chip" style="background:#e7ffb4"></div>
+        <div class="meta"><div class="kn">c500</div><div class="hex">#e7ffb4</div></div></div></div><h3>Common</h3><div class="grid"><div class="sw"><div class="chip" style="background:#b43dff"></div>
+        <div class="meta"><div class="kn">purple</div><div class="hex">#b43dff</div></div></div><div class="sw"><div class="chip" style="background:#b377ff"></div>
+        <div class="meta"><div class="kn">lightpurple</div><div class="hex">#b377ff</div></div></div><div class="sw"><div class="chip" style="background:#e961ff"></div>
+        <div class="meta"><div class="kn">pink</div><div class="hex">#e961ff</div></div></div><div class="sw"><div class="chip" style="background:#5353fc"></div>
+        <div class="meta"><div class="kn">darkblue</div><div class="hex">#5353fc</div></div></div><div class="sw"><div class="chip" style="background:#50c9ff"></div>
+        <div class="meta"><div class="kn">lightblue</div><div class="hex">#50c9ff</div></div></div><div class="sw"><div class="chip" style="background:#67ffb1"></div>
+        <div class="meta"><div class="kn">green</div><div class="hex">#67ffb1</div></div></div><div class="sw"><div class="chip" style="background:#c2ff44"></div>
+        <div class="meta"><div class="kn">neon</div><div class="hex">#c2ff44</div></div></div><div class="sw"><div class="chip" style="background:#ff8a00"></div>
+        <div class="meta"><div class="kn">orange</div><div class="hex">#ff8a00</div></div></div><div class="sw"><div class="chip" style="background:#ffec45"></div>
+        <div class="meta"><div class="kn">yellow</div><div class="hex">#ffec45</div></div></div><div class="sw"><div class="chip" style="background:#ffffff"></div>
+        <div class="meta"><div class="kn">white</div><div class="hex">#ffffff</div></div></div><div class="sw"><div class="chip" style="background:#0a0a0a"></div>
+        <div class="meta"><div class="kn">black</div><div class="hex">#0a0a0a</div></div></div></div><h3>Transparent</h3><div class="grid"><div class="sw"><div class="chip" style="background:rgba(0, 0, 0, 0.50)"></div>
+        <div class="meta"><div class="kn">modal.overlay</div><div class="hex">rgba(0, 0, 0, 0.50)</div></div></div><div class="sw"><div class="chip" style="background:rgba(120, 72, 255, 0.10)"></div>
+        <div class="meta"><div class="kn">p10</div><div class="hex">rgba(120, 72, 255, 0.10)</div></div></div><div class="sw"><div class="chip" style="background:rgba(120, 72, 255, 0.20)"></div>
+        <div class="meta"><div class="kn">p20</div><div class="hex">rgba(120, 72, 255, 0.20)</div></div></div><div class="sw"><div class="chip" style="background:rgba(120, 72, 255, 0.30)"></div>
+        <div class="meta"><div class="kn">p30</div><div class="hex">rgba(120, 72, 255, 0.30)</div></div></div><div class="sw"><div class="chip" style="background:rgba(120, 72, 255, 0.40)"></div>
+        <div class="meta"><div class="kn">p40</div><div class="hex">rgba(120, 72, 255, 0.40)</div></div></div><div class="sw"><div class="chip" style="background:rgba(120, 72, 255, 0.50)"></div>
+        <div class="meta"><div class="kn">p50</div><div class="hex">rgba(120, 72, 255, 0.50)</div></div></div><div class="sw"><div class="chip" style="background:rgba(19, 19, 19, 0.10)"></div>
+        <div class="meta"><div class="kn">c10</div><div class="hex">rgba(19, 19, 19, 0.10)</div></div></div><div class="sw"><div class="chip" style="background:rgba(19, 19, 19, 0.20)"></div>
+        <div class="meta"><div class="kn">c20</div><div class="hex">rgba(19, 19, 19, 0.20)</div></div></div><div class="sw"><div class="chip" style="background:rgba(19, 19, 19, 0.30)"></div>
+        <div class="meta"><div class="kn">c30</div><div class="hex">rgba(19, 19, 19, 0.30)</div></div></div><div class="sw"><div class="chip" style="background:rgba(19, 19, 19, 0.40)"></div>
+        <div class="meta"><div class="kn">c40</div><div class="hex">rgba(19, 19, 19, 0.40)</div></div></div><div class="sw"><div class="chip" style="background:rgba(19, 19, 19, 0.50)"></div>
+        <div class="meta"><div class="kn">c50</div><div class="hex">rgba(19, 19, 19, 0.50)</div></div></div><div class="sw"><div class="chip" style="background:rgba(19, 19, 19, 0.60)"></div>
+        <div class="meta"><div class="kn">c60</div><div class="hex">rgba(19, 19, 19, 0.60)</div></div></div><div class="sw"><div class="chip" style="background:rgba(19, 19, 19, 0.75)"></div>
+        <div class="meta"><div class="kn">c75</div><div class="hex">rgba(19, 19, 19, 0.75)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 225, 132, 0.10)"></div>
+        <div class="meta"><div class="kn">y10</div><div class="hex">rgba(255, 225, 132, 0.10)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 225, 132, 0.20)"></div>
+        <div class="meta"><div class="kn">y20</div><div class="hex">rgba(255, 225, 132, 0.20)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 153, 153, 0.05)"></div>
+        <div class="meta"><div class="kn">r5</div><div class="hex">rgba(255, 153, 153, 0.05)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 153, 153, 0.10)"></div>
+        <div class="meta"><div class="kn">r10</div><div class="hex">rgba(255, 153, 153, 0.10)</div></div></div><div class="sw"><div class="chip" style="background:rgba(242, 112, 112, 0.20)"></div>
+        <div class="meta"><div class="kn">r20</div><div class="hex">rgba(242, 112, 112, 0.20)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 255, 255, 0.05)"></div>
+        <div class="meta"><div class="kn">w5</div><div class="hex">rgba(255, 255, 255, 0.05)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 255, 255, 0.10)"></div>
+        <div class="meta"><div class="kn">w10</div><div class="hex">rgba(255, 255, 255, 0.10)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 255, 255, 0.15)"></div>
+        <div class="meta"><div class="kn">w15</div><div class="hex">rgba(255, 255, 255, 0.15)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 255, 255, 0.20)"></div>
+        <div class="meta"><div class="kn">w20</div><div class="hex">rgba(255, 255, 255, 0.20)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 255, 255, 0.25)"></div>
+        <div class="meta"><div class="kn">w25</div><div class="hex">rgba(255, 255, 255, 0.25)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 255, 255, 0.30)"></div>
+        <div class="meta"><div class="kn">w30</div><div class="hex">rgba(255, 255, 255, 0.30)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 255, 255, 0.50)"></div>
+        <div class="meta"><div class="kn">w50</div><div class="hex">rgba(255, 255, 255, 0.50)</div></div></div><div class="sw"><div class="chip" style="background:rgba(255, 255, 255, 0.70)"></div>
+        <div class="meta"><div class="kn">w70</div><div class="hex">rgba(255, 255, 255, 0.70)</div></div></div><div class="sw"><div class="chip" style="background:rgba(160, 226, 188, 0.20)"></div>
+        <div class="meta"><div class="kn">g20</div><div class="hex">rgba(160, 226, 188, 0.20)</div></div></div><div class="sw"><div class="chip" style="background:rgba(201, 242, 115, 0.05)"></div>
+        <div class="meta"><div class="kn">u5</div><div class="hex">rgba(201, 242, 115, 0.05)</div></div></div><div class="sw"><div class="chip" style="background:rgba(201, 242, 115, 0.10)"></div>
+        <div class="meta"><div class="kn">u10</div><div class="hex">rgba(201, 242, 115, 0.10)</div></div></div><div class="sw"><div class="chip" style="background:rgba(201, 242, 115, 0.20)"></div>
+        <div class="meta"><div class="kn">u20</div><div class="hex">rgba(201, 242, 115, 0.20)</div></div></div><div class="sw"><div class="chip" style="background:rgba(201, 242, 115, 0.50)"></div>
+        <div class="meta"><div class="kn">u50</div><div class="hex">rgba(201, 242, 115, 0.50)</div></div></div></div></section>
+
+<section><h2>Typography</h2>
+<div class="legend"><span>Instrument Sans</span><span>400 Regular</span><span>500 Medium</span><span>600 Semi Bold</span><span>700 Bold</span></div>
+<div style="margin-top:18px"><div class="trow">
+      <div class="sample" style="font-weight:500;font-size:10px;line-height:16px;letter-spacing:0.2px;">tiny-label</div>
+      <div class="spec">Instrument Sans Medium 500, 10px / 16px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:500;font-size:11px;line-height:18px;letter-spacing:0.2px;">helper</div>
+      <div class="spec">Instrument Sans Medium 500, 11px / 18px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:600;font-size:11px;line-height:16px;letter-spacing:0px;">tip</div>
+      <div class="spec">Instrument Sans Semi Bold 600, 11px / 16px, ls 0px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:700;font-size:14px;line-height:20px;letter-spacing:0.4px;text-transform:uppercase;">avatar</div>
+      <div class="spec">Instrument Sans Bold 700, 14px / 20px, ls 0.4px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:700;font-size:12px;line-height:20px;letter-spacing:0.2px;">link-small</div>
+      <div class="spec">Instrument Sans Bold 700, 12px / 20px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:600;font-size:14px;line-height:20px;letter-spacing:0.2px;">link-medium</div>
+      <div class="spec">Instrument Sans Semi Bold 600, 14px / 20px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:600;font-size:12px;line-height:20px;letter-spacing:0.2px;">label-small</div>
+      <div class="spec">Instrument Sans Semi Bold 600, 12px / 20px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:500;font-size:14px;line-height:20px;letter-spacing:0.2px;">label-medium</div>
+      <div class="spec">Instrument Sans Medium 500, 14px / 20px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:500;font-size:16px;line-height:24px;letter-spacing:0.2px;">label-large</div>
+      <div class="spec">Instrument Sans Medium 500, 16px / 24px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:500;font-size:12px;line-height:18px;letter-spacing:0.2px;">body-small</div>
+      <div class="spec">Instrument Sans Medium 500, 12px / 18px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:400;font-size:14px;line-height:24px;letter-spacing:0.2px;">body-medium</div>
+      <div class="spec">Instrument Sans Regular 400, 14px / 24px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:400;font-size:16px;line-height:24px;letter-spacing:0.2px;">body-large</div>
+      <div class="spec">Instrument Sans Regular 400, 16px / 24px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:500;font-size:20px;line-height:32px;letter-spacing:0.2px;">body-xlarge</div>
+      <div class="spec">Instrument Sans Medium 500, 20px / 32px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:700;font-size:14px;line-height:20px;letter-spacing:0.2px;">heading-xxsmall</div>
+      <div class="spec">Instrument Sans Bold 700, 14px / 20px, ls 0.2px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:700;font-size:16px;line-height:24px;letter-spacing:0px;">heading-xsmall</div>
+      <div class="spec">Instrument Sans Bold 700, 16px / 24px, ls 0px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:700;font-size:20px;line-height:28px;letter-spacing:0px;">heading-small</div>
+      <div class="spec">Instrument Sans Bold 700, 20px / 28px, ls 0px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:700;font-size:24px;line-height:32px;letter-spacing:0px;">heading-medium</div>
+      <div class="spec">Instrument Sans Bold 700, 24px / 32px, ls 0px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:700;font-size:28px;line-height:36px;letter-spacing:0px;">heading-large</div>
+      <div class="spec">Instrument Sans Bold 700, 28px / 36px, ls 0px</div>
+    </div><div class="trow">
+      <div class="sample" style="font-weight:700;font-size:36px;line-height:44px;letter-spacing:0px;">heading-xlarge</div>
+      <div class="spec">Instrument Sans Bold 700, 36px / 44px, ls 0px</div>
+    </div></div>
+</section>
+
+</div></body></html>

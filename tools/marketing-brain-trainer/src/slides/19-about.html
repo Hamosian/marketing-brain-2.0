@@ -1,0 +1,27 @@
+<section class="slide" data-id="about" data-title="About this trainer" data-part="end" aria-labelledby="about-h">
+  <div class="slide-inner">
+    <p class="eyebrow rise" style="--i:0">The end</p>
+    <h2 id="about-h" class="rise" style="--i:1">About this trainer</h2>
+    <div class="c-about-grid rise" style="--i:2">
+      <div>
+        <h3>Generated from the repo</h3>
+        <p>The skill catalog, the wiring graph, the routing test cases, the numbers on the cover and the routing score are pulled from the marketing-brain repo each time the trainer is built. A new skill shows up on the next build without anyone retyping a list.</p>
+      </div>
+      <div>
+        <h3>Written and checked</h3>
+        <p>The slides, the role starters and the worked examples were drafted with Claude, then reviewed and checked against each skill&rsquo;s own instructions. The source lives in <span class="cmd">tools/marketing-brain-trainer/</span> in the repo, so a fix goes through a pull request like any other change.</p>
+      </div>
+    </div>
+    <div class="c-about-actions rise" style="--i:3">
+      <button class="btn btn-ghost" type="button" data-nav="commit" id="c-about-core">Back to the core</button>
+      <span class="c-reset-wrap"><button class="btn btn-ghost" type="button" data-nav="cover" data-reset="1" id="c-about-reset">Clear my progress</button></span>
+      <p>Clearing removes your check score, your pick and your setup ticks, then starts from the cover.</p>
+    </div>
+    <section class="c-diligence rise" style="--i:4" aria-labelledby="c-dil-h">
+      <h3 id="c-dil-h">AI diligence statement</h3>
+      <p>In creating this trainer, I collaborated with Claude, an AI assistant by Anthropic, to assist with drafting, design, and building. I affirm that all AI-generated and co-created content underwent thorough review and evaluation. The final output accurately reflects my understanding, expertise, and intended meaning. While AI assistance was instrumental in the process, I maintain full responsibility for the content, its accuracy, and its presentation. This disclosure is made in the spirit of transparency and to acknowledge the role of AI in the creation process.</p>
+      <p class="c-dil-meta">Skill catalog, graph, and routing score generated from the repo on __BUILD_DATE__ (__SKILL_COUNT__ skills).</p>
+    </section>
+  </div>
+  <aside class="notes">A quick word on how this was made. Everything countable, the catalog, the graph, the routing test cases and the routing score, is generated from the repo at build time, so it stays current. The rest was drafted with Claude and checked against the skill files. The AI diligence statement closes it out.</aside>
+</section>

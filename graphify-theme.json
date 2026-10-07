@@ -1,0 +1,31 @@
+{
+  "_comment": "Riverside brand theme for the graphify knowledge-graph viz. Read at build time by scripts/graph_explorer.py, which renders the branded graphify-out/graph-explorer.html (open this one; the stock graph.html is left unthemed). shape encodes node file_type; color encodes community cluster. Edit here to tune branding without touching the script. Colors: references/design-system + .claude/skills/riverside-brand-guidelines.",
+  "community_colors": [
+    "#7C5CFF",
+    "#9671FF",
+    "#B43DFF",
+    "#E961FF",
+    "#5353FC",
+    "#50C9FF",
+    "#67FFB1",
+    "#C2FF44",
+    "#FF8A00",
+    "#FFEC45"
+  ],
+  "default_shape": "dot",
+  "shapes_by_file_type": {
+    "document": "dot",
+    "concept": "hexagon",
+    "code": "square",
+    "rationale": "diamond",
+    "image": "triangle"
+  },
+  "chrome": {
+    "bg": "#0F0F14",
+    "panel": "#1C1C24",
+    "border": "#2A2A35",
+    "text": "#FFFFFF",
+    "text_secondary": "#E6E6EB",
+    "accent": "#7C5CFF"
+  }
+}

@@ -1,0 +1,15 @@
+# graphify indexing excludes - keep template/scaffolding out of the knowledge graph.
+#
+# These paths legitimately contain {{PLACEHOLDER}} tokens (filled by /setup) or
+# are illustrative scaffolding, not real architecture. Indexing them pollutes
+# graph.json / graph.html / GRAPH_REPORT.md with placeholder nodes and spurious
+# communities, and trips the "No unfilled placeholders" CI lint
+# (.github/workflows/team-context-lint.yml), which excludes these same paths.
+#
+# graphify already auto-skips graphify-out/ (its own output), so it is not listed here.
+
+# Setup wizard: instance README template + the setup skill itself ({{TEAM_NAME}} etc.)
+.claude/skills/setup/
+
+# Example/template system docs (systems/examples/_example-*.md) - scaffolding only.
+_example*

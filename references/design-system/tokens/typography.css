@@ -1,0 +1,214 @@
+/* Riverside type scale, font family Instrument Sans (max weight 700) */
+:root {
+  --rs-font-tiny-label-size: 10px;
+  --rs-font-tiny-label-line: 16px;
+  --rs-font-tiny-label-weight: 500;
+  --rs-font-tiny-label-spacing: 0.2px;
+  --rs-font-helper-size: 11px;
+  --rs-font-helper-line: 18px;
+  --rs-font-helper-weight: 500;
+  --rs-font-helper-spacing: 0.2px;
+  --rs-font-tip-size: 11px;
+  --rs-font-tip-line: 16px;
+  --rs-font-tip-weight: 600;
+  --rs-font-tip-spacing: 0px;
+  --rs-font-avatar-size: 14px;
+  --rs-font-avatar-line: 20px;
+  --rs-font-avatar-weight: 700;
+  --rs-font-avatar-spacing: 0.4px;
+  --rs-font-link-small-size: 12px;
+  --rs-font-link-small-line: 20px;
+  --rs-font-link-small-weight: 700;
+  --rs-font-link-small-spacing: 0.2px;
+  --rs-font-link-medium-size: 14px;
+  --rs-font-link-medium-line: 20px;
+  --rs-font-link-medium-weight: 600;
+  --rs-font-link-medium-spacing: 0.2px;
+  --rs-font-label-small-size: 12px;
+  --rs-font-label-small-line: 20px;
+  --rs-font-label-small-weight: 600;
+  --rs-font-label-small-spacing: 0.2px;
+  --rs-font-label-medium-size: 14px;
+  --rs-font-label-medium-line: 20px;
+  --rs-font-label-medium-weight: 500;
+  --rs-font-label-medium-spacing: 0.2px;
+  --rs-font-label-large-size: 16px;
+  --rs-font-label-large-line: 24px;
+  --rs-font-label-large-weight: 500;
+  --rs-font-label-large-spacing: 0.2px;
+  --rs-font-body-small-size: 12px;
+  --rs-font-body-small-line: 18px;
+  --rs-font-body-small-weight: 500;
+  --rs-font-body-small-spacing: 0.2px;
+  --rs-font-body-medium-size: 14px;
+  --rs-font-body-medium-line: 24px;
+  --rs-font-body-medium-weight: 400;
+  --rs-font-body-medium-spacing: 0.2px;
+  --rs-font-body-large-size: 16px;
+  --rs-font-body-large-line: 24px;
+  --rs-font-body-large-weight: 400;
+  --rs-font-body-large-spacing: 0.2px;
+  --rs-font-body-xlarge-size: 20px;
+  --rs-font-body-xlarge-line: 32px;
+  --rs-font-body-xlarge-weight: 500;
+  --rs-font-body-xlarge-spacing: 0.2px;
+  --rs-font-heading-xxsmall-size: 14px;
+  --rs-font-heading-xxsmall-line: 20px;
+  --rs-font-heading-xxsmall-weight: 700;
+  --rs-font-heading-xxsmall-spacing: 0.2px;
+  --rs-font-heading-xsmall-size: 16px;
+  --rs-font-heading-xsmall-line: 24px;
+  --rs-font-heading-xsmall-weight: 700;
+  --rs-font-heading-xsmall-spacing: 0px;
+  --rs-font-heading-small-size: 20px;
+  --rs-font-heading-small-line: 28px;
+  --rs-font-heading-small-weight: 700;
+  --rs-font-heading-small-spacing: 0px;
+  --rs-font-heading-medium-size: 24px;
+  --rs-font-heading-medium-line: 32px;
+  --rs-font-heading-medium-weight: 700;
+  --rs-font-heading-medium-spacing: 0px;
+  --rs-font-heading-large-size: 28px;
+  --rs-font-heading-large-line: 36px;
+  --rs-font-heading-large-weight: 700;
+  --rs-font-heading-large-spacing: 0px;
+  --rs-font-heading-xlarge-size: 36px;
+  --rs-font-heading-xlarge-line: 44px;
+  --rs-font-heading-xlarge-weight: 700;
+  --rs-font-heading-xlarge-spacing: 0px;
+}
+
+.rs-tiny-label {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 10px;
+  line-height: 16px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.rs-helper {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 11px;
+  line-height: 18px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.rs-tip {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0px;
+}
+.rs-avatar {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  text-transform: uppercase;
+}
+.rs-link-small {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.rs-link-medium {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.rs-label-small {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.rs-label-medium {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.rs-label-large {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.rs-body-small {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.rs-body-medium {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+.rs-body-large {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+}
+.rs-body-xlarge {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 20px;
+  line-height: 32px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+}
+.rs-heading-xxsmall {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+.rs-heading-xsmall {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 700;
+  letter-spacing: 0px;
+}
+.rs-heading-small {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 700;
+  letter-spacing: 0px;
+}
+.rs-heading-medium {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 700;
+  letter-spacing: 0px;
+}
+.rs-heading-large {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 28px;
+  line-height: 36px;
+  font-weight: 700;
+  letter-spacing: 0px;
+}
+.rs-heading-xlarge {
+  font-family: 'Instrument Sans', sans-serif;
+  font-size: 36px;
+  line-height: 44px;
+  font-weight: 700;
+  letter-spacing: 0px;
+}

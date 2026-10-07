@@ -1,0 +1,224 @@
+{
+  "platform": "Microsoft",
+  "budget_share": 0.0117,
+  "health_score": 54,
+  "grade": "D",
+  "summary": "Microsoft/Bing is Riverside's most cost-efficient paid channel by a wide margin - blended CPA $7.41 vs Google $44 - yet it receives only 1.2% of total ad spend ($43K of $3.69M over 90 days). Brand campaigns are exceptional: US brand $2.43 CPA on $7,401 spend (22,497 clicks at $0.33 CPC), WW brand $3.61 CPA on $5,408 spend. The generic podcast campaign (bing_search_us_desktop_generic_podcast_exact) is the structural weakness: $19,585 spend at $29.41 CPA with $9.56 CPC, inflated by broad audience at exact match type. Two zero-conversion keywords ('software for podcast recording' $50, 'descript for podcasting' $50) are negative keyword candidates. The campaign's naming convention and structure are clean. The dominant finding is severe underfunding relative to demonstrated efficiency - Microsoft guidance recommends 20-30% of Google search budget; actual allocation is ~1.3% of Google total, representing the largest recoverable efficiency gap in Riverside's paid portfolio. Creative, technical setup (UET/Enhanced Conv), LinkedIn targeting enablement, and extension utilization cannot be assessed via Windsor and require manual verification.",
+  "categories": [
+    {
+      "name": "Technical Setup",
+      "weight": 0.25,
+      "score_pct": 50,
+      "passed": 0,
+      "warned": 1,
+      "failed": 0,
+      "na": 2,
+      "notes": "MS01 (UET tag) N/A - cannot verify via Windsor. MS02 (Enhanced conversions) N/A - cannot verify via Windsor. MS03 (Import validation) WARNING - campaign naming convention (bing_search_{geo}_{device}_{type}_{matchtype}) is clean and consistent, suggesting organized setup, but scheduled import status and conversion goal validation post-import cannot be confirmed. Conversion data appears intact (conversions_qualified populated), but the Windsor note acknowledges legacy field usage."
+    },
+    {
+      "name": "Syndication & Bidding",
+      "weight": 0.20,
+      "score_pct": 50,
+      "passed": 0,
+      "warned": 1,
+      "failed": 0,
+      "na": 3,
+      "notes": "MS04 (Brand syndication) N/A - CRITICAL check, cannot verify partner network exclusions via Windsor. Brand campaigns are high-risk for syndication waste if not controlled. MS05 (Audience Network) N/A - cannot verify. MS06 (Bid strategy alignment) WARNING - brand CPCs ($0.329, $0.305) confirm strong CPC advantage vs Google. Generic podcast campaign CPC ($9.56) is elevated and does not show the expected 20-35% discount vs Google ($4.50-8.00 B2B SaaS benchmark). Blended Bing CPA ($7.41) vs Google ($44) is a 5.9x efficiency advantage, confirming overall bid alignment is directionally correct. MS07 (Target New Customers PMax) N/A - no PMax campaigns present."
+    },
+    {
+      "name": "Structure & Audience",
+      "weight": 0.20,
+      "score_pct": 67,
+      "passed": 1,
+      "warned": 0,
+      "failed": 1,
+      "na": 1,
+      "notes": "MS08 PASS - Naming convention is consistent and logical across all 9 campaigns (geo, device, type, match type encoded). All active. Mirrors Google naming best practices. MS09 FAIL - Critical underfunding: $43,051 Bing vs $3,444,660 Google (1.25% ratio). Microsoft guidance: 20-30% of Google budget. At Google search spend of $2,394,530, Bing should be $478K-717K over 90 days. Actual is $43K = 8.9% of the minimum recommended allocation. This is not a mild underfund - it is a 10x gap vs the minimum recommendation. MS10 (LinkedIn profile targeting) N/A - cannot verify via Windsor. This is a high-value B2B feature (16% CTR lift, 64% CVR lift, CPCs 30-70% cheaper than LinkedIn direct)."
+    },
+    {
+      "name": "Creative & Extensions",
+      "weight": 0.20,
+      "score_pct": null,
+      "passed": 0,
+      "warned": 0,
+      "failed": 0,
+      "na": 5,
+      "notes": "MS11 (RSA asset count) N/A - Windsor does not expose ad creative details. MS12 (Multimedia Ads) N/A - cannot verify. MS13 (Ad copy uniqueness) N/A - cannot verify. MS19 (Action Extension) N/A - cannot verify. MS20 (Filter Link Extension) N/A - cannot verify. All 5 checks in this category require manual verification in Microsoft Ads UI. Category excluded from score denominator."
+    },
+    {
+      "name": "Settings & Performance",
+      "weight": 0.15,
+      "score_pct": 50,
+      "passed": 0,
+      "warned": 2,
+      "failed": 0,
+      "na": 3,
+      "notes": "MS14 (Copilot placement) N/A - no PMax campaigns in account. MS15 (Conversion goals) WARNING - conversions_qualified is the legacy conversion field per Windsor note. Conversion data is populated and plausible, suggesting goals are configured and working, but import validation and goal alignment cannot be confirmed without UI access. MS16 (CPC vs Google) WARNING - brand CPCs ($0.33) are excellent. Generic podcast CPC ($9.56) does not show the expected discount; it is above the Google B2B SaaS benchmark of $4.50-8.00. This may reflect a broad, under-sculpted broad match campaign rather than a true CPC inefficiency. MS17 (CVR comparison) N/A - no Google CVR data available in this audit. MS18 (Impression share) N/A - Windsor lacks impression share fields; requires manual check in Microsoft Ads UI."
+    }
+  ],
+  "findings": [
+    {
+      "id": "MS09",
+      "title": "Microsoft Ads critically underfunded - 10x below minimum recommended allocation",
+      "severity": "High",
+      "category": "Structure & Audience",
+      "evidence": "Bing spend: $43,051 (90 days). Google total: $3,444,660 (1.25% ratio). Google search alone: $2,394,530. Microsoft guidance: Bing = 20-30% of Google. Minimum recommended Bing budget: $478,906/90 days. Actual: $43,051 - 9% of minimum. Bing CPA: $7.41. Google estimated CPA: ~$44. The channel delivers 5.9x more conversions per dollar spent.",
+      "remediation": "Increase Bing budget incrementally using the 20% Rule: first increase to $60K/90 days, evaluate CPA stability over 2 weeks, then escalate toward $120K, $200K, $400K in stages. Fund increases by reallocating from Google campaigns with CPA >3x target (especially Google Video $115/conv and Google PMax $65/conv). Monitor Bing CPA for diminishing returns signals - the channel likely saturates before $400K but has significant headroom.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Scaling Bing from $43K to $200K over 90 days (using $7.41 CPA) projects ~21,000 additional conversions vs ~3,500 from equivalent Google spend at $44 CPA. Net conversion uplift: 17,500 incremental conversions for same $157K reallocation."
+    },
+    {
+      "id": "MS06-GENERIC",
+      "title": "Generic podcast campaign CPC $9.56 - above Google benchmark, no CPC advantage visible",
+      "severity": "High",
+      "category": "Syndication & Bidding",
+      "evidence": "bing_search_us_desktop_generic_podcast_exact: $19,585 spend, CPC $9.56, CPA $29.41. Expected Bing CPC for B2B SaaS: $3.50-6.00 (20-35% below Google $4.50-8.00). At $9.56 CPC this campaign is likely overbidding or hitting audience saturation on Bing's smaller inventory. It is also the largest single Bing campaign (45.5% of Bing spend).",
+      "remediation": "Review bid strategy and target CPC in Microsoft Ads UI. Check for bid adjustments inflating CPCs (device, location, audience). Run a search term report - 'podcast' broad intent on Bing may be attracting high-competition consumer searches. Add negative keywords for non-commercial intent (e.g., 'free', 'how to', 'what is'). Consider splitting into tighter ad groups by intent tier.",
+      "fix_time_min": 20,
+      "quick_win": false,
+      "est_impact": "Reducing CPC from $9.56 to $6.00 on this campaign would save ~$7,300 at current conversion volumes, or yield 40% more clicks for the same budget."
+    },
+    {
+      "id": "MS-NEG-KW",
+      "title": "Two zero-conversion keywords ($50+ spend each) - negative keyword candidates",
+      "severity": "Medium",
+      "category": "Structure & Audience",
+      "evidence": "'software for podcast recording' (bing_search_us_desktop_generic_podcast_exact): $50.63 spend, 3 clicks, 0 conversions. 'descript for podcasting' (bing_search_en_desktop_competitors_presence): $50.18 spend, 8 clicks, 0 conversions. Additionally, 'using zoom to record a podcast': $61.56 spend, 2 conversions, CPA $30.78 (approaching 3x if target CPA is ~$10). 'best video podcast platform': $59.90, 0.36 conversions - near-zero.",
+      "remediation": "Add 'software for podcast recording' and 'descript for podcasting' as exact-match negative keywords to their respective campaigns immediately. Review 'using zoom to record a podcast' and 'best video podcast platform' for pause if CPA continues above 3x target over next 30 days.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Immediate removal of $100+ wasted spend. More importantly, establishes discipline of weekly negative keyword review as Bing budget scales up - critical hygiene at higher spend levels."
+    },
+    {
+      "id": "MS10",
+      "title": "LinkedIn profile targeting status unverified - high-value B2B differentiator",
+      "severity": "High",
+      "category": "Structure & Audience",
+      "evidence": "LinkedIn profile targeting on Microsoft Ads delivers 16% greater CTR and 64% greater CVR than non-audience-targeted ads. CPCs are 30-70% cheaper than LinkedIn direct. This is especially relevant for Riverside.fm's SLG enterprise segment targeting podcast creators, marketers, and media producers - all job functions available in Microsoft's LinkedIn audience dimensions (148 industries, 26 job functions, 80,000+ companies).",
+      "remediation": "In Microsoft Ads, navigate to campaign > Audiences > Add audience > LinkedIn Profile. Apply to brand and competitor campaigns in Observation mode first (bid-only, no exclusion). Monitor CTR and CVR lift over 2 weeks. If lift confirmed, apply to generic podcast campaigns in Targeting mode.",
+      "fix_time_min": 5,
+      "quick_win": true,
+      "est_impact": "64% CVR improvement on B2B-targeted Microsoft campaigns could reduce CPA from $7.41 to $4.52 on targeted segments - further improving already best-in-portfolio efficiency."
+    },
+    {
+      "id": "MS04",
+      "title": "Brand campaign syndication control unverified - Critical budget waste risk",
+      "severity": "High",
+      "category": "Syndication & Bidding",
+      "evidence": "bing_search_us_desktop_brand_exact ($7,401) and bing_search_ww_desktop_brand_exact ($5,408) are Riverside's lowest CPA campaigns ($2.43 and $3.61). If these are running on the Microsoft Audience Network or low-quality syndicated partners without exclusions, brand CPA will inflate and impression quality will drop. Windsor cannot confirm partner network settings.",
+      "remediation": "In Microsoft Ads, check campaign settings > Networks for both brand campaigns. Ensure 'Microsoft sites, apps, and select traffic' only (exclude Audience Network). Run a Publisher URL report for syndicated partners and exclude any site with >$5 spend and 0 conversions.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Protects $12,809 of brand campaign spend from quality degradation. Brand campaigns are the highest-ROAS campaigns in the account - preserving their efficiency is critical."
+    },
+    {
+      "id": "MS05",
+      "title": "Audience Network status unverified - B2B CPA risk if enabled",
+      "severity": "High",
+      "category": "Syndication & Bidding",
+      "evidence": "Microsoft Audience Network is enabled by default on all campaigns. B2B advertisers (Seer Interactive data) see CPA 2-4x higher from Audience Network than search alone. Riverside.fm is B2B SaaS. If Audience Network is ON across all 9 campaigns, it is likely inflating CPAs on generic and competitor campaigns.",
+      "remediation": "Check each campaign's network settings. For performance campaigns (competitors, generic), disable Audience Network. If Audience Network is enabled for testing, set a separate campaign to isolate its performance, run publisher URL reports weekly, and build an exclusion list.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Disabling Audience Network on non-brand campaigns could reduce CPA by 50-75% on affected campaigns by eliminating low-quality traffic."
+    },
+    {
+      "id": "MS15",
+      "title": "Conversion goal validation post-import required",
+      "severity": "High",
+      "category": "Settings & Performance",
+      "evidence": "Windsor uses conversions_qualified (legacy field), which works but is deprecated. The note confirms standard 'conversions' field returns 0 in Windsor, suggesting a UET / conversion goal configuration that may rely on the legacy event type. If campaigns were imported from Google Ads, conversion goals are a known break point - imported goals often stop firing.",
+      "remediation": "In Microsoft Ads UI, verify each conversion action under Tools > Conversion Tracking. Confirm goals are firing, match expected values, and are assigned to the correct campaigns. Validate with a test conversion if in doubt. Deactivate any scheduled Google Ads imports to prevent goal overwriting.",
+      "fix_time_min": 15,
+      "quick_win": false,
+      "est_impact": "If conversion tracking is partially broken, optimization signals are degraded and Smart Bidding algorithms may be underbidding on high-converting queries."
+    },
+    {
+      "id": "MS19",
+      "title": "Action Extension not confirmed - Microsoft-unique CTA format",
+      "severity": "Medium",
+      "category": "Creative & Extensions",
+      "evidence": "Action Extensions are exclusive to Microsoft Ads (not available on Google) and add predefined clickable CTA buttons to ads. Cannot verify current usage via Windsor. For Riverside.fm, relevant actions include 'Sign Up', 'Get Started', and 'Try for Free'.",
+      "remediation": "In Microsoft Ads, check Extensions > Action Extensions per campaign. Add Action Extension with 'Sign Up' or 'Get Started' CTA to all search campaigns. 5-minute setup.",
+      "fix_time_min": 5,
+      "quick_win": true,
+      "est_impact": "Extension adoption typically improves CTR 10-15% by increasing ad real estate and clarity of CTA."
+    },
+    {
+      "id": "MS14",
+      "title": "Copilot placement not applicable - evaluate PMax addition for Copilot CTR lift",
+      "severity": "Medium",
+      "category": "Settings & Performance",
+      "evidence": "No Performance Max campaigns in current Bing account. Copilot chat placements (73% CTR lift, 16% CVR lift) are primarily available through PMax and Multimedia Ads. As Bing budget scales, PMax would unlock Copilot inventory.",
+      "remediation": "As part of the Bing budget scaling roadmap, create a Microsoft Ads Performance Max campaign targeting trial signups. Enable Copilot placement in PMax settings. Evaluate Copilot Checkout (Jan 2026) for PLG trial conversion flow.",
+      "fix_time_min": 30,
+      "quick_win": false,
+      "est_impact": "Copilot placement delivers 73% CTR lift and 194% purchase intent increase. At Riverside's SaaS funnel, this could meaningfully reduce CPA below the already-excellent $7.41 blended."
+    },
+    {
+      "id": "MS01",
+      "title": "UET tag installation and firing rate requires manual verification",
+      "severity": "Critical",
+      "category": "Technical Setup",
+      "evidence": "Windsor provides campaign metrics only. Universal Event Tracking (UET) tag status, firing rate, and page coverage cannot be confirmed. Without a fully firing UET tag, conversion data is incomplete and Smart Bidding algorithms are operating on partial signal.",
+      "remediation": "Install Microsoft Clarity + UET Helper extension. In Microsoft Ads, check Tools > UET Tag and verify 'Active' status and no error flags. Confirm firing on homepage, pricing, trial start, and post-signup pages.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Foundation for all Microsoft Ads optimization. Required before scaling budget."
+    },
+    {
+      "id": "MS-SI1",
+      "title": "Scheduled Google Ads import status unknown - risk of silent campaign re-enablement",
+      "severity": "High",
+      "category": "Import Safety, Compliance & Video",
+      "evidence": "Windsor cannot reveal whether scheduled auto-imports are active. Scheduled imports are a common source of billing surprises: they can re-enable paused campaigns, overwrite manual bid/budget changes, and reset conversion goals. This risk scales significantly if Bing budget is increased.",
+      "remediation": "In Microsoft Ads, navigate to Import > Google Ads Import > Scheduled Imports. Disable any active scheduled imports. Switch to manual import-on-demand only. Document which campaigns were imported vs created natively.",
+      "fix_time_min": 5,
+      "quick_win": true,
+      "est_impact": "Prevents unexpected spend events as budget scales. Particularly important before implementing the recommended budget increase."
+    }
+  ],
+  "quick_wins": ["MS09", "MS-NEG-KW", "MS10", "MS04", "MS05", "MS19", "MS01", "MS-SI1"],
+  "kill_list": [],
+  "scale_list": [
+    {
+      "campaign": "bing_search_us_desktop_brand_exact",
+      "reason": "CPA $2.43, 22,497 clicks, 3,048 conversions on $7,401 spend. Most efficient campaign in entire portfolio. Severely underfunded.",
+      "recommended_action": "Increase budget by 20% immediately. Monitor impression share - if IS is near 100%, budget increases will have limited impact. If IS is below 80%, significant volume headroom exists."
+    },
+    {
+      "campaign": "bing_search_ww_desktop_brand_exact",
+      "reason": "CPA $3.61, 17,747 clicks, 1,497 conversions on $5,408. Second most efficient campaign in portfolio.",
+      "recommended_action": "Increase budget 20%. Check for geo overlap with US brand campaign."
+    },
+    {
+      "campaign": "bing_search_en_desktop_competitors_presence",
+      "reason": "CPA $19.72 on $6,784. Competitor terms performing well. Expandable with more competitor keyword coverage.",
+      "recommended_action": "Expand keyword list to cover more competitors. Increase budget after adding negative keywords for non-converting terms."
+    },
+    {
+      "campaign": "bing_search_us_desktop_generic-podcast-software_exact",
+      "reason": "CPA $6.86, 67 conversions on $459. Best efficiency among generic campaigns after brand.",
+      "recommended_action": "Increase budget 20%. Expand with related software-intent keywords."
+    }
+  ],
+  "manual_verification_needed": [
+    "MS01: UET tag - verify 'Active' status in Microsoft Ads > Tools > UET Tag; confirm firing on all key pages",
+    "MS02: Enhanced conversions - check Tools > Conversion Tracking > Enhanced Conversions",
+    "MS03: Import validation - verify all conversion goals are configured natively (not broken imports); check for active scheduled imports",
+    "MS04: Brand syndication - check both brand campaigns' network settings; run Publisher URL report",
+    "MS05: Audience Network - check each campaign's network settings; disable for non-brand campaigns",
+    "MS10: LinkedIn profile targeting - check Audiences > LinkedIn Profile in each search campaign",
+    "MS11: RSA asset count - verify ≥8 headlines and ≥3 descriptions in each RSA",
+    "MS12: Multimedia Ads - check if any Multimedia Ad format is active",
+    "MS13: Ad copy uniqueness - review ad copy for Bing demographic optimization (affluent, educated, older users)",
+    "MS14: Copilot placement - not currently applicable (no PMax); evaluate when PMax is added",
+    "MS17: CVR comparison to Google - pull Google CVR for same keyword categories for direct comparison",
+    "MS18: Impression share - check Microsoft Ads UI for brand and top non-brand IS metrics",
+    "MS19: Action Extension - verify if Action Extensions are active across campaigns",
+    "MS20: Filter Link Extension - verify if Filter Link Extensions are tested",
+    "MS-SI1: Scheduled imports - check Import > Google Ads Import > Scheduled Imports; disable if active",
+    "MS-CM1: Consent Mode compliance - verify Consent Mode is implemented for EEA/UK/Switzerland audiences (deadline May 2025)"
+  ]
+}

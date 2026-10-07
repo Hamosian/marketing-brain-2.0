@@ -1,0 +1,92 @@
+<section class="slide layout-stage" data-id="router" data-title="Describe a task, see which skill owns it" data-part="core" aria-labelledby="router-h">
+  <div class="slide-inner r-grid">
+    <div class="r-left">
+      <p class="eyebrow rise" style="--i:0">Try it</p>
+      <h2 id="router-h" class="rise" style="--i:1">Describe a task, see which skill owns it</h2>
+      <p class="lead rise" style="--i:2">Say it the way you would to a teammate. Every skill is ranked by how strongly its description matches your words, and the three closest show up here.</p>
+
+      <div class="r-console rise" style="--i:3">
+        <label class="r-label" for="r-input">Describe what you need</label>
+        <div class="r-field">
+          <svg class="r-field-ic" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="r-input" class="r-input" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" placeholder="e.g. turn last week&rsquo;s organic numbers into a report" aria-describedby="r-caption">
+          <button type="button" class="r-clear" id="r-clear" aria-label="Clear the request" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18"/></svg>
+          </button>
+        </div>
+        <p class="r-chips-label" id="r-chips-label">Or try one</p>
+        <div class="r-chips" id="r-chips" role="group" aria-labelledby="r-chips-label"></div>
+      </div>
+    </div>
+
+    <div class="r-stage rise" style="--i:4" id="r-stage" data-state="idle">
+      <div class="r-banner r-banner-data" id="r-data" hidden>
+        <svg class="r-banner-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true" focusable="false"><ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v6.5c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V5.5"/><path d="M4.5 12v6.5c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8V12"/></svg>
+        <div class="r-banner-body">
+          <p class="r-banner-title">Data questions go to <span class="cmd">/rivermind:ask</span> first</p>
+          <p class="r-banner-text">It is the analytics team&rsquo;s validated layer. Fall back to <span class="cmd">/data-agent</span> only when Rivermind has no coverage or you need ad-hoc SQL, and say so.</p>
+        </div>
+        <button type="button" class="btn btn-sm copy-btn r-banner-copy" id="r-data-copy" data-copy="/rivermind:ask" aria-label="Copy /rivermind:ask with your request">Copy</button>
+      </div>
+
+      <div class="r-banner r-banner-low" id="r-low" hidden>
+        <svg class="r-banner-ic" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2 5-5 2 2-5z"/></svg>
+        <div class="r-banner-body">
+          <p class="r-banner-title" id="r-low-text">No clear match. Start with <span class="cmd">/marketing-brain</span>, it routes broad asks.</p>
+        </div>
+        <button type="button" class="btn btn-sm copy-btn r-banner-copy" id="r-low-copy" data-copy="/marketing-brain" aria-label="Copy /marketing-brain with your request">Copy</button>
+      </div>
+
+      <p class="r-list-label" id="r-list-label">Closest matches</p>
+      <ol class="r-list" aria-labelledby="r-list-label">
+        <li class="r-row">
+          <span class="r-rank" aria-hidden="true">1</span>
+          <div class="r-row-main">
+            <div class="r-row-head"><span class="cmd r-name">/&hellip;</span><span class="r-tag" hidden></span><button type="button" class="btn btn-sm copy-btn r-copy" hidden>Copy</button></div>
+            <div class="r-bar" aria-hidden="true"><span class="r-bar-fill"></span></div>
+            <p class="r-blurb"></p>
+            <p class="r-words" hidden></p>
+          </div>
+        </li>
+        <li class="r-row">
+          <span class="r-rank" aria-hidden="true">2</span>
+          <div class="r-row-main">
+            <div class="r-row-head"><span class="cmd r-name">/&hellip;</span><span class="r-tag" hidden></span><button type="button" class="btn btn-sm copy-btn r-copy" hidden>Copy</button></div>
+            <div class="r-bar" aria-hidden="true"><span class="r-bar-fill"></span></div>
+            <p class="r-blurb"></p>
+            <p class="r-words" hidden></p>
+          </div>
+        </li>
+        <li class="r-row">
+          <span class="r-rank" aria-hidden="true">3</span>
+          <div class="r-row-main">
+            <div class="r-row-head"><span class="cmd r-name">/&hellip;</span><span class="r-tag" hidden></span><button type="button" class="btn btn-sm copy-btn r-copy" hidden>Copy</button></div>
+            <div class="r-bar" aria-hidden="true"><span class="r-bar-fill"></span></div>
+            <p class="r-blurb"></p>
+            <p class="r-words" hidden></p>
+          </div>
+        </li>
+      </ol>
+      <p class="r-idle-note">Type a request or pick an example. A longer bar means a stronger word match with that skill&rsquo;s description.</p>
+
+      <div class="r-ask-wrap" id="r-ask-wrap" hidden>
+        <button type="button" class="btn btn-ghost btn-sm r-ask-btn" id="r-ask">Ask Claude to route this</button>
+        <span class="r-ask-note">Sends your request and the skill list to Claude.</span>
+        <div class="r-ask-out" id="r-ask-out" hidden></div>
+      </div>
+
+      <div class="r-foot">
+        <p class="r-caption" id="r-caption">Closest matches by description, the same method the repo&rsquo;s CI uses. It ranks <b data-r-fact="routingTop1"></b> of <b data-r-fact="routingN"></b> test requests correctly on the first try.</p>
+        <div class="r-flag-line">
+          <button type="button" class="r-flag" id="r-flag">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 21V4h11l-1.5 4L16 12H5"/></svg>
+            This looks wrong
+          </button>
+          <span class="r-flag-note" id="r-flag-note" role="status"></span>
+        </div>
+      </div>
+      <div class="sr-only" id="r-live" aria-live="polite" aria-atomic="true"></div>
+    </div>
+  </div>
+  <aside class="notes">Type a request the way you would say it out loud, or tap one of the examples for your role. The bars show how strongly each skill&rsquo;s description matches the words in the request: it is the same word matching the repo&rsquo;s CI runs, not Claude&rsquo;s actual decision, so it is right most of the time, not every time. Try a data question to see the Rivermind rule, and try something vague to see the fallback to /marketing-brain.</aside>
+</section>

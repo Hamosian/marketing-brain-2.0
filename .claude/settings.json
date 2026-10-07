@@ -1,0 +1,63 @@
+{
+  "permissions": {
+    "allow": [
+      "Read",
+      "Edit",
+      "Write",
+      "Glob",
+      "Grep",
+      "Agent",
+      "Bash(git *)",
+      "Bash(ls *)",
+      "Bash(cat *)",
+      "Bash(cd *)",
+      "Bash(gh *)",
+      "Bash(jq *)",
+      "Bash(date *)",
+      "mcp__monday-api__get_sprints_metadata",
+      "mcp__monday-api__get_board_items_page"
+    ]
+  },
+  "enabledPlugins": {
+    "skill-creator@claude-plugins-official": true,
+    "claude-md-management@claude-plugins-official": true,
+    "slack@claude-plugins-official": true
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "mcp__Google_Drive__create_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/brand-check-gdoc.sh\"",
+            "statusMessage": "Riverside brand check on Google Doc",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__.*__slack_(send_message|schedule_message)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"$CLAUDE_PROJECT_DIR/.claude/hooks/slack-attribution-check.sh\"",
+            "statusMessage": "Marketing OS attribution check on Slack message",
+            "timeout": 15
+          }
+        ]
+      },
+      {
+        "matcher": "mcp__.*__(slack_send_message|slack_schedule_message|slack_send_message_draft|create_draft|update_draft|reply|send_message|forward)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$CLAUDE_PROJECT_DIR/.claude/hooks/content-gate.py\"",
+            "statusMessage": "Content pipeline gate",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}

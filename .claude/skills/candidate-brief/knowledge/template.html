@@ -1,0 +1,958 @@
+<!-- This file is a fragment, not a full document: no <!doctype>, <html>, <head>, or <body> tags
+     on purpose. It is designed to be passed to the Artifact tool, which wraps fragments like
+     this in its own <!doctype html>...<head>...<body> skeleton (including a viewport meta tag)
+     at publish time; adding a second doctype/html/head/body here would double-nest and break
+     that wrapping. If you ever publish this file through a different pipeline (not the Artifact
+     tool), wrap it in a standard HTML5 document shell with charset and viewport meta tags first. -->
+<title><CANDIDATE_NAME>: Candidate Brief</title>
+<style>
+  :root {
+    --bg: #0F0F14;
+    --surface: #17171E;
+    --surface-2: #1C1C24;
+    --surface-3: #232330;
+    --border: #2A2A35;
+    --text: #F5F5F8;
+    --text-dim: #A8A8B8;
+    --text-mute: #6E6E80;
+    --accent: #7C5CFF;
+    --accent-soft: #8F73FF;
+    --accent-wash: rgba(124, 92, 255, 0.12);
+    --good: #3ED0A0;
+    --good-wash: rgba(62, 208, 160, 0.12);
+    --warn: #F0B65C;
+    --warn-wash: rgba(240, 182, 92, 0.12);
+    --risk: #FF7A7A;
+    --risk-wash: rgba(255, 122, 122, 0.1);
+  }
+
+  :root[data-theme="light"] {
+    --bg: #FAF9FC;
+    --surface: #FFFFFF;
+    --surface-2: #FFFFFF;
+    --surface-3: #F1EFF9;
+    --border: #E3E0EE;
+    --text: #14141C;
+    --text-dim: #55556A;
+    --text-mute: #8B8B9E;
+    --accent: #7C5CFF;
+    --accent-soft: #6A47F0;
+    --accent-wash: #EDE8FF;
+    --good: #1C9C74;
+    --good-wash: #E4F7F0;
+    --warn: #B87A16;
+    --warn-wash: #FBF0DD;
+    --risk: #D9455A;
+    --risk-wash: #FCE9EB;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #FAF9FC;
+      --surface: #FFFFFF;
+      --surface-2: #FFFFFF;
+      --surface-3: #F1EFF9;
+      --border: #E3E0EE;
+      --text: #14141C;
+      --text-dim: #55556A;
+      --text-mute: #8B8B9E;
+      --accent: #7C5CFF;
+      --accent-soft: #6A47F0;
+      --accent-wash: #EDE8FF;
+      --good: #1C9C74;
+      --good-wash: #E4F7F0;
+      --warn: #B87A16;
+      --warn-wash: #FBF0DD;
+      --risk: #D9455A;
+      --risk-wash: #FCE9EB;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body {
+    margin: 0;
+    padding: 40px 20px 80px;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ---------- Header ---------- */
+
+  .masthead {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .masthead::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: var(--accent);
+  }
+
+  .masthead-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+
+  .brand-row img { height: 24px; display: block; }
+  .brand-row img.logo-dark { display: none; }
+
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) .brand-row img.logo-light { display: none; }
+    :root:not([data-theme="dark"]) .brand-row img.logo-dark { display: block; }
+  }
+  :root[data-theme="light"] .brand-row img.logo-light { display: none; }
+  :root[data-theme="light"] .brand-row img.logo-dark { display: block; }
+  :root[data-theme="dark"] .brand-row img.logo-light { display: block; }
+  :root[data-theme="dark"] .brand-row img.logo-dark { display: none; }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text-mute);
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    margin: 4px 0 6px;
+  }
+
+  .role-line {
+    font-size: 15px;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  .status-cluster {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  /* Recommendation tone: put exactly one of these as the second class on .pill and on
+     .final-banner, matching the actual verdict. Never leave both defaulted to "hire". */
+  .pill.hire { background: var(--good-wash); color: var(--good); }
+  .pill.conditional { background: var(--warn-wash); color: var(--warn); }
+  .pill.no-hire { background: var(--risk-wash); color: var(--risk); }
+  .pill .dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+
+  .fit-score {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+  }
+
+  .fit-score .num {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    color: var(--accent);
+  }
+
+  .fit-score .label {
+    font-size: 12px;
+    color: var(--text-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ---------- Cards ---------- */
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .card h2 {
+    font-size: 13px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin: 0 0 4px;
+  }
+
+  .card .sub {
+    font-size: 13px;
+    color: var(--text-mute);
+    margin: 0 0 16px;
+  }
+
+  /* ---------- Radar ---------- */
+
+  .radar-wrap { display: flex; flex-direction: column; align-items: center; }
+
+  #radar { width: 100%; height: auto; max-width: 460px; overflow: visible; }
+
+  .radar-vertex { cursor: pointer; }
+  .radar-vertex:hover circle { r: 6.5; }
+
+  #radar-tip {
+    position: relative;
+    min-height: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-top: 4px;
+  }
+
+  #radar-tip b { color: var(--text); font-variant-numeric: tabular-nums; }
+
+  details.table-toggle {
+    margin-top: 18px;
+    border-top: 1px solid var(--border);
+    padding-top: 14px;
+  }
+
+  details.table-toggle summary {
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    letter-spacing: 0.04em;
+    list-style: none;
+  }
+
+  details.table-toggle summary::-webkit-details-marker { display: none; }
+  details.table-toggle summary::before { content: "▸ "; color: var(--accent); }
+  details.table-toggle[open] summary::before { content: "▾ "; }
+
+  /* ---------- CV toggle ---------- */
+
+  .cv-toggle { margin-top: 0; border-top: none; padding-top: 0; }
+
+  .cv-toggle summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 4px 10px;
+  }
+
+  .cv-toggle summary::before { font-size: 14px; }
+
+  .cv-summary-title {
+    font-size: 14.5px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0;
+  }
+
+  .cv-summary-sub {
+    font-size: 12.5px;
+    font-weight: 500;
+    color: var(--text-mute);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  .cv-body { margin-top: 18px; border-top: 1px solid var(--border); padding-top: 18px; }
+
+  .cv-contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    font-size: 13px;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .cv-heading {
+    font-size: 11.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin: 22px 0 10px;
+  }
+
+  .cv-heading:first-of-type { margin-top: 18px; }
+
+  .cv-timeline { display: flex; flex-direction: column; gap: 14px; }
+
+  .cv-role { padding-left: 14px; border-left: 2px solid var(--border); }
+
+  .cv-role-head {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 4px 12px;
+    margin-bottom: 3px;
+  }
+
+  .cv-role-title { font-size: 13.5px; font-weight: 600; color: var(--text); }
+
+  .cv-role-date {
+    font-size: 12px;
+    color: var(--text-mute);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .cv-role p { margin: 0; font-size: 13px; line-height: 1.55; color: var(--text-dim); }
+
+  .cv-tag { background: var(--surface-3); color: var(--text-dim); }
+
+  .cv-edu-grid { display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+  .cv-edu-grid strong { color: var(--text); font-weight: 600; }
+
+  .cv-army { font-size: 13px; line-height: 1.55; color: var(--text-dim); margin: 0; }
+
+  table.score-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 13px;
+  }
+
+  table.score-table td {
+    padding: 7px 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  table.score-table td:last-child {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    color: var(--text);
+    width: 50px;
+  }
+
+  /* ---------- Summary / prose ---------- */
+
+  .prose p { font-size: 14.5px; line-height: 1.65; color: var(--text-dim); margin: 0 0 12px; max-width: 62ch; }
+  .prose p:last-child { margin-bottom: 0; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+
+  .tag {
+    font-size: 12.5px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: var(--good-wash);
+    color: var(--good);
+    font-weight: 500;
+  }
+
+  /* ---------- Strength / risk two-up ---------- */
+
+  .two-up {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  @media (max-width: 700px) { .two-up { grid-template-columns: 1fr; } }
+
+  .item-list { display: flex; flex-direction: column; gap: 14px; }
+
+  .item {
+    padding-left: 14px;
+    border-left: 2px solid var(--border);
+  }
+
+  .item.strength { border-left-color: var(--good); }
+  .item.risk { border-left-color: var(--risk); }
+
+  .item .head {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .item ul {
+    margin: 0;
+    padding-left: 16px;
+    font-size: 13.5px;
+    line-height: 1.55;
+    color: var(--text-dim);
+  }
+
+  .item ul li { margin-bottom: 2px; }
+
+  /* ---------- Interview focus ---------- */
+
+  .interviewer-card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0 0 2px;
+  }
+
+  .interviewer-card .role {
+    font-size: 12.5px;
+    color: var(--text-mute);
+    margin: 0 0 14px;
+  }
+
+  .focus-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+
+  .focus-tag {
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: var(--surface-3);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+
+  .qlist {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .qlist li {
+    font-size: 13.5px;
+    line-height: 1.5;
+    color: var(--text);
+    padding: 10px 12px;
+    background: var(--accent-wash);
+    border-radius: 8px;
+    position: relative;
+    padding-left: 26px;
+  }
+
+  .qlist li::before {
+    content: "?";
+    position: absolute;
+    left: 10px;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* ---------- Validation checklist ---------- */
+
+  .check-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px 20px;
+  }
+
+  .check-item { display: flex; align-items: center; gap: 9px; font-size: 13.5px; }
+
+  .check-item .icon {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+
+  .check-item.done .icon { background: var(--good-wash); color: var(--good); }
+  .check-item.pending .icon { background: var(--warn-wash); color: var(--warn); }
+
+  /* ---------- Final recommendation banner ---------- */
+
+  .final-banner {
+    background: linear-gradient(135deg, var(--surface-3), var(--surface));
+    border: 1px solid var(--accent);
+    border-radius: 16px;
+    padding: 30px 32px;
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  /* Same tone rule as .pill above: exactly one of these on .final-banner, matching the verdict. */
+  .final-banner.hire { border-color: var(--good); }
+  .final-banner.hire .final-body h2 { color: var(--good); }
+  .final-banner.conditional { border-color: var(--warn); }
+  .final-banner.conditional .final-body h2 { color: var(--warn); }
+  .final-banner.no-hire { border-color: var(--risk); }
+  .final-banner.no-hire .final-body h2 { color: var(--risk); }
+
+  .final-score {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    padding-right: 32px;
+    border-right: 1px solid var(--border);
+  }
+
+  @media (max-width: 640px) {
+    .final-score { border-right: none; padding-right: 0; }
+  }
+
+  .final-score .num {
+    font-size: 48px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--accent);
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .final-score .of {
+    font-size: 13px;
+    color: var(--text-mute);
+    margin-top: 4px;
+  }
+
+  .final-body { flex: 1; min-width: 240px; }
+
+  .final-body h2 {
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0 0 8px;
+  }
+
+  .final-body p {
+    font-size: 14px;
+    line-height: 1.6;
+    color: var(--text-dim);
+    margin: 0;
+    max-width: 68ch;
+  }
+
+  footer {
+    text-align: center;
+    font-size: 11.5px;
+    color: var(--text-mute);
+    margin-top: 8px;
+  }
+</style>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="masthead">
+    <div class="brand-row">
+      <img class="logo-light" src="data:image/png;base64,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" alt="Riverside">
+      <img class="logo-dark" src="data:image/png;base64,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" alt="Riverside">
+    </div>
+    <div class="masthead-top">
+      <div>
+        <div class="eyebrow">Candidate Brief</div>
+        <h1><CANDIDATE_NAME></h1>
+        <p class="role-line"><ROLE_TITLE> &middot; Prepared for <INTERVIEWERS> &middot; <STAGE_LABEL></p>
+      </div>
+      <div class="status-cluster">
+        <!-- <RECOMMENDATION_TONE> is exactly one of: hire / conditional / no-hire, matching the
+             actual verdict. Never default to "hire" (see .pill.hire/.conditional/.no-hire above). -->
+        <span class="pill <RECOMMENDATION_TONE>"><span class="dot"></span><RECOMMENDATION_PILL></span>
+        <div class="fit-score">
+          <span class="num"><ASSESSMENT_FIT_SCORE></span>
+          <span class="label">/ 5 Assessment Fit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CV card: OPTIONAL. Omit this entire <div class="card">...</div> block when no CV/resume was
+       supplied. When one was, fill every <PLACEHOLDER> below from it. Never invent employers, dates, or
+       skills not present in the source document. Repeat the .cv-role block once per position
+       (most recent first); repeat the .cv-edu-grid line once per credential. Drop the Army section
+       entirely if not applicable (do not leave an empty heading). -->
+  <div class="card">
+    <details class="table-toggle cv-toggle">
+      <summary>
+        <span class="cv-summary-title">View Full CV: <CANDIDATE_NAME></span>
+        <span class="cv-summary-sub"><CV_ONE_LINE_SUMMARY></span>
+      </summary>
+
+      <div class="cv-body">
+        <div class="cv-contact">
+          <span><LOCATION></span>
+          <span><EMAIL></span>
+          <span><PHONE></span>
+        </div>
+
+        <h3 class="cv-heading">Experience</h3>
+        <div class="cv-timeline">
+          <div class="cv-role">
+            <div class="cv-role-head">
+              <span class="cv-role-title"><ROLE_TITLE>, <COMPANY></span>
+              <span class="cv-role-date"><START_DATE> to <END_DATE></span>
+            </div>
+            <p><ROLE_DESCRIPTION></p>
+          </div>
+          <!-- repeat .cv-role for every position on the CV, most recent first -->
+        </div>
+
+        <h3 class="cv-heading">Skills</h3>
+        <div class="tag-row">
+          <span class="tag cv-tag"><SKILL></span>
+          <!-- repeat .cv-tag for every skill/technology listed -->
+        </div>
+
+        <h3 class="cv-heading">Education</h3>
+        <div class="cv-edu-grid">
+          <div><strong><PROGRAM_OR_DEGREE></strong>, <SCHOOL>, <LOCATION> <span class="cv-role-date"><YEAR_OR_RANGE></span></div>
+          <!-- repeat one line per credential -->
+        </div>
+
+        <h3 class="cv-heading">Languages</h3>
+        <div class="cv-contact">
+          <span><LANGUAGE>, <PROFICIENCY></span>
+          <!-- repeat one span per language -->
+        </div>
+      </div>
+    </details>
+  </div>
+
+  <!-- Competency radar -->
+  <div class="card">
+    <h2>Competency Assessment</h2>
+    <p class="sub">Rated out of 5, based on interviews and take-home assignment</p>
+    <div class="radar-wrap">
+      <svg id="radar" viewBox="0 0 420 420"></svg>
+      <div id="radar-tip">Hover a point for the exact score</div>
+    </div>
+    <details class="table-toggle">
+      <summary>View as table</summary>
+      <table class="score-table" id="score-table"></table>
+    </details>
+  </div>
+
+  <!-- Executive summary: 1-2 short paragraphs synthesizing the assessment source, plus 4-8
+       one-or-two-word positive tags (each becomes a .tag pill). Ground every claim in the source;
+       never invent an evaluation the source doesn't support. -->
+  <div class="card">
+    <h2>Executive Summary</h2>
+    <div class="prose">
+      <p><SUMMARY_PARAGRAPH_1></p>
+      <p><SUMMARY_PARAGRAPH_2></p>
+    </div>
+    <div class="tag-row">
+      <span class="tag"><POSITIVE_TAG></span>
+      <!-- repeat .tag for each headline positive, 4-8 total -->
+    </div>
+  </div>
+
+  <!-- Strengths & risks: left column is .item.strength, right column is .item.risk. One .item
+       per theme with 1-3 bullets. If the source names more strengths than risks (or vice versa),
+       leave the shorter column with fewer .item blocks rather than padding it; do not invent a
+       matching risk just to balance the columns. -->
+  <div class="card">
+    <h2>Strengths &amp; Risks</h2>
+    <div class="two-up">
+      <div class="item-list">
+        <div class="item strength">
+          <div class="head"><STRENGTH_THEME></div>
+          <ul>
+            <li><SUPPORTING_POINT></li>
+          </ul>
+        </div>
+        <!-- repeat .item.strength per strength theme -->
+      </div>
+      <div class="item-list">
+        <div class="item risk">
+          <div class="head"><RISK_THEME></div>
+          <ul>
+            <li><SUPPORTING_POINT></li>
+          </ul>
+        </div>
+        <!-- repeat .item.risk per risk theme -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Interview focus: one .interviewer-card per named interviewer/stakeholder from the source.
+       If only one interviewer is named, keep a single .interviewer-card (the two-up CSS collapses
+       to one column automatically; do not invent a second interviewer to fill the layout). -->
+  <div class="card">
+    <h2>Areas to Probe: Final Interview</h2>
+    <p class="sub">Split by interviewer focus</p>
+    <div class="two-up">
+      <div class="interviewer-card">
+        <h3><INTERVIEWER_NAME></h3>
+        <p class="role"><INTERVIEWER_FOCUS_AREA></p>
+        <div class="focus-tags">
+          <span class="focus-tag"><FOCUS_TOPIC></span>
+          <!-- repeat .focus-tag per topic -->
+        </div>
+        <ul class="qlist">
+          <li><SUGGESTED_QUESTION></li>
+          <!-- repeat li per question -->
+        </ul>
+      </div>
+      <!-- repeat .interviewer-card per interviewer -->
+    </div>
+  </div>
+
+  <!-- Validation checklist: what the source already confirms (check-item done, checkmark icon)
+       vs. what remains to validate in a later round (check-item pending, question-mark icon).
+       Every item must trace to something the source actually said; never invent an open question
+       that isn't grounded in the assessment or CV gap. -->
+  <div class="card">
+    <h2>What We Know vs. What's Left</h2>
+    <p class="sub">Confirmed through interviews and assignment, plus remaining validation for the final round</p>
+    <div class="check-grid">
+      <div class="check-item done"><span class="icon">✓</span><CONFIRMED_ITEM></div>
+      <!-- repeat check-item done per confirmed strength -->
+      <div class="check-item pending"><span class="icon">?</span><OPEN_ITEM></div>
+      <!-- repeat check-item pending per open question -->
+    </div>
+  </div>
+
+  <!-- Final recommendation: the emoji + label must match the actual recommendation
+       (e.g. "🟢 Hire", "🟡 Hire with reservations", "🔴 No hire"). Never default to Hire.
+       <RECOMMENDATION_TONE> here must be the same value used on the header pill above. -->
+  <div class="final-banner <RECOMMENDATION_TONE>">
+    <div class="final-score">
+      <span class="num"><FINAL_SCORE></span>
+      <span class="of">/ 10 Final Recommendation Score</span>
+    </div>
+    <div class="final-body">
+      <h2><RECOMMENDATION_EMOJI_AND_LABEL></h2>
+      <p><FINAL_RECOMMENDATION_PARAGRAPH></p>
+    </div>
+  </div>
+
+  <footer>Candidate Brief &middot; <DEPARTMENT_OR_TEAM> &middot; <STAGE_LABEL></footer>
+
+</div>
+
+<script>
+(function () {
+  // One entry per competency the source actually rates, 0-5 scale. Works with any count from
+  // about 5 to 10 axes (the layout math is generic); do not pad to a fixed count. Keep each
+  // label to 1-3 words so it wraps cleanly at the chart edge (see knowledge/authoring-guide.md
+  // "Radar label length" for the wrapping rule if a label runs long).
+  const data = [
+    { label: "<COMPETENCY_1>", value: 0 },
+    { label: "<COMPETENCY_2>", value: 0 }
+    // add or remove entries to match the source's competency list
+  ];
+
+  const width = 520;
+  const height = 480;
+  const centerX = 260;
+  const centerY = 240;
+  const maxR = 125;
+  const labelOffset = 40;
+  const scaleMax = 5;
+  const n = data.length;
+  const svgNS = "http://www.w3.org/2000/svg";
+
+  function pt(i, r) {
+    const angle = (Math.PI * 2 * i) / n - Math.PI / 2;
+    return [centerX + r * Math.cos(angle), centerY + r * Math.sin(angle)];
+  }
+
+  const svg = document.getElementById("radar");
+  svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+
+  const isDark = () => {
+    const attr = document.documentElement.getAttribute("data-theme");
+    if (attr === "dark") return true;
+    if (attr === "light") return false;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+  };
+
+  function colors() {
+    const dark = isDark();
+    return {
+      grid: dark ? "rgba(255,255,255,0.09)" : "rgba(20,20,28,0.10)",
+      gridStrong: dark ? "rgba(255,255,255,0.16)" : "rgba(20,20,28,0.18)",
+      label: dark ? "#A8A8B8" : "#55556A",
+      accent: "#7C5CFF",
+      fill: "rgba(124,92,255,0.22)",
+      dot: dark ? "#0F0F14" : "#FFFFFF"
+    };
+  }
+
+  function draw() {
+    const c = colors();
+    svg.innerHTML = "";
+
+    // grid rings
+    for (let ring = 1; ring <= scaleMax; ring++) {
+      const r = (maxR * ring) / scaleMax;
+      const pts = [];
+      for (let i = 0; i < n; i++) pts.push(pt(i, r).join(","));
+      const poly = document.createElementNS(svgNS, "polygon");
+      poly.setAttribute("points", pts.join(" "));
+      poly.setAttribute("fill", "none");
+      poly.setAttribute("stroke", ring === scaleMax ? c.gridStrong : c.grid);
+      poly.setAttribute("stroke-width", "1");
+      svg.appendChild(poly);
+    }
+
+    // spokes
+    for (let i = 0; i < n; i++) {
+      const [x, y] = pt(i, maxR);
+      const line = document.createElementNS(svgNS, "line");
+      line.setAttribute("x1", centerX); line.setAttribute("y1", centerY);
+      line.setAttribute("x2", x); line.setAttribute("y2", y);
+      line.setAttribute("stroke", c.grid);
+      line.setAttribute("stroke-width", "1");
+      svg.appendChild(line);
+    }
+
+    // ring value labels (on top spoke)
+    for (let ring = 1; ring <= scaleMax; ring++) {
+      const r = (maxR * ring) / scaleMax;
+      const t = document.createElementNS(svgNS, "text");
+      t.setAttribute("x", centerX + 4);
+      t.setAttribute("y", centerY - r + 3);
+      t.setAttribute("font-size", "9");
+      t.setAttribute("fill", c.label);
+      t.setAttribute("font-family", "Inter, sans-serif");
+      t.textContent = ring;
+      svg.appendChild(t);
+    }
+
+    // data polygon
+    const dataPts = data.map((d, i) => pt(i, (maxR * d.value) / scaleMax));
+    const poly = document.createElementNS(svgNS, "polygon");
+    poly.setAttribute("points", dataPts.map((p) => p.join(",")).join(" "));
+    poly.setAttribute("fill", c.fill);
+    poly.setAttribute("stroke", c.accent);
+    poly.setAttribute("stroke-width", "2");
+    poly.setAttribute("stroke-linejoin", "round");
+    svg.appendChild(poly);
+
+    // axis labels: always wrap to keep each line short enough to clear the card edge
+    data.forEach((d, i) => {
+      const [x, y] = pt(i, maxR + labelOffset);
+      const t = document.createElementNS(svgNS, "text");
+      t.setAttribute("x", x);
+      t.setAttribute("y", y);
+      t.setAttribute("font-size", "10.5");
+      t.setAttribute("font-weight", "600");
+      t.setAttribute("fill", c.label);
+      t.setAttribute("font-family", "Inter, sans-serif");
+      t.setAttribute("text-anchor", x < centerX - 4 ? "end" : x > centerX + 4 ? "start" : "middle");
+
+      const words = d.label.split(" ");
+      let lines;
+      if (words.length <= 1) {
+        lines = words;
+      } else if (words.length <= 3) {
+        const mid = Math.ceil(words.length / 2);
+        lines = [words.slice(0, mid).join(" "), words.slice(mid).join(" ")];
+      } else {
+        const third = Math.ceil(words.length / 3);
+        lines = [
+          words.slice(0, third).join(" "),
+          words.slice(third, third * 2).join(" "),
+          words.slice(third * 2).join(" "),
+        ].filter(Boolean);
+      }
+
+      const lineHeight = 12;
+      const startDy = -((lines.length - 1) * lineHeight) / 2;
+      t.setAttribute("dominant-baseline", "middle");
+      lines.forEach((line, li) => {
+        const tspan = document.createElementNS(svgNS, "tspan");
+        tspan.setAttribute("x", x);
+        tspan.setAttribute("dy", li === 0 ? startDy : lineHeight);
+        tspan.textContent = line;
+        t.appendChild(tspan);
+      });
+      svg.appendChild(t);
+    });
+
+    // vertex dots (hoverable)
+    const tip = document.getElementById("radar-tip");
+    dataPts.forEach(([x, y], i) => {
+      const g = document.createElementNS(svgNS, "g");
+      g.setAttribute("class", "radar-vertex");
+
+      const halo = document.createElementNS(svgNS, "circle");
+      halo.setAttribute("cx", x); halo.setAttribute("cy", y); halo.setAttribute("r", 11);
+      halo.setAttribute("fill", "transparent");
+      g.appendChild(halo);
+
+      const dot = document.createElementNS(svgNS, "circle");
+      dot.setAttribute("cx", x); dot.setAttribute("cy", y); dot.setAttribute("r", 4.5);
+      dot.setAttribute("fill", c.accent);
+      dot.setAttribute("stroke", c.dot);
+      dot.setAttribute("stroke-width", "1.5");
+      g.appendChild(dot);
+
+      g.addEventListener("mouseenter", () => {
+        dot.setAttribute("r", 6.5);
+        // Built as DOM nodes (not innerHTML) so a competency label can never inject markup.
+        tip.textContent = "";
+        tip.appendChild(document.createTextNode(`${data[i].label}: `));
+        const b = document.createElement("b");
+        b.textContent = `${data[i].value.toFixed(1)} / 5`;
+        tip.appendChild(b);
+      });
+      g.addEventListener("mouseleave", () => {
+        dot.setAttribute("r", 4.5);
+        tip.textContent = "Hover a point for the exact score";
+      });
+
+      svg.appendChild(g);
+    });
+  }
+
+  // score table (accessible fallback)
+  const table = document.getElementById("score-table");
+  data.forEach((d) => {
+    const tr = document.createElement("tr");
+    const tdLabel = document.createElement("td");
+    tdLabel.textContent = d.label;
+    const tdVal = document.createElement("td");
+    tdVal.textContent = d.value.toFixed(1);
+    tr.appendChild(tdLabel);
+    tr.appendChild(tdVal);
+    table.appendChild(tr);
+  });
+
+  draw();
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", draw);
+  new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+})();
+</script>

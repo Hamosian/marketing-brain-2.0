@@ -1,0 +1,78 @@
+<section class="slide a-slide" data-id="slack" data-title="Where it shows up in Slack" data-part="appendix" aria-labelledby="slack-h">
+  <div class="slide-inner a-sl">
+    <header class="a-sl-head">
+      <p class="eyebrow rise" style="--i:0">In Slack</p>
+      <h2 id="slack-h" class="rise" style="--i:1">Where it shows up in Slack</h2>
+      <p class="lead rise" style="--i:2">You will often see the Brain's work in Slack: intake reports, welcome messages, digests, and briefs.</p>
+    </header>
+
+    <div class="a-sl-grid">
+      <div class="a-sl-left">
+      <div class="a-sl-feed rise" style="--i:3">
+        <p class="a-sl-cap">What these posts look like <span class="muted">(examples, shortened)</span></p>
+        <ul class="a-sl-msgs">
+          <li class="a-sl-msg">
+            <span class="a-sl-av" aria-hidden="true">OS</span>
+            <div class="a-sl-body">
+              <p class="a-sl-meta"><span class="a-sl-who">Marketing OS</span><span class="a-sl-where">Marketing Ops channel</span><span class="a-sl-when">Daily, 09:00 Israel time</span></p>
+              <p class="a-sl-txt"><span class="cmd">/ticket-hygiene</span> intake: asks from the Marketing Ops and website channels that never became tickets, now filed into the boards' intake groups.</p>
+              <p class="a-sl-sig">Posted by the Marketing OS agent</p>
+            </div>
+          </li>
+          <li class="a-sl-msg">
+            <span class="a-sl-av" aria-hidden="true">OS</span>
+            <div class="a-sl-body">
+              <p class="a-sl-meta"><span class="a-sl-who">Marketing OS</span><span class="a-sl-where">Direct message</span><span class="a-sl-when">When you get repo access</span></p>
+              <p class="a-sl-txt"><span class="cmd">/access-welcome</span>: you have access to the marketing-brain repo now. Here is how to turn it on and check it is live.</p>
+              <p class="a-sl-sig">Posted by the Marketing OS agent</p>
+            </div>
+          </li>
+          <li class="a-sl-msg">
+            <span class="a-sl-av" aria-hidden="true">OS</span>
+            <div class="a-sl-body">
+              <p class="a-sl-meta"><span class="a-sl-who">Marketing OS</span><span class="a-sl-where">DM to the SEO manager</span><span class="a-sl-when">Thursdays</span></p>
+              <p class="a-sl-txt"><span class="cmd">/weekly-seo-report</span>: the week's organic search headlines in five short lines, with a link to the full report.</p>
+              <p class="a-sl-sig">Posted by the Marketing OS agent</p>
+            </div>
+          </li>
+          <li class="a-sl-msg a-sl-msg-new" id="a-sl-sent" hidden>
+            <span class="a-sl-av" aria-hidden="true">OS</span>
+            <div class="a-sl-body">
+              <p class="a-sl-meta"><span class="a-sl-who">Marketing OS</span><span class="a-sl-where">Team channel</span><span class="a-sl-when">Just now, after your yes</span></p>
+              <p class="a-sl-txt">Launch checklist is updated. Two items still need an owner, linked in the thread.</p>
+              <p class="a-sl-sig">Posted by the Marketing OS agent</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <p class="a-sl-ask rise" style="--i:6">To ask it for something yourself, use Claude Code with the repo open. <button type="button" class="a-sl-link" data-nav="setup">See the setup steps</button></p>
+      </div>
+
+      <div class="a-sl-side">
+        <div class="a-sl-card rise" style="--i:4">
+          <h3>Every post is signed</h3>
+          <p>Each message the agent posts as itself ends with this line:</p>
+          <p class="a-sl-sigbig">Posted by the Marketing OS agent</p>
+          <p class="a-sl-small">Marketing OS is the Brain's older name. Same system.</p>
+        </div>
+
+        <div class="a-sl-card a-sl-try rise" style="--i:5">
+          <h3>It asks before it sends</h3>
+          <p>Named automations with fixed rules, like the intake report and the welcome message, post on their own. Anything else waits for your yes. Try it:</p>
+          <div class="a-sl-draft" id="a-sl-draft">
+            <p class="a-sl-draft-h">Draft for the team channel</p>
+            <p class="a-sl-draft-t">"Launch checklist is updated. Two items still need an owner, linked in the thread."</p>
+            <div class="a-sl-draft-a">
+              <button type="button" class="btn btn-ghost btn-sm a-sl-yes" id="a-sl-yes">Send it</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="a-sl-no">Not yet</button>
+              <button type="button" class="btn btn-ghost btn-sm" id="a-sl-reset" hidden>Reset the demo</button>
+            </div>
+          </div>
+          <p class="a-sl-result" id="a-sl-result" aria-live="polite"></p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <aside class="notes">This is where most people first notice the Brain: the daily intake report, the welcome message with the setup guide, and digests like the weekly SEO headlines. Every post it makes as itself carries the same footer. Try the draft card to show that anything outside a named automation waits for a yes before it goes out.</aside>
+</section>

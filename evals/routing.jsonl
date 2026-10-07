@@ -1,0 +1,217 @@
+// Routing eval suite. One JSON object per line: {"request", "expect", "why"}.
+// `request` is phrased the way someone would actually ask. `expect` is the frontmatter
+// `name:` of the skill that should own it. `why` says what near-miss the case guards, and
+// is the field that makes a failure diagnosable six months from now.
+// Read by scripts/eval_routing.py (deterministic) and /skill-eval (model-in-the-loop).
+// Adding cases: evals/README.md. Design: docs/skill-evals.md.
+
+// --- Daily briefs: three skills, three altitudes, one vocabulary ---
+{"request": "good morning, catch me up on what happened overnight", "expect": "good-morning", "why": "individual morning brief, not the director-level or shared-MOPs variant"}
+{"request": "what needs Nir's attention today, decisions first", "expect": "chief-of-staff", "why": "director altitude: decisions and org pulse, not a task list"}
+{"request": "run the shared standup for me and Jonathan across the MOPs and website boards", "expect": "mops-standup", "why": "two-owner split by board, distinct from good-morning"}
+{"request": "show me the team tasks dashboard by function with open and overdue counts", "expect": "growth-marketing-team-tasks", "why": "interactive dashboard, the visual companion to chief-of-staff"}
+
+// --- Nir's report library: cadence is the only discriminator ---
+{"request": "build Nir's weekly task report doc for last week", "expect": "nir-weekly-report", "why": "weekly vs monthly sibling; near-identical descriptions apart from cadence"}
+{"request": "generate the monthly task report for Nir covering June", "expect": "nir-monthly-report", "why": "monthly .docx sibling of nir-weekly-report"}
+{"request": "send Nir today's inbound MQL digest of demo bookers", "expect": "nir-mql-live-report", "why": "daily MQL DM, not a task report and not the demo-reply drafting flow"}
+
+// --- MOPs board lifecycle ---
+{"request": "audit the backlog and on-hold groups on the MOPs boards and say what to archive", "expect": "mops-backlog-review", "why": "the groups mops-standup deliberately excludes"}
+{"request": "book focus slots for the P1 and P2 items I am accountable for this week", "expect": "p1-p2-followup", "why": "calendar scheduling plus nudges, not a standup"}
+
+// --- Work intake: two boards, two taxonomies ---
+{"request": "create a task for the new pricing page with a proper why and done when", "expect": "pm-story", "why": "our own board; must not go direct to the monday API"}
+{"request": "ask the data team for a dashboard on signup attribution", "expect": "data-team-request", "why": "different board, different taxonomy; the classic pm-story confusion"}
+{"request": "update the status of these five items on the marketing operations board", "expect": "monday-agent", "why": "read/update work state, not story writing"}
+
+// --- QA: same checklist grammar, different surface ---
+{"request": "QA this HubSpot nurture workflow before we turn it on", "expect": "hubspot-workflow-qa", "why": "workflow QA sibling of the web-page QA skill"}
+{"request": "review the new comparison page on staging before we launch it", "expect": "marketing-website-page-qa", "why": "page QA sibling of hubspot-workflow-qa"}
+
+// --- Design: color/type vs behaviour/structure ---
+{"request": "what are our brand colors and heading typography", "expect": "riverside-brand-guidelines", "why": "palette and type are owned here, not by the UX skill"}
+{"request": "fix the spacing, hierarchy and focus states on this form", "expect": "riverside-ux-patterns", "why": "interaction and layout; the intended pair-with, not a duplicate of branding"}
+{"request": "build a branded deck for the QBR", "expect": "riverside-presentation", "why": "pptx output, not general brand lookup"}
+
+// --- Webflow: five skills over the same site ---
+{"request": "build this Figma spec as a pixel-perfect responsive Webflow page", "expect": "webflow-build-agent", "why": "Data API build, not QA and not the link crawl"}
+{"request": "score this Webflow page for WCAG accessibility and propose fixes", "expect": "webflow-accessibility-audit", "why": "headless audit, distinct from page QA"}
+{"request": "crawl the German locale pages for 404s and redirect chains", "expect": "webflow-link-checker", "why": "link crawl, overlaps with the localization vocabulary"}
+{"request": "queue the localized CMS items for the next publish", "expect": "webflow-locale-publish-queue", "why": "browser-driven publish queue, not the link checker"}
+{"request": "our site images are missing alt text and half are named IMG_1234, clean them up", "expect": "webflow-asset-audit", "why": "site-wide asset library pass, not the per-page accessibility audit"}
+{"request": "audit this page for missing form labels and heading structure", "expect": "webflow-accessibility-audit", "why": "element-level page audit stays here even though the alt/asset rewrite moved to webflow-asset-audit"}
+{"request": "who owns riverside.com and how do we ship a page change", "expect": "website-agent", "why": "routing-layer owner; must not fall through to a specific Webflow tool skill"}
+
+// --- Conversion: page mechanics vs behavioural science ---
+{"request": "audit the homepage for conversion barriers and propose an A/B test", "expect": "page-cro", "why": "page structure and copy, not the psychology framework"}
+{"request": "which cognitive biases should we lean on in this pricing copy", "expect": "marketing-psychology", "why": "behavioural models; the intended companion to page-cro"}
+
+// --- Data and product knowledge ---
+{"request": "how does AI show notes work and which plan is it on", "expect": "riverside-product-knowledge", "why": "help-center reference, not a live data question"}
+{"request": "how many intro meetings did BD book last month and what converted", "expect": "preop-data-intelligence", "why": "Pre-Op data dictionary owns MQL/SQL and meeting definitions"}
+{"request": "show me the calls the AEs had last week with deal context", "expect": "gong-calls-explorer", "why": "Gong plus HubSpot context, ahead of a generic Omni query"}
+{"request": "refresh the organic search analytics dashboard for June", "expect": "organic-dashboard", "why": "the SEO artifact, not the SEO routing agent"}
+{"request": "what was our CAC by channel in Q2", "expect": "rivermind:ask", "external": true, "why": "CLAUDE.md sends every data question to Rivermind first; a bare metric ask must not shortcut to data-agent"}
+{"request": "write me ad-hoc SQL to explore the Snowflake attribution tables", "expect": "data-agent", "why": "raw SQL and table exploration is a documented direct-to-data-agent case, not a Rivermind question"}
+{"request": "what counts as an MQL for us", "expect": "preop-data-intelligence", "why": "MQL/SQL definitions live in the Pre-Op dictionary, not with the measurement agent"}
+{"request": "report last week's funnel performance and diagnose what moved", "expect": "measurement-agent", "why": "performance reporting and anomaly diagnosis, not raw querying"}
+
+// --- Routing layer by domain ---
+{"request": "spend is up but signups are flat, work out what is going on across paid, the site and lifecycle", "expect": "marketing-brain", "why": "spans domains; the top-level router must win over any single specialist"}
+{"request": "find the contacts who booked a demo but never showed", "expect": "hubspot-agent", "why": "CRM object query"}
+{"request": "design a win-back sequence for churned annual accounts", "expect": "lifecycle-agent", "why": "lifecycle journey, not a campaign launch"}
+{"request": "our Google Ads CPA doubled in two weeks", "expect": "paid-acquisition-agent", "why": "paid channel health"}
+{"request": "why did our AI search citations drop on the podcast pages", "expect": "seo-ai-search-agent", "why": "AI-search visibility, not the organic dashboard refresh"}
+{"request": "lead routing broke, new leads are not getting assigned", "expect": "marketing-ops-automation-agent", "why": "automation breakage, not a HubSpot data pull"}
+{"request": "plan the GTM launch for multitrack export", "expect": "campaign-agent", "why": "launch orchestration, not content drafting"}
+{"request": "draft the newsletter copy for the feature launch", "expect": "content-agent", "why": "branded written artifact"}
+{"request": "post the launch announcement in the growth channel", "expect": "slack-agent", "why": "outbound comms"}
+{"request": "draft replies to yesterday's demo form submissions", "expect": "inbound-demo-reply", "why": "demo outreach drafting, distinct from the MQL digest"}
+
+// --- Unattended routines ---
+{"request": "file this month's invoice emails onto the invoices board", "expect": "invoice-inbox-to-monday", "why": "Gmail-to-monday routine"}
+{"request": "welcome the collaborators who just got access to this repo", "expect": "access-welcome", "why": "collaborator onboarding DM routine"}
+
+// --- Meta: building and maintaining the brain ---
+{"request": "capture what we learned from that workflow into the repo", "expect": "retro", "why": "knowledge capture"}
+{"request": "which of our docs are stale or missing fields", "expect": "health-check", "why": "repo hygiene audit, not the routing eval"}
+{"request": "run the routing evals and tell me which skill descriptions collide", "expect": "skill-eval", "why": "behavioural eval, the sibling health-check does not cover"}
+{"request": "interview me to fill the gaps in our knowledge base", "expect": "curious-intern", "why": "knowledge extraction interview"}
+{"request": "build me a new skill for tracking competitor pricing pages", "expect": "agent-builder", "why": "authoring a skill, not running one"}
+{"request": "make a Granola recipe for customer discovery calls", "expect": "granola-recipe-builder", "why": "recipe authoring; overlaps agent-builder's interview vocabulary"}
+{"request": "what skills do we have and how do I trigger them", "expect": "list-skills", "why": "live listing rather than a summary from memory"}
+{"request": "map the relationships between the marketing os files", "expect": "graphify", "why": "knowledge-graph query over the codebase"}
+{"request": "onboard a new marketer onto this repo", "expect": "team-intro", "why": "human onboarding, not /setup and not agent-builder"}
+
+// --- CopyTemplates: nine skills, one shared preamble ---
+{"request": "give me alliteration headlines for the AI editor", "expect": "alliteration-copytemplates", "why": "single-technique skill inside a nine-skill family"}
+{"request": "headlines contrasting life before and after Riverside", "expect": "antithesis-copytemplates", "why": "opposites technique"}
+{"request": "use a metaphor to explain multitrack recording in a headline", "expect": "metaphor-copytemplates", "why": "familiar-explains-unfamiliar technique"}
+{"request": "give the product a personality in the headline", "expect": "personification-copytemplates", "why": "single technique, easily lost among the master prompts"}
+{"request": "run the humor master prompt for a batch of headlines", "expect": "humor-master-copytemplates", "why": "master prompt vs single technique"}
+{"request": "run the boring but works master prompt for our headlines", "expect": "boring-but-works-master-copytemplates", "why": "master prompt"}
+{"request": "headlines built around numbers and statistics", "expect": "numbers-master-copytemplates", "why": "master prompt"}
+{"request": "headlines that play on a familiar phrase or saying", "expect": "phrase-play-master-copytemplates", "why": "master prompt"}
+{"request": "write headlines from the customer's point of view", "expect": "point-of-view-master-copytemplates", "why": "master prompt"}
+
+// --- Channel specifics ---
+{"request": "optimize my LinkedIn headline and about section", "expect": "linkedin-best-practices-2026", "why": "profile optimization, distinct from the LinkedIn content specialist subagent"}
+
+// --- Hiring artifacts: candidate brief vs. general presentation/brand skills ---
+{"request": "build a candidate brief for this frontend engineer, here's the assessment and CV", "expect": "candidate-brief", "why": "competency radar + CV artifact, not a general slide deck"}
+{"request": "turn this hiring assessment into a scorecard with a competency radar chart", "expect": "candidate-brief", "why": "radar-chart hiring artifact should not fall to dataviz or riverside-presentation"}
+// --- Podcast transcription: episode links vs. generic web/data skills ---
+{"request": "can you summarise this https://open.spotify.com/episode/5ej5YQIPjZkvd19IRUJIdY", "expect": "podcast-transcript", "why": "Spotify episode link needs the RSS-feed + local-transcription path, not a plain WebFetch of the DRM-locked page"}
+{"request": "transcribe this podcast episode and give me the key takeaways", "expect": "podcast-transcript", "why": "transcribe-an-episode is this skill, not content-agent or a data query"}
+{"request": "what have Creator Marketing and Growth Channels spent this month on the invoices board", "expect": "invoice-board-spend-pulse", "why": "Board-sourced totals for the two teams this skill actually covers. Guards against mesh-expenditure-report, which reports Mesh card spend rather than monday board invoices."}
+{"request": "send Nir the spend pulse for the invoice board", "expect": "invoice-board-spend-pulse", "why": "Names the pulse and its recipient. Guards against invoice-inbox-to-monday, which files invoice emails rather than reporting board totals."}
+{"request": "who on the team has not uploaded their receipts to Mesh", "expect": "mesh-expenditure-report", "why": "Receipt chasing is Mesh-side. Guards the reverse direction against invoice-board-spend-pulse, which only reports monday board invoice totals by team and does no receipt chasing."}
+// --- DE organic report vs the whole-site organic dashboard ---
+{"request": "can you pull the German site's organic search numbers for last month vs the month before, per URL", "expect": "seo-de-report", "why": "single-locale per-URL organic funnel report with a custom/date-driven range, not the 7-page whole-site organic-dashboard"}
+{"request": "give me the full organic analytics dashboard with rankings and search console, not just the DE numbers", "expect": "organic-dashboard", "why": "guards the sibling: whole-site multi-source retrospective should not fall to the DE-only per-URL report"}
+{"request": "before this draft goes out, verify the product claims in it are actually true", "expect": "demo-reply-fact-check", "why": "claim verification on prospect-facing copy is the fact-check gate, not the drafting skill"}
+{"request": "is async recording really Business-plan only or am I making that up", "expect": "demo-reply-fact-check", "why": "plan-gating verification with a tier claim, the exact failure mode the ledger exists for"}
+{"request": "find duplicate tickets across the MOPs and website boards", "expect": "ticket-hygiene", "why": "duplicates are the sweep's Pass A; mops-backlog-review audits stale parked work, not redundant work"}
+{"request": "this website task is sitting on the marketing ops board, should it move", "expect": "ticket-hygiene", "why": "Pass B board routing; the near-miss is monday-agent doing a raw move with no rules"}
+{"request": "which slack requests from this week never became tickets", "expect": "ticket-hygiene", "why": "mops-standup surfaces intake gaps but hands filing here, since this skill holds the permalink ledger"}
+{"request": "which open website tickets are missing a figma or a brief", "expect": "ticket-hygiene", "why": "Pass C readiness sweep over existing tickets; pm-story only gates at creation time"}
+{"request": "scan the mops channels and open tickets for anything untracked", "expect": "ticket-hygiene", "why": "INTAKE mode; must not land on mops-standup, which reports the day rather than filing"}
+{"request": "audit how well this skill is written and score its authoring quality", "expect": "skill-audit", "why": "authoring-quality rubric, distinct from skill-eval routing and health-check staleness"}
+{"request": "half our skills are badly written, rewrite the worst few and only keep what measurably helps", "expect": "skill-optimizer", "why": "fix-and-verify loop across the library, not a single-skill audit score"}
+{"request": "loop over the whole skill library: edit whatever scores lowest, re-measure, and undo anything that did not improve", "expect": "skill-optimizer", "why": "applies and judges edits; skill-eval only proposes description patches"}
+{"request": "manage my routines, I want to change one of my scheduled triggers", "expect": "raz-ops", "why": "Raz's personal routine/task orchestration layer, not a department-wide skill"}
+{"request": "remember that I don't want Slack pings on weekends", "expect": "raz-ops", "why": "standing personal preference with no live system, routed to raz-ops which saves it to Claude Memory"}
+{"request": "check my open tasks and move my Tuesday invoice pulse to Friday", "expect": "raz-ops", "why": "personal current-state-plus-change request; must not land on chief-of-staff (Nir's leader-level brief) or mops-standup (Hanan/Jonathan's shared standup)"}
+{"request": "create a task to review the new landing page copy", "expect": "pm-story", "why": "sibling check - net-new monday task creation still belongs to pm-story even though raz-ops now exists; raz-ops delegates creation to pm-story rather than owning it"}
+{"request": "what do I need to add to this week's report", "expect": "raz-ops", "why": "on-demand recall of the report-notes ledger - must not land on invoice-board-spend-pulse or nir-weekly-report, which are different people's different reports"}
+{"request": "here's the brief for the new editor launch video, let's kick it off", "expect": "video-project-intake", "why": "Raz handing over a creative video brief is the Creative Ops front door, not generic monday task creation"}
+{"request": "stress-test this video brief before it goes to the team", "expect": "video-project-intake", "why": "Gate 0 brief grading lives in intake; must not fall through to content-agent or marketing-brain"}
+{"request": "start a new video project on the creative board", "expect": "video-project-intake", "why": "project creation on 18426224074 duplicates a template group; pm-story and monday-agent must not touch this board directly"}
+{"request": "here are a few links, figure out what they are and what I should do with each", "expect": "link-triage", "why": "the core link-triage trigger - classify pasted links then decide per link; must not fall through to marketing-brain as generic cross-system work"}
+{"request": "read this article and pull anything useful for us", "expect": "link-triage", "why": "single-link mine-for-insights path belongs to link-triage, not content-agent (which produces artifacts) or riverside-intel (which is the file-to destination, not the reader)"}
+{"request": "open a ticket for this - Ann needs the homepage banner live tomorrow, copy is BREAKING NEWS: Meet AI Twin, linking to riverside.com/ai-twin", "expect": "pm-story", "why": "a Trendemon on-site message reaching the board - ticketing intent plus a placement and copy. Near-misses are page-cro and webflow-link-checker, which would analyse the page instead of filing the request; the board choice itself (MOPs, not Website Dev) is enforced inside pm-story Step 6, not here"}
+{"request": "please create a Marketing Ops ticket for the request", "expect": "pm-story", "why": "the word is ticket, not task - pm-story's description carried no ticket vocabulary until 2026-09-02, so ticket-hygiene outranked it and a single-ticket creation would have triggered a board-wide hygiene sweep"}
+// --- Content pipeline: three skills, three verbs. Register choice is the risk. ---
+{"request": "draft a slack message asking the US team who Vince should talk to", "expect": "nik-voice", "why": "writing in Nir's voice routes to the router first, not straight to slack-agent, which owns delivery rather than wording"}
+{"request": "this reads like ChatGPT wrote it, fix it", "expect": "de-ai", "why": "slop removal on an existing draft, not a re-voicing job for nik-voice"}
+{"request": "make it more human, add some personality", "expect": "de-ai", "why": "guards the retired content-humanizer trigger: de-ai absorbed it, so this must not go looking for a second humanizer"}
+{"request": "is this LinkedIn post actually any good before I post it", "expect": "critique", "why": "a verdict on finished writing, not a rewrite; critique scores and never edits"}
+{"request": "write up the funnel numbers for me, keep it short", "expect": "ste", "why": "internal functional output for Nir skips the outward-facing pipeline entirely"}
+// --- weekly organic conversion report vs the monthly organic dashboard ---
+{"request": "how did organic do last week", "expect": "weekly-seo-report", "why": "a single completed 7-day window is the weekly conversion report, not the monthly retrospective"}
+{"request": "run the weekly seo report", "expect": "weekly-seo-report", "why": "the report's own name, exactly as the SEO team asks for it"}
+{"request": "weekly organic numbers, visits signups and subs with the week over week move per landing page", "expect": "weekly-seo-report", "why": "per-URL funnel at weekly grain is the weekly report's core table"}
+{"request": "clicks and impressions in the SEO sheet have not moved in days, is google still sending us anything", "expect": "gsc-freshness-check", "why": "a freshness question about the feed, not a request to build the weekly SEO report or the organic dashboard"}
+{"request": "refresh the SEO dashboard with our Ahrefs ranking movement and AI overview share", "expect": "organic-dashboard", "why": "guards the sibling: rank tracking and AI-overview share are deliberately excluded from the weekly report and belong to the monthly dashboard"}
+{"request": "refresh the organic dashboard for last month with the content cohorts", "expect": "organic-dashboard", "why": "guards the sibling: monthly grain plus content cohorts, which the weekly does not pull"}
+{"request": "the weekly report for Nir on what MOPs and website dev shipped", "expect": "nir-weekly-report", "why": "guards the reverse direction against /weekly-seo-report; this one is monday task state for Nir, not search performance"}
+// --- Value proposition canvas vs its neighbours. The risk is theft from page-cro, marketing-psychology, win-loss, content-agent. ---
+{"request": "build a customer profile for agencies - what are their jobs, pains and gains", "expect": "value-proposition-canvas", "why": "the canvas vocabulary itself; must not fall to marketing-psychology's six-line JTBD stub or to content-agent, which writes rather than profiles"}
+{"request": "do we actually have fit between what we sell and what B2B content teams need", "expect": "value-proposition-canvas", "why": "a fit question about the offer, not a page audit (page-cro) and not a closed-lost coding job (win-loss-pricing-analyzer)"}
+{"request": "write a test card for the hypothesis that producers care more about guest setup than editing", "expect": "value-proposition-canvas", "why": "test card and learning card are this skill's artifacts; measurement-agent reads results out, it does not design the hypothesis"}
+{"request": "what should we even be saying to solopreneurs, who is this really for", "expect": "value-proposition-canvas", "why": "positioning before copy: content-agent and nik-voice write once the Value Map exists"}
+{"request": "draft customer discovery interview questions for next week's power user sessions", "expect": "value-proposition-canvas", "why": "customer discovery interviews, not curious-intern, which interviews colleagues about our own systems"}
+{"request": "audit the agency page for conversion barriers and tell me what to change above the fold", "expect": "page-cro", "why": "incumbent guard: a page audit stays with page-cro even though the new canvas skill mentions segments and fit"}
+{"request": "why are we losing enterprise deals on price this quarter", "expect": "win-loss-pricing-analyzer", "why": "incumbent guard: closed-lost coding with revenue attached stays with win-loss; the canvas skill only consumes its pain section"}
+{"request": "what mental models explain why people hesitate on the pricing page", "expect": "marketing-psychology", "why": "incumbent guard: biases and mental models, not a customer profile or a value map"}
+
+// --- Differentiation grader vs its neighbours. The risk is theft from value-proposition-canvas, page-cro, content-agent, riverside-brand-guidelines. ---
+{"request": "are we really different, or do we sound like every other competitor", "expect": "are-we-really-different", "why": "the skill's own framing - a sameness check on positioning against live competitor copy"}
+{"request": "which of our claims can Descript and StreamYard also make", "expect": "are-we-really-different", "why": "claim overlap against named competitors; not a customer profile (value-proposition-canvas) and not copywriting (content-agent)"}
+{"request": "check whether our homepage copy has drifted into category boilerplate", "expect": "are-we-really-different", "why": "the portability test on a page; page-cro is the near-miss but this asks about differentiation, not conversion"}
+{"request": "audit the pricing page for conversion barriers and what to change above the fold", "expect": "page-cro", "why": "incumbent guard: a conversion audit stays with page-cro even though the new grader also reads pages"}
+{"request": "do we have fit between our value map and what agencies actually need", "expect": "value-proposition-canvas", "why": "incumbent guard: a customer-side fit question, not a competitor claim-overlap grade"}
+{"request": "build the PPC landing page from this Website Dev ticket", "expect": "page-build", "why": "ticket-driven page build; webflow-build-agent is the bare-Figma path, page-cro is a conversion audit, page-qa reviews an already-built page"}
+{"request": "turn this brief and Figma into a landing page", "expect": "page-build", "why": "a brief plus a design handover is the ticket workflow, not a raw Data API rebuild"}
+{"request": "the dev finished the new LP, check it on staging before it goes live", "expect": "marketing-website-page-qa", "why": "post-build review; must not fall to page-build now that a build skill shares the LP vocabulary"}
+{"request": "swap the hero copy and images on the PPC page to match the new Figma", "expect": "page-build", "why": "updating an already-built page is construction, not a conversion audit (page-cro) or a pre-launch review (page-qa)"}
+{"request": "why is the pricing page converting badly and what should we change", "expect": "page-cro", "why": "conversion diagnosis; guards page-cro against the build and QA skills that share page vocabulary"}
+
+// --- Marketing council (direction debate) vs marketing-brain (diagnosis) ---
+{"request": "what would Byron Sharp say about us putting more budget into brand awareness this quarter", "expect": "marketing-council", "why": "a named-thinker take on a direction decision; paid-acquisition-agent is the near-miss on 'budget', marketing-psychology on 'brand'"}
+{"request": "get a few opposing expert views on whether we should lead with podcasts or video in our positioning", "expect": "marketing-council", "why": "debate among perspectives on direction; marketing-brain depth-first is the near-miss but that mode diagnoses with live data"}
+{"request": "convene the council on the free to paid pricing change", "expect": "marketing-council", "why": "the skill's own trigger; win-loss-pricing-analyzer is the near-miss (deal analysis, not a direction debate)"}
+{"request": "why did trial starts drop 15% last month, look at it from a few angles across paid, lifecycle and the site", "expect": "marketing-brain", "why": "incumbent guard: multi-angle diagnosis of a number stays with marketing-brain depth-first; the council debates what to do, it does not diagnose"}
+// --- Persona panel (simulated customer reaction) vs marketing-council (expert debate), critique (draft verdict), value-proposition-canvas (customer profile) ---
+{"request": "before we post the Co-Creator launch, how would podcasters vs agencies react to it", "expect": "persona-panel", "why": "segment reaction to a stimulus; marketing-council is the near-miss but it seats expert thinkers, not customers"}
+{"request": "who is going to push back on the new Business plan pricing email", "expect": "persona-panel", "why": "pushback on a pricing message; win-loss-pricing-analyzer is the near-miss on 'pricing' but that codes past deals, not a draft"}
+{"request": "run this homepage hero past a few customer types and tell me who misreads it", "expect": "persona-panel", "why": "misread risk per segment; page-cro is the near-miss on 'homepage hero' but this asks about audience reading, not conversion barriers"}
+{"request": "is this launch post good enough to ship", "expect": "critique", "why": "incumbent guard: a quality verdict on finished writing stays with critique even though persona-panel also reacts to launches"}
+// --- Routine design (agent-builder owns building a recurring check) ---
+{"request": "set up a weekly check that flags ad fatigue and drafts fresh creative for us to review", "expect": "agent-builder", "why": "building a recurring routine, not running paid analysis once; paid-acquisition-agent is the near-miss on 'ad fatigue' vocabulary"}
+{"request": "how often should a ranking-drop alert actually run", "expect": "agent-builder", "why": "cadence design for a routine lives with the builder; seo-ai-search-agent is the near-miss on 'ranking'"}
+// --- Impeccable (vendored design skill) vs the Riverside brand/UX skills and page-cro. The risk runs both ways: a craft pass on a built surface must land on impeccable, a brand fact or conversion question must not. ---
+{"request": "polish this dashboard html before it goes to Nir, the type hierarchy and spacing feel off and the cards are nested in cards", "expect": "impeccable", "why": "a craft pass on a built UI surface; riverside-ux-patterns is the near-miss on 'spacing' and 'hierarchy', but it is the standard impeccable loads, not the pass itself"}
+{"request": "this hero design is bland and timid, make it bolder and more delightful, keep the copy as is", "expect": "impeccable", "why": "amplifying a timid design is an impeccable command (bolder); page-cro and page-build are the near-misses on 'hero' but this is craft, not conversion barriers or a ticketed build"}
+{"request": "what is our exact brand purple and which font do headings use", "expect": "riverside-brand-guidelines", "why": "incumbent guard: brand facts stay with the brand skill even though impeccable's description covers color, fonts and typography"}
+
+// --- weekly-1-1s (Raz's two separate weeklies) vs raz-ops and growth-marketing-team-tasks ---
+{"request": "help me get ready for my weekly with Jarred", "expect": "weekly-1-1s", "why": "meeting-prep for the Jarred 1:1 specifically, not a merged 3-way sync"}
+{"request": "remember for Nir weekly: chase the CRO test results before we meet", "expect": "weekly-1-1s", "why": "ad-hoc reminder logged for a specific named 1:1, must not land on raz-ops's own-report ledger"}
+{"request": "feed these tasks into the paid acquisition team board", "expect": "growth-marketing-team-tasks", "why": "sibling guard: Nir's own team-task ledger for Paid Acquisition stays with growth-marketing-team-tasks even though weekly-1-1s reads its 1-1 notes rows read-only"}
+
+// --- Vendor meeting quality: brief scoring is not LHO payment verification ---
+{"request": "score this Ziff lead before the AE takes the call, is it worth the meeting", "expect": "vendor-meeting-quality", "why": "pre-meeting brief scoring; inbound-demo-reply owns the LHO tag and payment check, not the quality verdict"}
+{"request": "draft the Friday feedback to Charles at Ziff on this week's meetings", "expect": "vendor-meeting-quality", "why": "vendor feedback digest built from the score ledger; not a generic nik-voice email request"}
+{"request": "was the Ziff score right on the meetings that happened this week", "expect": "vendor-meeting-quality", "why": "outcome labelling against the pre-meeting score; not gong-calls-explorer, which reads calls without a rubric"}
+{"request": "our new web developer starts Sunday, can you write his onboarding document based on this example doc", "expect": "onboarding-doc-builder", "why": "writing an onboarding doc for someone else is this skill, not a chat intro for the person asking (team-intro)"}
+{"request": "put together a welcome doc and a first 90 days plan for the product marketing manager joining next month", "expect": "onboarding-doc-builder", "why": "a joiner's first-90-days plan is not a hiring artifact (candidate-brief) or a slide deck (riverside-presentation)"}
+{"request": "Hanan edited the onboarding doc in Google Docs, pick up his changes and route them into the knowledge base", "expect": "onboarding-doc-builder", "why": "step 6 of the onboarding skill (diff the manager's edits); not a generic retro or human-review pass"}
+{"request": "I just joined the marketing team, what do you know about the team and the systems we own", "expect": "team-intro", "why": "the new joiner asking in chat stays team-intro; onboarding-doc-builder must not steal it"}
+{"request": "this exec summary buries the lead, can you restructure it so the answer comes first", "expect": "minto-pyramid", "why": "a structure fix, not a sentence fix: guards against ste (say it plainly) or critique (is this good) taking a reorder request"}
+{"request": "turn these meeting notes into a top-down summary for Abel with the recommendation up top", "expect": "minto-pyramid", "why": "bottom-up material into a pyramid for an upward reader; guards against nik-voice leadership-narrative owning the grouping instead of just the sound"}
+{"request": "write the intro of the budget memo as situation complication question", "expect": "minto-pyramid", "why": "SCQA is Minto's introduction pattern; guards against content-agent or riverside-presentation taking a structure request because the output is a document"}
+{"request": "group these twelve findings into a few MECE buckets", "expect": "minto-pyramid", "why": "horizontal grouping without any drafting; guards against marketing-brain treating a list of findings as cross-system analysis"}
+{"request": "A demo request yesterday named the 7 Figure Podcast as how they heard about us. check in our crm", "expect": "referrer-lookup", "why": "a named-referrer partnerships post plus a CRM check; must not fall to inbound-demo-reply, which only drafts the post"}
+{"request": "do we work with Kurt Creative? a lead said that's how they found us", "expect": "referrer-lookup", "why": "is-this-referrer-a-partner question; not a creator brief or discovery task"}
+{"request": "which demo requests came in yesterday and what did they say for how they heard about us", "expect": "inbound-demo-reply", "why": "sibling guard: the daily demo report owns HDYHAU listing; referrer-lookup only checks one named referrer against the CRM"}
+{"request": "run the referrer sweep for today's demo alerts", "expect": "referrer-lookup", "why": "routine mode of referrer-lookup; must not fall to inbound-demo-reply, which writes the alerts rather than checking them"}
+{"request": "send moon at dawn their weekly numbers, full funnel by creator by post", "expect": "moon-at-dawn-weekly-report", "why": "agency-facing creator funnel; not Nir's weekly task report or the team spend pulse"}
+{"request": "how are the moon at dawn creators performing this week", "expect": "moon-at-dawn-weekly-report", "why": "one agency's creators; not a Gong or win-loss question"}
+{"request": "Nir's agent sent me three HubSpot issues from his demo run, look into them and draft my reply", "expect": "nir-ask-responder", "why": "Hanan answering Nir's agent reports, not Nir's own demo report (inbound-demo-reply) or Hanan's daily brief"}
+{"request": "what is waiting on my reply today and what do I owe Nir", "expect": "hanan-chief-of-staff", "why": "the daily brief stays with hanan-chief-of-staff; nir-ask-responder only drafts replies to agent reports"}
+{"request": "launch a webinar from this Riverside registration link, it's Oct 22 at noon ET and the guest is an audio engineer", "expect": "launch-webinar", "why": "registration link plus the intake facts is the end-to-end launcher; riverside-event-copy is one step inside it"}
+{"request": "write the landing page copy and the reminder emails for Kendall's community workshop", "expect": "riverside-event-copy", "why": "webinar copy in Kendall's voice; nik-voice is Nir's voice and content-agent is general branded content"}
+{"request": "redo the day-before reminder email for the webinar, it reads too much like marketing", "expect": "riverside-event-copy", "why": "a webinar email redraft is a voice and structure job owned by the event-copy skill, not a de-ai slop pass"}
+{"request": "draft the webinar landing page in Webflow from the Webinars template item", "expect": "page-build", "why": "the CMS-item page build; webflow-build-agent is the bare-Figma rebuild and launch-webinar is the whole launch"}

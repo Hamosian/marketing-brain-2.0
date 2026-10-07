@@ -1,0 +1,264 @@
+{
+  "platform": "LinkedIn",
+  "budget_share": 0.0253,
+  "health_score": 30,
+  "grade": "F",
+  "summary": "Riverside's LinkedIn account shows a critical structural misalignment: 72% of spend ($67,502 of $93,610) runs on BRAND_AWARENESS objective in a performance-oriented paid media program. No Lead Gen Forms are active (zero out of 17 campaigns), meaning LinkedIn's highest-CVR format (13% CVR vs 4% landing pages) is entirely unused. Six campaigns totalling over $6K have zero conversions and meet the 3x Kill Rule. The US_Webinar InMail campaign spent $3,098 with 0 clicks and 0 impressions - likely a tracking or delivery failure requiring immediate investigation. Bid strategy defaults to Maximum Delivery across the board with no Manual CPC or Cost Cap controls. Reported 'conversions' are LinkedIn Share Conversions (post-view), a weak signal that inflates apparent performance. Audience quality, Insight Tag, and CAPI status cannot be assessed via Windsor and require manual verification - but the structural issues alone are sufficient to explain underperformance. Score is computed only over evaluable checks (Technical Setup and Audience Quality are fully N/A and excluded from denominator).",
+  "categories": [
+    {
+      "name": "Technical Setup",
+      "weight": 0.25,
+      "score_pct": null,
+      "passed": 0,
+      "warned": 0,
+      "failed": 0,
+      "na": 2,
+      "notes": "L01 (Insight Tag) and L02 (CAPI) both require manual verification in LinkedIn Campaign Manager. Windsor provides metrics only; tag firing status is not available. Category excluded from score denominator."
+    },
+    {
+      "name": "Audience Quality",
+      "weight": 0.25,
+      "score_pct": null,
+      "passed": 0,
+      "warned": 0,
+      "failed": 0,
+      "na": 7,
+      "notes": "L03-L09 all require manual verification. Windsor LinkedIn lacks audience-breakdown fields (company_industry, job_function, job_seniority). Audience expansion, ABM lists, Matched Audiences, and Predictive Audiences cannot be assessed from metrics. Category excluded from score denominator."
+    },
+    {
+      "name": "Creative & Formats",
+      "weight": 0.20,
+      "score_pct": 43,
+      "passed": 1,
+      "warned": 4,
+      "failed": 1,
+      "na": 0,
+      "notes": "L10 FAIL: No Thought Leader Ads detected (all campaign_type = SPONSORED_UPDATES or SPONSORED_INMAILS). TLAs offer $2.29-4.14 CPC vs $13.23 standard - the single highest-ROI creative format on LinkedIn. L11 WARNING: Two format types present (SPONSORED_UPDATES + SPONSORED_INMAILS) but InMail campaign has zero delivery. L12 PASS: Video confirmed active in two campaigns (250K + 61K video views). L13 WARNING: Webinar campaigns show date-based creative iterations (01.04, 13.04, 29.04, 20.05) suggesting active refresh, but brand campaigns have no visible refresh signal. L19 A/B testing WARNING: webinar variants suggest sequential testing but no structured concurrent A/B visible. L21 CTR WARNING: most campaigns pass the 0.44% benchmark but BrandAwareness_Marketers_Images (0.77%) and _Videos (0.42%) straddle the threshold; InMail is null."
+    },
+    {
+      "name": "Lead Gen Forms",
+      "weight": 0.15,
+      "score_pct": 0,
+      "passed": 0,
+      "warned": 0,
+      "failed": 2,
+      "na": 0,
+      "notes": "L14 FAIL: No Lead Gen Forms visible in any of the 17 campaigns. All traffic routes to landing pages, forfeiting the 13% CVR benchmark (vs 4% for landing pages). For a SaaS product targeting professionals, this is the highest-impact gap in the account. L15 FAIL: With no LGFs active, CRM integration via LGF is also absent."
+    },
+    {
+      "name": "Bidding & Budget",
+      "weight": 0.15,
+      "score_pct": 29,
+      "passed": 1,
+      "warned": 0,
+      "failed": 3,
+      "na": 0,
+      "notes": "L16 FAIL: Brand Awareness campaigns (72% of spend) default to Maximum Delivery - the most expensive LinkedIn bid strategy. No evidence of Manual CPC or Cost Cap on any campaign. LinkedIn recommends starting with Manual CPC for cost control, then graduating to automated bidding. L17 PASS: Daily budget is ample - $93K over 90 days = ~$1,040/day blended, well above the $50/day minimum. L18 FAIL: Objective misalignment - 72% BRAND_AWARENESS + 28% ENGAGEMENT, zero CONVERSION objective campaigns for a product with PLG trials and SLG enterprise goals. L22 FAIL: Multiple campaigns with CPC far above the $5-7 benchmark (BrandAwareness_Marketers_Videos $19.09, US_Companies+Producers $19.71, US_Webinars_29.04 $11.16, US_Contacts $11.97, US_Webinars_13.04 $11.90)."
+    },
+    {
+      "name": "CRM & Compliance",
+      "weight": 0.10,
+      "score_pct": 50,
+      "passed": 0,
+      "warned": 1,
+      "failed": 0,
+      "na": 1,
+      "notes": "L-CRM1 N/A: HubSpot CRM integration with LinkedIn (June 2025 feature) cannot be verified via Windsor. L-EU1 WARNING: SPONSORED_INMAILS campaign (US_Webinar_UpsellAudience_InMail_Conversation) exists in the account. EU Sponsored Messaging was discontinued January 2022. Campaign is 'US_' prefixed but geographic exclusions cannot be confirmed from Windsor data. If any EU audiences are targeted, ads will not deliver and spend will be wasted."
+    }
+  ],
+  "findings": [
+    {
+      "id": "L18",
+      "title": "72% of LinkedIn spend runs on Brand Awareness with no conversion objective",
+      "severity": "High",
+      "category": "Bidding & Budget",
+      "evidence": "$67,502 of $93,610 (72%) is allocated to BRAND_AWARENESS objective across 5 campaigns. Remaining 28% is ENGAGEMENT. Zero campaigns use CONVERSION or LEAD_GENERATION objectives. Reported 'conversions' are LinkedIn Share Conversions (post-view), not tracked business outcomes.",
+      "remediation": "Audit which brand awareness campaigns have measurable downstream impact (view-through assists in CRM). Transition at least one anchor campaign to a CONVERSION objective (website visits → trial signups). Set conversion tracking goals aligned to actual PLG trial starts or SLG form fills.",
+      "fix_time_min": 30,
+      "quick_win": false,
+      "est_impact": "Redirecting 30% of brand spend ($20K/month) to conversion objectives at LinkedIn Software CPL benchmark ($125) could generate ~160 tracked leads/month currently not captured."
+    },
+    {
+      "id": "L14",
+      "title": "No Lead Gen Forms active - forfeiting 13% CVR format",
+      "severity": "High",
+      "category": "Lead Gen Forms",
+      "evidence": "All 17 campaigns route to external landing pages. Lead Gen Forms achieve 13% CVR vs approximately 4% for landing pages - a 3.25x conversion rate improvement. At $93K spend, even a 5% reallocation to LGF campaigns could generate incremental leads at significantly lower CPL.",
+      "remediation": "Create a Lead Gen Form for the highest-converting offer (webinar registration, trial download, or gated content). Attach to one ENGAGEMENT or CONVERSION campaign. Sync to HubSpot in real-time (not CSV download). Start with ≤5 fields to minimize friction.",
+      "fix_time_min": 20,
+      "quick_win": true,
+      "est_impact": "At $125 Software CPL benchmark and 13% LGF CVR, a $10K/month LGF campaign could generate ~80 leads/month at CPL well below landing page equivalents."
+    },
+    {
+      "id": "L10",
+      "title": "No Thought Leader Ads active - missing the most cost-efficient LinkedIn format",
+      "severity": "High",
+      "category": "Creative & Formats",
+      "evidence": "Zero campaigns use TLA campaign type. TLAs deliver $2.29-4.14 CPC vs $13.23 for standard ads (3-5x cheaper). Multiple brand awareness campaigns with CPCs of $9.44-$19.71 could be replaced or supplemented with TLAs. TLAs expanded to non-employee members in March 2025, enabling customer testimonial UGC.",
+      "remediation": "Create TLAs from existing employee or customer LinkedIn posts. Allocate ≥30% of brand content budget to TLAs. For Riverside.fm, leverage podcast creator or customer testimonials as TLA source content.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Shifting $20K/month of standard sponsored content to TLAs could reduce blended CPC from ~$6 to $3, doubling click volume at the same budget."
+    },
+    {
+      "id": "L16",
+      "title": "Maximum Delivery bid strategy used by default with no cost controls",
+      "severity": "High",
+      "category": "Bidding & Budget",
+      "evidence": "LinkedIn defaults all new campaigns to Maximum Delivery. No evidence of Manual CPC or Cost Cap in use. BrandAwareness_Marketers_Videos CPC is $19.09 and US_Companies+Producers is $19.71 - both 2-4x the $5-7 benchmark. Max Delivery optimizes for volume, not efficiency, and bidding is unconstrained.",
+      "remediation": "Set Manual CPC bids for all non-awareness campaigns. Use Cost Cap for conversion-objective campaigns with a cap at 1.5x target CPL. For brand awareness, switch to CPM bidding with a target CPM instead of uncapped CPC.",
+      "fix_time_min": 20,
+      "quick_win": false,
+      "est_impact": "Cost control could reduce blended CPC by 30-50%, potentially recovering $28K-$47K in spend efficiency over 90 days."
+    },
+    {
+      "id": "L17-BROKEN",
+      "title": "US_Webinar InMail campaign: $3,098 spent with 0 clicks and 0 impressions",
+      "severity": "High",
+      "category": "Bidding & Budget",
+      "evidence": "campaign: 'US_Webinar_UpsellAudience_InMail_Conversation', spend: $3,098.14, clicks: 0, impressions: 0, ctr: null. This is either a delivery failure (audience too narrow, EU compliance issue, or paused mid-flight) or a Windsor/reporting gap.",
+      "remediation": "Immediately open LinkedIn Campaign Manager and check this campaign's delivery status. If it ran and LinkedIn is showing impressions, the Windsor connector has a gap for InMail impression reporting. If it shows 0 impressions in LinkedIn UI, pause immediately and investigate audience eligibility (EU Sponsored Messaging ban, audience size below 300 minimum, or targeting mismatch).",
+      "fix_time_min": 5,
+      "quick_win": true,
+      "est_impact": "Confirms $3,098 potential waste. If delivery failed, budget should be reallocated immediately."
+    },
+    {
+      "id": "L22",
+      "title": "Multiple campaigns with CPC 2-3x above benchmark ($5-7)",
+      "severity": "Medium",
+      "category": "Bidding & Budget",
+      "evidence": "BrandAwareness_Marketers_Videos: $19.09 CPC (2.7x benchmark). US_Companies+Producers: $19.71 (2.8x benchmark). US_Webinars_29.04: $11.16 (1.6x). US_Contacts: $11.97 (1.7x). US_Webinars_13.04: $11.90 (1.7x). BrandAwareness_Marketers_Images: $9.44 (1.35x).",
+      "remediation": "For video campaigns with high CPC, switch to CPV (cost-per-view) bidding instead of CPC. For single image campaigns, review audience size - overly narrow audiences increase auction competition. Enable Manual CPC with bids set at $6-8 for non-senior targeting.",
+      "fix_time_min": 15,
+      "quick_win": false,
+      "est_impact": "Bringing 6 campaigns from avg $14 CPC to $7 CPC would double click volume or halve spend on those campaigns (~$40K affected spend)."
+    },
+    {
+      "id": "L09",
+      "title": "Predictive Audiences not confirmed - 21% CPL reduction opportunity",
+      "severity": "Medium",
+      "category": "Audience Quality",
+      "evidence": "Windsor lacks audience configuration data. LinkedIn's Predictive Audiences (replaced Lookalikes Feb 2024) deliver 21% CPL reduction and now accept company lists and retargeting sources as seeds (March 2025 update). With the brand awareness campaigns running, retargeting pools likely exist to seed Predictive Audiences.",
+      "remediation": "In Campaign Manager, check Audiences section for active Predictive Audiences. Create at least one Predictive Audience seeded from website visitors and one from contact list upload. Apply to conversion-objective campaigns.",
+      "fix_time_min": 15,
+      "quick_win": false,
+      "est_impact": "21% CPL reduction on conversion campaigns could save $26K+ annually at current spend levels."
+    },
+    {
+      "id": "L-EU1",
+      "title": "SPONSORED_INMAILS (Conversation Ads) active - EU compliance risk",
+      "severity": "Medium",
+      "category": "CRM & Compliance",
+      "evidence": "US_Webinar_UpsellAudience_InMail_Conversation is campaign_type SPONSORED_INMAILS. EU Sponsored Messaging was discontinued January 2022. If this campaign targets any EU LinkedIn members (even incidentally through WW-adjacent audiences), it will not deliver to them and spend may be wasted or compliance flags raised.",
+      "remediation": "In Campaign Manager, verify geographic targeting is strictly US-only with no 'expand' setting. If any international audience is included, split into separate campaigns with explicit country exclusions. Consider migrating to Conversation Ads in EU via the permitted successor format if international reach is needed.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Compliance risk prevention. If EU audiences are included, delivery to those segments is blocked and budget is wasted."
+    },
+    {
+      "id": "L06-KILL",
+      "title": "Six zero-conversion campaigns consuming $6,183 - 3x Kill Rule triggered",
+      "severity": "High",
+      "category": "Structure & Performance",
+      "evidence": "WW_Winback_UseCases ($645, 0 conv), US_Podcasting-Marketing_SingleImage_20.05.26 ($1,000, 0 conv), WW_Winback_Fomo ($634, 0 conv), WW_Winback_AllInOne ($304, 0 conv), US_Marketers_Webinars_SingleImage_13.04.26 ($500, 0 conv), US_Webinar_UpsellAudience_InMail_Conversation ($3,098, 0 conv/clicks/impressions). All exceed $300 spend with zero conversions. 3x Kill Rule applies (spend > 3x target CPA, 0 conversions).",
+      "remediation": "Pause all six campaigns immediately. For winback campaigns, audit audience match rate in Campaign Manager before relaunching. For webinar campaigns, verify the webinar is still live and landing page is functional. For InMail, investigate delivery failure before any relaunch.",
+      "fix_time_min": 5,
+      "quick_win": true,
+      "est_impact": "Stopping $6,183 of zero-return spend. Monthly run-rate ~$2,061 redirected to performing campaigns."
+    },
+    {
+      "id": "L-CRM1",
+      "title": "LinkedIn CRM Revenue Attribution not confirmed (HubSpot, June 2025 feature)",
+      "severity": "High",
+      "category": "CRM & Compliance",
+      "evidence": "LinkedIn launched closed-loop CRM integration with Salesforce/HubSpot in June 2025, enabling impression-to-revenue attribution. Riverside uses HubSpot (account ID 9154210). Windsor cannot verify if this integration is active. Without it, LinkedIn ROI is unmeasurable beyond post-view Share Conversions.",
+      "remediation": "In LinkedIn Campaign Manager, go to Account Assets > Integrations and verify HubSpot connection. If not active, connect HubSpot CRM to enable closed-loop reporting from LinkedIn ad impressions to HubSpot contacts, deals, and revenue.",
+      "fix_time_min": 15,
+      "quick_win": true,
+      "est_impact": "Enables true LinkedIn ROI measurement for SLG pipeline. Without it, $93K/quarter of spend has no revenue attribution."
+    },
+    {
+      "id": "L01",
+      "title": "Insight Tag firing status requires manual verification",
+      "severity": "Critical",
+      "category": "Technical Setup",
+      "evidence": "Windsor provides metrics only; Insight Tag installation and firing rate cannot be confirmed. If the tag is not firing on all pages, conversion tracking, retargeting pool builds, and demographic data are all compromised.",
+      "remediation": "Use LinkedIn Insight Tag Helper browser extension or check Campaign Manager > Account Assets > Insight Tag to verify domain verification and firing status. Confirm firing on homepage, pricing, trial signup, and post-signup confirmation pages.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Foundation for all LinkedIn optimization. If broken, all conversion data is invalid."
+    },
+    {
+      "id": "L02",
+      "title": "LinkedIn CAPI (Conversions API) status requires manual verification",
+      "severity": "High",
+      "category": "Technical Setup",
+      "evidence": "LinkedIn launched server-side CAPI in 2025. Windsor cannot confirm if server-side tracking is active. Without CAPI, LinkedIn relies solely on browser-based Insight Tag, which is increasingly degraded by iOS restrictions, ad blockers, and cookie deprecation.",
+      "remediation": "Check LinkedIn Campaign Manager > Measurement > Conversions API. If not active, implement server-side event passback for trial start and signup events. This is especially important for PLG conversion tracking.",
+      "fix_time_min": 60,
+      "quick_win": false,
+      "est_impact": "Server-side tracking typically recovers 15-30% of conversions lost to browser restrictions."
+    }
+  ],
+  "quick_wins": ["L14", "L10", "L17-BROKEN", "L06-KILL", "L-CRM1", "L01", "L-EU1"],
+  "kill_list": [
+    {
+      "campaign": "WW_Winback_UseCases",
+      "reason": "3x Kill Rule: $645 spend, 0 conversions",
+      "action": "Pause immediately. Audit winback audience match rate before relaunch."
+    },
+    {
+      "campaign": "US_Podcasting-Marketing_SingleImage_20.05.26",
+      "reason": "3x Kill Rule: $1,000 spend, 0 conversions",
+      "action": "Pause. Review landing page and offer relevance to LinkedIn audience."
+    },
+    {
+      "campaign": "WW_Winback_Fomo",
+      "reason": "3x Kill Rule: $634 spend, 0 conversions",
+      "action": "Pause. Part of broader winback cluster that is not performing."
+    },
+    {
+      "campaign": "WW_Winback_AllInOne",
+      "reason": "3x Kill Rule: $304 spend, 0 conversions",
+      "action": "Pause. Consolidate winback budget into single best-performing winback creative."
+    },
+    {
+      "campaign": "US_Marketers_Webinars_SingleImage_13.04.26",
+      "reason": "3x Kill Rule: $500 spend, 0 conversions",
+      "action": "Pause. Event may have passed. Verify webinar date and landing page."
+    },
+    {
+      "campaign": "US_Webinar_UpsellAudience_InMail_Conversation",
+      "reason": "Critical delivery failure: $3,098 spend, 0 clicks, 0 impressions",
+      "action": "Pause immediately. Investigate in LinkedIn Campaign Manager for delivery errors."
+    }
+  ],
+  "scale_list": [
+    {
+      "campaign": "BrandAwareness_Podcasting_US_Video_TL",
+      "reason": "Highest volume campaign: 250K video views, 591 share conversions, CTR 2.57%, CPC $1.23. Strong brand efficiency. Good candidate for budget increase once conversion tracking is validated.",
+      "recommended_action": "Increase budget 20% after verifying downstream trial attribution. Test Lead Gen Form attachment."
+    },
+    {
+      "campaign": "US_Marketers_Webinars_SingleImage_01.04.26",
+      "reason": "Best performing non-brand engagement campaign: CTR 3.59%, 98 conversions at $112 CPC - but CPC $7.56 is within benchmark. Highest conversion volume of ENGAGEMENT campaigns.",
+      "recommended_action": "Add Lead Gen Form to capture in-platform conversions. Increase budget 20% and monitor CPL."
+    }
+  ],
+  "manual_verification_needed": [
+    "L01: Insight Tag - verify firing on all pages in Campaign Manager > Account Assets > Insight Tag",
+    "L02: Conversions API - check Campaign Manager > Measurement > Conversions API for server-side status",
+    "L03: Job title targeting precision - review each campaign's audience definition",
+    "L04: Company size filtering - verify ICP company size range in audience settings",
+    "L05: Seniority level targeting - confirm appropriate seniority for each campaign objective",
+    "L06: Matched Audiences - check Campaign Manager > Audiences for active retargeting + contact lists",
+    "L07: ABM company lists - check if target account lists are uploaded (up to 300K)",
+    "L08: Audience expansion - verify expansion setting intentionally off for ABM, on for scale campaigns",
+    "L09: Predictive Audiences - check Audiences section for active Predictive Audience configurations",
+    "L-CRM1: HubSpot CRM integration - check Campaign Manager > Account Assets > Integrations",
+    "L20: Frequency cap - check campaign settings for Message frequency cap (target: 1 per 30-45 days)",
+    "L23: Lead quality tracking - verify lead-to-opportunity rate is tracked in HubSpot beyond CPL",
+    "L24: Attribution window - confirm 30-day click / 7-day view window is set in Conversion Actions",
+    "L25: Demographics report - verify monthly review of job title and company breakdowns"
+  ]
+}

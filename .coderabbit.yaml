@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+# CodeRabbit configuration for marketing-brain.
+#
+# The graphify skill under .claude/skills/graphify/ is VENDORED from upstream
+# (https://github.com/safishamsi/graphify) and regenerated verbatim by
+# `graphify install --project`. We do not hand-edit it: any local change drifts
+# from upstream and is silently overwritten on the next install/upgrade.
+# Exclude it from review so its markdown style is not flagged on every refresh.
+reviews:
+  path_filters:
+    - "!.claude/skills/graphify/**"

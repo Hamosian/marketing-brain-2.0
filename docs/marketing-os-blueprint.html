@@ -1,0 +1,966 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Riverside Marketing OS: a second brain playbook</title>
+<meta name="description" content="How Riverside Marketing runs one compiled, version-controlled brain (the marketing-brain repo) and the agent layer on top of it: architecture, a traced request, the flywheel, skills, activation, risks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --purple:#7C5CFF;
+  --purple-hover:#8F73FF;
+  --black:#0F0F14;
+  --surface:#1C1C24;
+  --surface-alt:#2A2A35;
+  --white:#FFFFFF;
+  --text-2:#C9C9D4;
+  --text-3:#8E8E9C;
+  --light-gray:#E6E6EB;
+  --purple-light:#EDE8FF;
+  --purple-mist:#F7F5FF;
+  --good:#4CC38A;
+  --warn:#E5B454;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+  --sans:"Instrument Sans",Arial,Helvetica,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{
+  background:var(--black);
+  color:var(--white);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--purple)}
+a:hover{color:var(--purple-hover)}
+:focus-visible{outline:2px solid var(--purple);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+section{padding:72px 0;scroll-margin-top:76px}
+.eyebrow{
+  color:var(--purple);
+  font-size:12px;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+  margin-bottom:14px;
+}
+h1,h2,h3{letter-spacing:-.02em;text-wrap:balance}
+h2{font-size:clamp(26px,3.6vw,38px);font-weight:600;line-height:1.15;margin-bottom:14px}
+h3{font-size:19px;font-weight:600;margin-bottom:8px}
+.lede{color:var(--text-2);max-width:68ch;font-size:17px}
+code,pre{font-family:var(--mono);font-size:13px}
+code{background:var(--surface);border:1px solid var(--surface-alt);border-radius:5px;padding:1px 6px;white-space:nowrap}
+pre{overflow-x:auto;line-height:1.55}
+pre code{background:none;border:none;padding:0;white-space:pre}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky;top:0;z-index:50;
+  background:rgba(15,15,20,.92);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--surface-alt);
+}
+.nav-inner{
+  max-width:1100px;margin:0 auto;padding:0 24px;
+  display:flex;align-items:center;gap:18px;height:56px;
+}
+.brand{display:flex;align-items:center;gap:9px;font-weight:600;font-size:15px;color:var(--white);text-decoration:none;white-space:nowrap}
+.brand img{height:20px;width:auto;display:block}
+.brand .diamond{color:var(--purple);font-size:13px}
+.nav-links{display:flex;gap:2px;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{
+  color:var(--text-2);text-decoration:none;font-size:13.5px;font-weight:500;
+  padding:6px 10px;border-radius:999px;white-space:nowrap;
+}
+.nav-links a:hover{color:var(--white)}
+.nav-links a.active{color:var(--white);background:var(--surface)}
+.aud{display:flex;gap:4px;align-items:center}
+.aud button{
+  font-family:var(--sans);font-size:12px;font-weight:600;
+  background:none;border:1px solid var(--surface-alt);color:var(--text-2);
+  padding:4px 11px;border-radius:999px;cursor:pointer;white-space:nowrap;
+}
+.aud button:hover{color:var(--white);border-color:var(--text-3)}
+.aud button.on{background:var(--purple);border-color:var(--purple);color:var(--white)}
+.print-btn{
+  font-family:var(--sans);font-size:12px;font-weight:600;
+  background:none;border:1px solid var(--surface-alt);color:var(--text-2);
+  padding:4px 12px;border-radius:999px;cursor:pointer;
+}
+.print-btn:hover{color:var(--white);border-color:var(--text-3)}
+.dimmed{opacity:.28;transition:opacity .25s}
+
+/* ---------- hero ---------- */
+.hero{padding:88px 0 64px;border-bottom:1px solid var(--surface-alt)}
+.hero .tag{
+  display:inline-block;font-size:12.5px;color:var(--text-3);
+  border:1px solid var(--surface-alt);border-radius:999px;padding:5px 14px;margin-bottom:26px;
+}
+.hero h1{font-size:clamp(38px,6vw,60px);font-weight:700;line-height:1.05;max-width:15ch}
+.hero h1 .accent{color:var(--purple)}
+.hero .sub{color:var(--text-2);font-size:18px;max-width:62ch;margin:22px 0 8px}
+.hero .sub2{color:var(--text-3);font-size:15px;max-width:66ch;margin-bottom:36px}
+.hero-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:36px 0}
+.hstep{
+  background:var(--surface);border:1px solid var(--surface-alt);border-radius:14px;padding:20px;
+}
+.hstep .n{color:var(--purple);font-size:12px;font-weight:700;letter-spacing:.14em;margin-bottom:8px}
+.hstep h3{font-size:16.5px}
+.hstep p{color:var(--text-2);font-size:14px}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.btn{
+  display:inline-block;font-weight:600;font-size:14.5px;text-decoration:none;
+  padding:11px 24px;border-radius:999px;cursor:pointer;font-family:var(--sans);
+}
+.btn-primary{background:var(--purple);color:var(--white);border:1px solid var(--purple)}
+.btn-primary:hover{background:var(--purple-hover);color:var(--white)}
+.btn-ghost{background:none;color:var(--white);border:1px solid var(--surface-alt)}
+.btn-ghost:hover{border-color:var(--purple);color:var(--white)}
+.stat-strip{
+  display:flex;gap:0;flex-wrap:wrap;margin-top:44px;
+  border:1px solid var(--surface-alt);border-radius:14px;overflow:hidden;
+}
+.stat{flex:1 1 160px;padding:18px 22px;border-right:1px solid var(--surface-alt);background:var(--surface)}
+.stat:last-child{border-right:none}
+.stat .v{font-size:26px;font-weight:700;font-variant-numeric:tabular-nums}
+.stat .v em{font-style:normal;color:var(--purple)}
+.stat .l{font-size:12.5px;color:var(--text-3);margin-top:2px}
+
+/* ---------- audience callout ---------- */
+.for-card{
+  display:grid;grid-template-columns:auto 1fr;gap:14px;
+  background:var(--surface);border:1px solid var(--surface-alt);border-left:3px solid var(--purple);
+  border-radius:12px;padding:16px 20px;margin:22px 0;font-size:14.5px;color:var(--text-2);
+}
+.for-card .who{
+  color:var(--purple);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  padding-top:2px;white-space:nowrap;
+}
+.for-card b{color:var(--white);font-weight:600}
+
+/* ---------- business case (light inversion) ---------- */
+.invert{background:var(--purple-mist);color:var(--black)}
+.invert .eyebrow{color:var(--purple)}
+.invert h2{color:var(--black)}
+.invert .lede{color:#4A4A58}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:34px 0 16px}
+.metric{
+  background:var(--white);border-radius:14px;padding:22px;
+  box-shadow:0 2px 10px rgba(15,15,20,.06);
+}
+.metric .name{font-size:13px;font-weight:600;color:#4A4A58;letter-spacing:.02em;margin-bottom:10px}
+.metric .delta{font-size:19px;font-weight:700;line-height:1.3}
+.metric .delta .from{color:#8E8E9C;text-decoration:line-through;text-decoration-thickness:1.5px;font-weight:600}
+.metric .delta .arr{color:var(--purple);margin:0 5px}
+.metric .how{font-size:13px;color:#6B6B7A;margin-top:9px}
+.invert .fineprint{font-size:13px;color:#8E8E9C;max-width:70ch}
+
+/* ---------- quote ---------- */
+.quote{
+  border-left:3px solid var(--purple);
+  padding:6px 0 6px 26px;margin:34px 0 8px;
+  font-size:20px;line-height:1.5;color:var(--light-gray);max-width:56ch;
+}
+.quote .src{display:block;margin-top:12px;font-size:14px;color:var(--text-3)}
+
+/* ---------- architecture ---------- */
+.arch{display:grid;grid-template-columns:1fr 380px;gap:22px;margin-top:36px;align-items:start}
+.layers{display:flex;flex-direction:column;gap:0}
+.layer{
+  background:var(--surface);border:1px solid var(--surface-alt);border-radius:14px;
+  padding:18px 20px;cursor:pointer;text-align:left;width:100%;
+  font-family:var(--sans);color:var(--white);
+  transition:border-color .15s, background .15s;
+}
+.layer:hover{border-color:var(--text-3)}
+.layer.sel{border-color:var(--purple);background:#211d33}
+.layer .lk{display:flex;align-items:baseline;gap:10px}
+.layer .badge{color:var(--purple);font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+.layer .lt{font-weight:600;font-size:16px}
+.layer .ld{color:var(--text-2);font-size:13.5px;margin-top:5px}
+.layer .paths{margin-top:9px;display:flex;gap:6px;flex-wrap:wrap}
+.paths code{font-size:12px;color:var(--text-2)}
+.flow-arrow{
+  text-align:center;color:var(--text-3);font-size:12px;letter-spacing:.08em;
+  padding:7px 0;user-select:none;
+}
+.flow-arrow span{color:var(--purple)}
+.inspector{
+  background:var(--surface);border:1px solid var(--surface-alt);border-radius:14px;
+  padding:22px;position:sticky;top:76px;
+}
+.inspector .kicker{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
+.inspector h3{font-size:17px}
+.inspector .desc{color:var(--text-2);font-size:14px;margin:8px 0 16px}
+.inspector .sub{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--purple);margin:16px 0 8px}
+.inspector ul{list-style:none;display:flex;flex-direction:column;gap:7px}
+.inspector ul li{font-size:13.5px;color:var(--text-2);padding-left:16px;position:relative}
+.inspector ul li::before{content:"→";position:absolute;left:0;color:var(--purple)}
+.agent-chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:6px}
+.agent-chip{
+  font-family:var(--sans);font-size:12.5px;font-weight:600;color:var(--text-2);
+  background:var(--black);border:1px solid var(--surface-alt);border-radius:999px;
+  padding:5px 12px;cursor:pointer;
+}
+.agent-chip:hover{border-color:var(--purple);color:var(--white)}
+.agent-chip.sel{background:var(--purple);border-color:var(--purple);color:var(--white)}
+.hint{font-size:12.5px;color:var(--text-3);margin-top:14px}
+
+/* ---------- repo tree ---------- */
+.tree{
+  background:var(--surface);border:1px solid var(--surface-alt);border-radius:14px;
+  padding:22px;margin-top:30px;overflow-x:auto;
+}
+.tree .c{color:var(--text-3)}
+.tree .d{color:var(--purple);font-weight:600}
+
+/* ---------- trace ---------- */
+.packet{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;
+  background:var(--surface);border:1px solid var(--surface-alt);border-radius:12px;
+  padding:14px 20px;margin:28px 0 20px;font-size:14px;
+}
+.packet .pl{font-size:11px;font-weight:700;letter-spacing:.13em;color:var(--purple)}
+.packet .q{font-weight:600}
+.packet .meta{color:var(--text-3);font-size:13px}
+.trace-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:18px}
+.trace-tab{
+  font-family:var(--sans);text-align:left;background:var(--surface);
+  border:1px solid var(--surface-alt);border-radius:12px;padding:14px 16px;cursor:pointer;color:var(--white);
+}
+.trace-tab .tn{color:var(--purple);font-size:11px;font-weight:700;letter-spacing:.13em;margin-bottom:4px}
+.trace-tab .tt{font-weight:600;font-size:14.5px}
+.trace-tab .td{color:var(--text-3);font-size:12.5px;margin-top:2px}
+.trace-tab:hover{border-color:var(--text-3)}
+.trace-tab.sel{border-color:var(--purple);background:#211d33}
+.trace-panel{
+  background:var(--surface);border:1px solid var(--surface-alt);border-radius:14px;padding:26px;
+}
+.trace-panel h3{display:flex;gap:10px;align-items:baseline}
+.trace-panel h3 .st{color:var(--purple);font-size:12px;font-weight:700;letter-spacing:.13em}
+.trace-panel .body{color:var(--text-2);font-size:14.5px;margin:10px 0 18px;max-width:72ch}
+.trace-panel pre{
+  background:var(--black);border:1px solid var(--surface-alt);border-radius:10px;
+  padding:18px;color:var(--light-gray);
+}
+.trace-panel pre .cm{color:var(--text-3)}
+.trace-panel pre .k{color:var(--purple)}
+.trace-nav{display:flex;justify-content:space-between;align-items:center;margin-top:18px}
+.trace-nav button{
+  font-family:var(--sans);font-size:13px;font-weight:600;background:none;
+  border:1px solid var(--surface-alt);color:var(--text-2);border-radius:999px;
+  padding:7px 16px;cursor:pointer;
+}
+.trace-nav button:hover:not(:disabled){color:var(--white);border-color:var(--purple)}
+.trace-nav button:disabled{opacity:.35;cursor:default}
+.outcome{
+  margin-top:16px;font-size:13.5px;color:var(--text-2);
+  border-top:1px dashed var(--surface-alt);padding-top:14px;
+}
+.outcome b{color:var(--good);font-weight:600}
+
+/* ---------- flywheel ---------- */
+.wheel{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+.wstep{background:var(--surface);border:1px solid var(--surface-alt);border-radius:14px;padding:20px;position:relative}
+.wstep .n{color:var(--purple);font-size:12px;font-weight:700;letter-spacing:.14em;margin-bottom:8px}
+.wstep h3{font-size:16px}
+.wstep p{color:var(--text-2);font-size:13.5px}
+.wstep .tools{margin-top:10px;display:flex;gap:6px;flex-wrap:wrap}
+.loop-note{
+  margin-top:18px;text-align:center;color:var(--text-3);font-size:13.5px;letter-spacing:.02em;
+}
+.loop-note span{color:var(--purple)}
+
+/* ---------- skills ---------- */
+.skill-groups{display:flex;flex-direction:column;gap:16px;margin-top:32px}
+.sgroup{background:var(--surface);border:1px solid var(--surface-alt);border-radius:14px;padding:20px 22px}
+.sgroup .gh{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.sgroup h3{font-size:15.5px;margin:0}
+.sgroup .gd{font-size:13px;color:var(--text-3)}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chips code{font-size:12.5px;padding:4px 11px;border-radius:999px;background:var(--black);color:var(--text-2)}
+.chips code.hot{border-color:var(--purple);color:var(--white)}
+
+/* ---------- activate ---------- */
+.act-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+.act{background:var(--surface);border:1px solid var(--surface-alt);border-radius:14px;padding:22px}
+.act .n{color:var(--purple);font-size:12px;font-weight:700;letter-spacing:.14em;margin-bottom:8px}
+.act p{color:var(--text-2);font-size:14px}
+.say{margin-top:26px}
+.say .sub{font-size:11.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px}
+.say-chips{display:flex;flex-wrap:wrap;gap:8px}
+.say-chips span{
+  font-size:13.5px;border:1px solid var(--surface-alt);border-radius:999px;
+  padding:7px 16px;color:var(--light-gray);background:var(--surface);
+}
+.say-chips span b{color:var(--purple);font-weight:600}
+
+/* ---------- risks ---------- */
+.risk-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:32px}
+.risk{background:var(--surface);border:1px solid var(--surface-alt);border-radius:14px;padding:20px 22px}
+.risk h3{font-size:15.5px}
+.risk .rp{color:var(--text-2);font-size:13.5px;margin:5px 0 12px}
+.risk .mit{
+  font-size:13px;color:var(--text-2);
+  border-top:1px dashed var(--surface-alt);padding-top:11px;
+}
+.risk .mit .ml{color:var(--good);font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:4px}
+
+/* ---------- faq ---------- */
+.faq{max-width:820px;margin-top:28px}
+.faq details{border-bottom:1px solid var(--surface-alt)}
+.faq summary{
+  cursor:pointer;padding:18px 4px;font-weight:600;font-size:16px;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";color:var(--purple);font-size:20px;font-weight:400;flex-shrink:0}
+.faq details[open] summary::after{content:"-"}
+.faq .a{padding:0 4px 20px;color:var(--text-2);font-size:14.5px;max-width:70ch}
+
+/* ---------- footer ---------- */
+footer{border-top:1px solid var(--surface-alt);padding:36px 0 48px;margin-top:20px}
+footer .f{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:var(--text-3);font-size:13.5px}
+footer a{color:var(--text-2);text-decoration:none}
+footer a:hover{color:var(--purple)}
+
+/* ---------- responsive ---------- */
+@media (max-width:920px){
+  .hero-steps,.metric-grid,.wheel,.act-grid,.trace-tabs{grid-template-columns:1fr 1fr}
+  .arch{grid-template-columns:1fr}
+  .inspector{position:static}
+}
+@media (max-width:640px){
+  .hero-steps,.metric-grid,.wheel,.act-grid,.trace-tabs,.risk-grid{grid-template-columns:1fr}
+  .aud{display:none}
+  section{padding:56px 0}
+}
+
+/* ---------- print ---------- */
+@media print{
+  body{background:#fff;color:#111}
+  .nav,.cta-row,.trace-nav,.print-btn{display:none}
+  section{padding:24px 0;opacity:1!important}
+  .hero h1,.hero .sub,h2,h3{color:#111}
+  .layer,.inspector,.trace-panel,.trace-tab,.metric,.wstep,.act,.risk,.sgroup,.hstep,.tree,.packet,.for-card,.stat{
+    background:#fff;border-color:#ccc;color:#111;box-shadow:none;
+  }
+  .lede,.ld,.body,.rp,.mit,.a,p{color:#333!important}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Page">
+  <div class="nav-inner">
+    <a class="brand" href="#top">
+      <span class="diamond">◆</span>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/9/99/Riverside_logo_%282025%29.png" alt="Riverside" onerror="this.style.display='none';document.getElementById('brand-word').style.display='inline'">
+      <span id="brand-word" style="display:none">riverside</span>
+      <span style="color:var(--text-3);font-weight:500">Marketing OS</span>
+    </a>
+    <div class="nav-links" id="navlinks">
+      <a href="#why">Why</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#trace">A request, traced</a>
+      <a href="#flywheel">Flywheel</a>
+      <a href="#skills">Skills</a>
+      <a href="#activate">Activate</a>
+      <a href="#risks">Risks</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="aud" role="group" aria-label="Audience filter">
+      <button class="on" data-aud="all">All</button>
+      <button data-aud="leaders">Leaders</button>
+      <button data-aud="operators">Operators</button>
+      <button data-aud="new">New here</button>
+    </div>
+    <button class="print-btn" onclick="window.print()">Print</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="tag">Open playbook · Riverside Marketing · <code style="background:none;border:none;padding:0">riversidefm/marketing-brain</code></span>
+    <h1>The marketing <span class="accent">second brain</span>, running as an OS</h1>
+    <p class="sub">One compiled, version-controlled knowledge layer for Riverside Marketing, plus the agent layer that operates on it. Every teammate's Claude session boots from the same brain: systems, boards, channels, conventions, and tribal knowledge.</p>
+    <p class="sub2">Three layers, one map, one flywheel. Context loads progressively, requests route through <code>/marketing-brain</code> to specialist sub-agents, and every learning is committed back by PR so the next session is smarter than the last.</p>
+
+    <div class="hero-steps">
+      <div class="hstep">
+        <div class="n">STEP 01</div>
+        <h3>Load the map</h3>
+        <p><code>CLAUDE.md</code> is always loaded: team identity, routing tables, directives. Everything else stays on disk until a task needs it.</p>
+      </div>
+      <div class="hstep">
+        <div class="n">STEP 02</div>
+        <h3>Route the request</h3>
+        <p><code>/marketing-brain</code> classifies the ask, pulls the right context, and delegates to domain sub-agents with live access to HubSpot, Omni, monday, and Slack.</p>
+      </div>
+      <div class="hstep">
+        <div class="n">STEP 03</div>
+        <h3>Close the loop</h3>
+        <p>Synthesis lands as decision, owner, evidence, next action. Work state hits monday and Slack; <code>/retro</code> commits the learning back to the brain.</p>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#architecture">See how it works ↓</a>
+      <a class="btn btn-ghost" href="https://github.com/riversidefm/marketing-brain" target="_blank" rel="noopener">Open the repo ↗</a>
+    </div>
+
+    <div class="stat-strip">
+      <div class="stat"><div class="v"><em>43</em></div><div class="l">skills in the registry</div></div>
+      <div class="stat"><div class="v"><em>12</em></div><div class="l">domain sub-agents with live system access</div></div>
+      <div class="stat"><div class="v"><em>30+</em></div><div class="l">specialist personas beneath them</div></div>
+      <div class="stat"><div class="v"><em>11</em></div><div class="l">system docs, owned and reference</div></div>
+      <div class="stat"><div class="v"><em>1</em></div><div class="l">source of truth: the repo</div></div>
+    </div>
+  </div>
+</header>
+
+<section class="invert" id="case" data-aud="leaders">
+  <div class="wrap">
+    <div class="eyebrow">For leaders · What changes day to day</div>
+    <h2>The business case in one screen</h2>
+    <p class="lede">The brain compresses the repeated cost of context: finding the numbers, re-explaining the systems, collating the report, chasing the board. The asset compounds, because every workflow that runs well gets captured and reused by the whole department.</p>
+
+    <div class="metric-grid">
+      <div class="metric">
+        <div class="name">Morning catch-up</div>
+        <div class="delta"><span class="from">board + Slack scanning</span><span class="arr">→</span>one brief</div>
+        <div class="how"><code style="background:#F7F5FF;border-color:#EDE8FF">/good-morning</code> pulls active monday work, unowned bugs, and channel highlights into a single standup view.</div>
+      </div>
+      <div class="metric">
+        <div class="name">Reporting up</div>
+        <div class="delta"><span class="from">hours of collation</span><span class="arr">→</span>one command</div>
+        <div class="how"><code style="background:#F7F5FF;border-color:#EDE8FF">/nir-monthly-report</code> renders a month of two boards plus four Slack channels as a branded .docx.</div>
+      </div>
+      <div class="metric">
+        <div class="name">Data questions</div>
+        <div class="delta"><span class="from">analyst queue</span><span class="arr">→</span>validated self-serve</div>
+        <div class="how">Rivermind first, always: the analytics team's validated Q&amp;A layer answers before anyone writes ad-hoc SQL.</div>
+      </div>
+      <div class="metric">
+        <div class="name">Tribal knowledge</div>
+        <div class="delta"><span class="from">in heads and DMs</span><span class="arr">→</span>reviewed PRs</div>
+        <div class="how">Learnings are committed to the repo, linted by CI, and inherited by every session on the team.</div>
+      </div>
+    </div>
+    <p class="fineprint">Directional, drawn from how the team works today. The point is the shape of the win: recurring context work becomes a command, and the output of one person's workflow becomes everyone's starting point.</p>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="eyebrow">Why a second brain</div>
+    <h2>Stop re-deriving context. Compile once, keep current.</h2>
+    <p class="lede">Board IDs, channel conventions, HubSpot pipeline quirks, attribution rules, who owns what: without the brain, all of it lives in decks, Slack threads, and people's heads. Every new teammate, and every AI session, has to re-derive it from scratch. The marketing-brain repo fixes that with one compiled, reviewed, always-current context base that Claude boots from.</p>
+    <blockquote class="quote">
+      "Give the AI a map, not a library. Claude gets exactly the context it needs for each task, nothing more."
+      <span class="src">PHILOSOPHY.md, on progressive disclosure</span>
+    </blockquote>
+    <div class="for-card">
+      <span class="who">For everyone</span>
+      <span><b>Why it matters:</b> a messy or missing context base makes AI confidently wrong. A clean one makes it an operating partner that already knows the boards, the channels, the pipelines, and the rules of engagement. <b>How:</b> knowledge lives as pointers, not copies. Dashboards, boards, and CRM views stay the source of truth; the repo holds the map to them.</span>
+    </div>
+  </div>
+</section>
+
+<section id="architecture">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2>Three layers plus one map</h2>
+    <p class="lede">Context is passive and loads progressively. Agents are active and come in two layers: routing skills that own live system access, and specialist personas beneath them for the deep pass. Automation keeps the whole thing honest without anyone remembering to. Click a layer or an agent to inspect it.</p>
+
+    <div class="arch">
+      <div class="layers" role="tablist" aria-label="Architecture layers">
+        <button class="layer sel" data-node="map" role="tab" aria-selected="true">
+          <div class="lk"><span class="badge">The map</span><span class="lt">CLAUDE.md</span></div>
+          <div class="ld">Always loaded. Team identity, task routing tables, sub-agent registry, global directives. The contract every session reads first.</div>
+          <div class="paths"><code>CLAUDE.md</code><code>PHILOSOPHY.md</code></div>
+        </button>
+        <div class="flow-arrow">↓ <span>loads on demand</span></div>
+        <button class="layer" data-node="context" role="tab" aria-selected="false">
+          <div class="lk"><span class="badge">Layer 1 · Context</span><span class="lt">References + systems</span></div>
+          <div class="ld">Passive knowledge: stable IDs and contacts, architecture maps of owned and reference systems. Pointers to live data, never copies of it.</div>
+          <div class="paths"><code>references/</code><code>systems/owned/</code><code>systems/reference/</code></div>
+        </button>
+        <div class="flow-arrow">↓ <span>consumed by</span></div>
+        <button class="layer" data-node="agents" role="tab" aria-selected="false">
+          <div class="lk"><span class="badge">Layer 2 · Agents</span><span class="lt">Routing skills + specialists</span></div>
+          <div class="ld">Active layer, two tiers. Skill-agents own live access (HubSpot, Omni, monday, Slack, ad platforms) and Riverside IDs. Specialists carry deep domain craft with no live access.</div>
+          <div class="paths"><code>.claude/skills/</code><code>.claude/agents/</code></div>
+        </button>
+        <div class="flow-arrow">↓ <span>kept honest by</span></div>
+        <button class="layer" data-node="automation" role="tab" aria-selected="false">
+          <div class="lk"><span class="badge">Layer 3 · Automation</span><span class="lt">CI, sync, routines</span></div>
+          <div class="ld">Lint on every PR, wiki and knowledge-graph sync on every merge, cloud routines that run daily without a human in the loop.</div>
+          <div class="paths"><code>.github/workflows/</code><code>graphify-out/</code></div>
+        </button>
+        <div class="flow-arrow">↺ <span>learnings feed back to the map via /retro PRs</span></div>
+      </div>
+
+      <aside class="inspector" aria-live="polite">
+        <div class="kicker">Inspecting</div>
+        <div id="insp-body"><!-- filled by JS --></div>
+        <div class="sub">Agents touching this layer</div>
+        <div class="agent-chips" id="insp-agents"></div>
+        <p class="hint">Click a layer on the left, or an agent chip above, for its read/write contract.</p>
+      </aside>
+    </div>
+
+    <div class="tree">
+<pre><code><span class="d">marketing-brain/</span>
+├── CLAUDE.md               <span class="c"># the map: always loaded, routes everything else</span>
+├── PHILOSOPHY.md           <span class="c"># pointers not copies · interview the human · force self-updates</span>
+├── <span class="d">references/</span>             <span class="c"># stable lookup: team roster, Slack IDs, monday boards, design system</span>
+├── <span class="d">systems/</span>
+│   ├── <span class="d">owned/</span>              <span class="c"># hubspot, paid-acquisition, marketing-website, omni-bi, mops-automation…</span>
+│   └── <span class="d">reference/</span>          <span class="c"># rivermind, data-team, agent-flow, marketing operating model</span>
+├── <span class="d">.claude/</span>
+│   ├── <span class="d">skills/</span>             <span class="c"># 43 skills: the router, 12 domain sub-agents, workflows, brand + copy</span>
+│   └── <span class="d">agents/</span>             <span class="c"># 30+ specialist personas, harmonized Riverside context block</span>
+├── <span class="d">docs/</span>                   <span class="c"># activation guide, quickstart, OS diagram, automation docs</span>
+└── <span class="d">.github/workflows/</span>      <span class="c"># team-context lint on PR · wiki + graph sync on merge</span></code></pre>
+    </div>
+  </div>
+</section>
+
+<section id="trace">
+  <div class="wrap">
+    <div class="eyebrow">Follow one request end-to-end</div>
+    <h2>"Why did demo MQLs dip last week?"</h2>
+    <p class="lede">A real-shaped example: a vague measurement question enters the OS, routes through validated data and CRM context, and leaves as a decision with an owner, a Slack post, a monday task, and a committed learning.</p>
+
+    <div class="packet">
+      <span class="pl">SAMPLE REQUEST</span>
+      <span class="q">"Demo MQLs look soft. What happened last week?"</span>
+      <span class="meta">asked in a Claude session · Monday 9:04am</span>
+    </div>
+
+    <div class="trace-tabs" role="tablist" aria-label="Trace steps">
+      <button class="trace-tab sel" data-step="0" role="tab" aria-selected="true">
+        <div class="tn">STEP 01</div><div class="tt">Route + load context</div>
+        <div class="td">/marketing-brain classifies, pulls the map</div>
+      </button>
+      <button class="trace-tab" data-step="1" role="tab" aria-selected="false">
+        <div class="tn">STEP 02</div><div class="tt">Investigate</div>
+        <div class="td">Rivermind first, then sub-agents</div>
+      </button>
+      <button class="trace-tab" data-step="2" role="tab" aria-selected="false">
+        <div class="tn">STEP 03</div><div class="tt">Synthesize + close the loop</div>
+        <div class="td">Decision, owner, evidence, next action</div>
+      </button>
+    </div>
+
+    <div class="trace-panel" id="trace-panel"><!-- filled by JS --></div>
+  </div>
+</section>
+
+<section id="flywheel">
+  <div class="wrap">
+    <div class="eyebrow">The loop</div>
+    <h2>Why it self-improves, and why that matters</h2>
+    <p class="lede">Most tooling depreciates the day you adopt it. The brain appreciates: every novel workflow, every correction, every discovered platform quirk feeds back in as a reviewed PR. The next session starts from a sharper baseline, for everyone at once.</p>
+
+    <div class="wheel">
+      <div class="wstep">
+        <div class="n">STEP 01</div>
+        <h3>Capture</h3>
+        <p>After a novel workflow, <code>/retro</code> extracts the durable learning. <code>/curious-intern</code> interviews teammates to fill gaps before they bite.</p>
+      </div>
+      <div class="wstep">
+        <div class="n">STEP 02</div>
+        <h3>Commit</h3>
+        <p>The learning is routed to the right file: system doc, skill, reference, or the map, and opened as a PR. CI lints frontmatter, placeholders, and repo hygiene.</p>
+      </div>
+      <div class="wstep">
+        <div class="n">STEP 03</div>
+        <h3>Serve</h3>
+        <p>Merged knowledge loads progressively in every teammate's next session. Deterministic automation mirrors it to the wiki and refreshes the knowledge graph.</p>
+      </div>
+      <div class="wstep">
+        <div class="n">STEP 04</div>
+        <h3>Learn</h3>
+        <p><code>/health-check</code> flags staleness and drift. Dead skills get pruned so routing stays sharp. The map stays thin; the depth stays fresh.</p>
+      </div>
+    </div>
+    <p class="loop-note">capture → commit → serve → learn <span>↺</span> every cycle widens the gap between "has the brain" and "doesn't"</p>
+
+    <div class="for-card" data-aud="leaders">
+      <span class="who">For leaders</span>
+      <span><b>Why it matters:</b> the repo is the department asset the next leader inherits, not a wiki nobody opens. It survives tool changes and staff changes because the knowledge is versioned, reviewed, and owned by the team. <b>How:</b> make the retro non-negotiable after novel work. That single habit is the whole flywheel.</span>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <div class="eyebrow">The registry</div>
+    <h2>43 skills, one entry point</h2>
+    <p class="lede">Broad or cross-system asks start at <code>/marketing-brain</code>; it routes to everything below and closes the loop. Direct asks can hit a skill straight on. Run <code>/list-skills</code> in a session for the live inventory.</p>
+
+    <div class="skill-groups">
+      <div class="sgroup">
+        <div class="gh"><h3>Operate daily</h3><span class="gd">the rhythm of the week</span></div>
+        <div class="chips">
+          <code class="hot">/marketing-brain</code><code>/good-morning</code><code>/mops-standup</code><code>/team-intro</code><code>/list-skills</code>
+        </div>
+      </div>
+      <div class="sgroup">
+        <div class="gh"><h3>Domain sub-agents · routing layer</h3><span class="gd">own live system access and Riverside IDs</span></div>
+        <div class="chips">
+          <code>/data-agent</code><code>/measurement-agent</code><code>/hubspot-agent</code><code>/lifecycle-agent</code><code>/monday-agent</code><code>/slack-agent</code><code>/content-agent</code><code>/paid-acquisition-agent</code><code>/website-agent</code><code>/seo-ai-search-agent</code><code>/marketing-ops-automation-agent</code><code>/campaign-agent</code>
+        </div>
+      </div>
+      <div class="sgroup">
+        <div class="gh"><h3>Workflows</h3><span class="gd">repeatable jobs, end to end</span></div>
+        <div class="chips">
+          <code>/pm-story</code><code>/nir-monthly-report</code><code>/nir-mql-live-report</code><code>/gong-calls-explorer</code><code>/preop-data-intelligence</code><code>/page-cro</code><code>/webflow-locale-publish-queue</code><code>/granola-recipe-builder</code><code>/access-welcome</code>
+        </div>
+      </div>
+      <div class="sgroup">
+        <div class="gh"><h3>Brand, content, persuasion</h3><span class="gd">everything ships on-brand</span></div>
+        <div class="chips">
+          <code>/riverside-brand-guidelines</code><code>/riverside-presentation</code><code>/marketing-psychology</code><code>9 × copytemplates headline skills</code>
+        </div>
+      </div>
+      <div class="sgroup">
+        <div class="gh"><h3>Keep it healthy · the flywheel</h3><span class="gd">the brain maintains itself</span></div>
+        <div class="chips">
+          <code class="hot">/retro</code><code>/curious-intern</code><code>/health-check</code><code>/graphify</code><code>/setup</code>
+        </div>
+      </div>
+    </div>
+
+    <div class="for-card" data-aud="operators">
+      <span class="who">For operators</span>
+      <span><b>Why it matters:</b> the two-layer agent model keeps live credentials and Riverside IDs in one reviewable place. Specialists never touch live systems; skill-agents pull the data and hand it down. <b>How:</b> planning runs on the routing layer inline, execution runs on pinned specialist personas. The full map lives in <code>.claude/agents/README.md</code>.</span>
+    </div>
+  </div>
+</section>
+
+<section id="activate" data-aud="new">
+  <div class="wrap">
+    <div class="eyebrow">Rollout · New teammates</div>
+    <h2>Activation is three steps, not a project</h2>
+    <p class="lede">Nobody sets anything up from scratch. The brain already exists; you turn it on. Full guide in <code>docs/ACTIVATE.md</code>, adoption playbook in <code>docs/QUICKSTART.md</code>.</p>
+
+    <div class="act-grid">
+      <div class="act">
+        <div class="n">STEP 01</div>
+        <h3>Get the repo</h3>
+        <p>Clone <code>riversidefm/marketing-brain</code> locally, or open it in Claude Code on the web. That's the install.</p>
+      </div>
+      <div class="act">
+        <div class="n">STEP 02</div>
+        <h3>Open Claude Code in the folder</h3>
+        <p><code>CLAUDE.md</code> loads automatically. The first session is instant because everything else loads on demand.</p>
+      </div>
+      <div class="act">
+        <div class="n">STEP 03</div>
+        <h3>Connect tools as you go</h3>
+        <p>Approve the connection prompt the first time Claude touches monday, Slack, HubSpot, or Omni. Once per tool, and writes always ask first, so exploring is safe.</p>
+      </div>
+    </div>
+
+    <div class="say">
+      <div class="sub">First things to say, to confirm it's live</div>
+      <div class="say-chips">
+        <span><b>"tell me about the team"</b> · what the brain knows about us</span>
+        <span><b>"what skills do you have?"</b> · the live registry</span>
+        <span><b>"good morning"</b> · today's brief</span>
+        <span><b>"run the marketing OS"</b> · the operating view</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="risks" data-aud="leaders operators">
+  <div class="wrap">
+    <div class="eyebrow">Risks · Anti-patterns · Guardrails</div>
+    <h2>What could go wrong, and what already prevents it</h2>
+    <p class="lede">Each failure mode has a mitigation baked into the system, not a policy doc. These are also the questions to push on when extending the brain to a new sub-org.</p>
+
+    <div class="risk-grid">
+      <div class="risk">
+        <h3>Stale docs</h3>
+        <p class="rp">Claude answers confidently from a doc that no longer matches reality. A messy brain is worse than none.</p>
+        <div class="mit"><span class="ml">Guardrail</span>Every system doc carries a <code>last-reviewed</code> date on line 1. <code>/health-check</code> audits staleness, unfilled placeholders, and template drift.</div>
+      </div>
+      <div class="risk">
+        <h3>Copies instead of pointers</h3>
+        <p class="rp">Live data pasted into the repo drifts from the source and creates false confidence.</p>
+        <div class="mit"><span class="ml">Guardrail</span>The content boundary rule: if it breaks when the platform changes, it belongs in that platform. The repo holds IDs, links, and maps only.</div>
+      </div>
+      <div class="risk">
+        <h3>Map bloat</h3>
+        <p class="rp">CLAUDE.md grows until every session wastes its context window before work starts.</p>
+        <div class="mit"><span class="ml">Guardrail</span>Progressive disclosure: detail lives in <code>systems/</code>, <code>references/</code>, and skill <code>knowledge/</code> files that load only when a task needs them.</div>
+      </div>
+      <div class="risk">
+        <h3>Knowledge trapped in memory</h3>
+        <p class="rp">A learning saved to one person's memory helps exactly one person and can't be reviewed.</p>
+        <div class="mit"><span class="ml">Guardrail</span>Hard rule: team and system knowledge goes in the repo via PR. Memory is for individual preferences only.</div>
+      </div>
+      <div class="risk">
+        <h3>Unreviewed writes to live systems</h3>
+        <p class="rp">An agent posts to Slack, edits HubSpot, or mutates a board without a human intending it.</p>
+        <div class="mit"><span class="ml">Guardrail</span>Confirmation required before any mutating call, unless a specific automation skill was invoked. Every Slack message carries the Marketing OS agent footer.</div>
+      </div>
+      <div class="risk">
+        <h3>Wrong data, high confidence</h3>
+        <p class="rp">Ad-hoc SQL quietly disagrees with the analytics team's definitions.</p>
+        <div class="mit"><span class="ml">Guardrail</span>Rivermind first for every data question. Fallbacks to Omni or raw SQL are explicit, and the coverage gap gets reported back to analytics.</div>
+      </div>
+      <div class="risk">
+        <h3>Skill rot</h3>
+        <p class="rp">Dead or drifting skills pollute routing and trigger the wrong workflow.</p>
+        <div class="mit"><span class="ml">Guardrail</span>CI lints every skill's frontmatter on PR. The RALPH lifecycle (review, audit, learn, prune, handoff) kills skills that no longer earn their place.</div>
+      </div>
+      <div class="risk">
+        <h3>Wiki drift</h3>
+        <p class="rp">The browsable mirror falls out of sync with the repo and someone trusts the wrong copy.</p>
+        <div class="mit"><span class="ml">Guardrail</span>Merge automation regenerates the wiki and knowledge graph on every merge to main. The repo is always the source of truth regardless.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="wrap">
+    <div class="eyebrow">Reference</div>
+    <h2>Glossary &amp; FAQ</h2>
+    <div class="faq">
+      <details open>
+        <summary>What's the difference between the Marketing Brain and the Marketing OS?</summary>
+        <div class="a">The brain is the knowledge layer: the repo itself, with its map, references, system docs, and skills. The OS is the operating layer that runs on it: <code>/marketing-brain</code> plus the sub-agent registry, which classifies requests, loads context, delegates, synthesizes, and closes the loop. Same repo, two roles.</div>
+      </details>
+      <details>
+        <summary>Why a git repo and not a Notion wiki?</summary>
+        <div class="a">Version control, PR review, and CI are the guardrails. A wiki can't lint a skill's frontmatter, block an unfilled placeholder, or show you a diff of what the AI learned. The team still gets a browsable wiki: deterministic automation generates one from the repo on every merge.</div>
+      </details>
+      <details>
+        <summary>What loads when I start a session?</summary>
+        <div class="a">Only <code>CLAUDE.md</code>, the map. It tells Claude what exists and where. References, system docs, and skill knowledge load on demand when the task touches them. That's progressive disclosure: sessions start instant and stay lean.</div>
+      </details>
+      <details>
+        <summary>Do the specialist agents touch our live systems?</summary>
+        <div class="a">No. Only the routing-layer skill-agents hold live access to HubSpot, Omni, monday, Slack, and the ad platforms. Specialists receive the pulled data plus a harmonized Riverside context block, do the deep domain pass, and hand back. Any mutating action surfaces for human confirmation.</div>
+      </details>
+      <details>
+        <summary>How does new knowledge get in?</summary>
+        <div class="a">Through the flywheel. <code>/retro</code> captures a learning after a novel workflow and routes it to the right file as a PR. <code>/curious-intern</code> works the other direction: it interviews you to extract what's in your head before it's needed. Nobody writes big docs from scratch; that's the anti-pattern.</div>
+      </details>
+      <details>
+        <summary>Who owns this, and who is it for?</summary>
+        <div class="a">It originated in Growth and Marketing Operations, and that's where operational depth is greatest today. It serves all of Riverside Marketing: Growth, Brand, Marketing, AI Marketing, and Growth Initiatives are onboarding into the same system, and every skill and doc in it is shared.</div>
+      </details>
+      <details>
+        <summary>What if the docs are wrong?</summary>
+        <div class="a">Fix them in the same motion. Edits to the map, systems, references, and skills are ordinary PRs, linted by CI. If you found the error mid-task, that's exactly what <code>/retro</code> is for. Staleness that nobody noticed is what <code>/health-check</code> is for.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap f">
+    <span>Riverside Marketing · the marketing-brain repo · built with the brain it describes</span>
+    <span>
+      <a href="https://github.com/riversidefm/marketing-brain" target="_blank" rel="noopener">Repo</a> ·
+      <a href="https://github.com/riversidefm/marketing-brain/blob/main/PHILOSOPHY.md" target="_blank" rel="noopener">Philosophy</a> ·
+      <a href="https://github.com/riversidefm/marketing-brain/blob/main/docs/ACTIVATE.md" target="_blank" rel="noopener">Activate</a> ·
+      <a href="https://github.com/riversidefm/marketing-brain/wiki" target="_blank" rel="noopener">Wiki</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+/* ---------- architecture inspector ---------- */
+const NODES = {
+  map: {
+    kicker: "THE MAP",
+    title: "CLAUDE.md, always loaded",
+    desc: "The contract every session reads first. Team identity and org structure, the task-routing and sub-agent tables, morning-brief sources, and the global directives: be concise, Rivermind first, confirm before writes, route knowledge to the repo.",
+    points: ["Loads automatically in every Claude session", "Points to everything, contains almost nothing", "Kept thin on purpose: detail belongs one layer down"],
+    agents: ["router","skills","routines"]
+  },
+  context: {
+    kicker: "LAYER 1 · CONTEXT",
+    title: "references/ + systems/",
+    desc: "Passive, stable knowledge. references/ holds the roster, Slack channel IDs, monday board and column IDs, and the design system extraction. systems/ maps the six owned systems and the platforms we depend on.",
+    points: ["Pointers to live sources, never copies of live data", "Every system doc carries a last-reviewed date", "Loaded only when a task touches the system"],
+    agents: ["router","skills","docagent"]
+  },
+  agents: {
+    kicker: "LAYER 2 · AGENTS",
+    title: "Routing skills + specialist personas",
+    desc: "The active layer. /marketing-brain routes; twelve *-agent skills own live access to HubSpot, Omni, monday, Slack, and the ad platforms; 30+ specialists in .claude/agents/ do the deep domain pass with no live access.",
+    points: ["Planning inline on the routing layer, execution on pinned specialists", "Specialists carry a harmonized Riverside context block", "Mutating actions always surface for confirmation"],
+    agents: ["router","skills","specialists"]
+  },
+  automation: {
+    kicker: "LAYER 3 · AUTOMATION",
+    title: "CI, sync, and cloud routines",
+    desc: "The part that runs without anyone remembering. Lint blocks bad PRs; deterministic automation mirrors merged changes to the wiki and refreshes the knowledge graph; scheduled routines ship recurring deliverables.",
+    points: ["team-context-lint on every PR touching the brain", "Wiki + graph sync on every merge to main", "Daily routines: /nir-mql-live-report, /access-welcome"],
+    agents: ["docagent","routines"]
+  }
+};
+const AGENTS = {
+  router: {
+    label: "🧭 /marketing-brain",
+    kicker: "AGENT · ROUTER",
+    title: "/marketing-brain, the top-level operator",
+    desc: "Entry point for broad or cross-system asks. Classifies the request, loads the right context, delegates to sub-agents, synthesizes decision / owner / evidence / next action, and tracks operating state from intake to learned.",
+    points: ["Reads: the map, references/, systems/, the registry", "Writes: monday and Slack, with confirmation", "Closes every loop through /retro"]
+  },
+  skills: {
+    label: "🛠 skill-agents",
+    kicker: "AGENT · ROUTING LAYER",
+    title: "Twelve domain sub-agents",
+    desc: "data, measurement, hubspot, lifecycle, monday, slack, content, paid-acquisition, website, seo-ai-search, mops-automation, campaign. They hold the live credentials, the Riverside IDs, and the orchestration logic.",
+    points: ["Reads: live systems + their system docs", "Writes: live systems, only after confirmation", "Invoke specialists for the deep pass, then synthesize"]
+  },
+  specialists: {
+    label: "🎓 specialists",
+    kicker: "AGENT · SPECIALIST LAYER",
+    title: "30+ deep-dive personas",
+    desc: "Paid media, SEO and AI search, content and social, email, podcast, PR, growth. Generic in their craft, Riverside-aware via the shared context block, deliberately cut off from live systems.",
+    points: ["Reads: data handed down by a skill-agent", "Writes: analysis and drafts back up the chain", "Never route, never touch credentials"]
+  },
+  docagent: {
+    label: "📚 sync automation",
+    kicker: "AGENT · INFRASTRUCTURE",
+    title: "The wiki and graph librarian",
+    desc: "Runs on every merge to main. Maps changed source files to wiki pages, regenerates navigation, appends the change log, and refreshes the knowledge graph and its explorer.",
+    points: ["Reads: the merged diff and the whole repo", "Writes: the GitHub Wiki and graphify-out/", "The repo stays the source of truth; the wiki is output"]
+  },
+  routines: {
+    label: "⏰ cloud routines",
+    kicker: "AGENT · SCHEDULED",
+    title: "Daily jobs, no human in the loop",
+    desc: "Recurring deliverables that run as cloud routines: the daily inbound demo-MQL digest DMed to Nir, and the collaborator-welcome agent that activates new repo members.",
+    points: ["Reads: HubSpot Pre-Ops, GitHub collaborators", "Writes: Slack DMs, with the agent footer", "Dedupe ledgers prevent double-sends"]
+  }
+};
+
+const inspBody = document.getElementById("insp-body");
+const inspAgents = document.getElementById("insp-agents");
+function renderInspector(obj, agentKeys){
+  inspBody.innerHTML =
+    '<div class="kicker" style="color:var(--purple)">'+obj.kicker+'</div>'+
+    '<h3>'+obj.title+'</h3>'+
+    '<p class="desc">'+obj.desc+'</p>'+
+    '<ul>'+obj.points.map(p=>'<li>'+p+'</li>').join('')+'</ul>';
+  inspAgents.innerHTML = agentKeys.map(k=>
+    '<button class="agent-chip" data-agent="'+k+'">'+AGENTS[k].label+'</button>').join('');
+  inspAgents.querySelectorAll(".agent-chip").forEach(ch=>{
+    ch.addEventListener("click",()=>{
+      inspAgents.querySelectorAll(".agent-chip").forEach(c=>c.classList.remove("sel"));
+      ch.classList.add("sel");
+      const a = AGENTS[ch.dataset.agent];
+      inspBody.innerHTML =
+        '<div class="kicker" style="color:var(--purple)">'+a.kicker+'</div>'+
+        '<h3>'+a.title+'</h3>'+
+        '<p class="desc">'+a.desc+'</p>'+
+        '<ul>'+a.points.map(p=>'<li>'+p+'</li>').join('')+'</ul>';
+    });
+  });
+}
+document.querySelectorAll(".layer").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".layer").forEach(b=>{b.classList.remove("sel");b.setAttribute("aria-selected","false")});
+    btn.classList.add("sel");btn.setAttribute("aria-selected","true");
+    const n = NODES[btn.dataset.node];
+    renderInspector(n, n.agents);
+  });
+});
+renderInspector(NODES.map, NODES.map.agents);
+
+/* ---------- trace ---------- */
+const TRACE = [
+  {
+    st:"STEP 01 → ROUTE + LOAD CONTEXT", t:"The OS classifies and pulls the map",
+    body:"/marketing-brain reads the request as a measurement question about the demo funnel. It loads only what this task needs: the HubSpot system doc, the Pre-Op data dictionary, and the directive that every data question goes to Rivermind before anything else.",
+    code:'<span class="cm"># context loaded for this task (and nothing else)</span>\n<span class="k">CLAUDE.md</span>                          <span class="cm">already in memory: routing + directives</span>\nsystems/owned/hubspot.md            <span class="cm">pipelines, lifecycle, known quirks</span>\n.claude/skills/preop-data-intelligence/\n                                    <span class="cm">MQL definition, stages, attribution rules</span>\nsystems/reference/rivermind.md      <span class="cm">the validated data Q&amp;A layer, first stop</span>',
+    outcome:'<b>Routed.</b> Classified as measurement · owner set · Rivermind-first directive applies. No context wasted on paid, website, or content docs.'
+  },
+  {
+    st:"STEP 02 → INVESTIGATE", t:"Validated data first, CRM detail second",
+    body:"/rivermind:ask answers from the analytics team's validated layer: inbound demo MQLs are down 18% week over week, isolated to one source. /hubspot-agent then pulls the Pre-Op detail behind the dip. A raw-SQL fallback wasn't needed; if it had been, the coverage gap gets reported to analytics.",
+    code:'<span class="cm"># investigation chain</span>\n<span class="k">/rivermind:ask</span>  "inbound demo MQLs by week, split by source"\n  → down 18% WoW · isolated to paid-search signups\n\n<span class="k">/hubspot-agent</span>  Pre-Op pipeline pull, last 14 days\n  → demo-booked volume flat · form completions down\n  → drop starts Tue, same day as a landing-page change\n\n<span class="k">/website-agent</span>  page diff vs. monday Website Dev board\n  → signup form variant shipped Tue without the demo CTA',
+    outcome:'<b>Root cause found.</b> Not a demand problem: a CRO test removed the demo CTA from the paid-search landing page. Evidence linked, every number from the validated layer.'
+  },
+  {
+    st:"STEP 03 → SYNTHESIZE + CLOSE THE LOOP", t:"A decision with an owner, then the learning is committed",
+    body:"The OS returns the synthesis in its standard shape and closes the loop: a threaded update in the leaders channel (with the agent footer, after confirmation), a monday task via /pm-story, and a /retro PR so the failure mode is captured in the website system doc.",
+    code:'<span class="cm"># synthesis</span>\n<span class="k">Decision</span>     revert the variant OR re-add the demo CTA to it today\n<span class="k">Owner</span>        website · MOPs to verify tracking after the fix\n<span class="k">Evidence</span>     Rivermind trend + HubSpot Pre-Op pull + page diff\n<span class="k">Next action</span>  monday task opened via /pm-story · Slack thread in\n             #growth-marketing-leaders <span class="cm">(confirmed before sending)</span>\n\n<span class="cm"># the flywheel turn</span>\n<span class="k">/retro</span>       adds "CRO variants must preserve demo CTA + form\n             tracking" to systems/owned/marketing-website.md · PR opened',
+    outcome:'<b>Loop closed.</b> The dip is explained, the fix has an owner, and the next person who ships a landing-page test inherits the guardrail automatically.'
+  }
+];
+const tracePanel = document.getElementById("trace-panel");
+let traceIdx = 0;
+function renderTrace(i){
+  traceIdx = i;
+  const s = TRACE[i];
+  document.querySelectorAll(".trace-tab").forEach((t,j)=>{
+    t.classList.toggle("sel", j===i);
+    t.setAttribute("aria-selected", j===i ? "true":"false");
+  });
+  tracePanel.innerHTML =
+    '<h3><span class="st">'+s.st+'</span></h3>'+
+    '<h3 style="margin-top:2px">'+s.t+'</h3>'+
+    '<p class="body">'+s.body+'</p>'+
+    '<pre><code>'+s.code+'</code></pre>'+
+    '<div class="outcome">WHAT THIS STEP PRODUCED → '+s.outcome+'</div>'+
+    '<div class="trace-nav">'+
+      '<button id="tprev" '+(i===0?'disabled':'')+'>← Previous</button>'+
+      '<span style="color:var(--text-3);font-size:12.5px">'+(i+1)+' / 3</span>'+
+      '<button id="tnext" '+(i===2?'disabled':'')+'>Next step →</button>'+
+    '</div>';
+  const prev=document.getElementById("tprev"), next=document.getElementById("tnext");
+  if(prev) prev.addEventListener("click",()=>renderTrace(traceIdx-1));
+  if(next) next.addEventListener("click",()=>renderTrace(traceIdx+1));
+}
+document.querySelectorAll(".trace-tab").forEach(t=>{
+  t.addEventListener("click",()=>renderTrace(parseInt(t.dataset.step,10)));
+});
+renderTrace(0);
+
+/* ---------- audience filter ---------- */
+document.querySelectorAll(".aud button").forEach(btn=>{
+  btn.addEventListener("click",()=>{
+    document.querySelectorAll(".aud button").forEach(b=>b.classList.remove("on"));
+    btn.classList.add("on");
+    const aud = btn.dataset.aud;
+    document.querySelectorAll("section[data-aud], .for-card[data-aud]").forEach(el=>{
+      const roles = el.dataset.aud.split(" ");
+      el.classList.toggle("dimmed", aud!=="all" && !roles.includes(aud));
+    });
+  });
+});
+
+/* ---------- scrollspy ---------- */
+const links = Array.from(document.querySelectorAll("#navlinks a"));
+const targets = links.map(a=>document.querySelector(a.getAttribute("href"))).filter(Boolean);
+if("IntersectionObserver" in window){
+  const spy = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        links.forEach(l=>l.classList.toggle("active", l.getAttribute("href")==="#"+e.target.id));
+      }
+    });
+  },{rootMargin:"-40% 0px -55% 0px"});
+  targets.forEach(t=>spy.observe(t));
+}
+</script>
+</body>
+</html>

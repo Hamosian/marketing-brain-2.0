@@ -1,0 +1,2090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Riverside Session Flow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---- Riverside Design System tokens (references/design-system/tokens/colors.css) ---- */
+:root {
+  --bg: #151515;            /* secondary.c1000 */
+  --bg-deep: #0d0d0d;       /* secondary.c1100 */
+  --surface: #222222;       /* secondary.c800 */
+  --surface-2: #2b2b2b;     /* secondary.c700 */
+  --hover: #383838;         /* secondary.c600 */
+  --border: #383838;
+  --border-soft: #2b2b2b;
+  --text: #fafafa;          /* secondary.c100 */
+  --text-2: #bbbbbb;        /* secondary.c200 */
+  --text-3: #888888;        /* secondary.c300 */
+  --accent: #9671ff;        /* primary.c600 */
+  --accent-hi: #b196ff;     /* primary.c500 (links / hover) */
+  --accent-wash: rgba(120, 72, 255, 0.10);  /* transparent.p10 */
+  --accent-wash2: rgba(120, 72, 255, 0.20); /* transparent.p20 */
+  --ok: #6fcf97;            /* status_success.c600 */
+  --warn: #f2c94c;          /* status_warning.c700 */
+  --err: #f25757;           /* status_error.c600 */
+  --err-hi: #e04040;        /* status_error.c700 */
+  /* Categorical actor palette - validated (dataviz six checks) on #151515 */
+  --cat-0: #9671ff;  /* main agent = brand purple */
+  --cat-1: #0aa4c8;  /* subagent 1 (brand lightblue, dark step) */
+  --cat-2: #cc6a00;  /* subagent 2 (brand orange, dark step)    */
+  --cat-3: #d63ef2;  /* subagent 3 (brand pink, dark step)      */
+  --cat-4: #22ab72;  /* subagent 4 (brand green, dark step)     */
+  --user-c: #888888; /* user lane = neutral */
+  --radius: 12px;
+  --radius-sm: 8px;
+  --font: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: 14px; line-height: 1.5;
+  display: flex; flex-direction: column; overflow: hidden;
+}
+button { font-family: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+/* ---- Header ---- */
+header {
+  display: flex; align-items: center; gap: 12px; padding: 0 16px; height: 56px;
+  background: var(--bg); border-bottom: 1px solid var(--border-soft); flex: none;
+}
+header .logo { height: 26px; display: block; }
+header .app-name { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
+header .app-name span { color: var(--accent-hi); font-weight: 600; }
+.session-picker { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
+select#sessionSelect {
+  background: var(--surface); color: var(--text); border: 1px solid var(--border);
+  border-radius: var(--radius-sm); padding: 6px 10px; font-family: inherit; font-size: 13px;
+  max-width: 420px; min-width: 120px; flex: 0 1 auto;
+}
+select#sessionSelect:hover { background: var(--surface-2); }
+.src-badge {
+  font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+  border: 1px solid var(--border); color: var(--text-2); white-space: nowrap;
+}
+.src-badge.claude-code { color: var(--accent-hi); border-color: var(--accent); }
+.src-badge.chatgpt { color: #4fd1a5; border-color: #22ab72; }
+.src-badge.claude-ai { color: var(--accent-hi); border-color: var(--accent); }
+.live-chip {
+  display: none; align-items: center; gap: 7px; font-size: 11px; font-weight: 600;
+  color: var(--text-2); border: 1px solid rgba(224,64,64,0.55); border-radius: 999px;
+  padding: 3px 10px; white-space: nowrap; max-width: 340px; overflow: hidden; text-overflow: ellipsis;
+}
+.live-chip.on { display: flex; }
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: #e04040; flex: none;
+  animation: livepulse 1.6s ease infinite; }
+@keyframes livepulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(224,64,64,0.45); }
+  50% { box-shadow: 0 0 0 6px rgba(224,64,64,0); }
+}
+@media (prefers-reduced-motion: reduce) { .live-dot { animation: none; } }
+.live-chip .live-word { color: #f25757; letter-spacing: 0.06em; }
+.live-chip button { background: none; border: none; color: var(--text-3); cursor: pointer;
+  font-size: 13px; line-height: 1; padding: 0 2px; border-radius: 999px; }
+.live-chip button:hover { color: var(--text); }
+.hdr-actions { display: flex; gap: 8px; align-items: center; }
+.btn {
+  background: var(--surface); color: var(--text); border: 1px solid var(--border);
+  border-radius: 999px; padding: 7px 14px; font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: background 150ms ease, border-color 150ms ease; white-space: nowrap;
+}
+.btn:hover { background: var(--hover); }
+.btn:active { background: var(--surface-2); }
+.btn[disabled] { color: var(--text-3); cursor: default; background: var(--surface); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; font-size: 14px; }
+.btn.primary:hover { background: var(--accent-hi); border-color: var(--accent-hi); }
+.btn.toggled { border-color: var(--accent); color: var(--accent-hi); background: var(--accent-wash); }
+.btn.icon { padding: 7px 11px; }
+
+/* ---- Stats strip ---- */
+#statsStrip {
+  display: flex; gap: 8px; padding: 8px 16px; flex: none; overflow-x: auto;
+  border-bottom: 1px solid var(--border-soft); background: var(--bg);
+}
+.tile {
+  background: var(--surface); border: 1px solid var(--border-soft); border-radius: var(--radius);
+  padding: 7px 14px; min-width: 108px; flex: none;
+}
+.tile .v { font-size: 17px; font-weight: 700; letter-spacing: -0.01em; line-height: 1.25; }
+.tile .v small { font-size: 11px; font-weight: 500; color: var(--text-3); }
+.tile .k { font-size: 11px; color: var(--text-3); font-weight: 500; }
+.tile .v .err-n { color: var(--err); }
+.tile.models .v { font-size: 12px; font-weight: 600; color: var(--text-2); max-width: 260px;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ---- Main split ---- */
+main { display: flex; flex: 1; min-height: 0; }
+#graphWrap { position: relative; flex: 1; min-width: 0; background:
+  radial-gradient(ellipse at 50% 0%, rgba(120,72,255,0.05), transparent 60%), var(--bg); }
+#graph { width: 100%; height: 100%; display: block; cursor: grab; }
+#graph.panning { cursor: grabbing; }
+#graphLegend {
+  position: absolute; left: 12px; bottom: 12px; display: flex; gap: 12px; flex-wrap: wrap;
+  font-size: 11px; color: var(--text-2); background: rgba(21,21,21,0.85);
+  border: 1px solid var(--border-soft); border-radius: var(--radius-sm); padding: 6px 10px;
+  pointer-events: none;
+}
+#graphLegend:empty { display: none; }
+#graphLegend .li { display: flex; align-items: center; gap: 5px; }
+#graphLegend .sw { width: 9px; height: 9px; border-radius: 3px; }
+#graphHint { position: absolute; right: 12px; top: 10px; font-size: 11px; color: var(--text-3); pointer-events: none; }
+.filter-chip {
+  position: absolute; left: 12px; top: 10px; display: none; align-items: center; gap: 8px;
+  background: var(--accent-wash2); border: 1px solid var(--accent); color: var(--text);
+  border-radius: 999px; padding: 4px 6px 4px 12px; font-size: 12px; font-weight: 600; z-index: 5;
+}
+.filter-chip button { background: none; border: none; color: var(--accent-hi); cursor: pointer;
+  font-size: 14px; line-height: 1; padding: 2px 6px; border-radius: 999px; }
+.filter-chip button:hover { color: #fff; }
+
+/* Graph nodes */
+.gnode { cursor: pointer; }
+.gnode rect.body { fill: var(--surface); stroke: var(--border); stroke-width: 1; transition: stroke 150ms ease; }
+.gnode:hover rect.body { stroke: var(--accent-hi); }
+.gnode.selected rect.body { stroke: var(--accent); stroke-width: 2; filter: drop-shadow(0 0 8px rgba(150,113,255,0.55)); }
+.gnode.dim { opacity: 0.32; }
+.gnode text { font-family: var(--font); pointer-events: none; }
+.gnode .nm { fill: var(--text); font-size: 12.5px; font-weight: 600; }
+.gnode .sub { fill: var(--text-3); font-size: 10.5px; }
+.gedge { fill: none; stroke-linecap: round; }
+.gedge.dim { opacity: 0.15; }
+.gedge.spawn { animation: dashflow 1.4s linear infinite; }
+@keyframes dashflow { to { stroke-dashoffset: -22; } }
+.gnode.running rect.body { stroke: var(--warn); stroke-width: 1.5; animation: runpulse 1.4s ease infinite; }
+@keyframes runpulse { 0%, 100% { stroke-opacity: 0.45; } 50% { stroke-opacity: 1; } }
+.gedge-label { fill: var(--text-3); font-size: 10px; }
+.gcount { fill: var(--text-2); font-size: 10px; font-weight: 600; }
+
+/* ---- Transcript ---- */
+#transcript {
+  width: 400px; flex: none; border-left: 1px solid var(--border-soft); display: flex;
+  flex-direction: column; min-height: 0; background: var(--bg);
+}
+#transcript.hidden { display: none; }
+#transcript .t-head { padding: 10px 12px 8px; border-bottom: 1px solid var(--border-soft); display: flex; gap: 8px; align-items: center; }
+#transcript .t-head input[type=search] {
+  flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--text);
+  border-radius: var(--radius-sm); padding: 6px 10px; font-family: inherit; font-size: 13px;
+}
+#transcript .t-head label { font-size: 11px; color: var(--text-2); display: flex; align-items: center; gap: 5px; white-space: nowrap; cursor: pointer; }
+#tList { overflow-y: auto; flex: 1; padding: 10px 12px 24px; scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { #tList { scroll-behavior: auto; } }
+.tcard {
+  background: var(--surface); border: 1px solid var(--border-soft); border-left: 3px solid var(--border);
+  border-radius: var(--radius-sm); padding: 8px 10px; margin-bottom: 8px; cursor: pointer;
+  transition: border-color 150ms ease;
+}
+.tcard:hover { border-color: var(--hover); }
+.tcard.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.tcard.hiddenf { display: none; }
+.tcard.branch { opacity: 0.62; }
+.tcard.error { border-left-color: var(--err); }
+.tcard .row1 { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-3); flex-wrap: wrap; }
+.tcard .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
+.tcard .who { font-weight: 600; color: var(--text-2); }
+.tcard .kind-chip { border: 1px solid var(--border); border-radius: 999px; padding: 0 7px; font-size: 10px; font-weight: 600; }
+.tcard .kind-chip.tool { color: var(--warn); border-color: rgba(242,201,76,0.4); }
+.tcard .kind-chip.err { color: var(--err); border-color: rgba(242,87,87,0.5); }
+.tcard .kind-chip.think { color: var(--text-3); }
+.tcard .kind-chip.branch { color: var(--text-3); border-style: dashed; }
+.tcard .model-chip { color: var(--accent-hi); font-size: 10px; }
+.tcard .ts { margin-left: auto; font-variant-numeric: tabular-nums; }
+.tcard .body { margin-top: 5px; font-size: 12.5px; color: var(--text); white-space: pre-wrap; word-break: break-word; }
+.tcard .body.clamp { display: -webkit-box; -webkit-line-clamp: 6; -webkit-box-orient: vertical; overflow: hidden; }
+.tcard .more { background: none; border: none; color: var(--accent-hi); font-size: 11px; font-weight: 600; cursor: pointer; padding: 2px 0; text-decoration: underline; }
+.tcard details { margin-top: 6px; }
+.tcard details summary { font-size: 11px; color: var(--text-2); cursor: pointer; font-weight: 600; }
+.tcard pre {
+  background: var(--bg-deep); border: 1px solid var(--border-soft); border-radius: 6px;
+  padding: 7px 9px; font-size: 11px; line-height: 1.45; overflow-x: auto; margin-top: 5px;
+  max-height: 260px; overflow-y: auto; color: var(--text-2);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.branch-note { font-size: 11px; color: var(--text-3); border: 1px dashed var(--border); border-radius: var(--radius-sm); padding: 6px 10px; margin: 2px 0 10px; }
+
+/* ---- Timeline ---- */
+#timelineWrap {
+  flex: none; height: 190px; border-top: 1px solid var(--border-soft); position: relative;
+  background: var(--bg); overflow: hidden;
+}
+#timelineWrap.hidden { display: none; }
+#timeline { width: 100%; height: 100%; display: block; cursor: grab; }
+#timeline.panning { cursor: grabbing; }
+#tlHint { position: absolute; right: 12px; bottom: 6px; font-size: 11px; color: var(--text-3); pointer-events: none; }
+.tl-lane-label { fill: var(--text-2); font-size: 11px; font-weight: 600; font-family: var(--font); }
+.tl-tick text { fill: var(--text-3); font-size: 10px; font-family: var(--font); font-variant-numeric: tabular-nums; }
+.tl-tick line { stroke: var(--surface-2); stroke-width: 1; }
+.tl-bar { cursor: pointer; }
+.tl-bar.dim { opacity: 0.25; }
+.tl-bar.selected { stroke: #fff; stroke-width: 1.5; }
+
+/* ---- Tooltip ---- */
+#tooltip {
+  position: fixed; z-index: 60; pointer-events: none; display: none; max-width: 380px;
+  background: var(--surface-2); border: 1px solid var(--hover); border-radius: var(--radius-sm);
+  padding: 8px 11px; font-size: 12px; color: var(--text); box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+#tooltip .tt-title { font-weight: 700; margin-bottom: 2px; }
+#tooltip .tt-sub { color: var(--text-2); font-size: 11px; }
+#tooltip .tt-body { color: var(--text-2); font-size: 11px; margin-top: 4px; white-space: pre-wrap; word-break: break-word;
+  display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ---- Overlays / modals ---- */
+.overlay {
+  position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 40;
+  display: none; align-items: center; justify-content: center; padding: 24px;
+}
+.overlay.open { display: flex; }
+.modal {
+  background: var(--surface); border: 1px solid var(--hover); border-radius: 16px;
+  max-width: 720px; width: 100%; max-height: 86vh; overflow-y: auto; padding: 22px 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+.modal h2 { font-size: 17px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.01em; }
+.modal h2 span { color: var(--accent-hi); }
+.modal .sub { color: var(--text-2); font-size: 12.5px; margin-bottom: 14px; }
+.modal textarea {
+  width: 100%; height: 240px; background: var(--bg-deep); color: var(--text);
+  border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px;
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; resize: vertical;
+}
+.modal .m-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.modal .m-err { color: var(--err); font-size: 12px; margin-top: 8px; display: none; }
+.kbd-rows { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 28px; margin-top: 10px; }
+.kbd-row { display: flex; justify-content: space-between; gap: 12px; font-size: 12.5px; color: var(--text-2); padding: 4px 0; }
+kbd {
+  background: var(--bg-deep); border: 1px solid var(--hover); border-bottom-width: 2px;
+  border-radius: 5px; padding: 1px 7px; font-family: inherit; font-size: 11px; color: var(--text);
+}
+
+/* ---- Empty state ---- */
+#emptyState {
+  position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; z-index: 10;
+}
+#emptyState .card {
+  background: var(--surface); border: 1px dashed var(--hover); border-radius: 16px;
+  padding: 36px 40px; text-align: center; max-width: 560px; margin: 16px;
+}
+#emptyState img { height: 34px; margin-bottom: 16px; }
+#emptyState h1 { font-size: 21px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 6px; }
+#emptyState h1 span { color: var(--accent-hi); }
+#emptyState p { color: var(--text-2); font-size: 13px; margin-bottom: 6px; }
+#emptyState .fmt { color: var(--text-3); font-size: 12px; margin: 10px 0 18px; line-height: 1.7; }
+#emptyState .fmt code { background: var(--bg-deep); border-radius: 4px; padding: 1px 6px;
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; }
+#emptyState .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+/* ---- Toast ---- */
+#toast {
+  position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%);
+  z-index: 90; max-width: 560px; width: max-content; display: none;
+  background: var(--surface-2); border: 1px solid var(--hover); border-radius: var(--radius);
+  padding: 11px 14px; font-size: 13px; color: var(--text); box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+  align-items: flex-start; gap: 10px;
+}
+#toast.open { display: flex; }
+#toast.error { border-color: rgba(242,87,87,0.6); }
+#toast .t-msg { line-height: 1.5; }
+#toast .t-msg code { background: var(--bg-deep); border-radius: 4px; padding: 1px 5px;
+  font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11.5px; }
+#toast button { background: none; border: none; color: var(--text-3); cursor: pointer;
+  font-size: 15px; line-height: 1; padding: 1px 4px; flex: none; }
+#toast button:hover { color: var(--text); }
+
+/* ---- Drop overlay ---- */
+#dropOverlay {
+  position: fixed; inset: 0; z-index: 80; display: none; align-items: center; justify-content: center;
+  background: rgba(13,13,13,0.8); border: 3px dashed var(--accent); border-radius: 4px;
+  font-size: 20px; font-weight: 700; color: var(--accent-hi); pointer-events: none;
+}
+#dropOverlay.open { display: flex; }
+
+/* ---- Stats panel ---- */
+#statsPanel {
+  position: absolute; inset: 0; z-index: 12; overflow-y: auto; display: none;
+  background: var(--bg); padding: 20px 24px 40px;
+}
+#statsPanel.open { display: block; }
+#statsPanel h2 { font-size: 16px; font-weight: 700; margin: 18px 0 10px; letter-spacing: -0.01em; }
+#statsPanel h2:first-child { margin-top: 0; }
+.bar-rows { display: flex; flex-direction: column; gap: 6px; max-width: 640px; }
+.bar-row { display: grid; grid-template-columns: 150px 1fr 130px; gap: 10px; align-items: center; font-size: 12.5px; }
+.bar-row .bv { white-space: nowrap; }
+.bar-row .bn { color: var(--text-2); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-align: right; }
+.bar-row .btrack { background: var(--surface); border-radius: 4px; height: 16px; position: relative; overflow: hidden; }
+.bar-row .bfill { position: absolute; inset: 0 auto 0 0; background: var(--accent); border-radius: 4px 4px 4px 4px; min-width: 2px; }
+.bar-row .bv { color: var(--text-2); font-variant-numeric: tabular-nums; }
+.bar-row .bv .be { color: var(--err); }
+table.stats {
+  border-collapse: collapse; margin-top: 4px; font-size: 12.5px; min-width: 480px;
+}
+table.stats th, table.stats td { text-align: left; padding: 6px 14px 6px 0; border-bottom: 1px solid var(--border-soft); }
+table.stats th { color: var(--text-3); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+table.stats td.num, table.stats th.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.stats td { color: var(--text-2); }
+table.stats td:first-child { color: var(--text); font-weight: 600; }
+.note { color: var(--text-3); font-size: 11.5px; margin-top: 8px; max-width: 640px; }
+
+@media (max-width: 900px) {
+  #transcript { position: absolute; right: 0; top: 0; bottom: 0; z-index: 15; box-shadow: -12px 0 32px rgba(0,0,0,0.5); }
+  .tile { min-width: 92px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <img class="logo" alt="Riverside" src="data:image/png;base64,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">
+  <div class="app-name">Session <span>Flow</span></div>
+  <div class="session-picker">
+    <select id="sessionSelect" aria-label="Active session"></select>
+    <span class="src-badge" id="srcBadge" hidden></span>
+    <span class="live-chip" id="liveChip"><span class="live-dot"></span><span class="live-word">LIVE</span><span id="liveLabel"></span><button id="liveStop" title="Stop watching" aria-label="Stop live mode">&times;</button></span>
+  </div>
+  <div class="hdr-actions">
+    <button class="btn primary" id="btnOpen">Open session files</button>
+    <button class="btn" id="btnLive" title="Watch a Claude Code session update in real time">Go live</button>
+    <button class="btn" id="btnPaste">Paste JSON</button>
+    <button class="btn" id="btnDemo">Demo</button>
+    <button class="btn icon" id="btnStats" title="Stats &amp; cost (S)" aria-pressed="false">Stats</button>
+    <button class="btn icon" id="btnTranscript" title="Toggle transcript (T)" aria-pressed="true">Transcript</button>
+    <button class="btn icon" id="btnHelp" title="Keyboard shortcuts (?)" aria-label="Keyboard shortcuts">?</button>
+  </div>
+</header>
+
+<div id="statsStrip" hidden></div>
+
+<main>
+  <div id="graphWrap">
+    <svg id="graph" role="img" aria-label="Session flow graph"></svg>
+    <div class="filter-chip" id="filterChip"><span id="filterChipLabel"></span><button id="filterClear" aria-label="Clear filter">&times;</button></div>
+    <div id="graphHint">drag to pan &middot; scroll to zoom &middot; click a node to filter</div>
+    <div id="graphLegend"></div>
+
+    <div id="statsPanel" aria-label="Session statistics"></div>
+
+    <div id="emptyState">
+      <div class="card">
+        <img alt="Riverside" src="data:image/png;base64,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">
+        <h1>Riverside Session <span>Flow</span></h1>
+        <p>Visualize any LLM session, post-hoc: agent flow graph, timeline, transcript, and cost. No install, no relay, no hooks.</p>
+        <div class="fmt">
+          <strong>Claude Code</strong> &middot; transcript <code>.jsonl</code> from <code>~/.claude/projects/&lt;project&gt;/&lt;session&gt;.jsonl</code><br>
+          <strong>ChatGPT</strong> &middot; <code>conversations.json</code> from Settings &rarr; Data controls &rarr; Export data<br>
+          <strong>Claude.ai</strong> &middot; <code>conversations.json</code> from Settings &rarr; Privacy &rarr; Export data<br>
+          <strong>Live</strong> &middot; point “Go live” at <code>~/.claude/projects</code> and watch the newest session as it runs (Chrome/Edge, page opened directly)
+        </div>
+        <div class="actions">
+          <button class="btn primary" id="btnOpen2">Open session files</button>
+          <button class="btn" id="btnLive2">Go live</button>
+          <button class="btn" id="btnPaste2">Paste JSON</button>
+          <button class="btn" id="btnDemo2">Explore the demo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <aside id="transcript" aria-label="Transcript">
+    <div class="t-head">
+      <input type="search" id="tSearch" placeholder="Search transcript&hellip;" aria-label="Search transcript">
+      <label id="branchToggleWrap" hidden><input type="checkbox" id="branchToggle"> alt branches</label>
+    </div>
+    <div id="tList"></div>
+  </aside>
+</main>
+
+<div id="timelineWrap">
+  <svg id="timeline" role="img" aria-label="Session timeline"></svg>
+  <div id="tlHint">scroll to zoom &middot; drag to pan &middot; double-click to reset</div>
+</div>
+
+<div id="tooltip" role="tooltip"></div>
+<div id="toast" role="status" aria-live="polite"><span class="t-msg" id="toastMsg"></span><button id="toastClose" aria-label="Dismiss">&times;</button></div>
+<div id="dropOverlay">Drop session files to visualize</div>
+
+<div class="overlay" id="pasteOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Paste session JSON">
+    <h2>Paste session <span>JSON</span></h2>
+    <div class="sub">Paste a Claude Code <code>.jsonl</code> transcript, a ChatGPT <code>conversations.json</code> export (whole file or one conversation), or a Claude.ai export.</div>
+    <textarea id="pasteBox" spellcheck="false" placeholder='{"title": "...", "mapping": { ... }}'></textarea>
+    <div class="m-err" id="pasteErr"></div>
+    <div class="m-actions">
+      <button class="btn" id="pasteCancel">Cancel</button>
+      <button class="btn primary" id="pasteGo">Visualize</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="helpOverlay">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Keyboard shortcuts">
+    <h2>Keyboard <span>shortcuts</span></h2>
+    <div class="kbd-rows">
+      <div class="kbd-row"><span>Next / previous event</span><span><kbd>&rarr;</kbd> <kbd>&larr;</kbd></span></div>
+      <div class="kbd-row"><span>Toggle transcript</span><kbd>T</kbd></div>
+      <div class="kbd-row"><span>Toggle stats &amp; cost</span><kbd>S</kbd></div>
+      <div class="kbd-row"><span>Zoom graph to fit</span><kbd>F</kbd></div>
+      <div class="kbd-row"><span>Toggle alternate branches</span><kbd>B</kbd></div>
+      <div class="kbd-row"><span>Next / previous session</span><span><kbd>]</kbd> <kbd>[</kbd></span></div>
+      <div class="kbd-row"><span>Clear selection / close</span><kbd>Esc</kbd></div>
+      <div class="kbd-row"><span>This overlay</span><kbd>?</kbd></div>
+    </div>
+    <div class="m-actions"><button class="btn" id="helpClose">Close</button></div>
+  </div>
+</div>
+
+<input type="file" id="fileInput" multiple accept=".jsonl,.json,application/json,text/plain" hidden>
+
+<script>
+'use strict';
+/* =====================================================================
+   Riverside Session Flow - post-hoc visualizer for LLM sessions.
+   Sources: Claude Code JSONL transcripts, ChatGPT data exports,
+   Claude.ai data exports. Single file, no dependencies, no network.
+   ===================================================================== */
+
+const CAT = ['#9671ff', '#0aa4c8', '#cc6a00', '#d63ef2', '#22ab72'];
+const USER_COLOR = '#888888';
+const KIND_COLOR = { thinking: '#555555', system: '#444444' };
+const STATUS = { ok: '#6fcf97', warn: '#f2c94c', err: '#f25757' };
+const MAX_TEXT = 60000;
+
+/* $/MTok. Cache read billed at 10% of input, cache write at 125%. Estimates only. */
+const PRICING = [
+  { re: /opus/i,   inp: 15,  out: 75 },
+  { re: /sonnet/i, inp: 3,   out: 15 },
+  { re: /haiku/i,  inp: 1,   out: 5  },
+];
+
+/* ---------------------------------------------------------------------
+   Normalized model
+   session: { id, source, title, startTs, endTs, actors[], events[],
+              branchCount, meta }
+   actor:   { id, label, color, model, kind: 'user'|'agent' }
+   event:   { id, actorId, ts, endTs, kind, name, text, input, output,
+              status, tokensIn, tokensOut, cacheRead, cacheWrite,
+              model, branch, parentId }
+   kind: 'user' | 'assistant' | 'thinking' | 'tool' | 'system' | 'spawn'
+--------------------------------------------------------------------- */
+
+function clip(s) {
+  if (s == null) return '';
+  s = String(s);
+  return s.length > MAX_TEXT ? s.slice(0, MAX_TEXT) + '\n… [truncated]' : s;
+}
+
+function blockText(content) {
+  // Claude message content -> plain text (string or block array)
+  if (content == null) return '';
+  if (typeof content === 'string') return content;
+  if (Array.isArray(content)) {
+    return content.map(b => {
+      if (b == null) return '';
+      if (typeof b === 'string') return b;
+      if (b.type === 'text') return b.text || '';
+      if (b.type === 'image') return '[image]';
+      if (b.type === 'thinking') return b.thinking || '';
+      if (b.type === 'tool_result') return blockText(b.content);
+      return '';
+    }).filter(Boolean).join('\n');
+  }
+  if (typeof content === 'object' && content.text) return content.text;
+  return '';
+}
+
+/* ---------------- Claude Code JSONL ---------------- */
+
+function parseClaudeCodeJsonl(text, filename) {
+  const rows = [];
+  for (const line of text.split('\n')) {
+    const t = line.trim();
+    if (!t) continue;
+    try { rows.push(JSON.parse(t)); } catch (e) { /* skip malformed line */ }
+  }
+  if (!rows.length) throw new Error('No parseable JSON lines.');
+
+  const byUuid = new Map();
+  rows.forEach(r => { if (r.uuid) byUuid.set(r.uuid, r); });
+
+  let title = null;
+  const summaryRow = rows.find(r => r.type === 'summary' && r.summary);
+  if (summaryRow) title = summaryRow.summary;
+
+  // --- group sidechains into subagents (walk to sidechain root) ---
+  const rootCache = new Map();
+  function sidechainRoot(r) {
+    if (!r || !r.uuid) return null;
+    if (rootCache.has(r.uuid)) return rootCache.get(r.uuid);
+    let cur = r, root = r, guard = 0;
+    while (cur && guard++ < 10000) {
+      const par = cur.parentUuid ? byUuid.get(cur.parentUuid) : null;
+      if (!par || !par.isSidechain) { root = cur; break; }
+      cur = par;
+    }
+    rootCache.set(r.uuid, root.uuid);
+    return root.uuid;
+  }
+
+  // Task/Agent tool_use inputs (for subagent labels)
+  const SPAWN_TOOLS = ['Task', 'Agent'];
+  const taskCalls = [];
+  rows.forEach(r => {
+    if (r.type === 'assistant' && r.message && Array.isArray(r.message.content)) {
+      r.message.content.forEach(b => {
+        if (b.type === 'tool_use' && SPAWN_TOOLS.includes(b.name) && b.input) {
+          taskCalls.push({ id: b.id, desc: b.input.description || b.input.subagent_type || null, prompt: b.input.prompt || '' });
+        }
+      });
+    }
+  });
+
+  const agentIds = new Map(); // sidechain root uuid -> actorId
+  const actors = [{ id: 'user', label: 'You', color: USER_COLOR, kind: 'user', model: null }];
+  const mainActor = { id: 'main', label: 'Main agent', color: CAT[0], kind: 'agent', model: null };
+  actors.push(mainActor);
+
+  function actorFor(r) {
+    if (!r.isSidechain) return 'main';
+    // Newer Claude Code stamps every subagent row with agentId (transcript in
+    // <session>/subagents/agent-<id>.jsonl); older versions interleave
+    // sidechain rows in the main file, grouped by walking to the chain root.
+    const key = r.agentId || sidechainRoot(r);
+    if (!agentIds.has(key)) {
+      const n = agentIds.size + 1;
+      const rootRow = r.agentId
+        ? rows.find(x => x.agentId === r.agentId && x.type === 'user' && !x.parentUuid)
+        : byUuid.get(key);
+      const rootText = rootRow ? blockText(rootRow.message && rootRow.message.content) : '';
+      let label = 'Subagent ' + n;
+      const match = taskCalls.find(tc => tc.prompt && rootText && rootText.slice(0, 80) === tc.prompt.slice(0, 80));
+      if (match && match.desc) label = match.desc;
+      const id = 'agent:' + n;
+      agentIds.set(key, id);
+      actors.push({ id, label, color: CAT[Math.min(n, CAT.length - 1)], kind: 'agent', model: null });
+    }
+    return agentIds.get(key);
+  }
+
+  // tool_result index: tool_use_id -> { row, block }
+  const results = new Map();
+  rows.forEach(r => {
+    if (r.type === 'user' && r.message && Array.isArray(r.message.content)) {
+      r.message.content.forEach(b => {
+        if (b && b.type === 'tool_result' && b.tool_use_id) results.set(b.tool_use_id, { row: r, block: b });
+      });
+    }
+  });
+
+  const events = [];
+  let eid = 0;
+  let firstUserText = null;
+
+  for (const r of rows) {
+    const ts = r.timestamp ? Date.parse(r.timestamp) : NaN;
+    if (r.type === 'user' && r.message) {
+      if (r.isMeta) continue;
+      const c = r.message.content;
+      const hasToolResult = Array.isArray(c) && c.some(b => b && b.type === 'tool_result');
+      if (hasToolResult) continue; // rendered via the owning tool call
+      let txt = blockText(c);
+      if (!txt.trim()) continue;
+      // command wrappers
+      txt = txt.replace(/<command-name>([\s\S]*?)<\/command-name>/, '$1 ')
+               .replace(/<\/?command-[a-z-]*>/g, '').replace(/<\/?local-command-[a-z-]*>/g, '').trim();
+      if (!txt) continue;
+      const actorId = r.isSidechain ? actorFor(r) : 'user';
+      if (!r.isSidechain && !firstUserText) firstUserText = txt;
+      events.push({ id: 'e' + (eid++), actorId: r.isSidechain ? actorId : 'user',
+        forActor: r.isSidechain ? actorId : 'main',
+        ts, kind: r.isSidechain ? 'system' : 'user',
+        name: r.isSidechain ? 'task prompt' : null,
+        text: clip(txt), status: 'ok' });
+      continue;
+    }
+    if (r.type === 'assistant' && r.message) {
+      const actorId = actorFor(r);
+      const m = r.message;
+      const model = m.model || null;
+      const a = actors.find(x => x.id === actorId);
+      if (a && model && !a.model) a.model = model;
+      const usage = m.usage || {};
+      let usageAttached = false;
+      const blocks = Array.isArray(m.content) ? m.content : [{ type: 'text', text: blockText(m.content) }];
+      for (const b of blocks) {
+        if (!b) continue;
+        if (b.type === 'thinking') {
+          const t = (b.thinking || '').trim();
+          if (t) events.push({ id: 'e' + (eid++), actorId, ts, kind: 'thinking', text: clip(t), status: 'ok', model });
+        } else if (b.type === 'text') {
+          const t = (b.text || '').trim();
+          if (!t) continue;
+          const ev = { id: 'e' + (eid++), actorId, ts, kind: 'assistant', text: clip(t), status: 'ok', model };
+          if (!usageAttached) {
+            ev.tokensIn = usage.input_tokens || 0; ev.tokensOut = usage.output_tokens || 0;
+            ev.cacheRead = usage.cache_read_input_tokens || 0; ev.cacheWrite = usage.cache_creation_input_tokens || 0;
+            usageAttached = true;
+          }
+          events.push(ev);
+        } else if (b.type === 'tool_use') {
+          const res = results.get(b.id);
+          const endTs = res && res.row.timestamp ? Date.parse(res.row.timestamp) : undefined;
+          const isErr = !!(res && res.block.is_error);
+          const out = res ? blockText(res.block.content) : '';
+          const ev = {
+            id: 'e' + (eid++), actorId, ts, endTs, kind: SPAWN_TOOLS.includes(b.name) ? 'spawn' : 'tool',
+            name: b.name || 'tool', input: clip(JSON.stringify(b.input || {}, null, 2)),
+            output: clip(out), status: isErr ? 'err' : (res ? 'ok' : 'warn'), model,
+          };
+          if (!usageAttached) {
+            ev.tokensIn = usage.input_tokens || 0; ev.tokensOut = usage.output_tokens || 0;
+            ev.cacheRead = usage.cache_read_input_tokens || 0; ev.cacheWrite = usage.cache_creation_input_tokens || 0;
+            usageAttached = true;
+          }
+          events.push(ev);
+        }
+      }
+      continue;
+    }
+    // other row types (system/progress/snapshots) are skipped
+  }
+
+  events.sort((a, b) => (a.ts || 0) - (b.ts || 0));
+  const tss = events.map(e => e.ts).filter(t => Number.isFinite(t));
+  if (!events.length) throw new Error('No renderable events found in this transcript.');
+  return {
+    id: 'cc:' + (filename || Math.random().toString(36).slice(2)),
+    source: 'claude-code',
+    title: title || firstUserText && firstUserText.replace(/\s+/g, ' ').trim().slice(0, 80) || filename || 'Claude Code session',
+    startTs: Math.min(...tss), endTs: Math.max(...tss, ...events.map(e => e.endTs || 0)),
+    actors, events, branchCount: 0,
+    meta: { file: filename || null, sessionId: rows.find(r => r.sessionId) ? rows.find(r => r.sessionId).sessionId : null,
+            version: (rows.find(r => r.version) || {}).version || null },
+  };
+}
+
+/* ---------------- ChatGPT export ---------------- */
+
+function parseChatGPTConversation(conv, idx) {
+  const mapping = conv.mapping || {};
+  const nodes = Object.values(mapping);
+  if (!nodes.length) throw new Error('Conversation has no mapping.');
+
+  // active path: walk up from current_node
+  const active = new Set();
+  let cur = conv.current_node;
+  let guard = 0;
+  while (cur && mapping[cur] && guard++ < 100000) { active.add(cur); cur = mapping[cur].parent; }
+  const noCurrent = !conv.current_node;
+
+  const actors = [
+    { id: 'user', label: 'You', color: USER_COLOR, kind: 'user', model: null },
+    { id: 'main', label: 'ChatGPT', color: CAT[0], kind: 'agent', model: null },
+  ];
+  const main = actors[1];
+
+  // stable order: BFS from roots so parents precede children, siblings in order
+  const roots = nodes.filter(n => !n.parent);
+  const ordered = [];
+  const queue = roots.slice();
+  const seen = new Set();
+  while (queue.length) {
+    const n = queue.shift();
+    if (!n || seen.has(n.id)) continue;
+    seen.add(n.id); ordered.push(n);
+    (n.children || []).forEach(cid => { if (mapping[cid]) queue.push(mapping[cid]); });
+  }
+  nodes.forEach(n => { if (!seen.has(n.id)) ordered.push(n); });
+
+  const events = [];
+  let eid = 0;
+  let branchCount = 0;
+  nodes.forEach(n => {
+    const kids = (n.children || []).filter(cid => mapping[cid] && mapping[cid].message);
+    if (kids.length > 1) branchCount += kids.length - 1;
+  });
+
+  let lastTs = conv.create_time ? conv.create_time * 1000 : Date.parse('2026-01-01');
+
+  for (const n of ordered) {
+    const msg = n.message;
+    if (!msg || !msg.author) continue;
+    const md = msg.metadata || {};
+    if (md.is_visually_hidden_from_conversation) continue;
+    const role = msg.author.role;
+    const ct = msg.content && msg.content.content_type;
+    let ts = msg.create_time ? msg.create_time * 1000 : lastTs + 1200;
+    lastTs = Math.max(lastTs, ts);
+    const onPath = noCurrent || active.has(n.id);
+    const model = md.model_slug || null;
+    if (model && !main.model) main.model = model;
+
+    let text = '';
+    if (msg.content) {
+      if (ct === 'text' || ct === 'multimodal_text') {
+        text = (msg.content.parts || []).map(p => {
+          if (typeof p === 'string') return p;
+          if (p && p.content_type === 'image_asset_pointer') return '[image]';
+          if (p && p.content_type === 'audio_transcription') return p.text || '[audio]';
+          if (p && p.text) return p.text;
+          return '';
+        }).filter(Boolean).join('\n');
+      } else if (ct === 'code') {
+        text = msg.content.text || '';
+      } else if (ct === 'execution_output') {
+        text = msg.content.text || '';
+      } else if (ct === 'thoughts') {
+        text = (msg.content.thoughts || []).map(t => (t.summary ? t.summary + '\n' : '') + (t.content || '')).join('\n\n');
+      } else if (ct === 'reasoning_recap') {
+        text = msg.content.content || '';
+      } else if (ct === 'user_editable_context') {
+        continue; // custom instructions blob
+      } else if (ct === 'tether_quote' || ct === 'tether_browsing_display') {
+        text = msg.content.text || msg.content.result || '';
+      } else {
+        text = msg.content.text || blockText(msg.content.parts) || '';
+      }
+    }
+    text = (text || '').trim();
+
+    if (role === 'system') {
+      if (!text) continue;
+      events.push({ id: 'e' + (eid++), actorId: 'main', ts, kind: 'system', text: clip(text), status: 'ok', branch: !onPath, nodeId: n.id, parentNodeId: n.parent });
+      continue;
+    }
+    if (role === 'user') {
+      if (!text) continue;
+      events.push({ id: 'e' + (eid++), actorId: 'user', ts, kind: 'user', text: clip(text), status: 'ok', branch: !onPath, nodeId: n.id, parentNodeId: n.parent });
+      continue;
+    }
+    if (role === 'assistant') {
+      if (ct === 'thoughts' || ct === 'reasoning_recap') {
+        if (text) events.push({ id: 'e' + (eid++), actorId: 'main', ts, kind: 'thinking', text: clip(text), status: 'ok', model, branch: !onPath, nodeId: n.id, parentNodeId: n.parent });
+        continue;
+      }
+      const recipient = msg.recipient && msg.recipient !== 'all' ? msg.recipient : null;
+      if (recipient || ct === 'code') {
+        const toolName = (recipient || 'python').replace(/\.exec$/, '');
+        events.push({ id: 'e' + (eid++), actorId: 'main', ts, kind: 'tool', name: toolName,
+          input: clip(text), output: '', status: 'warn', model, branch: !onPath, nodeId: n.id, parentNodeId: n.parent, _open: true });
+        continue;
+      }
+      if (!text) continue;
+      events.push({ id: 'e' + (eid++), actorId: 'main', ts, kind: 'assistant', text: clip(text), status: 'ok', model, branch: !onPath, nodeId: n.id, parentNodeId: n.parent });
+      continue;
+    }
+    if (role === 'tool') {
+      // response to the nearest open tool call from the same subtree
+      const parent = mapping[n.parent];
+      let target = null;
+      for (let i = events.length - 1; i >= 0; i--) {
+        if (events[i].kind === 'tool' && events[i]._open) { target = events[i]; break; }
+      }
+      const isErr = msg.status === 'failed' || /error|traceback/i.test((text || '').slice(0, 400));
+      if (target) {
+        target.output = clip(text || '(no output)');
+        target.endTs = ts;
+        target.status = isErr ? 'err' : 'ok';
+        target._open = false;
+      } else if (text) {
+        events.push({ id: 'e' + (eid++), actorId: 'main', ts, kind: 'tool', name: msg.author.name || 'tool',
+          input: '', output: clip(text), status: isErr ? 'err' : 'ok', branch: !onPath, nodeId: n.id, parentNodeId: n.parent });
+      }
+      continue;
+    }
+  }
+  events.forEach(e => { if (e.kind === 'tool' && e._open) { e.status = 'ok'; delete e._open; } });
+
+  if (!events.length) throw new Error('No renderable messages in this conversation.');
+  events.sort((a, b) => (a.ts || 0) - (b.ts || 0));
+  const tss = events.map(e => e.ts).filter(Number.isFinite);
+  return {
+    id: 'gpt:' + (conv.id || conv.conversation_id || idx),
+    source: 'chatgpt',
+    title: conv.title || 'ChatGPT conversation',
+    startTs: Math.min(...tss), endTs: Math.max(...tss, ...events.map(e => e.endTs || 0)),
+    actors, events, branchCount,
+    meta: { model: main.model },
+  };
+}
+
+/* ---------------- Claude.ai export ---------------- */
+
+function parseClaudeAiConversation(conv, idx) {
+  const msgs = conv.chat_messages || [];
+  if (!msgs.length) throw new Error('Conversation has no chat_messages.');
+  const actors = [
+    { id: 'user', label: 'You', color: USER_COLOR, kind: 'user', model: null },
+    { id: 'main', label: 'Claude', color: CAT[0], kind: 'agent', model: conv.model || null },
+  ];
+  const events = [];
+  let eid = 0;
+  let lastTs = conv.created_at ? Date.parse(conv.created_at) : Date.parse('2026-01-01');
+  for (const m of msgs) {
+    let ts = m.created_at ? Date.parse(m.created_at) : lastTs + 1500;
+    lastTs = Math.max(lastTs, ts);
+    const who = m.sender === 'human' ? 'user' : 'main';
+    let text = m.text || '';
+    if (!text && Array.isArray(m.content)) text = blockText(m.content);
+    text = (text || '').trim();
+    if (!text) continue;
+    events.push({ id: 'e' + (eid++), actorId: who, ts, kind: who === 'user' ? 'user' : 'assistant',
+      text: clip(text), status: 'ok' });
+  }
+  if (!events.length) throw new Error('No renderable messages in this conversation.');
+  const tss = events.map(e => e.ts).filter(Number.isFinite);
+  return {
+    id: 'cai:' + (conv.uuid || idx),
+    source: 'claude-ai',
+    title: conv.name || 'Claude conversation',
+    startTs: Math.min(...tss), endTs: Math.max(...tss),
+    actors, events, branchCount: 0, meta: {},
+  };
+}
+
+/* ---------------- Format detection ---------------- */
+
+function detectAndParse(text, filename) {
+  const trimmed = text.trim();
+  if (!trimmed) throw new Error('Empty input.');
+  // JSONL: first line parses alone and file has >1 line or line has jsonl markers
+  const firstNl = trimmed.indexOf('\n');
+  if (firstNl > 0) {
+    const firstLine = trimmed.slice(0, firstNl).trim();
+    if (firstLine.startsWith('{') && firstLine.endsWith('}')) {
+      try {
+        const probe = JSON.parse(firstLine);
+        if (probe && (probe.type || probe.uuid || probe.sessionId)) {
+          return [parseClaudeCodeJsonl(trimmed, filename)];
+        }
+      } catch (e) { /* not jsonl */ }
+    }
+  }
+  let data;
+  try { data = JSON.parse(trimmed); }
+  catch (e) {
+    // maybe single-line-per-json without valid whole-file JSON
+    try { return [parseClaudeCodeJsonl(trimmed, filename)]; }
+    catch (e2) { throw new Error('Input is neither valid JSON nor JSONL: ' + e.message); }
+  }
+  if (Array.isArray(data)) {
+    const out = [];
+    data.forEach((c, i) => {
+      try {
+        if (c && c.mapping) out.push(parseChatGPTConversation(c, i));
+        else if (c && c.chat_messages) out.push(parseClaudeAiConversation(c, i));
+      } catch (e) { /* skip empty conversations */ }
+    });
+    if (!out.length) throw new Error('No renderable conversations found in export.');
+    out.sort((a, b) => (b.endTs || 0) - (a.endTs || 0));
+    return out;
+  }
+  if (data && data.mapping) return [parseChatGPTConversation(data, 0)];
+  if (data && data.chat_messages) return [parseClaudeAiConversation(data, 0)];
+  if (data && Array.isArray(data.conversations)) return detectAndParse(JSON.stringify(data.conversations), filename);
+  throw new Error('Unrecognized format. Expected Claude Code JSONL, ChatGPT export, or Claude.ai export.');
+}
+
+/* ---------------- Derived stats ---------------- */
+
+function fmtDur(ms) {
+  if (!Number.isFinite(ms) || ms < 0) return '-';
+  if (ms < 1000) return Math.round(ms) + 'ms';
+  if (ms < 60000) return (ms / 1000).toFixed(ms < 10000 ? 1 : 0) + 's';
+  const m = Math.floor(ms / 60000), s = Math.round((ms % 60000) / 1000);
+  if (m < 60) return m + 'm ' + (s ? s + 's' : '');
+  const h = Math.floor(m / 60);
+  return h + 'h ' + (m % 60) + 'm';
+}
+function fmtClock(ts) {
+  if (!Number.isFinite(ts)) return '-';
+  const d = new Date(ts);
+  return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+}
+function fmtTok(n) {
+  if (!n) return '0';
+  if (n >= 1e6) return (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n / 1e3).toFixed(1) + 'k';
+  return String(n);
+}
+function fmtModel(m) {
+  if (!m) return '';
+  let s = m.replace(/-\d{8}$/, '');
+  s = s.replace(/^claude-/, '');
+  const cap = w => w.charAt(0).toUpperCase() + w.slice(1);
+  const mm = s.match(/^(opus|sonnet|haiku|fable)-?(\d+(?:-\d+)?)?/i);
+  if (mm) return cap(mm[1]) + (mm[2] ? ' ' + mm[2].replace('-', '.') : '');
+  return s.replace(/^gpt/i, 'GPT').replace(/-thinking/, ' Thinking');
+}
+function priceFor(model) {
+  if (!model) return null;
+  const p = PRICING.find(p => p.re.test(model));
+  return p || null;
+}
+function sessionStats(s) {
+  const st = {
+    userMsgs: 0, assistantMsgs: 0, tools: 0, errors: 0, thinking: 0,
+    tokensIn: 0, tokensOut: 0, cacheRead: 0, cacheWrite: 0, cost: 0, costKnown: false,
+    toolCounts: new Map(), models: new Set(), agents: s.actors.filter(a => a.kind === 'agent').length,
+    byActor: new Map(),
+  };
+  s.actors.forEach(a => st.byActor.set(a.id, { actor: a, events: 0, tools: 0, errors: 0, tokensIn: 0, tokensOut: 0, cost: 0 }));
+  for (const e of s.events) {
+    const ba = st.byActor.get(e.actorId);
+    if (ba) ba.events++;
+    if (e.model) st.models.add(e.model);
+    if (e.kind === 'user') st.userMsgs++;
+    if (e.kind === 'assistant') st.assistantMsgs++;
+    if (e.kind === 'thinking') st.thinking++;
+    if (e.kind === 'tool' || e.kind === 'spawn') {
+      st.tools++;
+      if (ba) ba.tools++;
+      const key = e.name || 'tool';
+      const tc = st.toolCounts.get(key) || { n: 0, err: 0, ms: 0 };
+      tc.n++;
+      if (e.status === 'err') { tc.err++; st.errors++; if (ba) ba.errors++; }
+      if (e.endTs && e.ts) tc.ms += Math.max(0, e.endTs - e.ts);
+      st.toolCounts.set(key, tc);
+    }
+    const tin = (e.tokensIn || 0), tout = (e.tokensOut || 0);
+    st.tokensIn += tin; st.tokensOut += tout;
+    st.cacheRead += e.cacheRead || 0; st.cacheWrite += e.cacheWrite || 0;
+    if (ba) { ba.tokensIn += tin + (e.cacheRead || 0) + (e.cacheWrite || 0); ba.tokensOut += tout; }
+    const p = priceFor(e.model);
+    if (p && (tin || tout || e.cacheRead || e.cacheWrite)) {
+      const c = (tin * p.inp + (e.cacheRead || 0) * p.inp * 0.1 + (e.cacheWrite || 0) * p.inp * 1.25 + tout * p.out) / 1e6;
+      st.cost += c; st.costKnown = true;
+      if (ba) ba.cost += c;
+    }
+  }
+  return st;
+}
+
+/* =====================================================================
+   State + UI
+===================================================================== */
+const state = {
+  sessions: [],
+  active: -1,
+  sel: null,           // {type:'event'|'tool'|'actor', id}
+  showBranches: false,
+  search: '',
+  tl: { t0: 0, t1: 1 },
+  graphT: { x: 0, y: 0, k: 1 },
+  graphPinned: false,  // user has panned/zoomed the graph; live refreshes keep their view
+  tlPinned: false,     // user has zoomed/panned the timeline; live refreshes stop following now
+};
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const NS = 'http://www.w3.org/2000/svg';
+function svgEl(tag, attrs, parent) {
+  const el = document.createElementNS(NS, tag);
+  for (const k in attrs) el.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(el);
+  return el;
+}
+
+function currentSession() { return state.sessions[state.active] || null; }
+function actorColor(s, actorId) {
+  const a = s.actors.find(a => a.id === actorId);
+  return a ? a.color : USER_COLOR;
+}
+function visibleEvents(s) {
+  return s.events.filter(e => state.showBranches || !e.branch);
+}
+
+/* ---------------- Session switching ---------------- */
+
+function addSessions(list, autoSwitch = true) {
+  const startAt = state.sessions.length;
+  for (const s of list) {
+    const dup = state.sessions.findIndex(x => x.id === s.id);
+    if (dup >= 0) state.sessions[dup] = s; else state.sessions.push(s);
+  }
+  rebuildSessionSelect();
+  if (autoSwitch) switchSession(Math.min(startAt, state.sessions.length - 1));
+}
+function rebuildSessionSelect() {
+  const sel = $('sessionSelect');
+  sel.innerHTML = '';
+  state.sessions.forEach((s, i) => {
+    const o = document.createElement('option');
+    const src = s.source === 'claude-code' ? 'Claude Code' : s.source === 'chatgpt' ? 'ChatGPT' : 'Claude.ai';
+    o.value = i;
+    o.textContent = `[${src}] ${s.title}`.slice(0, 90);
+    sel.appendChild(o);
+  });
+  sel.value = String(state.active);
+}
+function switchSession(i) {
+  if (i < 0 || i >= state.sessions.length) return;
+  state.active = i;
+  state.sel = null;
+  state.search = '';
+  state.graphPinned = false;
+  state.tlPinned = false;
+  $('tSearch').value = '';
+  const s = currentSession();
+  state.showBranches = false;
+  $('branchToggle').checked = false;
+  $('branchToggleWrap').hidden = !(s && s.branchCount > 0);
+  state.tl = { t0: s.startTs, t1: Math.max(s.endTs, s.startTs + 1000) };
+  $('sessionSelect').value = String(i);
+  $('emptyState').style.display = 'none';
+  $('statsStrip').hidden = false;
+  const badge = $('srcBadge');
+  badge.hidden = false;
+  badge.className = 'src-badge ' + s.source;
+  badge.textContent = s.source === 'claude-code' ? 'Claude Code' : s.source === 'chatgpt' ? 'ChatGPT' : 'Claude.ai';
+  renderAll();
+}
+
+/* ---------------- Stats strip + panel ---------------- */
+
+function renderStatsStrip() {
+  const s = currentSession(); if (!s) return;
+  const st = sessionStats(s);
+  const wall = s.endTs - s.startTs;
+  const totalTok = st.tokensIn + st.tokensOut + st.cacheRead + st.cacheWrite;
+  const models = [...st.models].map(fmtModel).filter(Boolean);
+  const tiles = [
+    { k: 'duration', v: fmtDur(wall) },
+    { k: 'messages', v: `${st.userMsgs + st.assistantMsgs} <small>${st.userMsgs} you · ${st.assistantMsgs} ai</small>` },
+    { k: 'tool calls', v: st.tools + (st.errors ? ` <small class="err-n">${st.errors} failed</small>` : '') },
+    { k: 'agents', v: String(st.agents) },
+  ];
+  if (s.branchCount) tiles.push({ k: 'branches', v: String(s.branchCount) });
+  tiles.push({ k: 'tokens', v: totalTok ? `${fmtTok(totalTok)} <small>${fmtTok(st.tokensIn + st.cacheRead + st.cacheWrite)} in · ${fmtTok(st.tokensOut)} out</small>` : '<small>n/a</small>' });
+  tiles.push({ k: 'est. cost', v: st.costKnown ? '$' + st.cost.toFixed(st.cost < 1 ? 3 : 2) : '<small>n/a</small>' });
+  if (models.length) tiles.push({ k: 'models', v: esc(models.join(' · ')), cls: 'models' });
+  $('statsStrip').innerHTML = tiles.map(t =>
+    `<div class="tile ${t.cls || ''}"><div class="v">${t.v}</div><div class="k">${t.k}</div></div>`).join('');
+}
+
+function renderStatsPanel() {
+  const s = currentSession(); if (!s) return;
+  const st = sessionStats(s);
+  const panel = $('statsPanel');
+  const tools = [...st.toolCounts.entries()].sort((a, b) => b[1].n - a[1].n);
+  const maxN = tools.length ? tools[0][1].n : 1;
+  let html = '<h2>Tool usage</h2>';
+  if (tools.length) {
+    html += '<div class="bar-rows">' + tools.map(([name, t]) =>
+      `<div class="bar-row"><div class="bn">${esc(name)}</div>
+        <div class="btrack"><div class="bfill" style="width:${Math.max(2, t.n / maxN * 100)}%"></div></div>
+        <div class="bv">${t.n}${t.err ? ` <span class="be">· ${t.err} err</span>` : ''}${t.ms ? ` · ${fmtDur(t.ms)}` : ''}</div>
+      </div>`).join('') + '</div>';
+  } else html += '<div class="note">No tool calls in this session.</div>';
+
+  html += '<h2>Per agent</h2><table class="stats"><tr><th>Agent</th><th>Model</th><th class="num">Events</th><th class="num">Tools</th><th class="num">Errors</th><th class="num">Tokens in</th><th class="num">Tokens out</th><th class="num">Est. cost</th></tr>';
+  for (const [, ba] of st.byActor) {
+    if (!ba.events) continue;
+    html += `<tr><td><span style="color:${ba.actor.color}">●</span> ${esc(ba.actor.label)}</td>
+      <td>${esc(fmtModel(ba.actor.model) || '-')}</td>
+      <td class="num">${ba.events}</td><td class="num">${ba.tools}</td>
+      <td class="num">${ba.errors || ''}</td>
+      <td class="num">${ba.tokensIn ? fmtTok(ba.tokensIn) : '-'}</td>
+      <td class="num">${ba.tokensOut ? fmtTok(ba.tokensOut) : '-'}</td>
+      <td class="num">${ba.cost ? '$' + ba.cost.toFixed(3) : '-'}</td></tr>`;
+  }
+  html += '</table>';
+  if (st.cacheRead || st.cacheWrite) {
+    html += `<div class="note">Prompt cache: ${fmtTok(st.cacheRead)} read · ${fmtTok(st.cacheWrite)} written. Cost estimate prices cache reads at 10% and cache writes at 125% of input rate.</div>`;
+  }
+  html += '<div class="note">Costs are estimates from public per-token list prices by model family; ChatGPT exports carry no token counts, so tokens/cost show n/a.</div>';
+  if (s.branchCount) html += `<div class="note">This conversation has ${s.branchCount} regenerated (alternate) ${s.branchCount === 1 ? 'branch' : 'branches'}. Toggle “alt branches” in the transcript to inspect them.</div>`;
+  panel.innerHTML = html;
+}
+
+/* ---------------- Flow graph ---------------- */
+
+const graphSvg = $('graph');
+let graphContent = null;
+
+function buildGraphModel(s) {
+  // nodes: user, each agent, and per-agent tool groups
+  const st = sessionStats(s);
+  const nodes = [], edges = [];
+  nodes.push({ id: 'user', type: 'actor', label: 'You', sub: st.userMsgs + ' message' + (st.userMsgs === 1 ? '' : 's'), color: USER_COLOR });
+  const agents = s.actors.filter(a => a.kind === 'agent');
+  for (const a of agents) {
+    const evs = s.events.filter(e => e.actorId === a.id);
+    if (!evs.length && a.id !== 'main') continue;
+    nodes.push({ id: a.id, type: 'actor', label: a.label, sub: fmtModel(a.model) || (evs.length + ' events'), color: a.color });
+    // tool groups for this agent
+    const tmap = new Map();
+    evs.forEach(e => {
+      if (e.kind !== 'tool' && e.kind !== 'spawn') return;
+      if (e.kind === 'spawn') return; // spawn edges handled below
+      const k = e.name || 'tool';
+      const t = tmap.get(k) || { n: 0, err: 0, ms: 0, running: false };
+      t.n++; if (e.status === 'err') t.err++;
+      if (e.endTs) t.ms += Math.max(0, e.endTs - e.ts);
+      if (s.live && e.status === 'warn' && !e.endTs) t.running = true;
+      tmap.set(k, t);
+    });
+    for (const [name, t] of [...tmap.entries()].sort((x, y) => y[1].n - x[1].n)) {
+      const nid = 'tool:' + a.id + ':' + name;
+      nodes.push({ id: nid, type: 'tool', label: name, agent: a.id, color: a.color,
+        sub: t.n + '×' + (t.err ? ' · ' + t.err + ' err' : '') + (t.ms ? ' · ' + fmtDur(t.ms) : ''), err: t.err > 0, running: t.running });
+      edges.push({ from: a.id, to: nid, n: t.n, color: a.color, err: t.err > 0 });
+    }
+  }
+  // user <-> main
+  if (st.userMsgs || st.assistantMsgs) {
+    edges.unshift({ from: 'user', to: 'main', n: st.userMsgs + st.assistantMsgs, color: '#9671ff', msg: true });
+  }
+  // spawn edges main -> subagents
+  agents.forEach(a => {
+    if (a.id === 'main') return;
+    if (nodes.find(n => n.id === a.id)) edges.push({ from: 'main', to: a.id, n: 1, color: a.color, spawn: true });
+  });
+  return { nodes, edges };
+}
+
+function layoutGraph(model) {
+  const AW = 168, AH = 56, TW = 158, TH = 42, GX = 110, GY = 14, AGY = 44;
+  const pos = new Map();
+  const toolsByAgent = new Map();
+  model.nodes.forEach(n => {
+    if (n.type === 'tool') {
+      if (!toolsByAgent.has(n.agent)) toolsByAgent.set(n.agent, []);
+      toolsByAgent.get(n.agent).push(n);
+    }
+  });
+  const agents = model.nodes.filter(n => n.type === 'actor' && n.id !== 'user');
+  let y = 20;
+  for (const a of agents) {
+    const tools = toolsByAgent.get(a.id) || [];
+    const blockH = Math.max(AH, tools.length * (TH + GY) - GY);
+    const ay = y + blockH / 2 - AH / 2;
+    pos.set(a.id, { x: 300, y: ay, w: AW, h: AH });
+    tools.forEach((t, i) => {
+      pos.set(t.id, { x: 300 + AW + GX, y: y + i * (TH + GY), w: TW, h: TH });
+    });
+    y += blockH + AGY;
+  }
+  const totalH = Math.max(y - AGY + 20, 120);
+  const mainPos = pos.get('main');
+  pos.set('user', { x: 40, y: (mainPos ? mainPos.y + AH / 2 : totalH / 2) - AH / 2, w: 128, h: AH });
+  return { pos, width: 300 + AW + GX + TW + 60, height: totalH + 20 };
+}
+
+function renderGraph() {
+  const s = currentSession(); if (!s) return;
+  graphSvg.innerHTML = '';
+  const model = buildGraphModel(s);
+  const { pos, width, height } = layoutGraph(model);
+  const root = svgEl('g', {}, graphSvg);
+  graphContent = { root, width, height };
+
+  // edges under nodes
+  const edgeEls = [];
+  for (const e of model.edges) {
+    const a = pos.get(e.from), b = pos.get(e.to);
+    if (!a || !b) continue;
+    const x1 = a.x + a.w, y1 = a.y + a.h / 2, x2 = b.x, y2 = b.y + b.h / 2;
+    const mx = (x1 + x2) / 2;
+    const w = Math.min(6, 1.2 + Math.log2(e.n + 1));
+    const path = svgEl('path', {
+      d: `M ${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`,
+      class: 'gedge' + (e.spawn ? ' spawn' : ''), stroke: e.color, 'stroke-width': w,
+      'stroke-opacity': e.msg ? 0.55 : 0.45, 'stroke-dasharray': e.spawn ? '6 5' : 'none',
+      'data-from': e.from, 'data-to': e.to,
+    }, root);
+    if (e.err) path.setAttribute('stroke', STATUS.err), path.setAttribute('stroke-opacity', 0.55);
+    edgeEls.push({ el: path, to: e.to, from: e.from, color: e.err ? STATUS.err : e.color, n: e.n });
+    if (e.n > 1) {
+      svgEl('circle', { cx: mx, cy: (y1 + y2) / 2, r: 9, fill: '#151515', stroke: '#383838' }, root);
+      const t = svgEl('text', { x: mx, y: (y1 + y2) / 2 + 3.5, 'text-anchor': 'middle', class: 'gcount' }, root);
+      t.textContent = e.n;
+    }
+  }
+
+  // flow particles live above edges, below nodes
+  flow.layer = svgEl('g', { 'pointer-events': 'none' }, root);
+
+  // nodes
+  for (const n of model.nodes) {
+    const p = pos.get(n.id);
+    if (!p) continue;
+    const g = svgEl('g', { class: 'gnode' + (n.running ? ' running' : ''), 'data-id': n.id, tabindex: 0, role: 'button' }, root);
+    g.appendChild(svgEl('rect', { class: 'body', x: p.x, y: p.y, width: p.w, height: p.h, rx: n.type === 'actor' ? 14 : 10 }));
+    // accent stripe
+    g.appendChild(svgEl('rect', { x: p.x, y: p.y, width: 4, height: p.h, rx: 2, fill: n.err ? STATUS.err : n.color }));
+    const nm = svgEl('text', { x: p.x + 14, y: p.y + (n.type === 'actor' ? 24 : 18), class: 'nm' });
+    nm.textContent = n.label.length > 19 ? n.label.slice(0, 18) + '…' : n.label;
+    g.appendChild(nm);
+    const sub = svgEl('text', { x: p.x + 14, y: p.y + (n.type === 'actor' ? 41 : 33), class: 'sub' });
+    sub.textContent = n.sub || '';
+    g.appendChild(sub);
+    if (n.err) {
+      const e = svgEl('circle', { cx: p.x + p.w - 12, cy: p.y + 12, r: 4.5, fill: STATUS.err });
+      g.appendChild(e);
+    }
+    g.addEventListener('click', ev => { ev.stopPropagation(); selectNode(n); });
+    g.addEventListener('keydown', ev => { if (ev.key === 'Enter' || ev.key === ' ') { ev.preventDefault(); selectNode(n); } });
+    g.addEventListener('mousemove', ev => showTooltipAt(ev, nodeTooltip(s, n)));
+    g.addEventListener('mouseleave', hideTooltip);
+  }
+
+  renderLegend(s);
+  if (state.graphPinned) applyGraphTransform(); else zoomFit();
+  setupFlow(edgeEls);
+  applySelection();
+}
+
+/* ---------------- Data-flow animation (particles + event pings) ---------------- */
+
+const REDUCED_MOTION = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+const flow = { layer: null, parts: [], pings: [], raf: null, heat: new Map(), seen: new Map() };
+
+function setupFlow(edgeEls) {
+  flow.parts = [];
+  flow.pings = [];
+  if (REDUCED_MOTION || !flow.layer) return;
+  for (const e of edgeEls) {
+    let len;
+    try { len = e.el.getTotalLength(); } catch (err) { continue; }
+    if (!len) continue;
+    const count = Math.max(1, Math.min(4, Math.round(1 + Math.log2((e.n || 1) + 1))));
+    for (let i = 0; i < count; i++) {
+      const c = svgEl('circle', { r: 2.2, fill: e.color, 'fill-opacity': 0.7 }, flow.layer);
+      flow.parts.push({ el: c, path: e.el, len, off: i / count + Math.random() * 0.1,
+        speed: 0.13 + Math.random() * 0.05, to: e.to });
+    }
+  }
+  startFlowLoop();
+}
+function startFlowLoop() {
+  if (flow.raf || REDUCED_MOTION) return;
+  const step = () => {
+    flow.raf = requestAnimationFrame(step);
+    if (document.hidden || !flow.parts.length && !flow.pings.length) return;
+    const now = performance.now() / 1000;
+    for (const p of flow.parts) {
+      if (!p.path.isConnected) continue;
+      const heatT = flow.heat.get(p.to) || 0;
+      const boost = Math.max(0, 1 - (now - heatT) / 8); // recent activity speeds the stream for ~8s
+      const t = (now * p.speed * (1 + 1.8 * boost) + p.off) % 1;
+      let pt;
+      try { pt = p.path.getPointAtLength(t * p.len); } catch (err) { continue; }
+      p.el.setAttribute('cx', pt.x); p.el.setAttribute('cy', pt.y);
+      const dimmed = p.path.classList.contains('dim');
+      p.el.setAttribute('fill-opacity', dimmed ? 0.1 : (0.5 + 0.4 * boost));
+      p.el.setAttribute('r', 2.2 + 1.1 * boost);
+    }
+    const nowMs = performance.now();
+    flow.pings = flow.pings.filter(pg => {
+      if (!pg.el.isConnected) return false;
+      const k = (nowMs - pg.t0) / pg.dur;
+      if (k >= 1) { pg.el.remove(); return false; }
+      pg.el.setAttribute('r', 10 + k * 26);
+      pg.el.setAttribute('stroke-opacity', (1 - k) * 0.85);
+      return true;
+    });
+  };
+  flow.raf = requestAnimationFrame(step);
+}
+function pingNode(nodeId, color) {
+  if (REDUCED_MOTION || !flow.layer || !flow.layer.isConnected) return;
+  const node = graphSvg.querySelector(`.gnode[data-id="${(window.CSS && CSS.escape) ? CSS.escape(nodeId) : nodeId}"]`);
+  if (!node) return;
+  const r = node.querySelector('rect.body');
+  if (!r) return;
+  const cx = +r.getAttribute('x') + (+r.getAttribute('width')) / 2;
+  const cy = +r.getAttribute('y') + (+r.getAttribute('height')) / 2;
+  const el = svgEl('circle', { cx, cy, r: 10, fill: 'none', stroke: color, 'stroke-width': 2 }, flow.layer);
+  flow.pings.push({ el, t0: performance.now(), dur: 700 });
+  startFlowLoop();
+}
+/* Diff a re-parsed live session against what we've already seen; ping what changed. */
+function flowDiff(s, silent) {
+  let prev = flow.seen.get(s.id);
+  if (!prev) { prev = new Map(); flow.seen.set(s.id, prev); silent = true; }
+  const nowSec = performance.now() / 1000;
+  for (const e of s.events) {
+    const key = e.status + ':' + (e.endTs || 0);
+    const old = prev.get(e.id);
+    if (old === key) continue;
+    prev.set(e.id, key);
+    if (silent) continue;
+    const isTool = e.kind === 'tool' || e.kind === 'spawn';
+    const toolNode = isTool ? 'tool:' + e.actorId + ':' + (e.name || 'tool') : null;
+    const color = e.status === 'err' ? STATUS.err : (old === undefined && isTool && !e.endTs) ? STATUS.warn : actorColor(s, e.actorId);
+    pingNode(toolNode || e.actorId, color);
+    if (toolNode) { flow.heat.set(toolNode, nowSec); }
+    flow.heat.set(e.actorId, nowSec);
+  }
+}
+
+function nodeTooltip(s, n) {
+  if (n.type === 'actor') {
+    const a = s.actors.find(a => a.id === n.id);
+    const evs = s.events.filter(e => e.actorId === n.id);
+    return { title: n.label, sub: (a && a.model ? fmtModel(a.model) + ' · ' : '') + evs.length + ' events', body: 'Click to filter the transcript and timeline to this lane.' };
+  }
+  return { title: n.label, sub: n.sub, body: 'Click to filter to these tool calls.' };
+}
+
+function selectNode(n) {
+  if (n.type === 'actor') setSelection({ type: 'actor', id: n.id });
+  else setSelection({ type: 'tool', id: n.id, agent: n.agent, name: n.label });
+}
+
+function renderLegend(s) {
+  const items = s.actors.filter(a => s.events.some(e => e.actorId === a.id) || a.id === 'main')
+    .map(a => `<div class="li"><span class="sw" style="background:${a.color}"></span>${esc(a.label)}</div>`);
+  items.push(`<div class="li"><span class="sw" style="background:${STATUS.err}"></span>error</div>`);
+  items.push(`<div class="li"><span class="sw" style="background:#555"></span>thinking</div>`);
+  $('graphLegend').innerHTML = items.join('');
+}
+
+/* graph pan/zoom */
+function applyGraphTransform() {
+  if (!graphContent) return;
+  const { x, y, k } = state.graphT;
+  graphContent.root.setAttribute('transform', `translate(${x},${y}) scale(${k})`);
+}
+function zoomFit() {
+  if (!graphContent) return;
+  state.graphPinned = false;
+  const bb = graphSvg.getBoundingClientRect();
+  const k = Math.min(1.25, Math.min(bb.width / graphContent.width, bb.height / graphContent.height) * 0.94);
+  state.graphT = {
+    k, x: (bb.width - graphContent.width * k) / 2, y: (bb.height - graphContent.height * k) / 2,
+  };
+  applyGraphTransform();
+}
+(function wireGraphPanZoom() {
+  let drag = null;
+  graphSvg.addEventListener('mousedown', e => {
+    drag = { sx: e.clientX, sy: e.clientY, ox: state.graphT.x, oy: state.graphT.y, moved: false };
+    graphSvg.classList.add('panning');
+  });
+  window.addEventListener('mousemove', e => {
+    if (!drag) return;
+    const dx = e.clientX - drag.sx, dy = e.clientY - drag.sy;
+    if (Math.abs(dx) + Math.abs(dy) > 3) { drag.moved = true; state.graphPinned = true; }
+    state.graphT.x = drag.ox + dx; state.graphT.y = drag.oy + dy;
+    applyGraphTransform();
+  });
+  window.addEventListener('mouseup', () => { if (drag && !drag.moved) {} drag = null; graphSvg.classList.remove('panning'); });
+  graphSvg.addEventListener('click', e => { if (e.target === graphSvg) setSelection(null); });
+  graphSvg.addEventListener('wheel', e => {
+    e.preventDefault();
+    const bb = graphSvg.getBoundingClientRect();
+    const mx = e.clientX - bb.left, my = e.clientY - bb.top;
+    const f = Math.exp(-e.deltaY * 0.0015);
+    const k2 = Math.min(4, Math.max(0.2, state.graphT.k * f));
+    const r = k2 / state.graphT.k;
+    state.graphT.x = mx - (mx - state.graphT.x) * r;
+    state.graphT.y = my - (my - state.graphT.y) * r;
+    state.graphT.k = k2;
+    state.graphPinned = true;
+    applyGraphTransform();
+  }, { passive: false });
+})();
+
+/* ---------------- Timeline ---------------- */
+
+const tlSvg = $('timeline');
+const TL = { left: 132, top: 26, laneH: 30, barH: 14 };
+
+function tlLanes(s) {
+  const lanes = [];
+  const order = ['user', ...s.actors.filter(a => a.kind === 'agent').map(a => a.id)];
+  for (const id of order) {
+    const a = s.actors.find(x => x.id === id);
+    if (!a) continue;
+    if (id !== 'user' && id !== 'main' && !s.events.some(e => e.actorId === id)) continue;
+    lanes.push(a);
+  }
+  return lanes;
+}
+function niceStep(spanMs, targetTicks) {
+  const steps = [100, 250, 500, 1e3, 2e3, 5e3, 10e3, 15e3, 30e3, 60e3, 2 * 60e3, 5 * 60e3, 10 * 60e3, 30 * 60e3, 3600e3, 2 * 3600e3, 6 * 3600e3, 24 * 3600e3, 7 * 24 * 3600e3];
+  const raw = spanMs / targetTicks;
+  return steps.find(s => s >= raw) || steps[steps.length - 1];
+}
+function renderTimeline() {
+  const s = currentSession(); if (!s) return;
+  tlSvg.innerHTML = '';
+  const bb = tlSvg.getBoundingClientRect();
+  const W = bb.width || 800;
+  const { t0, t1 } = state.tl;
+  const x = t => TL.left + (t - t0) / (t1 - t0) * (W - TL.left - 16);
+
+  const lanes = tlLanes(s);
+  const laneY = new Map();
+  lanes.forEach((a, i) => laneY.set(a.id, TL.top + i * TL.laneH));
+
+  // ticks
+  const step = niceStep(t1 - t0, Math.max(3, (W - TL.left) / 130));
+  const g = svgEl('g', {}, tlSvg);
+  const H = TL.top + lanes.length * TL.laneH + 8;
+  for (let t = Math.ceil(t0 / step) * step; t <= t1; t += step) {
+    const gx = x(t);
+    const tick = svgEl('g', { class: 'tl-tick' }, g);
+    svgEl('line', { x1: gx, y1: TL.top - 8, x2: gx, y2: H }, tick);
+    const tx = svgEl('text', { x: gx + 4, y: TL.top - 12 }, tick);
+    tx.textContent = (t1 - t0) < 60000 ? fmtClock(t) + '.' + String(Math.floor(t % 1000 / 100)) : fmtClock(t);
+  }
+
+  // lane labels + separators
+  lanes.forEach((a, i) => {
+    const ly = TL.top + i * TL.laneH;
+    svgEl('line', { x1: 0, y1: ly + TL.laneH, x2: W, y2: ly + TL.laneH, stroke: '#222222' }, g);
+    const t = svgEl('text', { x: 10, y: ly + TL.laneH / 2 + 4, class: 'tl-lane-label' }, g);
+    t.textContent = a.label.length > 16 ? a.label.slice(0, 15) + '…' : a.label;
+    svgEl('circle', { cx: TL.left - 14, cy: ly + TL.laneH / 2, r: 4, fill: a.color }, g);
+  });
+
+  // bars
+  const evs = visibleEvents(s);
+  for (const e of evs) {
+    if (!Number.isFinite(e.ts)) continue;
+    const ly = laneY.get(e.actorId);
+    if (ly == null) continue;
+    const cy = ly + TL.laneH / 2;
+    const isTool = e.kind === 'tool' || e.kind === 'spawn';
+    const x1 = x(e.ts);
+    if (x1 > W || (e.endTs ? x(e.endTs) : x1) < TL.left - 20) continue;
+    const bg = svgEl('g', { class: 'tl-bar', 'data-eid': e.id }, g);
+    let shape;
+    if (isTool) {
+      const x2 = e.endTs ? Math.max(x(e.endTs), x1 + 3) : x1 + 3;
+      shape = svgEl('rect', {
+        x: x1, y: cy - TL.barH / 2, width: Math.max(3, x2 - x1), height: TL.barH, rx: 4,
+        fill: actorColor(s, e.actorId), 'fill-opacity': e.branch ? 0.35 : 0.9,
+      }, bg);
+      if (e.status === 'err') {
+        shape.setAttribute('stroke', STATUS.err); shape.setAttribute('stroke-width', '1.5');
+        const t = svgEl('text', { x: Math.max(3, x2 - x1) / 2 + x1, y: cy + 3.6, 'text-anchor': 'middle' }, bg);
+        t.textContent = '✕'; t.setAttribute('fill', '#fff'); t.setAttribute('font-size', '9');
+      }
+    } else if (e.kind === 'thinking') {
+      shape = svgEl('rect', { x: x1, y: cy - 4, width: 8, height: 8, rx: 2, fill: KIND_COLOR.thinking, transform: `rotate(45 ${x1 + 4} ${cy})` }, bg);
+    } else {
+      const r = e.kind === 'user' ? 5.5 : 5;
+      shape = svgEl('circle', { cx: x1, cy, r, fill: e.kind === 'user' ? '#fafafa' : actorColor(s, e.actorId), 'fill-opacity': e.branch ? 0.4 : 1 }, bg);
+      if (e.kind === 'system') shape.setAttribute('fill', KIND_COLOR.system);
+    }
+    // enlarge hit area
+    const hit = svgEl('rect', { x: x1 - 6, y: ly + 1, width: (e.endTs ? Math.max(12, x(e.endTs) - x1 + 12) : 12), height: TL.laneH - 2, fill: 'transparent' }, bg);
+    bg.addEventListener('click', ev => { ev.stopPropagation(); setSelection({ type: 'event', id: e.id }); });
+    bg.addEventListener('mousemove', ev => showTooltipAt(ev, eventTooltip(s, e)));
+    bg.addEventListener('mouseleave', hideTooltip);
+  }
+  // "now" line while watching live
+  if (s.live) {
+    const nowX = x(Date.now());
+    if (nowX >= TL.left && nowX <= W) {
+      svgEl('line', { x1: nowX, y1: TL.top - 8, x2: nowX, y2: H, stroke: '#e04040', 'stroke-width': 1.5, 'stroke-dasharray': '3 3' }, g);
+    }
+  }
+  applySelection();
+}
+function eventTooltip(s, e) {
+  const a = s.actors.find(a => a.id === e.actorId);
+  const kind = e.kind === 'tool' || e.kind === 'spawn' ? (e.name || 'tool') : e.kind;
+  const dur = e.endTs ? ' · ' + fmtDur(e.endTs - e.ts) : '';
+  return {
+    title: kind + (e.status === 'err' ? ' - failed' : ''),
+    sub: (a ? a.label : '') + ' · ' + fmtClock(e.ts) + dur + (e.branch ? ' · alt branch' : ''),
+    body: (e.text || e.input || e.output || '').slice(0, 320),
+  };
+}
+(function wireTimeline() {
+  let drag = null;
+  tlSvg.addEventListener('mousedown', e => {
+    drag = { sx: e.clientX, t0: state.tl.t0, t1: state.tl.t1 };
+    tlSvg.classList.add('panning');
+  });
+  window.addEventListener('mousemove', e => {
+    if (!drag) return;
+    const bb = tlSvg.getBoundingClientRect();
+    const span = drag.t1 - drag.t0;
+    const dt = (e.clientX - drag.sx) / (bb.width - TL.left - 16) * span;
+    state.tl.t0 = drag.t0 - dt; state.tl.t1 = drag.t1 - dt;
+    state.tlPinned = true;
+    renderTimeline();
+  });
+  window.addEventListener('mouseup', () => { drag = null; tlSvg.classList.remove('panning'); });
+  tlSvg.addEventListener('wheel', e => {
+    e.preventDefault();
+    const s = currentSession(); if (!s) return;
+    const bb = tlSvg.getBoundingClientRect();
+    const frac = Math.min(1, Math.max(0, (e.clientX - bb.left - TL.left) / (bb.width - TL.left - 16)));
+    const t = state.tl.t0 + frac * (state.tl.t1 - state.tl.t0);
+    const f = Math.exp(e.deltaY * 0.0015);
+    let span = (state.tl.t1 - state.tl.t0) * f;
+    span = Math.min(Math.max(span, 400), (s.endTs - s.startTs) * 4 + 5000);
+    state.tl.t0 = t - frac * span; state.tl.t1 = t + (1 - frac) * span;
+    state.tlPinned = true;
+    renderTimeline();
+  }, { passive: false });
+  tlSvg.addEventListener('dblclick', () => {
+    const s = currentSession(); if (!s) return;
+    state.tlPinned = false;
+    state.tl = { t0: s.startTs, t1: Math.max(s.endTs, s.live ? Date.now() + 2000 : s.startTs + 1000) };
+    renderTimeline();
+  });
+})();
+
+/* ---------------- Transcript ---------------- */
+
+function kindChip(e) {
+  if (e.kind === 'tool') return `<span class="kind-chip ${e.status === 'err' ? 'err' : 'tool'}">${esc(e.name || 'tool')}${e.status === 'err' ? ' ✕' : ''}</span>`;
+  if (e.kind === 'spawn') return `<span class="kind-chip tool">spawn: ${esc(e.name || 'Task')}</span>`;
+  if (e.kind === 'thinking') return '<span class="kind-chip think">thinking</span>';
+  if (e.kind === 'system') return '<span class="kind-chip think">context</span>';
+  return '';
+}
+function renderTranscript() {
+  const s = currentSession(); if (!s) return;
+  const list = $('tList');
+  list.innerHTML = '';
+  const frag = document.createDocumentFragment();
+  if (s.branchCount && !state.showBranches) {
+    const n = document.createElement('div');
+    n.className = 'branch-note';
+    n.textContent = `${s.branchCount} regenerated ${s.branchCount === 1 ? 'branch is' : 'branches are'} hidden - enable “alt branches” to see the paths not taken.`;
+    frag.appendChild(n);
+  }
+  for (const e of s.events) {
+    const a = s.actors.find(a => a.id === e.actorId);
+    const card = document.createElement('article');
+    card.className = 'tcard' + (e.status === 'err' ? ' error' : '') + (e.branch ? ' branch' : '');
+    card.dataset.eid = e.id;
+    card.dataset.branch = e.branch ? '1' : '';
+    const dur = e.endTs ? ` · ${fmtDur(e.endTs - e.ts)}` : '';
+    let html = `<div class="row1">
+      <span class="dot" style="background:${e.kind === 'user' ? '#fafafa' : (a ? a.color : '#888')}"></span>
+      <span class="who">${esc(e.kind === 'user' ? 'You' : (a ? a.label : ''))}</span>
+      ${kindChip(e)}
+      ${e.branch ? '<span class="kind-chip branch">alt branch</span>' : ''}
+      ${e.model ? `<span class="model-chip">${esc(fmtModel(e.model))}</span>` : ''}
+      <span class="ts">${fmtClock(e.ts)}${dur}</span>
+    </div>`;
+    if (e.kind === 'tool' || e.kind === 'spawn') {
+      if (e.input) html += `<details><summary>Input</summary><pre>${esc(e.input)}</pre></details>`;
+      if (e.output) html += `<details><summary>${e.status === 'err' ? 'Error output' : 'Output'}</summary><pre>${esc(e.output)}</pre></details>`;
+      if (!e.input && !e.output) html += `<div class="body">${esc(e.name || 'tool')} call</div>`;
+    } else if (e.text) {
+      const long = e.text.length > 600 || e.text.split('\n').length > 7;
+      html += `<div class="body${long ? ' clamp' : ''}">${esc(e.text)}</div>`;
+      if (long) html += '<button class="more">Show more</button>';
+    }
+    card.innerHTML = html;
+    card.addEventListener('click', ev => {
+      if (ev.target.closest('details') || ev.target.closest('.more')) return;
+      setSelection({ type: 'event', id: e.id }, { fromTranscript: true });
+    });
+    const more = card.querySelector('.more');
+    if (more) more.addEventListener('click', () => {
+      const b = card.querySelector('.body');
+      const open = b.classList.toggle('clamp');
+      more.textContent = open ? 'Show more' : 'Show less';
+    });
+    frag.appendChild(card);
+  }
+  list.appendChild(frag);
+  applySelection();
+}
+
+/* ---------------- Selection + filtering ---------------- */
+
+function setSelection(sel, opts = {}) {
+  state.sel = sel;
+  applySelection(opts);
+}
+function eventMatchesSel(s, e) {
+  const sel = state.sel;
+  if (!sel) return true;
+  if (sel.type === 'event') return e.id === sel.id;
+  if (sel.type === 'actor') return e.actorId === sel.id || (sel.id === 'main' && e.kind === 'user');
+  if (sel.type === 'tool') return (e.kind === 'tool' || e.kind === 'spawn') && e.actorId === sel.agent && (e.name || 'tool') === sel.name;
+  return true;
+}
+function applySelection(opts = {}) {
+  const s = currentSession(); if (!s) return;
+  const sel = state.sel;
+  // graph
+  graphSvg.querySelectorAll('.gnode').forEach(n => {
+    const id = n.dataset.id;
+    let on = false, dim = false;
+    if (sel) {
+      if (sel.type === 'actor') { on = id === sel.id; dim = !on && id !== 'user'; }
+      else if (sel.type === 'tool') { on = id === 'tool:' + sel.agent + ':' + sel.name; dim = !on; }
+      else if (sel.type === 'event') {
+        const e = s.events.find(x => x.id === sel.id);
+        if (e) on = id === e.actorId || ((e.kind === 'tool' || e.kind === 'spawn') && id === 'tool:' + e.actorId + ':' + (e.name || 'tool'));
+        dim = !on;
+      }
+    }
+    n.classList.toggle('selected', on);
+    n.classList.toggle('dim', !!sel && dim);
+  });
+  graphSvg.querySelectorAll('.gedge').forEach(p => {
+    let dim = false;
+    if (sel) {
+      const from = p.dataset.from, to = p.dataset.to;
+      if (sel.type === 'actor') dim = !(from === sel.id || to === sel.id);
+      else if (sel.type === 'tool') dim = to !== 'tool:' + sel.agent + ':' + sel.name;
+      else dim = false;
+    }
+    p.classList.toggle('dim', !!sel && dim);
+  });
+  // timeline
+  tlSvg.querySelectorAll('.tl-bar').forEach(b => {
+    const e = s.events.find(x => x.id === b.dataset.eid);
+    const match = e && eventMatchesSel(s, e);
+    b.classList.toggle('dim', !!sel && !match);
+    b.querySelectorAll('rect, circle').forEach(shape => shape.classList.toggle('selected', !!sel && sel.type === 'event' && e && e.id === sel.id));
+  });
+  // transcript
+  const q = state.search.trim().toLowerCase();
+  let firstMatch = null;
+  $('tList').querySelectorAll('.tcard').forEach(card => {
+    const e = s.events.find(x => x.id === card.dataset.eid);
+    if (!e) return;
+    let hidden = false;
+    if (e.branch && !state.showBranches) hidden = true;
+    if (!hidden && q) {
+      const hay = ((e.text || '') + ' ' + (e.name || '') + ' ' + (e.input || '') + ' ' + (e.output || '')).toLowerCase();
+      if (!hay.includes(q)) hidden = true;
+    }
+    if (!hidden && sel && sel.type !== 'event' && !eventMatchesSel(s, e)) hidden = true;
+    card.classList.toggle('hiddenf', hidden);
+    card.classList.toggle('selected', !!sel && sel.type === 'event' && sel.id === e.id);
+    if (!hidden && sel && sel.type === 'event' && sel.id === e.id) firstMatch = card;
+  });
+  if (firstMatch && !opts.fromTranscript) firstMatch.scrollIntoView({ block: 'center' });
+  // filter chip
+  const chip = $('filterChip');
+  if (sel && sel.type !== 'event') {
+    let label = '';
+    if (sel.type === 'actor') { const a = s.actors.find(a => a.id === sel.id); label = 'Lane: ' + (a ? a.label : sel.id); }
+    if (sel.type === 'tool') { const a = s.actors.find(a => a.id === sel.agent); label = 'Tool: ' + sel.name + (a && a.id !== 'main' ? ' (' + a.label + ')' : ''); }
+    $('filterChipLabel').textContent = label;
+    chip.style.display = 'flex';
+  } else chip.style.display = 'none';
+}
+
+/* ---------------- Tooltip ---------------- */
+
+const tooltip = $('tooltip');
+function showTooltipAt(ev, data) {
+  tooltip.innerHTML = `<div class="tt-title">${esc(data.title)}</div>` +
+    (data.sub ? `<div class="tt-sub">${esc(data.sub)}</div>` : '') +
+    (data.body ? `<div class="tt-body">${esc(data.body)}</div>` : '');
+  tooltip.style.display = 'block';
+  const pad = 14;
+  const w = tooltip.offsetWidth, h = tooltip.offsetHeight;
+  let x = ev.clientX + pad, y = ev.clientY + pad;
+  if (x + w > window.innerWidth - 8) x = ev.clientX - w - pad;
+  if (y + h > window.innerHeight - 8) y = ev.clientY - h - pad;
+  tooltip.style.left = x + 'px'; tooltip.style.top = y + 'px';
+}
+function hideTooltip() { tooltip.style.display = 'none'; }
+
+/* ---------------- Toast (visible feedback everywhere - alert() is
+   silently swallowed inside sandboxed frames like the hosted artifact) */
+let toastTimer = null;
+function toast(msg, kind) {
+  const t = $('toast');
+  $('toastMsg').innerHTML = msg; // callers pass trusted, pre-escaped strings only
+  t.classList.toggle('error', kind === 'error');
+  t.classList.add('open');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('open'), kind === 'error' ? 12000 : 8000);
+}
+$('toastClose').addEventListener('click', () => $('toast').classList.remove('open'));
+
+/* ---------------- Render all ---------------- */
+
+function renderAll() {
+  renderStatsStrip();
+  renderStatsPanel();
+  renderGraph();
+  renderTimeline();
+  renderTranscript();
+}
+
+/* ---------------- File loading ---------------- */
+
+function loadTexts(items) {
+  const out = [], errs = [];
+  // Merge subagent transcripts (agent-*.jsonl from a session's subagents/
+  // folder) into the main transcript when both are loaded together.
+  items = items.filter(it => !/\.meta\.json$/i.test(it.name || ''));
+  const agentFiles = items.filter(it => /^agent-[\w-]+\.jsonl$/i.test(it.name || ''));
+  const mains = items.filter(it => !agentFiles.includes(it));
+  if (agentFiles.length && mains.length === 1) {
+    items = [{ name: mains[0].name, text: mains[0].text + '\n' + agentFiles.map(a => a.text).join('\n') }];
+  }
+  for (const it of items) {
+    try { out.push(...detectAndParse(it.text, it.name)); }
+    catch (e) { errs.push((it.name || 'pasted input') + ': ' + e.message); }
+  }
+  if (out.length) addSessions(out);
+  if (errs.length) toast('Some inputs could not be parsed:<br>' + errs.map(esc).join('<br>'), 'error');
+}
+async function handleFiles(fileList) {
+  const files = [...fileList];
+  const items = [];
+  for (const f of files) items.push({ name: f.name, text: await f.text() });
+  loadTexts(items);
+}
+$('fileInput').addEventListener('change', e => { handleFiles(e.target.files); e.target.value = ''; });
+['btnOpen', 'btnOpen2'].forEach(id => $(id).addEventListener('click', () => $('fileInput').click()));
+
+let dragDepth = 0;
+window.addEventListener('dragenter', e => { e.preventDefault(); dragDepth++; $('dropOverlay').classList.add('open'); });
+window.addEventListener('dragleave', e => { e.preventDefault(); if (--dragDepth <= 0) { dragDepth = 0; $('dropOverlay').classList.remove('open'); } });
+window.addEventListener('dragover', e => e.preventDefault());
+window.addEventListener('drop', e => {
+  e.preventDefault(); dragDepth = 0; $('dropOverlay').classList.remove('open');
+  if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) handleFiles(e.dataTransfer.files);
+});
+
+/* paste modal */
+['btnPaste', 'btnPaste2'].forEach(id => $(id).addEventListener('click', () => {
+  $('pasteErr').style.display = 'none';
+  $('pasteOverlay').classList.add('open');
+  $('pasteBox').focus();
+}));
+$('pasteCancel').addEventListener('click', () => $('pasteOverlay').classList.remove('open'));
+$('pasteGo').addEventListener('click', () => {
+  try {
+    const out = detectAndParse($('pasteBox').value, null);
+    addSessions(out);
+    $('pasteOverlay').classList.remove('open');
+    $('pasteBox').value = '';
+  } catch (e) {
+    const el = $('pasteErr');
+    el.textContent = e.message;
+    el.style.display = 'block';
+  }
+});
+
+/* help */
+$('btnHelp').addEventListener('click', () => $('helpOverlay').classList.add('open'));
+$('helpClose').addEventListener('click', () => $('helpOverlay').classList.remove('open'));
+document.querySelectorAll('.overlay').forEach(o => o.addEventListener('click', e => { if (e.target === o) o.classList.remove('open'); }));
+
+/* toggles */
+$('btnTranscript').addEventListener('click', () => {
+  const t = $('transcript');
+  t.classList.toggle('hidden');
+  const on = !t.classList.contains('hidden');
+  $('btnTranscript').classList.toggle('toggled', false);
+  $('btnTranscript').setAttribute('aria-pressed', on);
+});
+$('btnStats').addEventListener('click', () => {
+  const open = $('statsPanel').classList.toggle('open');
+  $('btnStats').classList.toggle('toggled', open);
+  $('btnStats').setAttribute('aria-pressed', open);
+});
+$('filterClear').addEventListener('click', () => setSelection(null));
+$('tSearch').addEventListener('input', e => { state.search = e.target.value; applySelection(); });
+$('branchToggle').addEventListener('change', e => {
+  state.showBranches = e.target.checked;
+  renderTimeline(); renderTranscript();
+});
+$('sessionSelect').addEventListener('change', e => switchSession(+e.target.value));
+
+/* keyboard */
+document.addEventListener('keydown', e => {
+  const inField = /^(input|textarea|select)$/i.test(document.activeElement.tagName);
+  if (e.key === 'Escape') {
+    let closed = false;
+    document.querySelectorAll('.overlay.open').forEach(o => { o.classList.remove('open'); closed = true; });
+    if ($('statsPanel').classList.contains('open')) { $('statsPanel').classList.remove('open'); $('btnStats').classList.remove('toggled'); closed = true; }
+    if (!closed) setSelection(null);
+    return;
+  }
+  if (inField) return;
+  const s = currentSession();
+  if (e.key === '?') { $('helpOverlay').classList.toggle('open'); return; }
+  if (!s) return;
+  if (e.key === 't' || e.key === 'T') { $('btnTranscript').click(); }
+  else if (e.key === 's' || e.key === 'S') { $('btnStats').click(); }
+  else if (e.key === 'f' || e.key === 'F') { zoomFit(); }
+  else if ((e.key === 'b' || e.key === 'B') && s.branchCount) { $('branchToggle').checked = !$('branchToggle').checked; $('branchToggle').dispatchEvent(new Event('change')); }
+  else if (e.key === ']') { switchSession(Math.min(state.sessions.length - 1, state.active + 1)); }
+  else if (e.key === '[') { switchSession(Math.max(0, state.active - 1)); }
+  else if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') {
+    const evs = visibleEvents(s);
+    if (!evs.length) return;
+    let i = state.sel && state.sel.type === 'event' ? evs.findIndex(x => x.id === state.sel.id) : -1;
+    i = e.key === 'ArrowRight' ? Math.min(evs.length - 1, i + 1) : Math.max(0, i <= 0 ? 0 : i - 1);
+    setSelection({ type: 'event', id: evs[i].id });
+  }
+});
+
+window.addEventListener('resize', () => { renderTimeline(); });
+
+/* ---------------- Live mode ----------------
+   Follows a Claude Code transcript (.jsonl) on disk via the File System
+   Access API and re-renders as it grows. Point it at ~/.claude/projects
+   (or any folder / single file); with a folder it follows the most
+   recently modified transcript, hopping to newer sessions as they start.
+   Chromium-only (Chrome / Edge / Arc), page opened directly in a tab. */
+
+const live = { on: false, handle: null, dir: null, parentDir: null, name: '', timer: null, sig: '', mod: 0, scanN: 0 };
+
+const EMBEDDED_MSG = 'Live mode can&rsquo;t run inside this embedded page &mdash; the sandbox blocks file pickers. Download <code>tools/session-flow.html</code> from the marketing-brain repo, open it directly in Chrome or Edge, hit <strong>Go live</strong>, and pick <code>~/.claude/projects</code>.';
+async function pickLive() {
+  if (window.self !== window.top) { toast(EMBEDDED_MSG, 'error'); return; }
+  try {
+    if (window.showDirectoryPicker) {
+      const dir = await window.showDirectoryPicker();
+      live.dir = dir;
+      const best = await newestJsonl(dir);
+      if (!best) { toast('No <code>.jsonl</code> session transcripts found in that folder. Pick <code>~/.claude/projects</code> or a project folder inside it.', 'error'); live.dir = null; return; }
+      startLiveFile(best.handle, best.name, best.parent);
+      toast('Watching <strong>' + esc(best.name) + '</strong> &mdash; following the newest session in that folder.');
+      return;
+    }
+    if (window.showOpenFilePicker) {
+      const [h] = await window.showOpenFilePicker({ types: [{ description: 'Session transcript', accept: { 'application/json': ['.jsonl', '.json'] } }] });
+      startLiveFile(h, h.name);
+      toast('Watching <strong>' + esc(h.name) + '</strong> live.');
+      return;
+    }
+    toast('Live mode needs the File System Access API (Chrome, Edge, or Arc) with this page opened directly in a tab. Firefox and Safari can still open finished session files normally.', 'error');
+  } catch (e) {
+    if (e && (e.name === 'AbortError')) return;
+    if (e && e.name === 'SecurityError') { toast(EMBEDDED_MSG, 'error'); return; }
+    toast('Could not start live mode: ' + esc(e.message), 'error');
+  }
+}
+async function newestJsonl(dir, depth = 0) {
+  let best = null;
+  try {
+    for await (const entry of dir.values()) {
+      if (entry.kind === 'file' && entry.name.endsWith('.jsonl')) {
+        const f = await entry.getFile();
+        if (!best || f.lastModified > best.mod) best = { handle: entry, mod: f.lastModified, name: entry.name, parent: dir };
+      } else if (entry.kind === 'directory' && depth < 3 && entry.name !== 'subagents') {
+        // subagents/ transcripts are merged into their session, never followed as the main file
+        const b = await newestJsonl(entry, depth + 1);
+        if (b && (!best || b.mod > best.mod)) best = b;
+      }
+    }
+  } catch (e) { /* permission revoked mid-scan */ }
+  return best;
+}
+/* Read the followed transcript plus its session's subagents/*.jsonl, with a
+   change signature covering all of them. */
+async function readLiveBundle() {
+  const f = await live.handle.getFile();
+  let text = await f.text();
+  let sig = f.size + ':' + f.lastModified;
+  if (live.parentDir) {
+    try {
+      const sessDir = await live.parentDir.getDirectoryHandle(live.name.replace(/\.jsonl$/, ''));
+      const sub = await sessDir.getDirectoryHandle('subagents');
+      for await (const entry of sub.values()) {
+        if (entry.kind === 'file' && entry.name.endsWith('.jsonl')) {
+          const af = await entry.getFile();
+          text += '\n' + await af.text();
+          sig += '|' + entry.name + ':' + af.size + ':' + af.lastModified;
+        }
+      }
+    } catch (e) { /* session has no subagents directory */ }
+  }
+  return { text, sig };
+}
+function startLiveFile(handle, name, parentDir) {
+  live.handle = handle; live.name = name || handle.name; live.parentDir = parentDir || null; live.on = true;
+  live.sig = ''; live.mod = 0; live.scanN = 0;
+  setLiveUi();
+  schedulePoll(0);
+}
+function stopLive() {
+  live.on = false;
+  clearTimeout(live.timer);
+  live.handle = null; live.dir = null;
+  const s = currentSession();
+  if (s && s.live) { s.live = false; renderAll(); }
+  setLiveUi();
+}
+function schedulePoll(ms) { clearTimeout(live.timer); live.timer = setTimeout(pollLive, ms); }
+async function pollLive() {
+  if (!live.on) return;
+  try {
+    // with a folder, periodically hop to a newer session file
+    if (live.dir && (++live.scanN % 4 === 0)) {
+      const best = await newestJsonl(live.dir);
+      if (best && best.name !== live.name && best.mod > live.mod) {
+        live.handle = best.handle; live.name = best.name; live.parentDir = best.parent; live.sig = '';
+      }
+    }
+    const bundle = await readLiveBundle();
+    if (bundle.sig !== live.sig) {
+      live.sig = bundle.sig;
+      live.mod = Date.now();
+      try {
+        const s = parseClaudeCodeJsonl(bundle.text, live.name);
+        s.live = true;
+        upsertLiveSession(s);
+      } catch (e) { /* transcript exists but has no renderable events yet - keep polling */ }
+    } else if (currentSession() && currentSession().live && !state.tlPinned) {
+      // keep the now-line moving even between file changes
+      state.tl.t1 = Math.max(state.tl.t1, Date.now() + 2000);
+      renderTimeline();
+    }
+    setLiveUi();
+  } catch (e) {
+    console.warn('Live poll failed:', e);
+  }
+  schedulePoll(1500);
+}
+function upsertLiveSession(s) {
+  const i = state.sessions.findIndex(x => x.id === s.id);
+  if (i < 0) {
+    flowDiff(s, true); // baseline without a ping storm
+    addSessions([s]);
+    return;
+  }
+  state.sessions[i] = s;
+  rebuildSessionSelect();
+  if (state.active !== i) { flowDiff(s, true); return; }
+  // preserve the user's view across the re-render
+  const list = $('tList');
+  const nearBottom = list.scrollHeight - list.scrollTop - list.clientHeight < 90;
+  const prevScroll = list.scrollTop;
+  const openKeys = [...list.querySelectorAll('.tcard details[open]')].map(d =>
+    d.closest('.tcard').dataset.eid + '|' + d.querySelector('summary').textContent);
+  if (!state.tlPinned) state.tl = { t0: s.startTs, t1: Math.max(s.endTs, Date.now()) + 2000 };
+  renderAll();
+  flowDiff(s, false); // ping what just happened
+  openKeys.forEach(key => {
+    const [eid, sum] = key.split('|');
+    list.querySelectorAll('.tcard[data-eid="' + eid + '"] details').forEach(d => {
+      if (d.querySelector('summary').textContent === sum) d.open = true;
+    });
+  });
+  list.scrollTop = nearBottom ? list.scrollHeight : prevScroll;
+}
+function setLiveUi() {
+  const chip = $('liveChip');
+  chip.classList.toggle('on', live.on);
+  $('btnLive').classList.toggle('toggled', live.on);
+  if (live.on) {
+    const age = live.mod ? Math.max(0, Math.round((Date.now() - live.mod) / 1000)) : null;
+    $('liveLabel').textContent = live.name.slice(0, 24) + (age != null ? ' · ' + (age < 2 ? 'just now' : age + 's ago') : '');
+  }
+}
+['btnLive', 'btnLive2'].forEach(id => $(id).addEventListener('click', pickLive));
+$('liveStop').addEventListener('click', stopLive);
+
+/* ---------------- Demo sessions ---------------- */
+
+function demoClaudeJsonl() {
+  const B = Date.parse('2026-07-18T08:12:00Z');
+  const iso = ms => new Date(B + ms).toISOString();
+  const L = [];
+  const push = o => L.push(JSON.stringify(o));
+  const U = { input_tokens: 4, output_tokens: 120, cache_read_input_tokens: 18200, cache_creation_input_tokens: 900 };
+  push({ type: 'summary', summary: 'Pricing page CTA contrast fix + analytics audit', leafUuid: 'u-final' });
+  push({ type: 'user', uuid: 'u1', parentUuid: null, timestamp: iso(0), sessionId: 'demo-cc', version: '2.1.0', message: { role: 'user', content: 'Audit the pricing page hero, fix the CTA contrast issue, and have a subagent verify the analytics events still fire.' } });
+  push({ type: 'assistant', uuid: 'a1', parentUuid: 'u1', timestamp: iso(4000), message: { role: 'assistant', model: 'claude-opus-4-8-20260115', usage: U, content: [ { type: 'thinking', thinking: 'The hero CTA uses purple text on a dark card - likely the contrast failure. Plan: read the hero component, grep for the color token, fix, run the checks, then spawn a subagent for the GA4 event audit.' }, { type: 'text', text: 'On it - reading the hero component first, then I’ll trace the CTA token.' }, { type: 'tool_use', id: 't1', name: 'Read', input: { file_path: 'site/pages/pricing/hero.tsx' } } ] } });
+  push({ type: 'user', uuid: 'r1', parentUuid: 'a1', timestamp: iso(6500), message: { role: 'user', content: [ { type: 'tool_result', tool_use_id: 't1', content: 'export const Hero = () => (\n  <section className="hero-dark">\n    <h1>Plans that scale with your show</h1>\n    <a className="cta cta--ghost" href="/signup">Start free</a>\n  </section>\n)' } ] } });
+  push({ type: 'assistant', uuid: 'a2', parentUuid: 'r1', timestamp: iso(9000), message: { role: 'assistant', model: 'claude-opus-4-8-20260115', usage: { input_tokens: 6, output_tokens: 84, cache_read_input_tokens: 19100, cache_creation_input_tokens: 240 }, content: [ { type: 'tool_use', id: 't2', name: 'Grep', input: { pattern: 'cta--ghost', glob: 'site/**/*.css' } } ] } });
+  push({ type: 'user', uuid: 'r2', parentUuid: 'a2', timestamp: iso(11800), message: { role: 'user', content: [ { type: 'tool_result', tool_use_id: 't2', content: 'site/styles/buttons.css:41: .cta--ghost { color: #7848ff; background: transparent; }' } ] } });
+  push({ type: 'assistant', uuid: 'a3', parentUuid: 'r2', timestamp: iso(15000), message: { role: 'assistant', model: 'claude-opus-4-8-20260115', usage: { input_tokens: 5, output_tokens: 210, cache_read_input_tokens: 19400, cache_creation_input_tokens: 180 }, content: [ { type: 'thinking', thinking: '#7848ff on #151515 is ~3.2:1 - fails AA for body-size text. Move to the lighter step #b196ff and add an underline for the link case.' }, { type: 'tool_use', id: 't3', name: 'Edit', input: { file_path: 'site/styles/buttons.css', old_string: '.cta--ghost { color: #7848ff; background: transparent; }', new_string: '.cta--ghost { color: #b196ff; background: transparent; text-decoration: underline; }' } } ] } });
+  push({ type: 'user', uuid: 'r3', parentUuid: 'a3', timestamp: iso(16400), message: { role: 'user', content: [ { type: 'tool_result', tool_use_id: 't3', content: 'Edited site/styles/buttons.css (1 replacement).' } ] } });
+  push({ type: 'assistant', uuid: 'a4', parentUuid: 'r3', timestamp: iso(18000), message: { role: 'assistant', model: 'claude-opus-4-8-20260115', usage: { input_tokens: 4, output_tokens: 60, cache_read_input_tokens: 19600, cache_creation_input_tokens: 120 }, content: [ { type: 'tool_use', id: 't4', name: 'Bash', input: { command: 'npm run lint:css' } } ] } });
+  push({ type: 'user', uuid: 'r4', parentUuid: 'a4', timestamp: iso(31000), message: { role: 'user', content: [ { type: 'tool_result', tool_use_id: 't4', is_error: true, content: 'Error: stylelint not found. Run npm install first.\nexit status 1' } ] } });
+  push({ type: 'assistant', uuid: 'a5', parentUuid: 'r4', timestamp: iso(34000), message: { role: 'assistant', model: 'claude-opus-4-8-20260115', usage: { input_tokens: 5, output_tokens: 72, cache_read_input_tokens: 19800, cache_creation_input_tokens: 100 }, content: [ { type: 'text', text: 'Lint tooling isn’t installed in this checkout - installing dev deps, then re-running.' }, { type: 'tool_use', id: 't5', name: 'Bash', input: { command: 'npm install --no-audit && npm run lint:css' } } ] } });
+  push({ type: 'user', uuid: 'r5', parentUuid: 'a5', timestamp: iso(78000), message: { role: 'user', content: [ { type: 'tool_result', tool_use_id: 't5', content: 'added 214 packages in 38s\n\n> lint:css\n✔ 61 files linted, 0 problems' } ] } });
+  push({ type: 'assistant', uuid: 'a6', parentUuid: 'r5', timestamp: iso(81000), message: { role: 'assistant', model: 'claude-opus-4-8-20260115', usage: { input_tokens: 6, output_tokens: 140, cache_read_input_tokens: 20100, cache_creation_input_tokens: 300 }, content: [ { type: 'tool_use', id: 't6', name: 'Task', input: { description: 'Analytics event audit', subagent_type: 'general-purpose', prompt: 'Verify the GA4 events on the pricing page still fire after the CTA class change: check select_promotion and sign_up_click bindings in the tag config.' } } ] } });
+  // sidechain
+  push({ type: 'user', uuid: 's1', parentUuid: null, isSidechain: true, timestamp: iso(83000), message: { role: 'user', content: 'Verify the GA4 events on the pricing page still fire after the CTA class change: check select_promotion and sign_up_click bindings in the tag config.' } });
+  push({ type: 'assistant', uuid: 's2', parentUuid: 's1', isSidechain: true, timestamp: iso(86000), message: { role: 'assistant', model: 'claude-haiku-4-5-20251001', usage: { input_tokens: 2200, output_tokens: 96 }, content: [ { type: 'thinking', thinking: 'The GTM trigger matches on .cta selector, not .cta--ghost, so a class rename is safe - but verify in the container export.' }, { type: 'tool_use', id: 'st1', name: 'Grep', input: { pattern: 'sign_up_click', glob: 'analytics/gtm-container.json' } } ] } });
+  push({ type: 'user', uuid: 's3', parentUuid: 's2', isSidechain: true, timestamp: iso(89000), message: { role: 'user', content: [ { type: 'tool_result', tool_use_id: 'st1', content: '"event": "sign_up_click", "trigger": "click .cta" (matches any .cta element)' } ] } });
+  push({ type: 'assistant', uuid: 's4', parentUuid: 's3', isSidechain: true, timestamp: iso(92000), message: { role: 'assistant', model: 'claude-haiku-4-5-20251001', usage: { input_tokens: 2600, output_tokens: 88 }, content: [ { type: 'tool_use', id: 'st2', name: 'Bash', input: { command: 'node analytics/verify-events.js --page /pricing' } } ] } });
+  push({ type: 'user', uuid: 's5', parentUuid: 's4', isSidechain: true, timestamp: iso(101000), message: { role: 'user', content: [ { type: 'tool_result', tool_use_id: 'st2', content: '✔ select_promotion fired\n✔ sign_up_click fired\n2/2 events verified on /pricing' } ] } });
+  push({ type: 'assistant', uuid: 's6', parentUuid: 's5', isSidechain: true, timestamp: iso(103000), message: { role: 'assistant', model: 'claude-haiku-4-5-20251001', usage: { input_tokens: 2900, output_tokens: 110 }, content: [ { type: 'text', text: 'Both GA4 events verified on /pricing: the GTM trigger binds to the shared .cta class, so the ghost-variant rename has no effect. select_promotion and sign_up_click both fired in the headless check.' } ] } });
+  push({ type: 'user', uuid: 'r6', parentUuid: 'a6', timestamp: iso(104000), message: { role: 'user', content: [ { type: 'tool_result', tool_use_id: 't6', content: 'Both GA4 events verified on /pricing. GTM trigger binds to .cta, unaffected by the ghost-variant rename.' } ] } });
+  push({ type: 'assistant', uuid: 'u-final', parentUuid: 'r6', timestamp: iso(108000), message: { role: 'assistant', model: 'claude-opus-4-8-20260115', usage: { input_tokens: 8, output_tokens: 260, cache_read_input_tokens: 20600, cache_creation_input_tokens: 350 }, content: [ { type: 'text', text: 'Done. The pricing hero CTA failed AA contrast (#7848ff on #151515, ~3.2:1). I moved it to the lighter brand step #b196ff with an underline (passes AA), lint is clean after installing dev deps, and the analytics subagent verified both GA4 events (select_promotion, sign_up_click) still fire - the GTM trigger binds to the shared .cta class, so the rename is safe.' } ] } });
+  return L.join('\n');
+}
+
+function demoChatGPTExport() {
+  const B = Date.parse('2026-07-16T14:03:00Z') / 1000;
+  const node = (id, parent, children, message) => [id, { id, parent, children, message }];
+  const msg = (role, ct, payload, extra) => Object.assign({
+    id: 'm-' + Math.abs(payload.t | 0), author: { role }, create_time: B + payload.t,
+    content: Object.assign({ content_type: ct }, payload.c), status: 'finished_successfully',
+    metadata: payload.md || {}, recipient: payload.rcpt || 'all',
+  }, extra || {});
+  const mapping = Object.fromEntries([
+    node('n0', null, ['n1'], null),
+    node('n1', 'n0', ['n2'], msg('user', 'text', { t: 0, c: { parts: ['Draft 3 headline options for the podcast-monetization landing page. Audience: indie podcasters. Check what the top competitors lead with first.'] } })),
+    node('n2', 'n1', ['n3'], msg('assistant', 'thoughts', { t: 6, c: { thoughts: [{ summary: 'Planning the search', content: 'Competitor headlines first: search for podcast monetization landing pages, then draft three options in distinct registers (outcome-led, speed-led, social-proof-led).' }] }, md: { model_slug: 'gpt-5-thinking' } })),
+    node('n3', 'n2', ['n4'], msg('assistant', 'code', { t: 10, c: { text: 'search("podcast monetization platform landing page headline 2026")' }, md: { model_slug: 'gpt-5-thinking' }, rcpt: 'web' })),
+    node('n4', 'n3', ['n5'], msg('tool', 'execution_output', { t: 16, c: { text: 'Top results: “Turn your podcast into a business” (Supercast) · “Get paid for your podcast” (Memberful) · “Monetize your show, keep your audience” (Patreon for Podcasts)' } }, { author: { role: 'tool', name: 'web' } })),
+    node('n5', 'n4', ['n6a', 'n6b'], msg('assistant', 'text', { t: 24, c: { parts: ['Competitors lead with ownership and payout speed. Three options:\n\n1. “Your show already earns attention. Make it earn revenue.”\n2. “From RSS feed to revenue stream - in one afternoon.”\n3. “The monetization stack 40,000 indie podcasters run on.”'] }, md: { model_slug: 'gpt-5-thinking' } })),
+    // regenerated branch: n6a inactive, n6b active path
+    node('n6a', 'n5', [], msg('user', 'text', { t: 60, c: { parts: ['Make them shorter.'] } })),
+    node('n6b', 'n5', ['n7'], msg('user', 'text', { t: 78, c: { parts: ['Shorter, and lead with money kept - not money made. Run the numbers on a 5k-download show while you’re at it.'] } })),
+    node('n7', 'n6b', ['n8'], msg('assistant', 'code', { t: 84, c: { text: 'downloads = 5000\ncpm = 22            # host-read mid-roll\nfill = 0.6\nrev = downloads/1000 * cpm * 2 * fill\nplatform_cut = 0.10\nprint(rev, rev*(1-platform_cut))' }, md: { model_slug: 'gpt-5-thinking' }, rcpt: 'python' })),
+    node('n8', 'n7', ['n9'], msg('tool', 'execution_output', { t: 90, c: { text: '132.0 118.8' } }, { author: { role: 'tool', name: 'python' } })),
+    node('n9', 'n8', [], msg('assistant', 'text', { t: 99, c: { parts: ['Keep-what-you-earn versions:\n\n1. “Keep 90% of every listener dollar.”\n2. “Your audience pays you. Not the middlemen.”\n3. “5,000 downloads ≈ $119/mo after fees - see your number.”\n\nThe math: a 5k-download show with two host-read mid-rolls at $22 CPM and 60% fill grosses ~$132/mo; at a 10% platform cut you keep ~$119.'] }, md: { model_slug: 'gpt-5-thinking' } })),
+  ]);
+  return { title: 'Podcast monetization landing page headlines', create_time: B, update_time: B + 99, current_node: 'n9', mapping, id: 'demo-gpt' };
+}
+
+function loadDemo() {
+  const sessions = [
+    ...detectAndParse(demoClaudeJsonl(), 'demo-claude-code.jsonl'),
+    parseChatGPTConversation(demoChatGPTExport(), 0),
+  ];
+  addSessions(sessions);
+}
+['btnDemo', 'btnDemo2'].forEach(id => $(id).addEventListener('click', loadDemo));
+
+/* ---------------- Embedded session snapshot ----------------
+   A build step may define window.__EMBED_SESSION__ = { name, capturedAt,
+   note, titlePrefix, autoReloadMs, jsonl | json } before this script runs
+   (used by the hosted artifact to ship a snapshot of a remote session the
+   page cannot reach over the filesystem). Auto-loads on open; with
+   autoReloadMs set, the page reloads itself to pick up newer republished
+   snapshots - only while the viewer is idle, so it never yanks the view. */
+(function loadEmbedded() {
+  const em = window.__EMBED_SESSION__;
+  if (!em) return;
+  try {
+    const sessions = detectAndParse(em.jsonl || JSON.stringify(em.json), em.name || 'embedded.jsonl');
+    sessions.forEach(s => { s.title = (em.titlePrefix || '') + s.title; });
+    addSessions(sessions);
+    const when = em.capturedAt ? new Date(em.capturedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : null;
+    toast((em.note || 'Loaded an embedded session snapshot.') + (when ? ' Captured at <strong>' + when + '</strong>.' : ''));
+    if (em.autoReloadMs) {
+      let lastTouch = Date.now();
+      ['pointerdown', 'keydown', 'wheel'].forEach(t => window.addEventListener(t, () => { lastTouch = Date.now(); }, { passive: true }));
+      setInterval(() => {
+        if (Date.now() - lastTouch > 45000) location.reload();
+      }, em.autoReloadMs);
+    }
+  } catch (e) { console.warn('Embedded session failed to load:', e); }
+})();
+
+/* expose for tests */
+window.SessionFlow = { detectAndParse, parseClaudeCodeJsonl, parseChatGPTConversation, parseClaudeAiConversation, sessionStats, demoClaudeJsonl, demoChatGPTExport, _startLiveFile: startLiveFile, _live: live, _flow: flow };
+</script>
+</body>
+</html>

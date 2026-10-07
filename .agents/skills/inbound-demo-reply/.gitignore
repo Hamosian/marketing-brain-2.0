@@ -1,0 +1,4 @@
+# Live outreach data - never commit (PII: real contact names/emails). Stays local.
+outreach-log.xlsx
+outreach-log.backup-*.xlsx
+_*.jsonl

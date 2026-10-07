@@ -1,0 +1,389 @@
+/* ==========================================================================
+   60-finish.css: setup (11), final check (12), commitment and owner console (13).
+   Scoped to [data-id="setup"|"check"|"commit"] and f- prefixed classes.
+   Tokens only. Setup is a tone-light slide, so its token colors flip there.
+   ========================================================================== */
+
+/* ---------- shared bits ---------- */
+.f-mono{font-family:var(--mono);font-size:.9em;letter-spacing:0}
+[data-id="setup"] .f-copy,
+[data-id="commit"] .f-copy{min-height:44px;min-width:64px;flex:none}
+.f-linkbtn{
+  display:inline-flex;align-items:center;min-height:44px;padding:0 4px;
+  color:var(--purple-text);font-weight:600;text-decoration:underline;
+  text-decoration-thickness:1px;text-underline-offset:.2em;
+}
+.f-linkbtn:hover{text-decoration-thickness:2px}
+@keyframes f-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ======================= 11 setup (tone-light) ======================= */
+[data-id="setup"] .f-setup{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-5);align-content:start}
+[data-id="setup"] .f-setup-head{display:flex;flex-direction:column;gap:var(--s-3);min-width:0}
+[data-id="setup"] .f-setup-head > .eyebrow,[data-id="check"] .f-check-head > .eyebrow,[data-id="commit"] .f-commit-left > .eyebrow{margin-bottom:-2px}
+[data-id="setup"] .f-setup-head .lead{max-width:44ch}
+
+/* progress meter */
+[data-id="setup"] .f-meter{display:flex;align-items:center;gap:var(--s-3);margin-top:var(--s-2)}
+[data-id="setup"] .f-meter-num{font-size:3.25rem;line-height:.9;font-weight:700;letter-spacing:-.04em;color:var(--text);font-variant-numeric:tabular-nums}
+[data-id="setup"] .f-meter-of{font-size:1.4rem;font-weight:600;color:var(--muted);letter-spacing:0;margin-left:2px}
+[data-id="setup"] .f-meter-side{display:flex;flex-direction:column;gap:8px;flex:1;max-width:240px}
+[data-id="setup"] .f-meter-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+[data-id="setup"] .f-meter-bar i{height:6px;border-radius:3px;background:var(--line-strong);transition:background var(--dur) var(--ease)}
+[data-id="setup"] .f-meter-bar i.on{background:var(--purple)}
+[data-id="setup"] .f-meter-lbl{font-size:var(--fs-xs);color:var(--muted)}
+[data-id="setup"] .f-setup-done{
+  padding:var(--s-3) var(--s-4);border-radius:var(--radius-sm);font-weight:600;font-size:1.02rem;
+  background:var(--ink);color:var(--mist);animation:f-in .3s var(--ease-out) both;max-width:44ch;
+}
+
+/* snag disclosure */
+[data-id="setup"] .f-snag{border-top:1px solid var(--line);padding-top:var(--s-2);margin-top:var(--s-2)}
+[data-id="setup"] .f-snag summary{
+  display:inline-flex;align-items:center;gap:var(--s-2);min-height:44px;cursor:pointer;
+  font-weight:650;color:var(--text);list-style:none;
+}
+[data-id="setup"] .f-snag summary::-webkit-details-marker{display:none}
+[data-id="setup"] .f-snag summary::before{
+  content:"";width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:rotate(-45deg);transition:transform var(--dur) var(--ease);margin-right:4px;
+}
+[data-id="setup"] .f-snag[open] summary::before{transform:rotate(45deg)}
+[data-id="setup"] .f-snag ul{display:grid;gap:var(--s-2);margin-top:var(--s-1);max-width:62ch}
+[data-id="setup"] .f-snag li{font-size:var(--fs-small);color:var(--text-2);padding-left:var(--s-3);border-left:2px solid var(--purple-line)}
+[data-id="setup"] .f-snag li strong{color:var(--text)}
+
+/* steps: rows on a numbered spine, one surface for the whole list */
+[data-id="setup"] .f-steps{
+  position:relative;display:flex;flex-direction:column;min-width:0;
+  padding:var(--s-2) var(--s-4);border-radius:calc(var(--radius) + 4px);
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--card-shadow);
+}
+[data-id="setup"] .f-step{position:relative;display:grid;grid-template-columns:36px minmax(0,1fr);gap:var(--s-3);padding:10px 0}
+/* a finished step collapses to its title row */
+[data-id="setup"] .f-step.is-done .f-step-body > :not(.f-step-top){display:none}
+[data-id="setup"] .f-step + .f-step{border-top:1px solid var(--line)}
+[data-id="setup"] .f-step:not(:last-child)::before{
+  content:"";position:absolute;left:17px;top:calc(var(--s-3) + 40px);bottom:calc(-1 * var(--s-3) + 4px);width:2px;
+  background:var(--line);transition:background var(--dur) var(--ease);
+}
+[data-id="setup"] .f-step.is-done:not(:last-child)::before{background:var(--purple-line)}
+[data-id="setup"] .f-step-n{
+  position:relative;z-index:1;width:36px;height:36px;border-radius:50%;margin-top:4px;
+  display:grid;place-items:center;font-size:1.15rem;font-weight:700;
+  background:var(--bg);color:var(--text);border:2px solid var(--line-strong);
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+[data-id="setup"] .f-step.is-done .f-step-n{background:var(--purple);border-color:var(--purple);color:var(--on-purple)}
+[data-id="setup"] .f-step-body{display:flex;flex-direction:column;gap:6px;min-width:0}
+[data-id="setup"] .f-step-top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:0 var(--s-3)}
+[data-id="setup"] .f-step-h{font-size:1.1rem;line-height:1.3}
+[data-id="setup"] .f-step-body p{color:var(--text-2);font-size:var(--fs-small);line-height:1.55;max-width:62ch}
+[data-id="setup"] .f-step-body strong{color:var(--text)}
+
+/* the two doors, as a switch */
+[data-id="setup"] .f-doors{display:flex;flex-direction:column;gap:var(--s-2);min-width:0}
+[data-id="setup"] .f-door-tabs{display:inline-flex;flex-wrap:wrap;gap:4px;padding:4px;border-radius:var(--radius-pill);background:var(--bg);border:1px solid var(--line);align-self:flex-start;max-width:100%}
+[data-id="setup"] .f-door-tab{
+  display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--radius-pill);
+  font-size:var(--fs-small);font-weight:600;color:var(--muted);
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
+}
+[data-id="setup"] .f-door-tab svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+[data-id="setup"] .f-door-tab:hover{color:var(--text)}
+[data-id="setup"] .f-door-tab[aria-selected="true"]{background:var(--surface);color:var(--text);box-shadow:0 1px 2px rgba(15,15,20,.12),0 0 0 1px var(--purple-line)}
+[data-id="setup"] .f-door-tab[aria-selected="true"] svg{stroke:var(--purple)}
+[data-id="setup"] .f-door{min-width:0;animation:f-in .22s var(--ease-out) both}
+[data-id="setup"] .f-door-list{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2);counter-reset:door}
+[data-id="setup"] .f-door-list li{
+  counter-increment:door;display:inline-flex;align-items:center;gap:8px;
+  font-size:var(--fs-small);color:var(--text-2);min-height:36px;
+  padding:3px 12px 3px 4px;border-radius:var(--radius-pill);background:var(--bg);border:1px solid var(--line);
+}
+[data-id="setup"] .f-door-list li::before{
+  content:counter(door);display:grid;place-items:center;width:28px;height:28px;border-radius:50%;
+  font-size:.8125rem;font-weight:700;background:var(--purple-wash-2);color:var(--text);
+}
+[data-id="setup"] .f-term{display:flex;flex-direction:column;border-radius:var(--radius-sm);background:var(--ink);color:var(--mist);overflow:hidden}
+[data-id="setup"] .f-term-bar{display:flex;align-items:center;justify-content:space-between;gap:var(--s-2);padding:4px 4px 4px var(--s-3);border-bottom:1px solid rgba(247,245,255,.12)}
+[data-id="setup"] .f-term-k{font-size:var(--fs-xs);font-weight:600;letter-spacing:.04em;color:rgba(247,245,255,.72)}
+[data-id="setup"] .f-term pre{min-width:0;overflow-x:auto;padding:var(--s-2) var(--s-3) var(--s-3);font-size:.8125rem;line-height:1.7;white-space:pre}
+[data-id="setup"] .f-term code{font-size:inherit;color:inherit}
+[data-id="setup"] .f-term .f-copy{color:var(--mist);border-color:rgba(247,245,255,.3);background:transparent}
+[data-id="setup"] .f-term .f-copy:hover{background:rgba(247,245,255,.1);border-color:rgba(247,245,255,.6)}
+[data-id="setup"] .f-term .f-copy.is-copied{color:var(--mist);border-color:var(--mist)}
+[data-id="setup"] .f-door-note .f-mono{font-size:1em}
+[data-id="setup"] .f-door-note{margin-top:6px;font-size:var(--fs-xs) !important;color:var(--muted) !important}
+
+/* tools and say */
+[data-id="setup"] .f-tools{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+[data-id="setup"] .f-tools li{
+  font-size:var(--fs-small);font-weight:600;color:var(--text);
+  padding:5px 14px;border-radius:var(--radius-pill);border:1px solid var(--purple-line);background:var(--purple-wash);
+}
+[data-id="setup"] .f-say{
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2) var(--s-3);
+  padding:6px 6px 6px var(--s-3);border-radius:var(--radius-sm);background:var(--bg);border:1px solid var(--line);
+}
+[data-id="setup"] .f-say-k{font-size: var(--fs-xs);font-weight: 600;text-transform: none;letter-spacing: 0;color: var(--muted)}
+[data-id="setup"] .f-say-q{flex:1;min-width:12ch;font-family:var(--mono);font-size:1rem;color:var(--text)}
+
+/* the tick */
+[data-id="setup"] .f-tick{
+  position:relative;display:inline-flex;align-items:center;gap:10px;
+  min-height:44px;padding:0 4px 0 0;cursor:pointer;font-size:var(--fs-small);font-weight:600;color:var(--muted);
+  transition:color var(--dur) var(--ease);
+}
+[data-id="setup"] .f-tick:has(input:checked){color:var(--text)}
+[data-id="setup"] .f-tick input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+[data-id="setup"] .f-tick-box{
+  width:24px;height:24px;border-radius:7px;border:2px solid var(--line-strong);background:var(--surface);
+  display:grid;place-items:center;transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease);
+}
+[data-id="setup"] .f-tick-box svg{width:16px;height:16px;fill:none;stroke:var(--on-purple);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+[data-id="setup"] .f-tick-box path{stroke-dasharray:16;stroke-dashoffset:16;transition:stroke-dashoffset .28s var(--ease-out) .05s}
+[data-id="setup"] .f-tick input:checked + .f-tick-box{background:var(--purple);border-color:var(--purple)}
+[data-id="setup"] .f-tick input:checked + .f-tick-box path{stroke-dashoffset:0}
+[data-id="setup"] .f-tick input:focus-visible + .f-tick-box{outline:2px solid var(--purple-text);outline-offset:3px}
+[data-id="setup"] .f-tick:hover .f-tick-box{border-color:var(--purple)}
+
+@media (min-width:1080px){
+  [data-id="setup"] .f-setup{grid-template-columns:minmax(0,4fr) minmax(0,8fr);column-gap:var(--s-5);align-items:start}
+}
+@media (max-width:560px){
+  [data-id="setup"] .f-steps{padding:var(--s-1) var(--s-3)}
+  [data-id="setup"] .f-step{grid-template-columns:30px minmax(0,1fr);gap:var(--s-2)}
+  [data-id="setup"] .f-step-n{width:30px;height:30px;font-size:1rem}
+  [data-id="setup"] .f-step:not(:last-child)::before{left:14px;top:calc(var(--s-3) + 34px)}
+  [data-id="setup"] .f-door-tab{padding:0 12px}
+  [data-id="setup"] .f-meter-num{font-size:2.6rem}
+}
+
+/* ======================= 12 final check ======================= */
+[data-id="check"] .f-check{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-5);justify-items:center;text-align:center}
+[data-id="check"] .f-check-head{display:flex;flex-direction:column;align-items:center;gap:var(--s-3)}
+[data-id="check"] .f-check-head .lead{max-width:52ch}
+[data-id="check"] .f-quiz{
+  width:100%;max-width:860px;text-align:left;
+  padding:var(--s-5);border-radius:calc(var(--radius) + 6px);
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;gap:var(--s-4);
+}
+[data-id="check"] .f-quiz-top{display:flex;align-items:center;justify-content:space-between;gap:var(--s-3);flex-wrap:wrap}
+[data-id="check"] .f-quiz-pos{font-size: var(--fs-xs);font-weight: 600;letter-spacing: 0;text-transform: none;color: var(--muted)}
+[data-id="check"] .f-pips{display:flex;gap:6px}
+[data-id="check"] .f-pip{width:28px;height:6px;border-radius:3px;background:var(--surface-3);transition:background var(--dur) var(--ease),transform var(--dur) var(--ease)}
+[data-id="check"] .f-pip.is-current{background:var(--text-2);transform:scaleY(1.35)}
+[data-id="check"] .f-pip.is-right{background:var(--ok)}
+[data-id="check"] .f-pip.is-wrong{background:repeating-linear-gradient(90deg,var(--bad) 0 5px,transparent 5px 8px)}
+
+[data-id="check"] .f-q{display:flex;flex-direction:column;gap:var(--s-2);animation:f-in .28s var(--ease-out) both}
+[data-id="check"] .f-q-ask{font-size:clamp(1.25rem,1.1rem + .6vw,1.6rem);line-height:1.3;font-weight:600;color:var(--text);letter-spacing:-.01em;max-width:48ch}
+[data-id="check"] .f-q-q{color:var(--muted);font-size:var(--fs-small)}
+[data-id="check"] .f-q-ask .cmd,[data-id="check"] .f-fb-text .cmd,[data-id="check"] .f-fb-best .cmd{font-size:.86em}
+[data-id="check"] .f-opts{display:grid;grid-template-columns:1fr;gap:var(--s-2);margin-top:var(--s-3)}
+@media (min-width:720px){[data-id="check"] .f-opts{grid-template-columns:1fr 1fr}}
+[data-id="check"] .f-opt{
+  display:flex;align-items:center;gap:var(--s-3);min-height:64px;width:100%;text-align:left;
+  padding:var(--s-3);border-radius:var(--radius-sm);
+  background:var(--bg);border:1px solid var(--line-strong);color:var(--text);font-size:var(--fs-small);line-height:1.35;
+  transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease),opacity var(--dur) var(--ease),transform .12s var(--ease);
+}
+[data-id="check"] .f-opt:hover:not(.is-locked){border-color:var(--purple);background:var(--purple-wash)}
+[data-id="check"] .f-opt:active:not(.is-locked){transform:scale(.99)}
+[data-id="check"] .f-opt.is-locked{cursor:default}
+[data-id="check"] .f-opt.is-locked:not(.is-right):not(.is-wrong){opacity:.5}
+[data-id="check"] .f-opt-mark{
+  position:relative;flex:none;width:22px;height:22px;border-radius:50%;border:2px solid var(--line-strong);
+  transition:background var(--dur) var(--ease),border-color var(--dur) var(--ease);
+}
+[data-id="check"] .f-opt.is-cmd .f-opt-label{font-family:var(--mono);font-size:.95rem}
+[data-id="check"] .f-opt-cmd{font-family:var(--mono);font-size:.92em;color:var(--purple-text)}
+[data-id="check"] .f-opt.is-cmd .f-opt-cmd{color:var(--text)}
+[data-id="check"] .f-opt.is-right{border-color:var(--ok);background:rgba(95,208,138,.1)}
+[data-id="check"] .f-opt.is-right .f-opt-mark{background:var(--ok);border-color:var(--ok)}
+[data-id="check"] .f-opt.is-right .f-opt-mark::after{
+  content:"";position:absolute;left:6px;top:2px;width:6px;height:11px;
+  border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:rotate(45deg);
+}
+[data-id="check"] .f-opt.is-wrong{border-color:var(--bad);background:rgba(255,122,122,.08)}
+[data-id="check"] .f-opt.is-wrong .f-opt-mark{border-color:var(--bad)}
+[data-id="check"] .f-opt.is-wrong .f-opt-mark::before,
+[data-id="check"] .f-opt.is-wrong .f-opt-mark::after{
+  content:"";position:absolute;left:3px;top:8px;width:12px;height:2.5px;border-radius:2px;background:var(--bad);transform:rotate(45deg);
+}
+[data-id="check"] .f-opt.is-wrong .f-opt-mark::after{transform:rotate(-45deg)}
+
+[data-id="check"] .f-quiz-fb:empty{display:none}
+[data-id="check"] .f-quiz-fb.is-shown{
+  display:grid;gap:6px;padding:var(--s-3) var(--s-4);border-radius:var(--radius-sm);
+  background:var(--surface-2);border-left:3px solid var(--line-strong);animation:f-in .26s var(--ease-out) both;
+}
+[data-id="check"] .f-quiz-fb.is-right{border-left-color:var(--ok)}
+[data-id="check"] .f-quiz-fb.is-wrong{border-left-color:var(--bad)}
+[data-id="check"] .f-fb-head{display:flex;align-items:center;gap:var(--s-2);font-weight:700;color:var(--text);border-radius:6px}
+[data-id="check"] .f-fb-head:focus-visible,[data-id="check"] .f-score:focus-visible,[data-id="check"] .f-q-ask:focus-visible{outline-offset:6px;border-radius:6px}
+[data-id="check"] .f-fb-icon{width:10px;height:10px;border-radius:50%;background:var(--muted)}
+[data-id="check"] .is-right .f-fb-icon{background:var(--ok)}
+[data-id="check"] .is-wrong .f-fb-icon{background:var(--bad)}
+[data-id="check"] .f-fb-text{color:var(--text-2);font-size:var(--fs-small);max-width:66ch}
+[data-id="check"] .f-fb-best{font-size:var(--fs-small);color:var(--text)}
+[data-id="check"] .f-fb-best-k{color:var(--muted)}
+[data-id="check"] .f-quiz-actions{display:flex;flex-wrap:wrap;gap:var(--s-2);justify-content:flex-end}
+[data-id="check"] .f-quiz-actions:empty{display:none}
+[data-id="check"] .f-quiz-actions .btn{min-height:48px}
+
+/* result */
+[data-id="check"] .f-result{display:flex;align-items:center;gap:var(--s-4);animation:f-in .3s var(--ease-out) both}
+[data-id="check"] .f-seal{flex:none;width:88px;height:88px}
+[data-id="check"] .f-seal svg{width:100%;height:100%}
+[data-id="check"] .f-seal-ring{fill:none;stroke:var(--surface-3);stroke-width:4}
+[data-id="check"] .is-pass .f-seal-ring{stroke:var(--purple);stroke-dasharray:176;stroke-dashoffset:176;animation:f-draw .7s var(--ease-out) .1s forwards}
+[data-id="check"] .f-seal-mark{fill:none;stroke:var(--muted);stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+[data-id="check"] .is-pass .f-seal-mark{stroke:var(--text);stroke-dasharray:40;stroke-dashoffset:40;animation:f-draw .35s var(--ease-out) .6s forwards}
+@keyframes f-draw{to{stroke-dashoffset:0}}
+[data-id="check"] .f-result-copy{display:flex;flex-direction:column;gap:var(--s-1)}
+[data-id="check"] .f-score{display:flex;align-items:baseline;gap:4px;font-variant-numeric:tabular-nums}
+[data-id="check"] .f-score-n{font-size:3.2rem;line-height:1;font-weight:700;letter-spacing:-.03em;color:var(--text)}
+[data-id="check"] .f-score-of{font-size:1.25rem;font-weight:600;color:var(--muted)}
+[data-id="check"] .f-result-msg{color:var(--text-2);max-width:52ch}
+@media (max-width:560px){
+  [data-id="check"] .f-quiz{padding:var(--s-4) var(--s-3)}
+  [data-id="check"] .f-pip{width:20px}
+  [data-id="check"] .f-result{flex-direction:column;align-items:flex-start;gap:var(--s-3)}
+  [data-id="check"] .f-seal{width:64px;height:64px}
+  [data-id="check"] .f-quiz-actions{justify-content:stretch}
+  [data-id="check"] .f-quiz-actions .btn{flex:1 1 100%}
+}
+
+/* ======================= 13 commit ======================= */
+[data-id="commit"] .f-commit{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-5);align-content:start}
+[data-id="commit"] .f-commit-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:var(--s-5);min-width:0}
+@media (min-width:1000px){
+  [data-id="commit"] .f-commit-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);column-gap:var(--s-6);align-items:start}
+}
+[data-id="commit"] .f-commit-left{display:flex;flex-direction:column;gap:var(--s-3);min-width:0}
+[data-id="commit"] .f-commit-left .lead{max-width:50ch}
+
+/* check-in */
+[data-id="commit"] .f-checkin-card{
+  display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2) var(--s-4);
+  padding:var(--s-3) var(--s-4);border-radius:var(--radius);
+  background:var(--purple-wash);border:1px solid var(--purple-line);animation:f-in .3s var(--ease-out) both;
+}
+[data-id="commit"] .f-checkin-q{font-weight:650;font-size:1.08rem;color:var(--text);flex:1 1 280px}
+[data-id="commit"] .f-checkin-q .f-mono{color:var(--purple-text)}
+[data-id="commit"] .f-checkin-btns{display:flex;gap:var(--s-2);flex-wrap:wrap}
+[data-id="commit"] .f-checkin-btns .btn{min-height:44px}
+[data-id="commit"] .f-checkin-msg{flex:1 1 100%;color:var(--text-2);font-size:var(--fs-small)}
+[data-id="commit"] .f-checkin-msg:empty{display:none}
+[data-id="commit"] .f-checkin.is-ran .f-checkin-card{background:rgba(95,208,138,.08);border-color:rgba(95,208,138,.45)}
+
+/* picks */
+[data-id="commit"] .f-picks{border:0;display:flex;flex-direction:column;gap:var(--s-2);margin-top:var(--s-2);min-width:0}
+[data-id="commit"] .f-picks-legend{font-size: var(--fs-xs);font-weight: 600;letter-spacing: 0;text-transform: none;color: var(--muted);margin-bottom:var(--s-2)}
+[data-id="commit"] .f-pick-list{display:flex;flex-direction:column;gap:var(--s-2)}
+[data-id="commit"] .f-pick{
+  display:flex;align-items:flex-start;gap:var(--s-2);
+  padding:var(--s-2) var(--s-2) var(--s-2) 0;border-radius:var(--radius-sm);
+  background:var(--surface);border:1px solid var(--line);
+  transition:border-color var(--dur) var(--ease),background var(--dur) var(--ease);
+}
+[data-id="commit"] .f-pick:hover{border-color:var(--line-strong)}
+[data-id="commit"] .f-pick:has(input:checked){border-color:var(--purple);background:var(--purple-wash)}
+[data-id="commit"] .f-pick-main{position:relative;flex:1;min-width:0;display:flex;align-items:flex-start;gap:var(--s-3);padding:4px 0 4px var(--s-3);cursor:pointer}
+[data-id="commit"] .f-pick-main input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+[data-id="commit"] .f-pick-dot{flex:none;margin-top:3px;width:20px;height:20px;border-radius:50%;border:2px solid var(--line-strong);display:grid;place-items:center;transition:border-color var(--dur) var(--ease)}
+[data-id="commit"] .f-pick-dot::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--purple);transform:scale(0);transition:transform .18s var(--ease-out)}
+[data-id="commit"] .f-pick-main input:checked + .f-pick-dot{border-color:var(--purple)}
+[data-id="commit"] .f-pick-main input:checked + .f-pick-dot::after{transform:scale(1)}
+[data-id="commit"] .f-pick-main input:focus-visible + .f-pick-dot{outline:2px solid var(--purple-text);outline-offset:3px}
+[data-id="commit"] .f-pick-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+[data-id="commit"] .f-pick-top{display:flex;flex-wrap:wrap;align-items:center;gap:var(--s-2)}
+[data-id="commit"] .f-pick-tag{font-size:var(--fs-xs);font-weight:650;color:var(--text);padding:2px 10px;border-radius:var(--radius-pill);background:var(--purple-wash-2)}
+[data-id="commit"] .f-pick-prompt{color:var(--text);font-size:var(--fs-small);overflow-wrap:anywhere}
+[data-id="commit"] .f-pick-why{color:var(--muted);font-size:var(--fs-xs);line-height:1.5;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;overflow:hidden}
+[data-id="commit"] .f-pick:has(input:checked) .f-pick-why{-webkit-line-clamp:unset}
+[data-id="commit"] .f-role-hint{font-size:var(--fs-small);color:var(--muted);display:flex;flex-wrap:wrap;align-items:center;gap:0 4px}
+
+/* pledge */
+[data-id="commit"] .f-commit-right{display:flex;flex-direction:column;gap:var(--s-3);min-width:0}
+@media (min-width:1000px){[data-id="commit"] .f-commit-right{position:sticky;top:0}}
+[data-id="commit"] .f-pledge{
+  position:relative;display:flex;flex-direction:column;gap:var(--s-3);
+  padding:var(--s-4);border-radius:calc(var(--radius) + 6px);
+  background:var(--surface);border:1px solid var(--purple-line);box-shadow:var(--shadow);
+  transition:border-color var(--dur) var(--ease),box-shadow var(--dur) var(--ease);
+}
+[data-id="commit"] .f-pledge.is-committed{border-color:var(--purple);box-shadow:0 0 0 1px var(--purple),var(--shadow)}
+[data-id="commit"] .f-pledge.is-stamping{animation:f-stamp .42s var(--ease-out)}
+@keyframes f-stamp{0%{transform:scale(1)}35%{transform:scale(.985)}100%{transform:scale(1)}}
+[data-id="commit"] .f-pledge-k{font-size: var(--fs-xs);font-weight: 600;letter-spacing: 0;text-transform: none;color: var(--muted)}
+[data-id="commit"] .f-pledge-cmd{
+  display:flex;align-items:flex-start;gap:var(--s-2);
+  padding:var(--s-2) var(--s-2) var(--s-2) var(--s-3);border-radius:var(--radius-sm);background:var(--bg);border:1px solid var(--line);
+}
+[data-id="commit"] .f-pledge-cmd code{flex:1;min-width:0;padding:10px 0;font-size:1rem;line-height:1.45;color:var(--text);overflow-wrap:anywhere}
+[data-id="commit"] .f-pledge-cmd code::before{content:"> ";color:var(--purple-text)}
+[data-id="commit"] .f-when{border:0;display:flex;flex-direction:column;gap:var(--s-2);min-width:0}
+[data-id="commit"] .f-when legend{font-size:var(--fs-small);font-weight:650;color:var(--text);margin-bottom:var(--s-2)}
+[data-id="commit"] .f-when-opts{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border-radius:var(--radius-pill);background:var(--bg);border:1px solid var(--line)}
+[data-id="commit"] .f-when-opts label{position:relative;display:block;cursor:pointer}
+[data-id="commit"] .f-when-opts input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+[data-id="commit"] .f-when-opts span{
+  display:grid;place-items:center;min-height:44px;padding:0 8px;border-radius:var(--radius-pill);
+  font-size:var(--fs-small);font-weight:600;color:var(--muted);white-space:nowrap;
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+[data-id="commit"] .f-when-opts label:hover span{color:var(--text)}
+[data-id="commit"] .f-when-opts input:checked + span{background:var(--tint);color:var(--ink)}
+[data-id="commit"] .f-when-opts input:focus-visible + span{outline:2px solid var(--purple-text);outline-offset:2px}
+[data-id="commit"] .f-pledge-go{width:100%;min-height:52px}
+[data-id="commit"] .f-pledge-saved{font-size:var(--fs-small);color:var(--text-2)}
+[data-id="commit"] .f-pledge-saved:empty{display:none}
+[data-id="commit"] .f-privacy{font-size:var(--fs-xs);color:var(--muted);line-height:1.5;padding-top:var(--s-2);border-top:1px solid var(--line)}
+[data-id="commit"] .f-exits{display:flex;flex-wrap:wrap;gap:var(--s-2)}
+[data-id="commit"] .f-exits .btn{flex:1 1 160px;min-height:48px}
+
+/* owner console */
+[data-id="commit"] .f-owner{
+  display:flex;flex-direction:column;gap:var(--s-3);min-width:0;
+  padding:var(--s-4);border-radius:var(--radius);background:var(--bg-deep);border:1px dashed var(--line-strong);
+}
+[data-id="commit"] .f-owner-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:var(--s-2)}
+[data-id="commit"] .f-owner-head h3{font-size:1.15rem}
+[data-id="commit"] .f-owner-sub{font-size:var(--fs-xs);color:var(--muted)}
+[data-id="commit"] .f-owner-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:var(--s-2)}
+[data-id="commit"] .f-stat{display:flex;flex-direction:column;gap:4px;padding:var(--s-3);border-radius:var(--radius-sm);background:var(--surface)}
+[data-id="commit"] .f-stat-n{font-size:1.9rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums;color:var(--text)}
+[data-id="commit"] .f-stat-l{font-size:var(--fs-xs);color:var(--muted)}
+[data-id="commit"] .f-stat-bar{height:4px;border-radius:2px;background:var(--surface-3);overflow:hidden;margin-top:4px}
+[data-id="commit"] .f-stat-bar i{display:block;height:100%;background:var(--purple);border-radius:2px}
+[data-id="commit"] .f-owner-empty{grid-column:1 / -1;font-size:var(--fs-small);color:var(--muted)}
+[data-id="commit"] .f-owner-table{overflow-x:auto;max-width:100%}
+[data-id="commit"] .f-owner-table:empty{display:none}
+[data-id="commit"] .f-otable{width:100%;border-collapse:collapse;font-size:var(--fs-small);font-variant-numeric:tabular-nums}
+[data-id="commit"] .f-otable th,[data-id="commit"] .f-otable td{padding:8px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+[data-id="commit"] .f-otable th:first-child{text-align:left}
+[data-id="commit"] .f-otable thead th{font-size:var(--fs-xs);font-weight:650;color:var(--muted)}
+[data-id="commit"] .f-otable tbody th{font-weight:600;color:var(--text)}
+[data-id="commit"] .f-otable td{color:var(--text-2)}
+[data-id="commit"] .f-owner-people summary{min-height:44px;display:inline-flex;align-items:center;cursor:pointer;font-weight:650;color:var(--text)}
+[data-id="commit"] .f-owner-people ul{display:grid;gap:6px;margin-top:var(--s-2)}
+[data-id="commit"] .f-owner-people li{display:flex;flex-wrap:wrap;gap:4px var(--s-2);font-size:var(--fs-small);padding-bottom:6px;border-bottom:1px solid var(--line)}
+[data-id="commit"] .f-person{font-weight:600;color:var(--text)}
+[data-id="commit"] .f-person-meta{color:var(--muted)}
+[data-id="commit"] .f-owner-flags{font-size:var(--fs-small);color:var(--text-2)}
+
+@media (max-width:560px){
+  [data-id="commit"] .f-pledge{padding:var(--s-3)}
+  [data-id="commit"] .f-owner{padding:var(--s-3)}
+}
+
+/* ---------- reduced motion: instant states, nothing waits on an animation ---------- */
+@media (prefers-reduced-motion: reduce){
+  [data-id="setup"] .f-tick-box path{transition:none}
+  [data-id="setup"] .f-door{animation:none}
+  [data-id="check"] .f-q,[data-id="check"] .f-quiz-fb.is-shown,[data-id="check"] .f-result,
+  [data-id="commit"] .f-checkin-card,[data-id="commit"] .f-pledge.is-stamping,[data-id="setup"] .f-setup-done{animation:none}
+  [data-id="check"] .is-pass .f-seal-ring,[data-id="check"] .is-pass .f-seal-mark{animation:none;stroke-dashoffset:0}
+}

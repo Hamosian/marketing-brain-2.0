@@ -1,0 +1,92 @@
+{
+  "PLG_EXISTING_USER": {
+    "count": 72,
+    "promoted": 32,
+    "won": 21,
+    "lost": 9,
+    "mrr": 45060.84,
+    "won_mrr": 22072.17,
+    "has_email": 68
+  },
+  "REFERRAL_WOM": {
+    "count": 58,
+    "promoted": 22,
+    "won": 14,
+    "lost": 5,
+    "mrr": 29230.0,
+    "won_mrr": 17039.5,
+    "has_email": 56
+  },
+  "OUTBOUND_MISSOURCED": {
+    "count": 36,
+    "promoted": 3,
+    "won": 1,
+    "lost": 2,
+    "mrr": 3604.7,
+    "won_mrr": 1154.7,
+    "has_email": 36
+  },
+  "DIGITAL_INBOUND": {
+    "count": 31,
+    "promoted": 7,
+    "won": 4,
+    "lost": 2,
+    "mrr": 10360.951299999999,
+    "won_mrr": 5104.4,
+    "has_email": 31
+  },
+  "REENGAGEMENT_PAST": {
+    "count": 16,
+    "promoted": 9,
+    "won": 7,
+    "lost": 2,
+    "mrr": 18441.67,
+    "won_mrr": 13441.67,
+    "has_email": 16
+  },
+  "EVENT_FIELD": {
+    "count": 14,
+    "promoted": 2,
+    "won": 0,
+    "lost": 2,
+    "mrr": 1567.8,
+    "won_mrr": 0.0,
+    "has_email": 14
+  },
+  "UNINFORMATIVE": {
+    "count": 12,
+    "promoted": 1,
+    "won": 1,
+    "lost": 0,
+    "mrr": 675.0,
+    "won_mrr": 675.0,
+    "has_email": 12
+  },
+  "CS_SOURCED": {
+    "count": 1,
+    "promoted": 1,
+    "won": 0,
+    "lost": 1,
+    "mrr": 2000.0,
+    "won_mrr": 0.0,
+    "has_email": 1
+  },
+  "AI_LLM": {
+    "count": 1,
+    "promoted": 0,
+    "won": 0,
+    "lost": 0,
+    "mrr": 0.0,
+    "won_mrr": 0.0,
+    "has_email": 0
+  },
+  "NO_DISCOVERY": {
+    "count": 411,
+    "promoted": 110,
+    "won": 62,
+    "lost": 38,
+    "mrr": 136189.52999999997,
+    "won_mrr": 71342.0,
+    "has_email": 382
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "platform": "Meta",
+  "budget_share": 0.031,
+  "health_score": 7,
+  "grade": "F",
+  "summary": "Every evaluable check across all four categories returned FAIL or WARNING, driven by two confirmed critical tracking gaps (purchase value and Lead event not firing), extreme creative fatigue in the remarketing campaign (frequency up to 24.5x), and 31% of spend allocated to OUTCOME_ENGAGEMENT/AWARENESS/LINK_CLICKS objectives that generated near-zero measurable conversions. The account cannot measure ROAS, cannot optimize for value, and is burning $34,899 in non-conversion spend without attribution. Immediate action is required on tracking integrity before any budget or targeting decisions can be trusted.",
+  "categories": [
+    {
+      "name": "Pixel / CAPI Health",
+      "weight": 0.30,
+      "score_pct": 0,
+      "passed": 0,
+      "warned": 0,
+      "failed": 1,
+      "na": 9,
+      "notes": "9 of 10 checks are N/A (not verifiable via Windsor metrics export: Pixel install, CAPI, EMQ, domain verification, AEM, CAPI Gateway, attribution window, data freshness). M07 (standard events) is the only evaluable check and is a confirmed FAIL: action_values_offsite_conversion_fb_pixel_purchase is NULL on every campaign row (no purchase revenue passed to pixel, ROAS unmeasurable, value-based bidding impossible) and actions_offsite_conversion_fb_pixel_lead is NULL on every row despite two OUTCOME_LEADS campaigns spending $5,692. These are not data export artifacts; they represent real missing event signals."
+    },
+    {
+      "name": "Creative (Diversity & Fatigue)",
+      "weight": 0.30,
+      "score_pct": 0,
+      "passed": 0,
+      "warned": 0,
+      "failed": 4,
+      "na": 8,
+      "notes": "8 checks N/A (creative formats, video ratios, hook rate, social proof, UGC, Advantage+ Creative, creative freshness, prospecting frequency - not verifiable from Windsor). 4 evaluable checks all FAIL: M28 creative fatigue confirmed (Remarket_Visitors_WW ad sets at frequency 7.0/10.06/24.47 over 90 days; retargeting fail threshold is >12); M-CR3 retargeting frequency FAIL (24.47 is 2x the fail threshold); M-CR4 CTR FAIL on three campaigns (Brand_Love 0.40%, OrganicPromotion 0.12%, B2C-to-B2B 0.44% - all below 0.50% fail threshold); M-AN1 Andromeda suppression likely (OrganicPromotion quality_ranking BELOW_AVERAGE_35, high frequency signals audience exhaustion with no creative refresh visible)."
+    },
+    {
+      "name": "Account Structure",
+      "weight": 0.20,
+      "score_pct": 13,
+      "passed": 0,
+      "warned": 1,
+      "failed": 3,
+      "na": 15,
+      "notes": "15 checks N/A (CBO/ABO classification, learning phase, Advantage+ Sales, audience overlap, per-ad-set budget, placement, attribution setting, bid strategy, UTM, A/B testing, breakdown reporting, budget utilization - not verifiable). 3 confirmed FAILs: M11 campaign count = 11 (>5 fail threshold, severely over-fragmented); M18 objective misalignment on three campaigns (Winback_Traffic_WW uses LINK_CLICKS for a remarketing/purchase goal, App_iOS_US uses APP_INSTALLS inside a web conversion account with 0 purchases on $6,806, Brand_Love-Engagement uses OUTCOME_ENGAGEMENT and generated 1 purchase on $28,963); M37 campaign-level frequency unmanaged (Brand_Love running 4.59M impressions with 0.40% CTR signals audience saturation). M-ST1 WARNING: Newsletter_CBO spent $13,412 for 4 purchases ($3,353 CPP) and CBO_Podcasting spent $25,641 for 68 purchases ($377 CPP) - both grossly exceed any defensible CPA target for a SaaS self-serve trial funnel."
+    },
+    {
+      "name": "Audience & Targeting",
+      "weight": 0.20,
+      "score_pct": 50,
+      "passed": 0,
+      "warned": 1,
+      "failed": 0,
+      "na": 6,
+      "notes": "6 checks N/A (audience overlap, custom audience freshness, lookalike source quality, Advantage+ Audience, first-party data - not verifiable from Windsor). M23 (purchaser exclusions) is WARNING: some funnel segmentation exists (separate remarketing and winback campaigns), but with 31% of spend on non-conversion objectives running alongside conversion campaigns and no visibility into exclusion lists, audience bleed is probable. Manual verification required."
+    }
+  ],
+  "findings": [
+    {
+      "id": "TRACKING-01",
+      "title": "Purchase revenue value not passed to Meta pixel",
+      "severity": "Critical",
+      "category": "Pixel / CAPI Health",
+      "evidence": "action_values_offsite_conversion_fb_pixel_purchase is NULL on all 11 campaign rows over 90 days. Total spend: $112,740. Confirmed data gap, not a Windsor export artifact.",
+      "remediation": "Implement value parameter in Meta pixel Purchase event: fbq('track', 'Purchase', {value: <order_value>, currency: 'USD'}). Also pass via CAPI if active. Verify in Events Manager that purchase events show value in the past 7 days before enabling value-based bidding (Highest Value or Target ROAS bid strategies).",
+      "fix_time_min": 30,
+      "quick_win": false,
+      "est_impact": "Unlocks value-based bidding (ROAS optimization). Without this, Meta optimizes for purchase count, not revenue. Advantage+ Sales with value-based bidding typically delivers 22% higher ROAS per Meta benchmarks."
+    },
+    {
+      "id": "TRACKING-02",
+      "title": "Lead event not firing despite two OUTCOME_LEADS campaigns running",
+      "severity": "Critical",
+      "category": "Pixel / CAPI Health",
+      "evidence": "actions_offsite_conversion_fb_pixel_lead is NULL on every row. Webinar-Promotion_YouTubexRiverside ($1,841) and Webinar_LeadGeneration_Website ($3,850) both use OUTCOME_LEADS objective. Total affected spend: $5,692. These campaigns are optimizing in the dark - Meta cannot find lead-converting users without the conversion signal.",
+      "remediation": "Audit Meta pixel Lead event firing on webinar registration confirmation and form submission pages. Check Events Manager for Lead event activity. If the webinar flow uses a third-party platform (e.g., Zoom, Eventbrite), implement CAPI server-side Lead event with action_source='website'. Verify deduplication via event_id.",
+      "fix_time_min": 45,
+      "quick_win": false,
+      "est_impact": "OUTCOME_LEADS campaigns cannot exit learning phase without conversion signal. Fixing this enables proper optimization and may reduce CPL from current unmeasured baseline by 20-40% once learning completes."
+    },
+    {
+      "id": "M07",
+      "title": "Standard conversion events misconfigured - revenue and lead signals absent",
+      "severity": "Critical",
+      "category": "Pixel / CAPI Health",
+      "evidence": "Two confirmed missing standard events: (1) Purchase value NULL across $112,740 spend; (2) Lead event NULL across $5,692 in OUTCOME_LEADS spend. Both are standard Meta events that should be implemented. quality_ranking BELOW_AVERAGE_35 on OrganicPromotion_Awareness may also reflect poor signal quality feeding back to delivery.",
+      "remediation": "Run a full pixel audit via Meta Events Manager. Verify Purchase, Lead, CompleteRegistration, and InitiateCheckout events are all firing with correct parameters. Cross-reference with CAPI event stream if active.",
+      "fix_time_min": 60,
+      "quick_win": false,
+      "est_impact": "Foundational. All downstream optimization (bid strategy, audience expansion, learning phase completion) depends on clean event signals."
+    },
+    {
+      "id": "M28",
+      "title": "Severe creative fatigue in top remarketing campaign",
+      "severity": "Critical",
+      "category": "Creative (Diversity & Fatigue)",
+      "evidence": "Remarket_Visitors_WW_Conv_Purchase_21.11 ($23,243 spend, 90 days): ad set frequencies of 7.0, 10.06, and 24.47. Retargeting fail threshold is >12. The 24.47 ad set is 2x the fail threshold - the same user is seeing the same ad approximately 24 times over the 90-day window. This campaign launched Nov 2021 (per name), suggesting creatives may be years old.",
+      "remediation": "Immediate: pause or hard-cap the 24.47-frequency ad set at frequency 8 via campaign budget rules. Short-term: inject at least 5 new creative concepts into Remarket_Visitors_WW with different messaging angles, formats, and hooks. Compress the retargeting window from 90 days to 30 days or 14 days to reduce addressable audience size and frequency accumulation. Consider splitting by funnel depth (7-day, 14-day, 30-day visitors) to align message to recency.",
+      "fix_time_min": 20,
+      "quick_win": true,
+      "est_impact": "Remarket_Visitors_WW accounts for $23,243 (20.6% of Meta spend) and 91.7% of all Meta purchases (2,147 of 2,342). Reducing fatigue could protect this volume while improving CPP from current $10.82."
+    },
+    {
+      "id": "M-CR3",
+      "title": "Retargeting frequency exceeds fail threshold across multiple ad sets",
+      "severity": "Medium",
+      "category": "Creative (Diversity & Fatigue)",
+      "evidence": "Remarket_Visitors_WW: ad sets at 10.06 (WARNING, 8-12 range) and 24.47 (FAIL, >12). Winback_Traffic_WW: ad sets at 9.9-11.8 (WARNING range, approaching fail). Combined affected spend: ~$27,694.",
+      "remediation": "Set frequency caps at campaign level: retargeting campaigns cap at 8 per 30 days. Segment audiences by recency to reduce overlap and slow individual frequency accumulation. Refresh creatives in Winback_Traffic_WW to extend lifespan before it crosses into fail territory.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Prevents further audience burnout on the two campaigns that generate the majority of Meta purchases."
+    },
+    {
+      "id": "M-CR4",
+      "title": "Three campaigns with CTR below 0.50% fail threshold",
+      "severity": "High",
+      "category": "Creative (Diversity & Fatigue)",
+      "evidence": "Brand_Love-Campaign_Engagement: CTR 0.40% (fail threshold <0.50%), $28,963 spend. OrganicPromotion_Awareness: CTR 0.12%, $1,467 spend, quality_ranking BELOW_AVERAGE_35. B2C-to-B2B_LeadGeneration: CTR 0.44%, $3,046 spend. Meta Traffic objective benchmark CTR is 1.71%; these campaigns are at 23%, 7%, and 26% of benchmark respectively.",
+      "remediation": "Brand_Love: Either introduce direct-response creative with strong CTAs or pause and redirect budget to performance campaigns (see kill_list). OrganicPromotion: Pause immediately - BELOW_AVERAGE_35 quality ranking means Meta's own system rates this in the bottom 35% of competing ads. B2C-to-B2B: Test new creative angles; current CTR suggests the ad concept is not resonating with the target audience.",
+      "fix_time_min": 5,
+      "quick_win": true,
+      "est_impact": "Pausing OrganicPromotion ($1,467) and redirecting Brand_Love spend ($28,963) to OUTCOME_SALES campaigns could recover 31% of Meta budget currently generating near-zero conversions."
+    },
+    {
+      "id": "M-AN1",
+      "title": "Andromeda creative suppression likely on awareness and remarketing campaigns",
+      "severity": "Critical",
+      "category": "Creative (Diversity & Fatigue)",
+      "evidence": "OrganicPromotion_Awareness quality_ranking BELOW_AVERAGE_35 - Meta's own Andromeda ranking places this ad in the bottom 35% of competing ads for the same audience. Remarket_Visitors_WW frequency at 24.47 suggests Andromeda is not finding new audiences because creative concepts lack diversity (minor variations of same ad = Entity ID clustering = no incremental reach). Campaign name dates (21.11, 24.03.26, 27.04.26) suggest creatives launched months to years ago without concept refresh.",
+      "remediation": "Audit creative library for genuinely distinct concepts (different hook, visual style, messaging angle, social proof type). Aim for minimum 10 distinct creative concepts per active campaign, not 10 variations of the same concept. Per Andromeda research: 25 diverse creatives deliver 17% more conversions at 16% lower cost. Creative similarity score >60% triggers retrieval suppression.",
+      "fix_time_min": 120,
+      "quick_win": false,
+      "est_impact": "Andromeda unlocking new audience segments could reduce CPM below the B2B SaaS $35 benchmark (Newsletter_CBO is currently at $47.77 CPM, 36% above benchmark)."
+    },
+    {
+      "id": "M11",
+      "title": "Account severely over-fragmented with 11 campaigns",
+      "severity": "High",
+      "category": "Account Structure",
+      "evidence": "11 active campaigns vs Meta best-practice recommendation of 1-3 per goal (Jon Loomer). Fail threshold is >5. Fragmentation distributes budget across too many learning phases simultaneously, likely keeping multiple ad sets in Learning Limited status. Kill list candidates alone represent $30,448 that could consolidate into 2-3 campaigns.",
+      "remediation": "Consolidate to 3-4 campaigns maximum: (1) Prospecting/Acquisition (OUTCOME_SALES, CBO), (2) Remarketing/Retargeting (OUTCOME_SALES), (3) Winback (OUTCOME_SALES, replacing LINK_CLICKS), and optionally (4) Lead Gen (OUTCOME_LEADS, combining webinar campaigns). Pause or kill low-performing campaigns before consolidation to avoid polluting learning data.",
+      "fix_time_min": 60,
+      "quick_win": false,
+      "est_impact": "Consolidation allows surviving campaigns to accumulate 50+ conversions/week needed to exit learning phase. Learning phase exit typically reduces CPA 15-25%."
+    },
+    {
+      "id": "M18",
+      "title": "Three campaigns have objective misalignment with business goals",
+      "severity": "High",
+      "category": "Account Structure",
+      "evidence": "1) Winback_Traffic_WW_24.03.26: LINK_CLICKS objective, $4,451 spend, 53 purchases - a winback campaign should use OUTCOME_SALES to optimize for purchases, not clicks. 2) App_iOS_US: APP_INSTALLS objective, $6,806 spend, 0 purchases - app install objective inside a web conversion account; Riverside's primary product is web-based, making this objective questionable. 3) Brand_Love-Campaign_Engagement: OUTCOME_ENGAGEMENT, $28,963 spend, 1 purchase, 6 custom conversions - engagement objective at this scale generates social metrics, not business outcomes.",
+      "remediation": "Winback: Change objective to OUTCOME_SALES with Purchase optimization. App_iOS_US: Evaluate whether mobile app is a strategic priority; if yes, move to dedicated app campaign account; if no, pause. Brand_Love: Either define a measurable brand KPI (CPM, reach frequency) with a capped budget, or convert to OUTCOME_SALES with brand awareness creative and measure halo effect via incrementality test.",
+      "fix_time_min": 15,
+      "quick_win": true,
+      "est_impact": "Switching Winback to OUTCOME_SALES should improve purchase volume at equivalent spend. Pausing/redirecting App_iOS_US ($6,806) and Brand_Love ($28,963) to OUTCOME_SALES recovers $35,769 for performance optimization."
+    },
+    {
+      "id": "M37",
+      "title": "Campaign-level frequency unmonitored on Brand_Love Engagement campaign",
+      "severity": "High",
+      "category": "Account Structure",
+      "evidence": "Brand_Love-Campaign_Engagement: 4,593,094 impressions on $28,963 spend. CPM $6.31 suggests broad audience but CTR of 0.40% (vs 1.71% benchmark) indicates audience rejection/fatigue rather than organic resonance. 18,397 clicks on 4.59M impressions = users are seeing and ignoring the ad. No frequency cap evidence in campaign configuration.",
+      "remediation": "If Brand_Love is retained, implement a frequency cap of 3-4 per week at campaign level. Review audience definition - if this is a broad prospecting audience, the 0.40% CTR suggests creative or audience mismatch. Consider reach and frequency buying type with explicit frequency cap instead of auction.",
+      "fix_time_min": 5,
+      "quick_win": true,
+      "est_impact": "Frequency cap prevents further audience burnout and wasted impressions. Could also reduce CPM by improving ad quality signal to Meta's delivery system."
+    },
+    {
+      "id": "M-ST1",
+      "title": "Newsletter_CBO and CBO_Podcasting have unsustainable cost-per-purchase",
+      "severity": "High",
+      "category": "Account Structure",
+      "evidence": "Newsletter_CBO: $13,412 spend, 4 purchases = $3,353 CPP. 1,214 custom conversions at $11.05 each - likely newsletter signups, not commercial intent. CBO_Podcasting_US: $25,641 spend, 68 purchases = $377 CPP. For a SaaS trial-to-paid funnel, a $377 CPP only makes economic sense if LTV is very high and paid conversion rate from trial is very low. Registration CPA account-wide is $45.75, making these outliers.",
+      "remediation": "Newsletter_CBO: Define the economic model for newsletter subscribers. If newsletter-to-paid CVR is not measured and tracked, this campaign has no defensible ROI. Pause until newsletter attribution is established. CBO_Podcasting: Audit audience targeting - $20.64 CPM suggests broad reach but 5.59% CTR (anomalously high) with only 68 purchases over $25K suggests click quality issue (possibly low-intent broad match). Check if LINK_CLICKS or engagement is being miscounted as conversion.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Newsletter_CBO pause frees $149/day. CBO_Podcasting requires diagnostic before decision. Combined potential recovery: $13,412+ in wasted spend per equivalent future period."
+    },
+    {
+      "id": "M23",
+      "title": "Purchaser exclusion from prospecting campaigns unverified",
+      "severity": "High",
+      "category": "Audience & Targeting",
+      "evidence": "Cannot confirm from Windsor data whether existing customers/purchasers are excluded from CBO_Podcasting_US ($25,641) or B2C-to-B2B_LeadGeneration ($3,046) prospecting campaigns. With 2,342 purchases in the account over 90 days and no visible exclusion audience data, there is meaningful risk of re-advertising to existing paid users.",
+      "remediation": "Create a Custom Audience of all purchasers (pixel-based, 180-day window) and CRM customer list upload. Exclude from all OUTCOME_SALES prospecting campaigns. This is a 10-minute fix in Ads Manager with immediate budget efficiency improvement.",
+      "fix_time_min": 10,
+      "quick_win": true,
+      "est_impact": "Excluding existing customers from prospecting reduces wasted impressions and improves prospecting CPP by ensuring budget reaches only unconverted users."
+    },
+    {
+      "id": "OBJECTIVE-MIX",
+      "title": "31% of Meta spend allocated to non-conversion objectives with unmeasured ROI",
+      "severity": "High",
+      "category": "Account Structure",
+      "evidence": "Non-conversion objective spend breakdown: Brand_Love-Campaign_Engagement $28,963 (OUTCOME_ENGAGEMENT, 1 purchase), OrganicPromotion_Awareness $1,467 (OUTCOME_AWARENESS, 0 purchases, quality_ranking BELOW_AVERAGE_35), NAB_Awareness $18 (OUTCOME_AWARENESS), Winback_Traffic_WW $4,451 (LINK_CLICKS, 53 purchases but objective mismatch). Total: $34,899 = 30.9% of $112,740 Meta spend. No brand lift study or incrementality measurement evident.",
+      "remediation": "For brand/awareness spend to be defensible in a performance account: (1) Define brand KPIs (CPM, unique reach, frequency), (2) Run a Meta Brand Lift study or Conversion Lift test to measure halo effect on paid trial starts, (3) Set a hard cap on awareness spend as percentage of total Meta budget (typically 10-15% for mature SaaS brands). If no measurement framework exists within 30 days, redirect awareness budget to OUTCOME_SALES.",
+      "fix_time_min": 30,
+      "quick_win": false,
+      "est_impact": "Redirecting even 50% of non-conversion spend ($17,450) to OUTCOME_SALES campaigns at the account's remarketing CPP of $10.82 would generate approximately 1,613 additional purchases per equivalent period."
+    },
+    {
+      "id": "APP-IOS-MISPLACEMENT",
+      "title": "App install campaign running inside web conversion account",
+      "severity": "Medium",
+      "category": "Account Structure",
+      "evidence": "App_iOS_US: APP_INSTALLS objective, $6,806 spend over 90 days, 17,326 clicks, 255 registrations, 0 purchases. The campaign is achieving app installs/registrations but generating zero web purchases - expected given the objective. It is unclear whether Riverside's mobile app is a strategic product entry point or a secondary feature.",
+      "remediation": "If mobile app is a strategic acquisition channel: (1) Move App_iOS_US to a dedicated app campaign account with proper app event optimization (AEO), (2) Configure Meta App Events via SDK, (3) Optimize for in-app trial start rather than install. If mobile app is not a priority acquisition channel, pause App_iOS_US and redirect $75/day to web performance campaigns.",
+      "fix_time_min": 15,
+      "quick_win": false,
+      "est_impact": "Resolves objective/account mismatch. Frees $6,806 per equivalent period if paused."
+    }
+  ],
+  "quick_wins": [
+    "M28",
+    "M-CR3",
+    "M-CR4",
+    "M18",
+    "M37",
+    "M-ST1",
+    "M23"
+  ],
+  "kill_list": [
+    {
+      "campaign": "Brand_Love-Campaign_Engagement_27.04.26",
+      "reason": "OUTCOME_ENGAGEMENT objective generated 1 purchase and 6 custom conversions on $28,963 spend over 90 days. CTR 0.40% (below 0.50% fail threshold). Zero measurable contribution to trial starts or revenue. No brand measurement framework in place to justify awareness spend at this scale. 25.7% of total Meta budget with no defensible ROI.",
+      "spend_90d": 28962.96
+    },
+    {
+      "campaign": "OrganicPromotion_Awareness",
+      "reason": "quality_ranking BELOW_AVERAGE_35 - Meta's own system rates this in the bottom 35% of competing ads. CTR 0.12% (lowest in account). OUTCOME_AWARENESS objective with 0 purchases and 14 custom conversions on $1,467 spend. Actively dragging account quality signal.",
+      "spend_90d": 1467.0
+    },
+    {
+      "campaign": "Newsletter_CBO",
+      "reason": "4 purchases in 90 days at $3,353 CPP on $13,412 spend. Custom conversions (1,214 at $11.05) are likely newsletter signups with no demonstrated path to paid conversion. No economic model justifies $149/day for 0.04 purchases/day unless newsletter LTV is measured and proven, which it is not visible in this data.",
+      "spend_90d": 13412.23
+    },
+    {
+      "campaign": "NAB_Awareness",
+      "reason": "Negligible spend ($18.23), OUTCOME_AWARENESS objective, 0 purchases. Likely an event-specific campaign that was not properly paused. No incremental value.",
+      "spend_90d": 18.23
+    }
+  ],
+  "scale_list": [
+    {
+      "campaign": "Remarket_Visitors_WW_Conv_Purchase_21.11",
+      "reason": "Accounts for 91.7% of all Meta purchases (2,147 of 2,342) and 20.6% of spend at $10.82 CPP. The strongest performing campaign in the account by a wide margin. Do NOT increase budget before fixing creative fatigue (frequency 24.47 on top ad set) and compressing retargeting window. After creative refresh and frequency normalization, this is the primary scaling candidate."
+    },
+    {
+      "campaign": "CBO_Podcasting_US_17.03.26",
+      "reason": "5.59% CTR (highest in account) and $20.64 CPM suggest strong audience resonance. 498 registrations at $51.49 CPR is reasonable for a SaaS prospecting campaign. The 68 purchases ($377 CPP) may reflect view-through or long-lag attribution rather than direct purchase intent - requires click-through attribution audit. If CPP can be improved with tighter optimization event, this campaign has scale potential as the primary prospecting vehicle after consolidation."
+    },
+    {
+      "campaign": "B2C-to-B2B_LeadGeneration_28.04.26",
+      "reason": "1,393 custom conversions at $2.19 each and 44 purchases at $69.23 CPP on $3,046 spend. If B2B lead gen is a strategic priority (dual GTM model), this campaign shows the most efficient custom conversion rate in the account. CTR 0.44% needs improvement but the underlying audience-to-conversion funnel appears to work. Test new creative to lift CTR above 0.50% threshold, then scale."
+    }
+  ],
+  "manual_verification_needed": [
+    "M01: Meta Pixel installed and firing on all pages - verify in Events Manager",
+    "M02: Conversions API (CAPI) active and sending server-side events - verify in Events Manager > Data Sources",
+    "M03: Event deduplication via event_id matching - check dedup rate in Events Manager",
+    "M04: Event Match Quality score for Purchase event - target >= 8.5 (check Events Manager)",
+    "M05: Business domain verified in Business Manager",
+    "M06: Aggregated Event Measurement (AEM) top 8 events configured and prioritized",
+    "M08: CAPI Gateway deployment status",
+    "M09: Attribution windows set to 7-day click / 1-day view (post-Jan 2026 removal of 28-day view-through)",
+    "M10: Event data freshness - confirm no >1hr lag in Events Manager",
+    "M12: CBO vs ABO appropriateness - verify daily budgets per ad set to confirm CBO is used only where appropriate",
+    "M13: Learning phase status - check what percentage of ad sets are in Learning Limited in Ads Manager",
+    "M14: Learning phase resets - review edit history for unnecessary budget/bid changes during learning",
+    "M15: Advantage+ Sales campaign - verify whether an Advantage+ Sales campaign has been tested",
+    "M16: Audience overlap between ad sets - run Audience Overlap tool in Ads Manager",
+    "M17: Per-ad-set daily budget adequacy (>= 5x target CPA)",
+    "M20: Custom Audience freshness - check audience creation/update dates",
+    "M21: Lookalike source quality and size (>= 1,000 from high-value events)",
+    "M22: Advantage+ Audience tested vs manual targeting",
+    "M24: First-party customer list uploaded for Custom Audience and Lookalike seeding",
+    "M25: Creative format diversity - verify >= 3 formats (static, video, carousel) active across campaigns",
+    "M26: Creative volume per ad set - verify >= 5 creatives per standard ad set",
+    "M27: 9:16 vertical video present for Reels/Stories placements",
+    "M29: Video hook rate - check 3-second video views vs total impressions in creative reporting",
+    "M30: Top organic posts boosted as Spark Ads or partnership ads",
+    "M31: UGC content percentage across creative library",
+    "M32: Advantage+ Creative enhancements enabled",
+    "M33: Advantage+ Placements enabled or manual placements justified",
+    "M34: Placement performance breakdown reviewed - check if Reels vs Feed vs Stories have been analyzed",
+    "M35: Attribution setting post-Jan 2026 - confirm 7-day click / 1-day view (28-day view-through was removed Jan 2026)",
+    "M36: Bid strategy alignment - confirm Cost Cap or Lowest Cost appropriate per campaign goal",
+    "M38: Age, gender, placement, platform breakdowns reviewed monthly",
+    "M39: UTM parameters on all ad URLs for GA4 cross-channel attribution",
+    "M40: Active A/B test (Experiments) running",
+    "M-CR1: Creative freshness - date of most recent creative uploaded per campaign (target: within 14-21 days given Andromeda compressed lifespan)",
+    "M-CR2: Prospecting ad set frequency in last 7 days (fail if >5.0)",
+    "M-IA1: Meta Incremental Attribution evaluated or active (launched April 2025; budget qualifies at >$5K/month)",
+    "M-TH1: Threads placement evaluated for incremental reach",
+    "M-AT1: Confirm no Offline Conversions API configuration exists (discontinued May 2025; replace with CAPI action_source=physical_store if offline tracking needed)"
+  ]
+}

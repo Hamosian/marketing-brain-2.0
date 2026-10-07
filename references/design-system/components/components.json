@@ -1,0 +1,957 @@
+{
+  "Controls / Fields": {
+    "Confirmation field": {
+      "variants": 2,
+      "axes": {
+        "Type": [
+          "Error"
+        ],
+        "Text lines": [
+          "Single",
+          "Multiple"
+        ]
+      }
+    },
+    "Dropdown Select": {
+      "variants": 2,
+      "axes": {
+        "Position": [
+          "Above",
+          "Below"
+        ]
+      }
+    },
+    "Dropdown Button": {
+      "variants": 8,
+      "axes": {
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled",
+          "Error"
+        ],
+        "Size": [
+          "XS/32",
+          "M/40"
+        ]
+      }
+    },
+    "Checkbox": {
+      "variants": 6,
+      "axes": {
+        "Checked": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disable"
+        ]
+      }
+    },
+    "Checkmark": {
+      "variants": 6,
+      "axes": {
+        "Checked": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disable"
+        ]
+      }
+    },
+    "Toggle": {
+      "variants": 6,
+      "axes": {
+        "Toggle": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disable"
+        ]
+      }
+    },
+    "Radio": {
+      "variants": 6,
+      "axes": {
+        "Radio": [
+          "Off",
+          "On"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled"
+        ],
+        "Type": [
+          "Default"
+        ]
+      }
+    },
+    "Radio Selector": {
+      "variants": 10,
+      "axes": {
+        "State": [
+          "Unselected",
+          "Selected",
+          "Hover",
+          "Disabled"
+        ],
+        "Color": [
+          "Gray",
+          "Purple",
+          "Upgrade green"
+        ],
+        "Type": [
+          "Radio button",
+          "Icon"
+        ]
+      }
+    },
+    "Option": {
+      "variants": 4,
+      "axes": {
+        "State": [
+          "Default",
+          "Hover",
+          "Selected",
+          "Disable"
+        ]
+      }
+    },
+    "View Option": {
+      "variants": 4,
+      "axes": {
+        "State": [
+          "Default",
+          "Hover",
+          "Selected",
+          "Disabled"
+        ]
+      }
+    },
+    "Pill": {
+      "variants": 5,
+      "axes": {
+        "Selected": [
+          "False",
+          "True"
+        ],
+        "Hover": [
+          "False",
+          "True"
+        ],
+        "Loading": [
+          "False",
+          "True"
+        ]
+      }
+    }
+  },
+  "Buttons": {
+    "Button Text": {
+      "variants": 300,
+      "axes": {
+        "Variant": [
+          "Primary",
+          "Secondary",
+          "Tertiary",
+          "Ghost",
+          "Danger",
+          "Upgrade"
+        ],
+        "Size": [
+          "XS/32",
+          "S/36",
+          "M/40",
+          "L/44",
+          "XL/48"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled",
+          "Loading"
+        ],
+        "Style": [
+          "Text",
+          "Icon + Text",
+          "Text + Icon"
+        ]
+      }
+    },
+    "Icon Button": {
+      "variants": 72,
+      "axes": {
+        "Variant": [
+          "Ghost",
+          "Secondary",
+          "Blurry"
+        ],
+        "Size": [
+          "XXS/20",
+          "XS/24",
+          "S/32",
+          "M/36",
+          "L/40",
+          "XL/44"
+        ],
+        "State": [
+          "Default",
+          "Hovered",
+          "Disabled",
+          "Loading"
+        ]
+      }
+    },
+    "Icon Button Round": {
+      "variants": 40,
+      "axes": {
+        "Variant": [
+          "Primary",
+          "Secondary"
+        ],
+        "Size": [
+          "XS/24",
+          "S/32",
+          "M/36",
+          "L/40",
+          "XL/44"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled",
+          "Loading"
+        ]
+      }
+    },
+    "Mega Button": {
+      "variants": 280,
+      "axes": {
+        "Type": [
+          "Text",
+          "Icon Round",
+          "Icon Square"
+        ],
+        "Variant": [
+          "Primary",
+          "Secondary",
+          "Tertiary",
+          "Ghost",
+          "Danger",
+          "Link",
+          "Upgrade",
+          "Blurry"
+        ],
+        "Size": [
+          "XXS/20",
+          "XS/24",
+          "S/32",
+          "M/36",
+          "L/40",
+          "XL/44",
+          "XXL/48",
+          "Link-Small",
+          "Link-Medium"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Disabled",
+          "Loading"
+        ]
+      }
+    },
+    "Play button": {
+      "variants": 3,
+      "axes": {
+        "Show": [
+          "Play",
+          "Stop",
+          "Play+Loader"
+        ]
+      }
+    }
+  },
+  "Tags / Tabs / Tiles": {
+    "Tag": {
+      "variants": 20,
+      "axes": {
+        "Size": [
+          "S-32",
+          "M-36",
+          "L-40",
+          "XL-44"
+        ],
+        "Selected": [
+          "False",
+          "True"
+        ],
+        "Hover": [
+          "False",
+          "True"
+        ],
+        "Disabled": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Tab": {
+      "variants": 3,
+      "axes": {
+        "State": [
+          "Default",
+          "Hover",
+          "Selected"
+        ]
+      }
+    },
+    "Tabs": {
+      "variants": 2,
+      "axes": {
+        "Underline": [
+          "NO",
+          "YES"
+        ]
+      }
+    },
+    "Tile": {
+      "variants": 12,
+      "axes": {
+        "Ratio": [
+          "Landscape",
+          "Portrait",
+          "Square",
+          "Square-Icon"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Selected"
+        ]
+      }
+    },
+    "Label": {
+      "variants": 4,
+      "axes": {
+        "Upgrade": [
+          "False",
+          "True"
+        ],
+        "Gradient": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Upgrade Badge": {
+      "variants": 3,
+      "axes": {
+        "Size": [
+          "16",
+          "20",
+          "24"
+        ]
+      }
+    }
+  },
+  "Modals & Panels": {
+    "Modals": {
+      "variants": 2,
+      "axes": {
+        "Type": [
+          "Confirmation/S",
+          "2-Column Modal"
+        ]
+      }
+    },
+    "Modal Footer": {
+      "variants": 2,
+      "axes": {
+        "Scroll": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Panel": {
+      "variants": 3,
+      "axes": {
+        "Size": [
+          "Small 360px",
+          "Large 520px",
+          "Large 600px"
+        ]
+      }
+    },
+    "Small Panel Header": {
+      "variants": 2,
+      "axes": {
+        "Sticky Title": [
+          "False",
+          "True"
+        ],
+        "Size": [
+          "Large"
+        ]
+      }
+    },
+    "Sticky Bottom": {
+      "variants": 2,
+      "axes": {
+        "With scroll": [
+          "No",
+          "Yes"
+        ]
+      }
+    },
+    "Informative": {
+      "variants": 4,
+      "axes": {
+        "Type": [
+          "Default",
+          "Banner",
+          "Input",
+          "Upload"
+        ]
+      }
+    }
+  },
+  "Tooltips & Hints": {
+    "Tooltip": {
+      "variants": 4,
+      "axes": {
+        "Title": [
+          "off",
+          "on"
+        ],
+        "Link": [
+          "off",
+          "on"
+        ]
+      }
+    },
+    "Popover": {
+      "variants": 4,
+      "axes": {
+        "Position": [
+          "Top",
+          "Right",
+          "Bottom",
+          "Left"
+        ]
+      }
+    },
+    "Info": {
+      "variants": 2,
+      "axes": {
+        "Hover": [
+          "FALSE",
+          "TRUE"
+        ]
+      }
+    },
+    "Hint": {
+      "variants": 3,
+      "axes": {
+        "Shortcut": [
+          "No",
+          "Yes",
+          "Icon"
+        ]
+      }
+    }
+  },
+  "Steps & Progress": {
+    "Step": {
+      "variants": 2,
+      "axes": {
+        "Hover": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Completed Steps": {
+      "variants": 4,
+      "axes": {
+        "Hover": [
+          "False",
+          "True"
+        ],
+        "Expanded": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Spinner": {
+      "variants": 3,
+      "axes": {
+        "Step": [
+          "1",
+          "2",
+          "3"
+        ]
+      }
+    },
+    "Progress bar - bottom": {
+      "variants": 7,
+      "axes": {
+        "Progress": [
+          "0%",
+          "10%",
+          "25%",
+          "50%",
+          "75%",
+          "97%",
+          "100%"
+        ]
+      }
+    },
+    "Progress bar with text": {
+      "variants": 2,
+      "axes": {
+        "Position": [
+          "Prefix",
+          "Suffix"
+        ]
+      }
+    },
+    "Arrows": {
+      "variants": 2,
+      "axes": {
+        "Chevron": [
+          "Expand",
+          "Collapse"
+        ]
+      }
+    }
+  },
+  "Slider": {
+    "Slider": {
+      "variants": 80,
+      "axes": {
+        "Size": [
+          "Small",
+          "Large"
+        ],
+        "State": [
+          "Enabled",
+          "Disabled"
+        ],
+        "Variant": [
+          "Positive only",
+          "Negative & positive"
+        ],
+        "Color": [
+          "Primary",
+          "Secondary"
+        ]
+      }
+    }
+  },
+  "Notifications & Banners": {
+    "Alert": {
+      "variants": 18,
+      "axes": {
+        "Type": [
+          "Tip",
+          "Warning",
+          "Error"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Hover action",
+          "Expand"
+        ],
+        "Action": [
+          "off",
+          "On"
+        ]
+      }
+    },
+    "Toast": {
+      "variants": 6,
+      "axes": {
+        "Type": [
+          "Default",
+          "Error"
+        ],
+        "Action": [
+          "0",
+          "1",
+          "2"
+        ]
+      }
+    },
+    "Alert banner": {
+      "variants": 30,
+      "axes": {
+        "Color": [
+          "Purple",
+          "Red",
+          "Yellow"
+        ],
+        "Paragraph": [
+          "no",
+          "yes"
+        ],
+        "Action": [
+          "0",
+          "1",
+          "2"
+        ],
+        "Layout": [
+          "Row",
+          "Stacked"
+        ]
+      }
+    },
+    "Studio Banner": {
+      "variants": 2,
+      "axes": {
+        "Type": [
+          "Take action",
+          "Dismiss"
+        ]
+      }
+    }
+  },
+  "Menus": {
+    "Toolbar Button": {
+      "variants": 18,
+      "axes": {
+        "Type": [
+          "Icon",
+          "Label",
+          "Icon + Label",
+          "Dropdown",
+          "Dropdown + Input",
+          "Icon + Label + Dropdown"
+        ],
+        "State": [
+          "Default",
+          "Hover",
+          "Selected"
+        ]
+      }
+    },
+    "New List Item": {
+      "variants": 8,
+      "axes": {
+        "Type": [
+          "Default",
+          "Destructive",
+          "Disabled",
+          "Upgrade"
+        ],
+        "Hover": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "List Item Left": {
+      "variants": 6,
+      "axes": {
+        "Type": [
+          "Icon",
+          "Avatar",
+          "Audio",
+          "Checkbox",
+          "Logo",
+          "Thumbnail"
+        ]
+      }
+    },
+    "List Item Right": {
+      "variants": 6,
+      "axes": {
+        "Type": [
+          "Icon",
+          "Badge",
+          "Shortcut",
+          "Toggle",
+          "Upgrade"
+        ]
+      }
+    }
+  },
+  "Video Player": {
+    "Video Player": {
+      "variants": 3,
+      "axes": {
+        "State": [
+          "Default",
+          "Hover",
+          "Generating"
+        ]
+      }
+    },
+    "Player Play Button": {
+      "variants": 6,
+      "axes": {
+        "Icon": [
+          "Play",
+          "Pause",
+          "Loading"
+        ],
+        "Hover": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Volume": {
+      "variants": 4,
+      "axes": {
+        "Hover": [
+          "False",
+          "True"
+        ],
+        "Muted": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Full Screen Button": {
+      "variants": 4,
+      "axes": {
+        "Hover": [
+          "False",
+          "True"
+        ],
+        "Full screen": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Speed Button": {
+      "variants": 2,
+      "axes": {
+        "Menu": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Jump Icon": {
+      "variants": 4,
+      "axes": {
+        "Jump": [
+          "Back",
+          "Forward"
+        ],
+        "Double digit": [
+          "no",
+          "yes"
+        ]
+      }
+    },
+    "Thumbnail": {
+      "variants": 3,
+      "axes": {
+        "Type": [
+          "Audio",
+          "Audio Episode",
+          "Video"
+        ]
+      }
+    }
+  },
+  "Navigation": {
+    "Navigation": {
+      "variants": 3,
+      "axes": {
+        "Type": [
+          "Top bar",
+          "EditorSidebar",
+          "StudioSidebar"
+        ]
+      }
+    },
+    "Home Sidebar": {
+      "variants": 2,
+      "axes": {
+        "Collapsed": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Sidebar Toggle Button": {
+      "variants": 4,
+      "axes": {
+        "Size": [
+          "S",
+          "M"
+        ],
+        "Hover": [
+          "False",
+          "True"
+        ]
+      }
+    },
+    "Square Button": {
+      "variants": 4,
+      "axes": {
+        "Selected": [
+          "False",
+          "True"
+        ],
+        "Hover": [
+          "False",
+          "True"
+        ]
+      }
+    }
+  },
+  "Logos & Avatars": {
+    "Logo": {
+      "variants": 17,
+      "axes": {
+        "Platform": [
+          "Riverside Light",
+          "Riverside Dark",
+          "Apple Podcasts",
+          "Spotify",
+          "Facebook",
+          "Instagram",
+          "Linkedin",
+          "TikTok",
+          "Threads",
+          "Bluesky",
+          "Google Drive",
+          "Amazon",
+          "iHeart Radio",
+          "Deezer",
+          "Youtube"
+        ]
+      }
+    },
+    "Avatar": {
+      "variants": 36,
+      "axes": {
+        "Size": [
+          "circle-24",
+          "circle-28",
+          "circle-32",
+          "circle-40"
+        ],
+        "Content": [
+          "Image",
+          "Initials",
+          "Counter"
+        ],
+        "Color": [
+          "neon",
+          "green",
+          "lightblue",
+          "orange",
+          "pink",
+          "purple",
+          "yellow"
+        ]
+      }
+    },
+    "AvatarGroup": {
+      "variants": 4,
+      "axes": {
+        "Size": [
+          "circle-24",
+          "circle-28",
+          "circle-32",
+          "circle-40"
+        ]
+      }
+    }
+  },
+  "Input fields": {
+    "Text Field": {
+      "variants": 21,
+      "axes": {
+        "State": [
+          "Placeholder",
+          "Placeholder Hover",
+          "Hover",
+          "Active",
+          "Filled",
+          "Error",
+          "Disabled"
+        ],
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    },
+    "Number Field": {
+      "variants": 21,
+      "axes": {
+        "State": [
+          "Placeholder",
+          "Placeholder Hover",
+          "Hover",
+          "Active",
+          "Filled",
+          "Error",
+          "Disabled"
+        ],
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    },
+    "Text Area": {
+      "variants": 7,
+      "axes": {
+        "State": [
+          "Placeholder",
+          "Placeholder Active",
+          "Placeholder Hover",
+          "Filled",
+          "Error",
+          "Error Hover",
+          "Disabled"
+        ]
+      }
+    },
+    "Color Picker": {
+      "variants": 3,
+      "axes": {
+        "Size": [
+          "Small",
+          "Medium",
+          "Large"
+        ]
+      }
+    },
+    "Search Bar": {
+      "variants": 4,
+      "axes": {
+        "Size": [
+          "XS-28",
+          "S-36",
+          "M-40",
+          "L-44"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+name: Codex Sync Check
+
+# The Codex port (AGENTS.md + .agents/skills/) is GENERATED from the Claude source
+# of truth (CLAUDE.md + .claude/skills/) by scripts/sync-codex.py. This job fails a PR
+# that changes the source without regenerating the port, so the two can never drift.
+# If it fails: run `python3 scripts/sync-codex.py` locally and commit the result.
+
+on:
+  pull_request:
+    paths:
+      - 'CLAUDE.md'
+      - '.claude/skills/**'
+      - 'AGENTS.md'
+      - '.agents/skills/**'
+      - 'scripts/sync-codex.py'
+
+jobs:
+  codex-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4.3.0
+        with:
+          persist-credentials: false
+
+      - name: Regenerate the Codex port and fail on drift
+        run: python3 scripts/sync-codex.py --check

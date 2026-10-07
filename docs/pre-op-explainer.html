@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Pre-Op, explained | Riverside</title>
+  <style>
+  :root {
+    /* violet-biased neutrals + brand */
+    --ground: #f6f5f9;
+    --panel: #ffffff;
+    --panel-2: #f0eef6;
+    --ink: #16151c;
+    --ink-soft: #4b4956;
+    --ink-faint: #78748a;
+    --line: #e3e0ee;
+    --line-strong: #d2cee4;
+
+    --violet: #7848ff;
+    --violet-bright: #9671ff;
+    --violet-wash: #efe9ff;
+    --green: #4f8a1e;        /* accessible on light */
+    --green-chip-bg: #eaf6d6;
+    --amber: #a86a12;
+    --amber-chip-bg: #fbeecb;
+    --rose: #a23a5b;
+    --rose-chip-bg: #fbe3ea;
+
+    --radius: 14px;
+    --radius-sm: 9px;
+    --maxw: 1080px;
+    --font: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #111015;
+      --panel: #1a191f;
+      --panel-2: #211f28;
+      --ink: #f3f1f8;
+      --ink-soft: #b8b4c6;
+      --ink-faint: #837e94;
+      --line: #2c2a34;
+      --line-strong: #3a3746;
+
+      --violet: #9671ff;
+      --violet-bright: #b49bff;
+      --violet-wash: #241d3a;
+      --green: #c9f273;
+      --green-chip-bg: #26310f;
+      --amber: #e6b45a;
+      --amber-chip-bg: #33280f;
+      --rose: #f090ab;
+      --rose-chip-bg: #34141f;
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #f6f5f9; --panel: #ffffff; --panel-2: #f0eef6;
+    --ink: #16151c; --ink-soft: #4b4956; --ink-faint: #78748a;
+    --line: #e3e0ee; --line-strong: #d2cee4;
+    --violet: #7848ff; --violet-bright: #9671ff; --violet-wash: #efe9ff;
+    --green: #4f8a1e; --green-chip-bg: #eaf6d6;
+    --amber: #a86a12; --amber-chip-bg: #fbeecb;
+    --rose: #a23a5b; --rose-chip-bg: #fbe3ea;
+  }
+  :root[data-theme="dark"] {
+    --ground: #111015; --panel: #1a191f; --panel-2: #211f28;
+    --ink: #f3f1f8; --ink-soft: #b8b4c6; --ink-faint: #837e94;
+    --line: #2c2a34; --line-strong: #3a3746;
+    --violet: #9671ff; --violet-bright: #b49bff; --violet-wash: #241d3a;
+    --green: #c9f273; --green-chip-bg: #26310f;
+    --amber: #e6b45a; --amber-chip-bg: #33280f;
+    --rose: #f090ab; --rose-chip-bg: #34141f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--font);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 24px; }
+
+  a { color: var(--violet); }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    padding: 72px 0 40px;
+    border-bottom: 1px solid var(--line);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: "";
+    position: absolute;
+    top: -160px; right: -120px;
+    width: 420px; height: 420px;
+    background: radial-gradient(circle, var(--violet-bright), transparent 68%);
+    opacity: 0.16;
+    pointer-events: none;
+  }
+  .eyebrow {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--violet-bright);
+    margin: 0 0 18px;
+  }
+  h1 {
+    font-size: clamp(38px, 6.2vw, 62px);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    margin: 0 0 22px;
+    text-wrap: balance;
+    max-width: 16ch;
+  }
+  h1 .accent { color: var(--violet); }
+  .lede {
+    font-size: clamp(17px, 2.2vw, 20px);
+    color: var(--ink-soft);
+    max-width: 62ch;
+    margin: 0;
+  }
+  .lede strong { color: var(--ink); font-weight: 600; }
+
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  .tag {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 13px;
+    border-radius: 999px;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  .tag b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Section scaffolding ---------- */
+  section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  .sec-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 8px; }
+  .sec-num {
+    font-size: 13px; font-weight: 700; color: var(--violet);
+    font-variant-numeric: tabular-nums; letter-spacing: 0.04em;
+  }
+  h2 {
+    font-size: clamp(24px, 3.4vw, 32px);
+    letter-spacing: -0.015em;
+    font-weight: 700;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .sec-sub { color: var(--ink-soft); max-width: 68ch; margin: 12px 0 0; }
+
+  /* ---------- Funnel ---------- */
+  .funnel { display: flex; flex-direction: column; gap: 4px; margin-top: 34px; }
+  .stage-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 22px;
+    border-radius: var(--radius-sm);
+    color: #fff;
+    position: relative;
+  }
+  .stage-row h3 { margin: 0; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .stage-row p { margin: 4px 0 0; font-size: 13.5px; line-height: 1.45; opacity: 0.92; }
+  .stage-tag {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em;
+    padding: 4px 10px; border-radius: 999px;
+    background: rgba(255,255,255,0.18); white-space: nowrap;
+  }
+  /* funnel taper */
+  .f1 { background: linear-gradient(100deg, #7848ff, #9671ff); width: 100%; }
+  .f2 { background: linear-gradient(100deg, #6b4ae0, #8768f0); width: 92%; }
+  .f3 { background: linear-gradient(100deg, #5b46b8, #7a63d6); width: 84%; }
+  .split { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; width: 76%; }
+  .fwin { background: linear-gradient(100deg, #3f7a17, #63a52a); }
+  .flost { background: linear-gradient(100deg, #7a2c44, #a23a5b); }
+  .fhold {
+    width: 68%;
+    background: var(--panel);
+    color: var(--ink);
+    border: 1px dashed var(--amber);
+  }
+  .fhold .stage-tag { background: var(--amber-chip-bg); color: var(--amber); }
+  .fhold p { opacity: 1; color: var(--ink-soft); }
+  @media (max-width: 620px) {
+    .f2,.f3,.split,.fhold { width: 100%; }
+    .split { grid-template-columns: 1fr; }
+    .stage-row { grid-template-columns: 1fr; }
+    .stage-tag { justify-self: start; }
+  }
+
+  /* ---------- Generic cards ---------- */
+  .grid { display: grid; gap: 16px; margin-top: 34px; }
+  .cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .cols-2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 820px) { .cols-3 { grid-template-columns: 1fr; } .cols-2 { grid-template-columns: 1fr; } }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 22px;
+  }
+  .card h3 { margin: 0 0 6px; font-size: 17px; font-weight: 600; letter-spacing: -0.01em; }
+  .card p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
+  .pipe-card { border-top: 3px solid var(--violet); }
+
+  /* ---------- Field tables ---------- */
+  .table-scroll { overflow-x: auto; margin-top: 30px; border: 1px solid var(--line); border-radius: var(--radius); }
+  table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  caption {
+    text-align: left; font-weight: 600; font-size: 15px;
+    padding: 16px 20px 4px; color: var(--ink);
+  }
+  th, td { text-align: left; padding: 13px 20px; font-size: 14px; vertical-align: top; }
+  thead th {
+    font-size: 11.5px; text-transform: uppercase; letter-spacing: 0.07em;
+    color: var(--ink-faint); font-weight: 600; border-bottom: 1px solid var(--line-strong);
+  }
+  tbody tr + tr td { border-top: 1px solid var(--line); }
+  td:first-child { font-weight: 600; color: var(--ink); white-space: nowrap; }
+  td code, .mono {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+    font-size: 12.5px;
+    background: var(--panel-2);
+    padding: 1px 6px; border-radius: 5px;
+    color: var(--violet-bright);
+  }
+
+  /* ---------- KPI formula cards ---------- */
+  .kpi { display: grid; gap: 16px; margin-top: 34px; grid-template-columns: repeat(2,1fr); }
+  @media (max-width: 820px){ .kpi { grid-template-columns: 1fr; } }
+  .kpi-card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--violet);
+    border-radius: var(--radius);
+    padding: 24px;
+  }
+  .kpi-card.is-sql { border-left-color: var(--green); }
+  .kpi-name {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--violet); margin-bottom: 10px;
+  }
+  .kpi-card.is-sql .kpi-name { color: var(--green); }
+  .kpi-card h3 { margin: 0 0 12px; font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .formula {
+    font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, monospace;
+    font-size: 13.5px; line-height: 1.7;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    color: var(--ink);
+    overflow-x: auto;
+    font-variant-numeric: tabular-nums;
+  }
+  .formula .op { color: var(--violet-bright); }
+  .kpi-card p { color: var(--ink-soft); font-size: 14px; margin: 12px 0 0; }
+
+  /* ---------- Callout / lifecycle notes ---------- */
+  .note {
+    display: grid; grid-template-columns: auto 1fr; gap: 16px;
+    background: var(--violet-wash);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    margin-top: 30px;
+  }
+  .note .dot {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--violet);
+    margin-top: 8px;
+  }
+  .note p { margin: 0; font-size: 14.5px; color: var(--ink); }
+  .note strong { font-weight: 600; }
+
+  /* ---------- Pitfalls ---------- */
+  .pitfalls { display: grid; gap: 12px; margin-top: 30px; grid-template-columns: repeat(2,1fr); }
+  @media (max-width: 820px){ .pitfalls { grid-template-columns: 1fr; } }
+  .pit {
+    display: grid; grid-template-columns: auto 1fr; gap: 14px;
+    padding: 16px 18px; background: var(--panel);
+    border: 1px solid var(--line); border-radius: var(--radius-sm);
+  }
+  .pit .x {
+    font-weight: 700; color: var(--rose); font-size: 15px; line-height: 1.5;
+  }
+  .pit p { margin: 0; font-size: 14px; color: var(--ink-soft); }
+  .pit b { color: var(--ink); font-weight: 600; }
+
+  /* ---------- Chips inline ---------- */
+  .chip {
+    display: inline-block; font-size: 12px; font-weight: 600;
+    padding: 2px 9px; border-radius: 999px; white-space: nowrap;
+  }
+  .chip-in { background: var(--violet-wash); color: var(--violet); }
+  .chip-out { background: var(--amber-chip-bg); color: var(--amber); }
+  .chip-cs { background: var(--panel-2); color: var(--ink-soft); }
+  .chip-ok { background: var(--green-chip-bg); color: var(--green); }
+
+  /* ---------- Footer ---------- */
+  footer { padding: 40px 0 64px; color: var(--ink-faint); font-size: 13px; }
+  footer a { text-decoration: none; }
+  footer .rule { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .stage-row, .card, .kpi-card { transition: transform 0.2s ease; }
+    .card:hover, .kpi-card:hover { transform: translateY(-2px); }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Riverside Growth &middot; HubSpot data concept</p>
+    <h1>The <span class="accent">Pre-Op</span>, explained.</h1>
+    <p class="lede">A Pre-Op is the top-of-funnel object that tracks Riverside's <strong>first engagement with a prospect</strong>: one booked intro meeting, one engagement cycle. It's the record every meeting, MQL, SQL, and BD/AE attribution number is counted from, before anything becomes a real opportunity.</p>
+    <div class="meta-row">
+      <span class="tag">Lives in <b>HubSpot</b> as a Deal record</span>
+      <span class="tag"><b>3</b> pipelines: Agency &middot; EU &middot; Enterprise</span>
+      <span class="tag">Promotes <b>1:1</b> to a Deal</span>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">01</span><h2>What a Pre-Op actually is</h2></div>
+    <p class="sec-sub">Think of it as the engagement wrapper around a single intro meeting. It exists to make the earliest part of the funnel countable and attributable, long before a deal has real pipeline value.</p>
+    <div class="grid cols-3">
+      <div class="card">
+        <h3>One meeting, one cycle</h3>
+        <p>Every Pre-Op is tied to a booked intro meeting. One Pre-Op = one engagement cycle with that prospect.</p>
+      </div>
+      <div class="card">
+        <h3>Re-engagement makes a new one</h3>
+        <p>If a prospect was Closed Lost and comes back, a fresh Pre-Op is created with an incremented cycle count, and the old one isn't reused.</p>
+      </div>
+      <div class="card">
+        <h3>Promotes, then freezes</h3>
+        <p>When it converts, it promotes to exactly one Deal (always 1:1) and the Pre-Op record is frozen, with no further edits.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">02</span><h2>The lifecycle</h2></div>
+    <p class="sec-sub">A Pre-Op moves through a small set of stages. Two are terminal; one is a temporary holding pen it can climb back out of. Width below suggests the funnel narrowing toward a promoted deal.</p>
+    <div class="funnel">
+      <div class="stage-row f1">
+        <div><h3>Meeting Booked</h3><p>Entry point. The Pre-Op is created the moment an intro meeting is scheduled.</p></div>
+        <span class="stage-tag">Active</span>
+      </div>
+      <div class="stage-row f2">
+        <div><h3>Follow-Up</h3><p>The AE is actively working the prospect after the intro meeting.</p></div>
+        <span class="stage-tag">Active</span>
+      </div>
+      <div class="stage-row fhold">
+        <div><h3>Action Required</h3><p>No-show, unclear next step, or needs attention. Temporary, and can move back to Follow-Up or other active stages.</p></div>
+        <span class="stage-tag">Holding</span>
+      </div>
+      <div class="split">
+        <div class="stage-row fwin">
+          <div><h3>Promoted to Deal</h3><p>Converted. A linked Deal is created via Associated Deal ID. Record frozen.</p></div>
+          <span class="stage-tag">Terminal</span>
+        </div>
+        <div class="stage-row flost">
+          <div><h3>Closed Lost</h3><p>Didn't convert. Triggers a new cycle if the prospect re-engages later.</p></div>
+          <span class="stage-tag">Terminal</span>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <div class="dot"></div>
+      <p><strong>Booked is not the same as took place.</strong> A meeting "took place" only when <span class="mono">Intro Meeting Complete Date</span> exists <em>and</em> <span class="mono">Intro Meeting Status = Completed</span>. A no-show or cancel with a complete date did <em>not</em> happen, and is not an SQL.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">03</span><h2>Three pipelines, not one</h2></div>
+    <p class="sec-sub">Pre-Ops are split by market. These are <strong>not</strong> identical copies: they differ in both stages and fields. Any report should confirm which pipeline(s) it means, or query all three.</p>
+    <div class="grid cols-3">
+      <div class="card pipe-card"><h3>Agency</h3><p>Agency-market prospects.</p></div>
+      <div class="card pipe-card"><h3>EU</h3><p>European-market prospects.</p></div>
+      <div class="card pipe-card"><h3>Enterprise</h3><p>Enterprise-market prospects.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">04</span><h2>The fields that matter</h2></div>
+    <p class="sec-sub">Dozens of fields hang off a Pre-Op. These are the ones that decide how it's counted, attributed, and qualified.</p>
+
+    <div class="table-scroll">
+      <table>
+        <caption>Attribution &amp; ownership</caption>
+        <thead><tr><th>Field</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td>Last Touch Source</td><td>The single most important attribution field: <span class="chip chip-in">Inbound</span> <span class="chip chip-out">Outbound</span> <span class="chip chip-cs">Customer Success</span>. Set once at creation and locked. <b>Use the Pre-Op's field, never the Contact's</b>, because the product overwrites the contact one.</td></tr>
+          <tr><td>Deal Owner (AE)</td><td>The Account Executive responsible. Primary ownership field. The <b>current</b> owner at report time gets all credit, with no original-owner tracking.</td></tr>
+          <tr><td>BD Owner</td><td>The Business Development rep who booked the meeting. Only populated if a BD actually booked it.</td></tr>
+          <tr><td>Pipeline</td><td>Agency, EU, or Enterprise.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <caption>Intro meeting tracking</caption>
+        <thead><tr><th>Field</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td>Intro Meeting Create Date</td><td>When the meeting was booked. This is the definitive "meeting booked" signal, a date field, not the stage name.</td></tr>
+          <tr><td>Intro Meeting Complete Date</td><td>When the meeting lifecycle completed. It counts toward "meeting took place" and SQL only when Intro Meeting Status is also Completed.</td></tr>
+          <tr><td>Intro Meeting Status</td><td>Scheduled &middot; Completed &middot; Rescheduled &middot; No-show &middot; Canceled.</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-scroll">
+      <table>
+        <caption>Quality &amp; identification</caption>
+        <thead><tr><th>Field</th><th>What it means</th></tr></thead>
+        <tbody>
+          <tr><td>Pre-Op Number Count</td><td>How many cycles Riverside has had with this prospect. 1 = first; 2+ = re-engaged after a Closed Lost.</td></tr>
+          <tr><td>Raw Score (AI)</td><td>Key AI quality score. <span class="chip chip-ok">&ge;18 good</span> vs. &lt;18 low. <b>Reporting only</b>: it does not drive routing or automation.</td></tr>
+          <tr><td>Public Domain</td><td>True = non-business email (gmail, yahoo&hellip;). A lower-quality data signal.</td></tr>
+          <tr><td>Associated Deal ID</td><td>Links to the promoted Deal. Only populated once Promoted to Deal.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">05</span><h2>How the KPIs are defined</h2></div>
+    <p class="sec-sub">These definitions are exact. Every meeting, MQL, SQL, and conversion number derives from the same fields and rules, so don't improvise alternatives.</p>
+    <div class="kpi">
+      <div class="kpi-card">
+        <span class="kpi-name">MQL</span>
+        <h3>Marketing Qualified Lead</h3>
+        <div class="formula">Pre-Op <span class="op">WHERE</span> Last Touch Source <span class="op">=</span> Inbound</div>
+        <p>That's the whole definition. An MQL is simply an inbound-sourced Pre-Op, with no extra qualification.</p>
+      </div>
+      <div class="kpi-card is-sql">
+        <span class="kpi-name">SQL</span>
+        <h3>Sales Qualified Lead</h3>
+        <div class="formula">Pre-Op <span class="op">WHERE</span> Intro Meeting Complete Date <span class="op">IS NOT NULL</span> <span class="op">AND</span> Intro Meeting Status <span class="op">=</span> Completed</div>
+        <p>The intro meeting actually took place, regardless of source (inbound, outbound, or CS). The qualifying event is the completed meeting, not how the lead arrived.</p>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-name">Meetings Booked</span>
+        <h3>Top-of-funnel volume</h3>
+        <div class="formula">count(Pre-Op) <span class="op">across</span> Agency + EU + Enterprise</div>
+        <p>For precise counts, add <span class="mono">Intro Meeting Create Date IS NOT NULL</span> to exclude rare manual Pre-Ops.</p>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-name">Conversion Rate</span>
+        <h3>Booked &rarr; completed</h3>
+        <div class="formula">Completed Meetings <span class="op">&divide;</span> Booked Meetings</div>
+        <p>Sliceable by AE, BD, pipeline, source, or time period.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">06</span><h2>Outbound &amp; BD attribution</h2></div>
+    <p class="sec-sub">Outbound credit needs two conditions: a source and an owner. Miss either and the meeting falls into an unattributed gap.</p>
+    <div class="grid cols-2">
+      <div class="card">
+        <h3>Valid BD meeting <span class="chip chip-ok">counted</span></h3>
+        <p>Last Touch Source <b>= Outbound</b> <em>and</em> BD Owner is populated. Both must be true for a BD to get credit.</p>
+      </div>
+      <div class="card">
+        <h3>Non-BD Outbound <span class="chip chip-out">gap</span></h3>
+        <p>Outbound source but BD Owner empty. Currently <b>unattributed</b>, a known gap that still needs addressing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="sec-head"><span class="sec-num">07</span><h2>Common pitfalls</h2></div>
+    <p class="sec-sub">The mistakes that quietly corrupt Pre-Op reporting.</p>
+    <div class="pitfalls">
+      <div class="pit"><span class="x">&times;</span><p><b>Booked &ne; completed.</b> A no-show or canceled meeting is not a completed meeting and not an SQL.</p></div>
+      <div class="pit"><span class="x">&times;</span><p><b>BD Owner alone &ne; outbound.</b> You need Outbound source <em>and</em> a populated BD Owner.</p></div>
+      <div class="pit"><span class="x">&times;</span><p><b>Don't forget the pipeline filter.</b> Three pipelines exist, so confirm which, or query all three.</p></div>
+      <div class="pit"><span class="x">&times;</span><p><b>Pipelines aren't identical.</b> Agency, EU, and Enterprise differ in stages and fields.</p></div>
+      <div class="pit"><span class="x">&times;</span><p><b>Action Required isn't terminal.</b> It's a holding stage; Pre-Ops return to active from there.</p></div>
+      <div class="pit"><span class="x">&times;</span><p><b>Raw Score (AI) is reporting-only.</b> Never use it for routing or automation.</p></div>
+      <div class="pit"><span class="x">&times;</span><p><b>Credit the current owner.</b> After an AE transfer, the current Deal Owner gets the credit, not the original.</p></div>
+      <div class="pit"><span class="x">&times;</span><p><b>Use the Pre-Op's Last Touch Source.</b> The Contact's version gets overwritten by product events.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap rule">
+    <span>Riverside Growth Marketing &middot; Pre-Op data concept</span>
+    <span>Source of truth: <a href="../.claude/skills/preop-data-intelligence/SKILL.md"><code class="mono">/preop-data-intelligence</code></a></span>
+  </div>
+</footer>
+
+</body>
+</html>
