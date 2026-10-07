@@ -95,6 +95,22 @@ memory. Private reports remain in `local/` or approved company systems. The Clau
 files are the source of truth; the Codex files are generated copies, not a second
 knowledge base to maintain by hand.
 
+## Graph and Wiki
+
+The **Wiki Sync** GitHub Action rebuilds a Graphify knowledge graph and wiki on
+relevant pushes to `main`; pull requests build without publishing. Both **Wiki Sync**
+and **Graphify Knowledge Graph** can also be run manually from the Actions tab.
+
+Download the **marketing-brain-knowledge** artifact from a completed run for the
+interactive `graph.html`, `graph.json`, `GRAPH_REPORT.md`, and generated wiki pages.
+The build uses tracked, privacy-checked sources only and makes no AI API calls.
+Artifacts expire after 14 days and can be regenerated.
+
+GitHub Wiki publishing requires an enabled, initialized wiki and a `WIKI_TOKEN`
+Actions secret. Until then, the workflow provides the files as an artifact and
+reports that publishing is not configured. Hand-written wiki pages are preserved.
+See [Graphify and Wiki Actions](docs/KNOWLEDGE-ACTIONS.md) for setup and graph scope.
+
 ## Layout
 
 | Location | Purpose |

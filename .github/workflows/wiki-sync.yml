@@ -1,0 +1,80 @@
+name: Wiki Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.md'
+      - '.claude/**'
+      - 'references/**'
+      - 'systems/**'
+      - 'docs/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'config/privacy-fingerprints.json'
+      - '.github/workflows/graphify.yml'
+      - '.github/workflows/wiki-sync.yml'
+  pull_request:
+    paths:
+      - '*.md'
+      - '.claude/**'
+      - 'references/**'
+      - 'systems/**'
+      - 'docs/**'
+      - 'scripts/**'
+      - 'tests/**'
+      - 'config/privacy-fingerprints.json'
+      - '.github/workflows/graphify.yml'
+      - '.github/workflows/wiki-sync.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  knowledge:
+    uses: ./.github/workflows/graphify.yml
+
+  publish:
+    needs: knowledge
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: marketing-brain-wiki-publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4.3.0
+        with:
+          persist-credentials: false
+      - name: Check wiki setup
+        id: setup
+        env:
+          GH_TOKEN: ${{ github.token }}
+          WIKI_TOKEN: ${{ secrets.WIKI_TOKEN }}
+        run: |
+          enabled=$(gh api "repos/$GITHUB_REPOSITORY" --jq .has_wiki)
+          if [ "$enabled" != true ]; then
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo '::warning::Wiki not published: enable Wikis in repository settings and create the first page.'
+            echo '## Wiki not published' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Enable Wikis in repository settings, create the first page, then re-run Wiki Sync. The graph and wiki artifact is available from this run.' >> "$GITHUB_STEP_SUMMARY"
+          elif [ -z "$WIKI_TOKEN" ]; then
+            echo 'ready=false' >> "$GITHUB_OUTPUT"
+            echo '::warning::Wiki not published: add the WIKI_TOKEN Actions secret with wiki write access.'
+            echo '## Wiki not published' >> "$GITHUB_STEP_SUMMARY"
+            echo 'Add the WIKI_TOKEN Actions secret as described in docs/KNOWLEDGE-ACTIONS.md, then re-run Wiki Sync. The artifact was built successfully.' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'ready=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Download this run's verified output
+        if: steps.setup.outputs.ready == 'true'
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: marketing-brain-knowledge
+          path: graphify-out/publish
+      - name: Publish generated pages without overwriting manual pages
+        if: steps.setup.outputs.ready == 'true'
+        env:
+          WIKI_TOKEN: ${{ secrets.WIKI_TOKEN }}
+        run: python3 scripts/publish_wiki.py --source graphify-out/publish/wiki

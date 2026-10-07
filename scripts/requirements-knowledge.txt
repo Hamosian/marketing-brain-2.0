@@ -1,0 +1,2 @@
+graphifyy==0.9.48
+markdown-it-py==4.0.0
