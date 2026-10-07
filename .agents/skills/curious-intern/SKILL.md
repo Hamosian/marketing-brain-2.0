@@ -11,18 +11,6 @@ You are a curious new team member who genuinely wants to understand how things w
 
 **When to use curious-intern vs retro:** Curious-intern is proactive - you have spare time, let Claude systematically find and fill knowledge gaps (15-30 min). Retro is reactive - something just happened, capture the learning quick (2 min). If the user just finished a workflow and wants to capture one specific thing, suggest `/retro` instead.
 
-**Done when:** every answer the user gave is either in the file the Knowledge Routing table in `CLAUDE.md` names for it or listed as declined, every question they could not answer is recorded as an open question in the PR body, and one PR is open (or the user said to hold it).
-
-## What this skill does not do
-
-- **Capture one learning from a run that just happened.** That is `/retro`.
-- **Write onboarding material for a new hire.** That is `/onboarding-doc-builder`.
-- **Fix skills in bulk.** Measured improvement across the skill library is `/skill-optimizer`.
-
-## Grounding
-
-Write down what the user said, in their words where it matters, and nothing the user did not say. If an answer is partial, the gap stays a gap: record it as an open question rather than completing it from general knowledge. A board ID, channel ID or person goes in only if the user gave it or a repo file already holds it.
-
 ## Step 1: Set the Clock
 
 Ask the user how much time they have using `AskUserQuestion`:
@@ -109,7 +97,6 @@ Based on the time budget, select questions from the priority queue:
 4. **Acknowledge what you learned.** After each answer, briefly reflect back what was useful: "Oh interesting, so the real danger isn't the DAG failing, it's the silent data quality issue downstream. That's exactly the kind of thing I want to capture."
 5. **Don't ask about things already well-documented.** If a system doc already has a thorough section, skip it.
 6. **Use `AskUserQuestion` for each batch** so the user can respond naturally.
-7. **Facts, not opinions.** Ask "when did this last break and what did you do" rather than "what would you do if". Specific past incidents are tribal knowledge; hypotheticals are guesses. (Same ground rules as customer interviews in `.claude/skills/value-proposition-canvas/knowledge/customer-discovery.md`; that file is for interviewing customers, this skill is for interviewing colleagues.)
 
 ### Handling Answers
 
@@ -118,6 +105,11 @@ As the user answers, immediately determine the routing (Step 5) and accumulate a
 If an answer reveals a new gap you hadn't detected (e.g., the user mentions a system you didn't know about), add follow-up questions to your queue.
 
 ## Step 5: Route Answers to Files
+
+Only reusable, company-neutral methods belong in the shared files below. Company
+architecture, people, account identifiers, channels, and operational facts belong
+in the ignored local company profile or approved private storage. Never copy private
+answers into shared files, even when an example below names a repository path.
 
 For each piece of knowledge extracted, determine where it belongs:
 
@@ -130,12 +122,12 @@ For each piece of knowledge extracted, determine where it belongs:
 | Skill workflow improvement | `.claude/skills/<name>/SKILL.md` | Relevant step |
 | Error handling for a skill | `.claude/skills/<name>/SKILL.md` | Add error/fallback section |
 | Team convention, workflow norm | `CLAUDE.md` | "Global Agent Directives" or appropriate section |
-| Cross-team contact, escalation path | `references/other_teams.md` | Relevant team entry |
-| Slack channel purpose | `references/slack.md` | Channel table |
+| Cross-team contact, escalation path | Local company profile | Private team context |
+| Slack channel purpose | Local company profile | Private integration context |
 | New system that needs documenting | `systems/owned/<new>.md` or `systems/reference/<new>.md` | Create from template in `systems/README.md` |
 | User's personal preference | Memory | Only if it genuinely applies to just this person |
 
-**Repo over memory, always.** If it would help any other team member, it goes in the repo.
+Reusable methods go in the repo. Private company facts remain in approved company storage.
 
 ## Step 6: Apply Changes
 
@@ -146,10 +138,10 @@ After the interview is complete:
 ```
 Here's what I learned and where I want to put it:
 
-1. Add a failure mode to systems/owned/hubspot.md (Known Issues)
-2. Add the booking-link check you described to systems/owned/chilipiper.md
-3. Add the channel you named to references/slack.md
-4. Open question for the PR: who owns the renewal date (you weren't sure)
+1. Add 3 failure modes to systems/owned/airflow.md (Known Issues)
+2. Add CDC lag monitoring note to systems/owned/db-syncs-cdc.md (When It Breaks)
+3. Update .claude/skills/airflow-debug/SKILL.md with fallback when API is down
+4. Add #data-platform-alerts channel to references/slack.md
 
 Want me to go ahead?
 ```
@@ -163,12 +155,12 @@ Want me to go ahead?
    - For new files: use the appropriate template from `systems/README.md`
    - Keep additions concise - match the density of surrounding content
 
-4. **Create a PR** the way every change here ships (`references/change-control.md`): run `python3 scripts/sync-codex.py` if you touched `.claude/`, run `bash scripts/preflight.sh`, then `gh pr create` with:
+4. **Create a PR** using `/pr-ship` with:
    - Branch name: `curious-intern/YYYY-MM-DD`
    - PR title: "Knowledge extraction: [brief summary of biggest additions]"
    - PR body listing all changes made, grouped by file
 
-## Step 7: Close the Loop (output)
+## Step 7: Close the Loop
 
 After the PR is created, wrap up briefly:
 

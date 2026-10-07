@@ -68,7 +68,7 @@ from pathlib import Path
 SKILLS_GLOB = ".claude/skills/*/SKILL.md"
 AGENTS_DIR = Path(".claude/agents")
 # Mirrors NOT_AGENTS in scripts/agent_blocks.py: canonical sources and docs, not subagents.
-NOT_AGENTS = {"README.md", "RIVERSIDE_CONTEXT.md", "OUTPUT_CONTRACT.md"}
+NOT_AGENTS = {"README.md", "COMPANY_CONTEXT.md", "OUTPUT_CONTRACT.md"}
 
 # 1024 matches the cap the previous gate enforced and Anthropic's Agent Skills convention.
 # Measured on the DECODED value, so a folded or quoted description is measured as the router

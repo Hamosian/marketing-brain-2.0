@@ -56,7 +56,7 @@ SUITE = Path("evals/routing.jsonl")
 TOP_N = 3
 
 # Verdicts that are not failures even under --strict. `external` cases target a skill outside
-# this repo (a plugin like `/rivermind:ask`), so there is no description here to score them
+# this repo (a plugin like `/data-agent`), so there is no description here to score them
 # against -- they exist to carry the routing rule to the model tier, not to be ranked.
 NON_FAILING = ("clear", "external")
 

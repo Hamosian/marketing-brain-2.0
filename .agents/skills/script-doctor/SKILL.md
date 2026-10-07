@@ -1,6 +1,6 @@
 ---
 name: script-doctor
-description: Structural and storytelling critique for creator scripts and drafts - ads, YouTube video scripts, newsletters, blog posts. Breaks the piece into its argument and story structure, pokes holes in the argument, assesses audience fit (will the intended audience resonate), and returns prioritized structural moves plus a "what I wouldn't say" list. Builds a creator profile first and asks only what it can't infer. Trigger on "script feedback", "review this script", "poke holes in this", "break down the structure of", "will this land with the audience", "story critique", "script doctor", a creator's draft or Google Doc shared for structural feedback, or "/script-doctor". NOT a line-edit or copy pass (that is copy-editing / writing-optimizer) and NOT the ship/no-ship taste gate on Nir's own short outward writing (that is critique).
+description: Structural and storytelling critique for creator scripts and drafts - ads, YouTube video scripts, newsletters, blog posts. Breaks the piece into its argument and story structure, pokes holes in the argument, assesses audience fit (will the intended audience resonate), and returns prioritized structural moves plus a "what I wouldn't say" list. Builds a creator profile first and asks only what it can't infer. Trigger on "script feedback", "review this script", "poke holes in this", "break down the structure of", "will this land with the audience", "story critique", "script doctor", a creator's draft or Google Doc shared for structural feedback, or "/script-doctor". NOT a line-edit or copy pass (that is copy-editing / writing-optimizer) and NOT the ship/no-ship taste gate on the author's own short outward writing (that is critique).
 ---
 
 # Script Doctor - structure and storytelling critique for creator content
@@ -12,10 +12,10 @@ it. It works at the level of beats, claims, and story logic - **never
 wordsmithing**. If the ask is "make this sentence better," that is
 `copy-editing` or `writing-optimizer`, not this skill.
 
-Boundary with `critique`: `critique` is the ship/no-ship taste gate on Nir's own
+Boundary with `critique`: `critique` is the ship/no-ship taste gate on the author's own
 outward writing at the end of the content pipeline. Script Doctor is a working
 session on a piece of content - usually someone else's, usually long-form,
-usually mid-draft. If Nir asks "is this any good before I post it" about his own
+usually mid-draft. If the author asks "is this any good before I post it" about his own
 post, route to `critique`.
 
 ## Step 0: Ingest and classify
@@ -35,7 +35,7 @@ post, route to `critique`.
 ## Step 1: Build the creator profile (high conviction, ask last)
 
 You cannot judge audience fit without knowing who is speaking and to whom. Fill
-this profile **from the draft itself, what Nir said, and public context** (a
+this profile **from the draft itself, what the author said, and public context** (a
 quick search on the creator's name/channel is allowed) before asking anything:
 
 - **Creator:** who they are, what they're credible about, proof assets
@@ -44,7 +44,7 @@ quick search on the creator's name/channel is allowed) before asking anything:
   method file), what they already believe, what they've heard a hundred times.
 - **Goal:** the action or belief-change the piece exists to cause.
 - **Surface and constraints:** where it runs, sponsor/brand obligations (e.g. a
-  Riverside integration), length norms.
+  product integration), length norms.
 
 Mark every inferred field as `(inferred)` in the output. Then ask **at most 3
 questions**, and only ones whose answer would change the critique - never ask
@@ -92,9 +92,9 @@ sponsored content). Method and tests in `knowledge/critique-method.md`.
   everything ranks nothing.
 - **Respect what works.** Name the 1-3 strongest beats first. A critique with no
   positives misreads drafts that are genuinely good.
-- If the piece is Nir's own outward writing at ship time, hand off to
+- If the piece is the author's own outward writing at ship time, hand off to
   `critique`. If feedback from this skill is later sent to the creator as a
-  message or doc, that message goes through `nik-voice` -> `de-ai` first - this
+  message or doc, that message goes through `brand-voice` -> `de-ai` first - this
   skill's output is the internal analysis, not the outbound wording.
 
 ## Output schema
@@ -145,5 +145,5 @@ reframe <beat> because <reason tied to a hole or fit finding>.>
 
 The output matches the schema, every hole and move points at a named beat or
 quoted claim, and the total reads in under three minutes. One pass - this skill
-does not loop; if Nir wants a re-read after a revision, run it fresh on the new
+does not loop; if the author wants a re-read after a revision, run it fresh on the new
 draft.

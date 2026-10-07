@@ -24,17 +24,16 @@ These are **maps, not manuals** - detailed docs and skills live in each system's
 
 Systems the team is responsible for building, operating, or maintaining.
 
+<!-- Populated during /setup and as you document more. Examples for a marketing team: -->
+<!-- | System | Criticality | Notes | -->
+<!-- |--------|-------------|-------| -->
+<!-- | [CRM](owned/crm.md) | High | Lifecycle, attribution, workflows | -->
+<!-- | [Paid Acquisition](owned/paid-acquisition.md) | High | Google, Meta, LinkedIn | -->
+<!-- | [Marketing Website](owned/marketing-website.md) | High | Site pages and CRO | -->
+<!-- | [BI / Reporting](owned/bi.md) | High | Dashboards and self-serve data | -->
+
 | System | Criticality | Notes |
 |--------|-------------|-------|
-| [Marketing Brain](owned/marketing-brain.md) | High | This repo + the Marketing OS agent layer. The system everything else routes through |
-| [Paid Acquisition](owned/paid-acquisition.md) | High | Google, Meta, LinkedIn, Bing |
-| [Marketing Website](owned/marketing-website.md) | High | riverside.com pages and CRO |
-| [HubSpot](owned/hubspot.md) | High | CRM, lifecycle, Pre-Ops, attribution |
-| [Omni BI](owned/omni-bi.md) | High | Reporting and self-serve data |
-| [Marketing Ops Automation](owned/marketing-ops-automation.md) | High | Lead routing, scoring, platform syncs |
-| [Webinar Automation](owned/webinar-automation.md) | Medium | Riverside ↔ HubSpot ↔ Webflow pipeline: registrant sync, personalized join links, attendance, emails, workflow |
-| [Self-Serve Lead Scoring](owned/self-serve-lead-scoring.md) | Medium | PLG signup scoring model |
-| [Review Collection](owned/review-collection.md) | Medium | NPS-triggered Customer.io asks for G2, Capterra and Trustpilot reviews; vendor-funded incentives. Owned by the SEO team |
 
 ## Reference Systems
 
@@ -44,10 +43,6 @@ Systems you integrate with or depend on but don't own.
 <!-- | System | Owner | Why it matters | -->
 <!-- |--------|-------|----------------| -->
 <!-- | [External Service](reference/external-service.md) | Other Team | Brief explanation | -->
-
-| System | Owner | Why it matters |
-|--------|-------|----------------|
-| [Customer.io](reference/customer-io.md) | R&D | Product and system email (auth, invites, notifications). How to trace a forwarded customer email to its message, sender and volume |
 
 ## Templates
 

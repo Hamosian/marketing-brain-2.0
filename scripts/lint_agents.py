@@ -9,7 +9,7 @@ Enforces the invariants that `.claude/agents/README.md` claims but nothing check
    bypasses the routing layer's confirm-before-mutating gate.
 3. `model:` is pinned to the execution-layer default (`sonnet`) unless the file is listed
    in MODEL_EXCEPTIONS with a reason.
-4. Every non-exempt subagent carries both harmonized blocks: the Riverside context block
+4. Every non-exempt subagent carries both harmonized blocks: the Company context block
    and the output contract. Without the latter the routing layer has no predictable shape
    to synthesize across specialists.
 5. The README registry and the files on disk agree in both directions: every `name:` on

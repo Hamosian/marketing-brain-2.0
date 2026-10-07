@@ -1,6 +1,6 @@
 ---
 name: minto-pyramid
-description: The repo-wide structure standard for every answer, summary, report, brief, recommendation, status update, and analysis a person reads. Applies Barbara Minto's Pyramid Principle - open with the governing thought (the answer or the so-what), then 2-5 grouped supporting points of the same kind, logically ordered and MECE, each level answering the question the level above raises. Always on via the root file (CLAUDE.md, or AGENTS.md for Codex). Invoke directly to restructure a draft, check whether a summary buries the lead, build an executive summary or SCQA intro (situation, complication, question), or turn notes into a top-down argument. Trigger on "/minto-pyramid", "minto", "pyramid principle", "answer first", "bottom line up front", "BLUF", "buries the lead", "restructure this summary", "make this top-down", "exec summary structure", "SCQA", "MECE this", or "group these points". Sets the ORDER and GROUPING of ideas only - how sentences sound stays with nik-voice or ste, the verdict with critique.
+description: The repo-wide structure standard for every answer, summary, report, brief, recommendation, status update, and analysis a person reads. Applies Barbara Minto's Pyramid Principle - open with the governing thought (the answer or the so-what), then 2-5 grouped supporting points of the same kind, logically ordered and MECE, each level answering the question the level above raises. Always on via the root file (CLAUDE.md, or AGENTS.md for Codex). Invoke directly to restructure a draft, check whether a summary buries the lead, build an executive summary or SCQA intro (situation, complication, question), or turn notes into a top-down argument. Trigger on "/minto-pyramid", "minto", "pyramid principle", "answer first", "bottom line up front", "BLUF", "buries the lead", "restructure this summary", "make this top-down", "exec summary structure", "SCQA", "MECE this", or "group these points". Sets the ORDER and GROUPING of ideas only - how sentences sound stays with brand-voice or ste, the verdict with critique.
 ---
 
 # Minto Pyramid - answer first, then the support
@@ -11,7 +11,7 @@ This is Barbara Minto's Pyramid Principle (McKinsey, 1960s; *The Pyramid Princip
 
 ## Why the repo runs on it
 
-A reader takes in ideas one at a time and tries to find the relationship between them. Bottom-up writing (context, then data, then analysis, then the point) makes the reader hold every fact in memory and guess the conclusion. Top-down writing hands them the conclusion first, so every later sentence has a slot to land in. Busy readers (Abel, Nir, the leads, a colleague in a Slack thread) often read only the first line. The first line has to be the answer.
+A reader takes in ideas one at a time and tries to find the relationship between them. Bottom-up writing (context, then data, then analysis, then the point) makes the reader hold every fact in memory and guess the conclusion. Top-down writing hands them the conclusion first, so every later sentence has a slot to land in. Busy readers (leaders and managers, a colleague in a Slack thread) often read only the first line. The first line has to be the answer.
 
 ## Where it sits
 
@@ -20,7 +20,7 @@ This skill is always on. The always-loaded root file (`CLAUDE.md`, or `AGENTS.md
 | Layer | Owner | Decides |
 |---|---|---|
 | Structure | `minto-pyramid` | Which idea goes first, how the rest group, in what order |
-| Sound | `nik-voice` register, or `ste` for functional output | How each sentence reads |
+| Sound | `brand-voice` register, or `ste` for functional output | How each sentence reads |
 | Clean | `de-ai` | AI tells removed |
 | Verdict | `critique` | SHIP or REVISE. Its "Point first" dimension checks the top of the pyramid |
 
@@ -39,9 +39,9 @@ Every piece of output where a person has to understand, decide, or act:
 
 ## When it does not apply, or bends
 
-- **Creative and persuasive copy** (ad headlines, LinkedIn posts, landing pages, video scripts). Their register or skill owns the structure (`nik-voice`, `page-cro`, `script-doctor`, the `*-copytemplates` skills). A hook is not a governing thought.
+- **Creative and persuasive copy** (ad headlines, LinkedIn posts, landing pages, video scripts). Their register or skill owns the structure (`brand-voice`, `page-cro`, `script-doctor`, the `*-copytemplates` skills). A hook is not a governing thought.
 - **Prospect email.** `inbound-demo-reply` PART 3 keeps its own rules. Do not restructure a prospect reply around this skill.
-- **A skill with a fixed output schema** (`/chief-of-staff`, `/nir-mql-live-report`, `/mops-standup`, `/critique`, and the like). The schema keeps its section order. Apply the pyramid inside each section: every section opens with its own point. Where the schema has room above the first section, put a one-line bottom line there.
+- **A skill with a fixed output schema** (`/chief-of-staff`, `/critique`, and the like). The schema keeps its section order. Apply the pyramid inside each section: every section opens with its own point. Where the schema has room above the first section, put a one-line bottom line there.
 - **The user asks for a specific format** (a table only, raw steps, a verbatim quote). Give that format. Still open with one line that says what it shows, unless they asked for nothing else.
 - **Code, config, and commit messages.** Out of scope, except that a PR description follows the pyramid.
 
@@ -78,7 +78,7 @@ Run this before writing any answer longer than one sentence. For a short reply i
 
 1. **Name the reader and their question.** Who reads this, and what do they need to know or decide? If the question is not explicit, infer it from the situation (a status request asks "are we on track, and what do you need from me?").
 2. **Write the governing thought first.** One or two sentences that answer that question. It must be a claim someone could disagree with, not a topic. "Q3 paid search is on track, but brand CPC rose 18% and needs a bid cap this week" is a governing thought. "An update on paid search" is a label.
-3. **Decide whether the reader needs an introduction.** For most chat and Slack answers, no. For a document or memo, write a short SCQ lead-in (Situation, Complication, Question) when the reader needs context, ending on the question the governing thought answers. For an upward brief (Abel, Nir, a decision memo), put the governing thought first and add SCQ context after it only if needed: the Direct order (A, S, C). Either way, the context holds only what the reader already accepts as true, plus the change that makes the question live. No new facts, no data, no argument. Patterns in `knowledge/pyramid-reference.md`.
+3. **Decide whether the reader needs an introduction.** For most chat and Slack answers, no. For a document or memo, write a short SCQ lead-in (Situation, Complication, Question) when the reader needs context, ending on the question the governing thought answers. For an upward brief (leadership or a decision memo), put the governing thought first and add SCQ context after it only if needed: the Direct order (A, S, C). Either way, the context holds only what the reader already accepts as true, plus the change that makes the question live. No new facts, no data, no argument. Patterns in `knowledge/pyramid-reference.md`.
 4. **Write the key line.** The 2-5 points that directly support the governing thought. Check them against the three rules: each summarizes its own support, all are the same kind, and they sit in a nameable order. Check MECE against the question the governing thought raises.
 5. **Fill each point's support the same way.** Evidence, figures, examples, links. Figures carry their source and as-of date (`references/evidence-standards.md`). Stop at the level of detail the reader needs to act.
 6. **End on the ask or the next step, if there is one.** Who does what by when. If nothing is needed from the reader, say nothing: no closing summary that repeats the top.
@@ -108,7 +108,7 @@ A heading or a slide title states the point of the section, so a reader who skim
 | Findings | Demo bookings fell because the calendar step loses 40% of visitors |
 | Background | We moved the form to Chili Piper in August |
 | Key takeaways | Two fixes recover most of the drop |
-| Next steps | Hanan ships the calendar fix by Friday; Nir approves the test budget |
+| Next steps | The owner ships the fix by Friday; the sponsor approves the test budget |
 | Summary / Overview | (delete it: the top of the page is already the summary) |
 
 Figures in the examples above are illustrations of the pattern, not data.
@@ -129,7 +129,7 @@ Run these on the draft. One failure means restructure, not reword.
 
 ## Example
 
-**Question from Nir:** "How did the webinar do?"
+**Question from the author:** "How did the webinar do?"
 
 **Before (bottom-up):**
 > We ran the webinar on Tuesday with two speakers. Registration opened three weeks ago and we promoted it in two newsletters and on LinkedIn. 412 people registered and 171 attended, which is 42%. Our usual rate is about 35%. 23 attendees booked a demo afterwards. The LinkedIn posts drove most registrations. Overall it seems like it went well and we could consider doing more.

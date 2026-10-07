@@ -1,23 +1,23 @@
 ---
 name: de-ai
-description: Strips AI tells from a finished draft so it reads like a person typed it. One mechanical cleaning pass, run on every piece of writing a person other than Nir will read - Slack messages, emails, LinkedIn posts, docs, decks, prospect replies. Stage 2 of three - nik-voice writes before it, critique judges after. Trigger on "de-slop this", "make it sound human", "more human", "add personality", "this sounds like AI", "sounds robotic", "it feels generic", "fix AI writing", "humanize this", or automatically as the final prose pass on any drafted content. Absorbs and replaces the retired content-humanizer skill. NOT a voice or tone skill (that is nik-voice) and NOT a quality verdict (that is critique).
+description: Strips AI tells from a finished draft so it reads like a person typed it. One mechanical cleaning pass, run on every piece of writing a person other than the author will read - Slack messages, emails, LinkedIn posts, docs, decks, prospect replies. Stage 2 of three - brand-voice writes before it, critique judges after. Trigger on "de-slop this", "make it sound human", "more human", "add personality", "this sounds like AI", "sounds robotic", "it feels generic", "fix AI writing", "humanize this", or automatically as the final prose pass on any drafted content. Absorbs and replaces the retired content-humanizer skill. NOT a voice or tone skill (that is brand-voice) and NOT a quality verdict (that is critique).
 ---
 
 # de-ai - the cleaning pass
 
 AI-generated text has a recognizable smell. People cannot always name it, but they feel it instantly. This skill catches and fixes the patterns that trigger that feeling.
 
-**One job: strip the tells from a draft that is already written.** It does not choose the tone, pick the register, or decide whether the piece is any good. `nik-voice` did the first two before this ran; `critique` does the third after.
+**One job: strip the tells from a draft that is already written.** It does not choose the tone, pick the register, or decide whether the piece is any good. `brand-voice` did the first two before this ran; `critique` does the third after.
 
 Run it as the **final prose pass** on anything outward-facing. It is cheap by design: a checklist over finished text, no research, no judgment calls.
 
-**Skip it only for output Nir alone reads** (a report to him, working notes, analysis he asked for). Everything another person reads runs this pass, internal functional output included: a status update, an ops message, a Slack handoff to an AE. Those use `ste` at the writing stage rather than a `nik-voice` register, and then still come here. **The test is who reads it, not what kind of writing it is** (per Nir, 2026-09-07). The old exemption said a status update "is not prose" and so could not carry AI tells. It can.
+Apply the pass to writing intended for another person. Private working notes may skip the pass unless requested.
 
 ## First: triage the density
 
 Count the tells before fixing any of them.
 
-- **Roughly 10 or more tells per 500 words: stop editing and rewrite.** Polishing a draft that is 80% AI patterns produces AI patterns with nicer words. Say so, and send it back to `nik-voice` with the register named.
+- **Roughly 10 or more tells per 500 words: stop editing and rewrite.** Polishing a draft that is 80% AI patterns produces AI patterns with nicer words. Say so, and send it back to `brand-voice` with the register named.
 - **Under that: fix in place**, pattern by pattern, below.
 
 Score each find 🔴 kills credibility / 🟡 softens impact / 🟢 polish only, and fix every 🔴 before touching a 🟢.
@@ -83,7 +83,7 @@ Cut "I mean it", "genuinely", "I really do care" every time.
 **AI:** "Push meetings. Push deadlines. Push anything that isn't critical."
 **Human:** "push meetings and deadlines if you need to, anything that's not critical can wait"
 
-Note: `nik-voice` uses parallel negatives deliberately in the public register. Once per piece is a move; twice is a tell.
+Note: `brand-voice` uses parallel negatives deliberately in the public register. Once per piece is a move; twice is a tell.
 
 ### 5b. The rule-of-three verdict 🔴
 
@@ -123,7 +123,7 @@ AI describes emotions instead of expressing them. "I'm starting to feel the toll
 
 ### 12. Rewriting the input instead of preserving its energy 🔴
 
-When Nir gives rough notes, the job is editor, not ghostwriter. Keep his word choices wherever they work. **This covers ideas he gives in conversation, not only drafts he hands over.** When he has already said the point in chat ("about the budget we can skip it as long as we know which tools they're currently using and that there's a real use case"), that phrasing is the sentence: tidy the grammar, keep the words. Re-expressing it in fresh words is where the machine shape creeps back in. If he wrote "dont push yourselves too much", do not upgrade it to "don't overextend yourselves". If he handed you a sentence, that sentence ships.
+When the author gives rough notes, preserve their intent and useful phrasing. Clarify grammar without adding opinions, scope, or personal anecdotes.
 
 ## The fix process
 
@@ -137,7 +137,7 @@ When Nir gives rough notes, the job is editor, not ghostwriter. Keep his word ch
 
 ## Format notes
 
-- **Slack:** minimal formatting. Lowercase fine. Run-ons fine. Can be one block. Emoji as Nir uses them, and keep his emoji as emoji rather than translating them into words.
+- **Slack:** minimal formatting. Lowercase fine. Run-ons fine. Can be one block. Use emoji only when the author asks for them.
 - **Email:** slightly more structured, still conversational. Short paragraphs. Never "I hope this finds you well."
 - **LinkedIn:** structured and intentional, but perfectly alternating short and long sentences is its own tell. Break the rhythm somewhere.
 - **Docs and reports:** formal grammar is fine. Watch the vocabulary and the too-neat structure.
@@ -149,7 +149,7 @@ When Nir gives rough notes, the job is editor, not ghostwriter. Keep his word ch
 
 ## Related
 
-- `nik-voice` writes the draft and owns the register. It runs first.
+- `brand-voice` writes the draft and owns the register. It runs first.
 - `critique` scores the result and returns SHIP or REVISE. It runs last and never rewrites.
-- `ste` replaces this whole pipeline for internal functional output.
-- **Retired: `content-humanizer`.** Its detection list, severity triage, density threshold and replacement tables are folded in above. Its voice-injection mode belongs to `nik-voice` and its rhythm patterns are distilled into the registers. Do not reintroduce it; two humanizers is the duplication this consolidation removed.
+- `ste` handles plain-language drafting before this review when appropriate.
+- **Retired: `content-humanizer`.** Its detection list, severity triage, density threshold and replacement tables are folded in above. Its voice-injection mode belongs to `brand-voice` and its rhythm patterns are distilled into the registers. Do not reintroduce it; two humanizers is the duplication this consolidation removed.

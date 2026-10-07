@@ -19,7 +19,7 @@ from typing import NamedTuple
 AGENTS_DIR = Path(".claude/agents")
 
 # Files under AGENTS_DIR that are canonical sources or docs, never subagents.
-NOT_AGENTS = {"README.md", "RIVERSIDE_CONTEXT.md", "OUTPUT_CONTRACT.md"}
+NOT_AGENTS = {"README.md", "COMPANY_CONTEXT.md", "OUTPUT_CONTRACT.md"}
 
 
 class ManagedBlock(NamedTuple):
@@ -39,11 +39,11 @@ class ManagedBlock(NamedTuple):
 
 BLOCKS = [
     ManagedBlock(
-        label="riverside context",
-        canonical=AGENTS_DIR / "RIVERSIDE_CONTEXT.md",
+        label="company context",
+        canonical=AGENTS_DIR / "COMPANY_CONTEXT.md",
         canonical_markers=("<!-- embedded-block:start -->", "<!-- embedded-block:end -->"),
-        start="<!-- riverside-harmonized -->",
-        end="<!-- /riverside-harmonized -->",
+        start="<!-- company-harmonized -->",
+        end="<!-- /company-harmonized -->",
     ),
     ManagedBlock(
         label="output contract",

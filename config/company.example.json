@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "company": {
+    "name": "",
+    "website": "",
+    "timezone": "",
+    "audiences": [],
+    "positioning": ""
+  },
+  "team": [],
+  "integrations": {},
+  "sources": {
+    "brand": "",
+    "product": "",
+    "messaging": "",
+    "metrics": ""
+  },
+  "automation": {
+    "enabled": false
+  }
+}

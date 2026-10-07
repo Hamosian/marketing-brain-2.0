@@ -1,8 +1,0 @@
-# Runtime build outputs - regenerated on every daily run, never tracked
-build/*.html
-build/report_values.json
-build/roi_report_values.json
-build/board_items.json
-build/__pycache__/
-# Delay-gate state markers (per-day, ephemeral)
-state/.delay_skip_*

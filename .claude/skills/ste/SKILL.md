@@ -1,15 +1,15 @@
 ---
 name: ste
-description: Rewrite operational, functional answers in ASD-STE100 Simplified Technical English so they read clear, direct, and unambiguous instead of like AI slop. Use for non-content output - status updates, task summaries, data answers, analysis, decisions, plans, Slack ops messages, briefs, how-to steps, and any reply where clarity beats warmth. Trigger on "/ste", "use STE", "use ASD-STE100", "deslop this", "say it plainly", "make this clearer", "cut the fluff", "just the facts", or when the user asks for a de-slopped functional answer. Do NOT use for marketing copy, LinkedIn posts, emails to prospects, creative writing, or any external-facing content - those go through nik-voice, then de-ai and critique.
+description: Rewrite operational, functional answers in ASD-STE100 Simplified Technical English so they read clear, direct, and unambiguous instead of like AI slop. Use for non-content output - status updates, task summaries, data answers, analysis, decisions, plans, Slack ops messages, briefs, how-to steps, and any reply where clarity beats warmth. Trigger on "/ste", "use STE", "use ASD-STE100", "deslop this", "say it plainly", "make this clearer", "cut the fluff", "just the facts", or when the user asks for a de-slopped functional answer. Do NOT use for marketing copy, LinkedIn posts, emails to prospects, creative writing, or any external-facing content - those go through brand-voice, then de-ai and critique.
 ---
 
 # STE - Simplified Technical English for functional answers
 
 This skill makes Claude answer like a technical manual writer, not a chatbot. It applies ASD-STE100 (Simplified Technical English), the international standard used for aerospace and defense documentation. The result is clear, short, and unambiguous.
 
-It exists to fill a gap the `nik-voice` registers do not cover. Those make writing warm and human, which is correct for marketing copy. This skill does the opposite: it strips writing down to plain, controlled instructions, which is correct for operational output.
+It exists to fill a gap the `brand-voice` registers do not cover. Those make writing warm and human, which is correct for marketing copy. This skill does the opposite: it strips writing down to plain, controlled instructions, which is correct for operational output.
 
-**It replaces stage 1, not the pipeline (per Nir, 2026-09-07).** When the output goes to another person, run `de-ai` and then `critique` after this skill, exactly as any `nik-voice` register would. Plain does not mean exempt: a status update can read like a machine wrote it. Only output Nir alone reads stops here.
+**It replaces stage 1, not the pipeline.** When the output goes to another person, run `de-ai` and then `critique` after this skill, exactly as any `brand-voice` register would. Plain does not mean exempt: a status update can read like a machine wrote it. Only output the author alone reads stops here.
 
 ## When to use it
 
@@ -26,7 +26,7 @@ Use STE for **non-content, functional output**:
 
 Do **not** use STE for anything external-facing or creative. STE reads cold. That is a feature for a runbook and a defect for a prospect email.
 
-Route these to the normal pipeline instead (`nik-voice`, then `de-ai`, then `critique`):
+Route these to the normal pipeline instead (`brand-voice`, then `de-ai`, then `critique`):
 
 - Marketing copy, landing pages, ad copy, headlines
 - LinkedIn posts, social content, newsletters
@@ -89,6 +89,6 @@ Apply these ASD-STE100 writing rules to the answer.
 
 ## Where this sits in the pipeline
 
-Graduated. `CLAUDE.md`'s content-pipeline directive now routes functional output here by default, and this skill stands in for a `nik-voice` register at stage 1.
+Graduated. `CLAUDE.md`'s content-pipeline directive now routes functional output here by default, and this skill stands in for a `brand-voice` register at stage 1.
 
-**It is not an exit from the pipeline.** Functional output that another person reads still goes on to `de-ai` and then `critique`. Only output Nir alone reads stops at this skill. The test is who reads it, not what kind of writing it is (per Nir, 2026-09-07).
+**It is not an exit from the pipeline.** Functional output that another person reads still goes on to `de-ai` and then `critique`. Only output the author alone reads stops at this skill. The test is who reads it, not what kind of writing it is.

@@ -66,6 +66,13 @@ EXTENSIONS = (".md", ".py", ".json", ".xlsx", ".csv", ".html", ".yml", ".yaml", 
 # References that are optional by design. Each needs a reason: an entry without
 # one is how this file rots into a suppression dump.
 ALLOWLIST = {
+    # Private, ignored profile created explicitly by company_config.py --init.
+    "config/company.local.json",
+    # Optional graph output and desktop configuration, created locally only.
+    "graphify-out/graph.json",
+    "graph.json",
+    "GRAPH_REPORT.md",
+    "claude_desktop_config.json",
     # inbound-demo-reply explicitly guards this one: "IF it exists ... Never block a
     # run on this file being missing."
     "references/product-details.md",

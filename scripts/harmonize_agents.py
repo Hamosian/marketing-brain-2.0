@@ -2,16 +2,16 @@
 """Keep the shared blocks in sync across specialist subagents.
 
 Two blocks are managed, each with a canonical source in `.claude/agents/` and a marker
-pair delimiting its copy inside every Riverside-aware subagent:
+pair delimiting its copy inside every company-aware subagent:
 
 | Block            | Canonical source        | Markers in subagents                              |
 |------------------|-------------------------|---------------------------------------------------|
-| Riverside context| RIVERSIDE_CONTEXT.md    | <!-- riverside-harmonized --> ... <!-- /... -->   |
+| Company context| COMPANY_CONTEXT.md    | <!-- company-harmonized --> ... <!-- /... -->   |
 | Output contract  | OUTPUT_CONTRACT.md      | <!-- output-contract --> ... <!-- /... -->        |
 
 A block missing from a subagent is appended at the end of the file; a block already
 present is replaced in place. Anything outside the markers is never touched -- notably
-the per-agent `## How this fits Riverside Marketing` section, which is intentionally
+the per-agent `## How this fits the marketing team` section, which is intentionally
 different in every file.
 
 Usage:

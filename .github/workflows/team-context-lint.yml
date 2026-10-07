@@ -1,111 +1,16 @@
-name: Team Context Lint
-
+name: Company-Neutral Quality Checks
 on:
+  push:
+    branches: [main]
   pull_request:
-    paths:
-      - 'systems/**'
-      - 'references/**'
-      - '.claude/skills/**'
-      - '.claude/agents/**'
-      - 'evals/**'
-      - 'scripts/lint_agents.py'
-      - 'scripts/lint_skill_frontmatter.py'
-      - 'scripts/harmonize_agents.py'
-      - 'scripts/agent_blocks.py'
-      - 'scripts/eval_routing.py'
-      - 'scripts/eval_output_lift.py'
-      - 'scripts/test_eval_output_lift.py'
-      - 'scripts/lint_references.py'
-      - 'CLAUDE.md'
-
+permissions:
+  contents: read
 jobs:
-  lint:
+  verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v4.3.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
-          # Full history so lint_references.py can compute a merge base.
-          fetch-depth: 0
-
-      # Parses the frontmatter for real rather than grepping it. The bash this
-      # replaced checked that `name:` and `description:` were PRESENT and measured
-      # the description with a one-line awk substitution, so it could not see a
-      # description that YAML refuses to parse -- and it shipped one: link-triage
-      # carried an unquoted `Human-in-the-loop: `, which YAML reads as a nested
-      # mapping, so the skill ran with no description and nothing could route to it.
-      # It also missed two descriptions silently truncated at a `#` channel name.
-      # Stdlib only, same as every other gate here (this job installs no packages).
-      - name: Skills and subagents must have parseable frontmatter
-        run: python3 scripts/lint_skill_frontmatter.py
-
-      # Blocks only on dangling references in files THIS PR touches. The repo carries
-      # a pre-existing backlog, so a repo-wide gate would fail every PR and get turned
-      # off. This is the check that would have caught pain-map.md being referenced from
-      # main while the file itself sat on a feature branch.
-      - name: Referenced files must exist on this branch
-        env:
-          # Passed via env (not inline interpolation) so a branch name can never
-          # inject into the shell.
-          BASE_REF: ${{ github.event.pull_request.base.ref }}
-        run: python3 scripts/lint_references.py --changed-only "origin/$BASE_REF"
-
-      - name: Subagents must be scoped, pinned, and registered
-        run: python3 scripts/lint_agents.py
-
-      - name: Embedded context + output-contract blocks must be in sync
-        run: python3 scripts/harmonize_agents.py --check
-
-      # Structural failures only (a case expecting a skill that no longer exists, a
-      # duplicate, a malformed line). Description-overlap findings are emitted as warning
-      # annotations: TF-IDF overlap is a proxy for what a router keys on, not a prediction,
-      # so it must not gate a merge. `/skill-eval` is the model-in-the-loop tier that judges
-      # whether a flagged overlap actually misroutes. See docs/skill-evals.md.
-      - name: Routing eval suite must resolve
-        run: python3 scripts/eval_routing.py --coverage
-
-      # Structural only, same bargain as the routing suite: every case names a skill that
-      # exists, every regex compiles, every check key is one the scorer knows. Measuring
-      # actual lift costs two model calls per case per arm, so it is a deliberate local step
-      # (`--run`), never a PR gate. See docs/skill-evals.md.
-      - name: Output-lift eval suite must resolve
-        run: python3 scripts/eval_output_lift.py
-
-      # The harness's own tests. An eval suite fails by quietly scoring less, not by going
-      # red, so the parser and the deterministic scorer are pinned rather than trusted.
-      - name: Output-lift harness must fail loudly on a broken suite
-        run: python3 scripts/test_eval_output_lift.py
-
-      - name: No unfilled placeholders
-        run: |
-          failed=0
-          # Match only /setup-style placeholders ({{UPPER_SNAKE}}), not legitimate
-          # template syntax like HubSpot personalization tokens ({{ first_name }})
-          hits=$(grep -rnE '\{\{[A-Z][A-Z0-9_]*\}\}' --include='*.md' --include='*.json' . \
-            | grep -v '.git/' \
-            | grep -v '_example' \
-            | grep -v '.claude/skills/setup/' \
-            | grep -v '.agents/' \
-            | grep -v 'starter/' \
-            | grep -v 'graphify-out/' \
-            | grep -v 'node_modules' || true)
-          if [ -n "$hits" ]; then
-            echo "$hits" | while IFS= read -r line; do
-              file=$(echo "$line" | cut -d: -f1)
-              echo "::error file=$file::Unfilled {{PLACEHOLDER}} found - run /setup to replace"
-            done
-            failed=1
-          fi
-          exit $failed
-
-      - name: No binary files in repo root
-        run: |
-          failed=0
-          for f in *.plugin *.zip *.tar.gz *.jar; do
-            if [ -f "$f" ]; then
-              echo "::error file=$f::Binary/packaged file should not be in the repo (use pointers, not copies)"
-              failed=1
-            fi
-          done
-          exit $failed
-
+      - name: Verify privacy, configuration, skills, references, and mirrors
+        run: bash scripts/preflight.sh

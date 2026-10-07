@@ -1,7 +1,7 @@
 # Hook and retention psychology - the first fifteen seconds and the loops after
 
 Reference for critiquing or writing the opening of any feed video: YouTube
-scripts, paid social video, Riverside social clips, performance video. Loaded
+scripts, paid social video, product social clips, performance video. Loaded
 by `script-doctor` alongside `format-playbooks.md`. Use it to name *why* an
 opening loses the room, not just that it does.
 
@@ -103,6 +103,6 @@ answers internally, which predicts staying).
   on the topic. Film two hooks for the same content, publish both, compare
   retention instead of guessing.
 - **Build our own library.** Hook styles don't transfer cleanly between
-  niches. Keep a record of Riverside's own high performers and read them for
+  niches. Keep a record of the company's own high performers and read them for
   common elements rather than importing a structure that worked for someone
   else's audience.

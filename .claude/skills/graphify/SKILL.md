@@ -84,10 +84,7 @@ fi
 # 3. Fall back to python3
 if [ -z "$PYTHON" ]; then PYTHON="python3"; fi
 # Install the stock graphify (PyPI dist name `graphifyy`, CLI `graphify`).
-# Riverside branding is NOT applied by graphify itself: it lives in the repo-owned
-# scripts/graph_explorer.py, which reads graphify-theme.json and renders the
-# branded graphify-out/graph-explorer.html after every graph build. That viewer is
-# the one to open (see CLAUDE.md); the stock graphify-out/graph.html is left as-is.
+# Use the stock local viewer. Generated graphs stay ignored and private.
 GRAPHIFY_PKG="graphifyy"
 if ! "$PYTHON" -c "import graphify" 2>/dev/null; then
     if command -v uv >/dev/null 2>&1; then
